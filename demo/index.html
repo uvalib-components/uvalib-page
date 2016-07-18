@@ -20,7 +20,39 @@
       <h3>Basic uvalib-page Demo</h3>
       <demo-snippet>
         <template>
-          <uvalib-page></uvalib-page>
+
+          <uvalib-page>
+              <uvalib-search-box></uvalib-search-box>
+              <uvalib-card vertical heading="Research Tools" image="//static.lib.virginia.edu/images/foo.jpg">
+                  <div class="card-content">Content/links here</div>
+                  <div class="card-actions">
+                      <paper-button><a href="http://foo.com">More Research Tools</a></paper-button>
+                  </div>
+              </uvalib-card>
+              <uvalib-card vertical heading="Services" image="//static.lib.virginia.edu/images/foo.jpg">
+                  <div class="card-content">Content/links here</div>
+                  <div class="card-actions">
+                      <paper-button><a href="http://foo.com">More Services</a></paper-button>
+                  </div>
+              </uvalib-card>
+              <uvalib-card vertical heading="Spaces" image="//static.lib.virginia.edu/images/foo.jpg">
+                  <div class="card-content">Content/links here</div>
+                  <div class="card-actions">
+                      <paper-button><a href="http://foo.com">More Spaces</a></paper-button>
+                  </div>
+              </uvalib-card>
+              <uvalib-hours-widget></uvalib-hours-widget>
+              <uvalib-events-widget></uvalib-events-widget>
+              <uvalib-news-widget slideshow></uvalib-news-widget>
+              <uvalib-card horizontal heading="400 Years of Shakespeare"
+                                   image="//static.lib.virginia.edu/images/foo.jpg">
+                  <div class="card-content">Content/links here</div>
+                  <div class="card-actions">
+                      <paper-button><a href="http://foo.com">Schedule a Tour</a></paper-button>
+                  </div>
+              </uvalib-card>
+          </uvalib-page>
+
         </template>
       </demo-snippet>
     </div>
