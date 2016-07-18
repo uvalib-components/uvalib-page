@@ -6,39 +6,42 @@
     <meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1, user-scalable=yes">
     <script src="../../webcomponentsjs/webcomponents-lite.js"></script>
 
-    <link rel="import" href="../../iron-demo-helpers/demo-pages-shared-styles.html">
-    <link rel="import" href="../../iron-demo-helpers/demo-snippet.html">
-
+<!--
+    <link rel="import" href="../uvalib-search-box/uvalib-search-box.html">
+    <link rel="import" href="../uvalib-card/uvalib-card.html">
+    <link rel="import" href="../uvalib-button/uvalib-button.html">
+    <link rel="import" href="../uvalib-hours-card/uvalib-hours-card.html">
+    <link rel="import" href="../uvalib-events-card/uvalib-events-card.html">
+    <link rel="import" href="../uvalib-news-card/uvalib-news-card.html">
+-->
     <link rel="import" href="../uvalib-page.html">
 
     <style is="custom-style" include="demo-pages-shared-styles">
+      .full {
+        max-width: 95%;
+      }
     </style>
   </head>
   <body>
-
-    <div class="vertical-section-container centered">
-      <h3>Basic uvalib-page Demo</h3>
-      <demo-snippet>
-        <template>
 
           <uvalib-page>
               <uvalib-search-box></uvalib-search-box>
               <uvalib-card vertical heading="Research Tools" image="//static.lib.virginia.edu/images/foo.jpg">
                   <div class="card-content">Content/links here</div>
                   <div class="card-actions">
-                      <paper-button><a href="http://foo.com">More Research Tools</a></paper-button>
+                      <uvalib-button><a href="http://foo.com">More Research Tools</a></uvalib-button>
                   </div>
               </uvalib-card>
               <uvalib-card vertical heading="Services" image="//static.lib.virginia.edu/images/foo.jpg">
                   <div class="card-content">Content/links here</div>
                   <div class="card-actions">
-                      <paper-button><a href="http://foo.com">More Services</a></paper-button>
+                      <uvalib-button><a href="http://foo.com">More Services</a></uvalib-button>
                   </div>
               </uvalib-card>
               <uvalib-card vertical heading="Spaces" image="//static.lib.virginia.edu/images/foo.jpg">
                   <div class="card-content">Content/links here</div>
                   <div class="card-actions">
-                      <paper-button><a href="http://foo.com">More Spaces</a></paper-button>
+                      <uvalib-button><a href="http://foo.com">More Spaces</a></uvalib-button>
                   </div>
               </uvalib-card>
               <uvalib-hours-widget></uvalib-hours-widget>
@@ -48,14 +51,10 @@
                                    image="//static.lib.virginia.edu/images/foo.jpg">
                   <div class="card-content">Content/links here</div>
                   <div class="card-actions">
-                      <paper-button><a href="http://foo.com">Schedule a Tour</a></paper-button>
+                      <uvalib-button><a href="http://foo.com">Schedule a Tour</a></uvalib-button>
                   </div>
               </uvalib-card>
           </uvalib-page>
-
-        </template>
-      </demo-snippet>
-    </div>
 
   </body>
 </html>

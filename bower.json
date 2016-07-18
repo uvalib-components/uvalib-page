@@ -3,12 +3,25 @@
   "description": "Library Web Page template",
   "main": "uvalib-page.html",
   "dependencies": {
-    "polymer": "Polymer/polymer#^1.4.0"
+    "polymer": "Polymer/polymer#^1.4.0",
+    "app-layout": "PolymerElements/app-layout#^0.10.0",
+    "uvalib-footer": "uvalib-components/uvalib-footer#master",
+    "uvalib-theme": "uvalib-components/uvalib-theme#master",
+    "uvalib-logos": "uvalib-components/uvalib-logos#master",
+    "uvalib-search-box": "uvalib-components/uvalib-search-box#master",
+    "uvalib-analytics": "uvalib-components/uvalib-analytics#master",
+    "iron-media-query": "^1.0.8",
+    "iron-flex-layout": "^1.3.1",
+    "uvalib-button": "uvalib-components/uvalib-button#master",
+    "uvalib-header": "uvalib-components/uvalib-header#master"
   },
   "devDependencies": {
     "iron-component-page": "PolymerElements/iron-component-page#^1.0.0",
-    "iron-demo-helpers": "PolymerElements/iron-demo-helpers#^1.0.0",
     "web-component-tester": "^4.0.0",
     "webcomponentsjs": "webcomponents/webcomponentsjs#^0.7.0"
+  },
+  "resolutions": {
+    "uvalib-footer": "master",
+    "uvalib-logos": "master"
   }
 }
