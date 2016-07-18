@@ -1,0 +1,34 @@
+<link rel="import" href="../polymer/polymer.html">
+
+<!--
+`uvalib-page`
+Library Web Page template
+
+@demo demo/index.html 
+-->
+
+<dom-module id="uvalib-page">
+  <template>
+    <style>
+      :host {
+        display: block;
+      }
+    </style>
+    <h2>Hello [[prop1]]</h2>
+  </template>
+
+  <script>
+    Polymer({
+
+      is: 'uvalib-page',
+
+      properties: {
+        prop1: {
+          type: String,
+          value: 'uvalib-page',
+        },
+      },
+
+    });
+  </script>
+</dom-module>
