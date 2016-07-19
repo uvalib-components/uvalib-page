@@ -21,13 +21,21 @@ Library Web Page template
       }
     </style>
 
-    <iron-media-query query="max-width: 600px" query-matches="{{_smallScreen}}"></iron-media-query>
-    <iron-media-query query="max-width: 600px; min-width: 992px;" query-matches="{{_mediumScreen}}"></iron-media-query>
+    <iron-media-query query="(max-width: 600px)" query-matches="{{_smallScreen}}"></iron-media-query>
+    <iron-media-query query="(min-width: 600px) and (max-width: 992px)" query-matches="{{_mediumScreen}}"></iron-media-query>
 
-    <uvalib-header screenSize="[[screenSize]]"></uvalib-header>
+    <uvalib-header screen-size="{{screenSize}}"></uvalib-header>
 
-    <div class="content" style="min-height:3000px;"></div>
+    <!-- Lazy-create the drawer for small screen sizes. -->
+    <template is="dom-if" if="{{_smallScreen}}">
+      <!-- Two-way bind `drawerOpened` since app-drawer can update `opened` itself. -->
+      <app-drawer opened="{{drawerOpened}}" swipe-open tabindex="0">
+        Hello
+      </app-drawer>
+    </template>
 
+    <div class="content" style="min-height:200px;"></div>
+    <h1>Size: {{screenSize}}</h1>
     <uvalib-footer></uvalib-footer>
 
     <!-- Library Site Analytics -->
@@ -45,10 +53,23 @@ Library Web Page template
         screenSize: {
           type: String,
           value: 'large',
+          notify: true,
           readOnly: true
-        }
+        },
       },
-
+      observers: [
+        '_updateScreenSize(_smallScreen,_mediumScreen)'
+      ],
+      _toggleDrawer: function() {
+        this.drawerOpened = !this.drawerOpened;
+      },
+      _updateScreenSize: function() {
+        this._setScreenSize(
+          (this._smallScreen)?'small':
+                              (this._mediumScreen)?'medium':
+                                                   'large'
+        );
+      }
     });
   </script>
 </dom-module>
