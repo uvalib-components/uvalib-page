@@ -15,7 +15,8 @@
     "uvalib-button": "uvalib-components/uvalib-button#master",
     "uvalib-header": "uvalib-components/uvalib-header#master",
     "uvalib-news-section": "uvalib-components/uvalib-news-section#master",
-    "uvalib-hours-card": "uvalib-components/uvalib-hours-card#master"
+    "uvalib-hours-card": "uvalib-components/uvalib-hours-card#master",
+    "uvalib-events-card": "uvalib-components/uvalib-events-card#master"
   },
   "devDependencies": {
     "iron-component-page": "PolymerElements/iron-component-page#^1.0.0",
