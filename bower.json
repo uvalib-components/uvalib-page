@@ -28,6 +28,7 @@
     "uvalib-logos": "master",
     "uvalib-button": "master",
     "lodash": "^4.13.1",
-    "uvalib-card": "master"
+    "uvalib-card": "master",
+    "uvalib-search-box": "master"
   }
 }
