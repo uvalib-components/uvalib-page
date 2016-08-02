@@ -4,7 +4,7 @@
   "main": "uvalib-page.html",
   "dependencies": {
     "polymer": "Polymer/polymer#^1.4.0",
-    "app-layout": "PolymerElements/app-layout#^0.10.0",
+    "app-layout": "PolymerElements/app-layout#^0.10.1",
     "uvalib-footer": "uvalib-components/uvalib-footer#master",
     "uvalib-theme": "uvalib-components/uvalib-theme#master",
     "uvalib-logos": "uvalib-components/uvalib-logos#master",
