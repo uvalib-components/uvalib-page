@@ -1,4 +1,5 @@
 <link rel="import" href="../polymer/polymer.html">
+<link rel="import" href="../iron-flex-layout/iron-flex-layout.html">
 <link rel="import" href="../uvalib-theme/uvalib-theme.html">
 <link rel="import" href="../uvalib-search-box/uvalib-search-box.html">
 <link rel="import" href="../uvalib-card/uvalib-card.html">
@@ -18,40 +19,69 @@ Library Web HomePage
 
 <dom-module id="uvalib-homepage">
   <template>
-    <style>
+    <style is="custom-style" include="iron-flex iron-flex-alignment">
       :host {
         display: block;
       }
+      .flex-horizontal-with-ratios {
+        @apply(--layout-horizontal);
+      }
+      .flexchild {
+        @apply(--layout-flex);
+      }
+      .flex2child {
+        @apply(--layout-flex-2);
+      }
+      .flex3child {
+        @apply(--layout-flex-3);
+      }
     </style>
 
     <uvalib-page>
-        <uvalib-search-box></uvalib-search-box>
-        <uvalib-card vertical heading="Research Tools" image="//static.lib.virginia.edu/images/foo.jpg">
-            <div class="card-content">Content/links here</div>
-            <div class="card-actions">
-                <uvalib-button><a href="http://foo.com">More Research Tools</a></uvalib-button>
-            </div>
-        </uvalib-card>
-        <uvalib-card vertical heading="Services" image="//static.lib.virginia.edu/images/foo.jpg">
-            <div class="card-content">Content/links here</div>
-            <div class="card-actions">
-                <uvalib-button><a href="http://foo.com">More Services</a></uvalib-button>
-            </div>
-        </uvalib-card>
-        <uvalib-card vertical heading="Spaces" image="//static.lib.virginia.edu/images/foo.jpg">
-            <div class="card-content">Content/links here</div>
-            <div class="card-actions">
-                <uvalib-button><a href="http://foo.com">More Spaces</a></uvalib-button>
-            </div>
-        </uvalib-card>
-        <uvalib-hours-widget></uvalib-hours-widget>
-        <uvalib-events-widget></uvalib-events-widget>
+      <uvalib-search-box advanced-search site-search></uvalib-search-box>
+        <div class="container flex-horizontal-width-ratios">
+          <uvalib-card class="flexchild" vertical heading="Research Tools" image="//static.lib.virginia.edu/images/research.png">
+              <div class="card-content">Content/links here</div>
+              <div class="card-actions">
+                  <uvalib-button href="//www.library.virginia.edu/research/">More Research Tools</uvalib-button>
+              </div>
+          </uvalib-card>
+          <uvalib-card class="flex2child" vertical heading="Services" image="//static.lib.virginia.edu/images/services_image.png">
+              <div class="card-content">Content/links here</div>
+              <div class="card-actions">
+                  <uvalib-button href="//www.library.virginia.edu/services/">More Services</uvalib-button>
+              </div>
+          </uvalib-card>
+          <uvalib-card class="flex3child" vertical heading="Spaces" image="//static.lib.virginia.edu/images/spaces_image.png">
+              <div class="card-content">Content/links here</div>
+              <div class="card-actions">
+                  <uvalib-button href="http://www.library.virginia.edu/map/#!/study/">Find a study space</uvalib-button>
+              </div>
+          </uvalib-card>
+        </div>
+        <uvalib-hours-card locations="alderman,brown,clemons">
+          <div class="card-actions">
+            <uvalib-button href="http://www.library.virginia.edu/hours/#!/">View all hours</uvalib-button>
+          </div>
+        </uvalib-hours-card>
+        <uvalib-events-card heading="Events"></uvalib-events-card>
         <uvalib-news-section></uvalib-news-section>
-        <uvalib-card horizontal heading="400 Years of Shakespeare"
-                             image="//static.lib.virginia.edu/images/foo.jpg">
-            <div class="card-content">Content/links here</div>
+        <uvalib-card horizontal heading="Exhibitions"
+                             image="//static.lib.virginia.edu/images/shakespeare_exhibit.png">
+            <div class="card-content">
+              <p>Marking 400 years since Shakespeare's death, the new exhibition in Harrison/Small celebrates the vibrant, complex, and sometimes contentious history of bringing his works into print.<p>
+            </div>
             <div class="card-actions">
-                <uvalib-button><a href="http://foo.com">Schedule a Tour</a></uvalib-button>
+                <uvalib-button href="//shakespeare.lib.virginia.edu/">Schedule a Tour</uvalib-button>
+            </div>
+        </uvalib-card>
+        <uvalib-card horizontal heading="Giving"
+                             image="//static.lib.virginia.edu/images/support_engage_connect.png">
+            <div class="card-content">
+              <p>Contribute your time or resources, take advantage of access for alumni and community members, and join us on social media.</p>
+            </div>
+            <div class="card-actions">
+                <uvalib-button href="//www.library.virginia.edu/support/">Learn more</uvalib-button>
             </div>
         </uvalib-card>
     </uvalib-page>
