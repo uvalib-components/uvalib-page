@@ -29,6 +29,8 @@
     "uvalib-button": "master",
     "lodash": "^4.13.1",
     "uvalib-card": "master",
-    "uvalib-search-box": "master"
+    "uvalib-search-box": "master",
+    "polymer": "^1.6.0",
+    "uvalib-theme": "59f82659f1"
   }
 }
