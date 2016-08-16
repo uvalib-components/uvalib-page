@@ -1,7 +1,10 @@
 <link rel="import" href="../polymer/polymer.html">
 <link rel="import" href="../iron-flex-layout/iron-flex-layout.html">
+<link rel="import" href="../app-layout/app-box/app-box.html">
 <link rel="import" href="../uvalib-theme/uvalib-theme.html">
+<!--
 <link rel="import" href="../uvalib-news-section/uvalib-news-banner.html">
+-->
 <link rel="import" href="../uvalib-search-box/uvalib-search-box.html">
 <link rel="import" href="../uvalib-card/uvalib-card.html">
 <link rel="import" href="../uvalib-button/uvalib-button.html">
@@ -30,10 +33,27 @@ Library Web HomePage
       .vert-card-container {
         @apply(--layout-horizontal);
       }
+      app-box {
+        height: 600px;
+      }
+      #content {
+        max-width: 1440px;
+      }
+      #wrapper {
+        @apply(--layout-vertical);
+        @apply(--layout-center);
+        position: relative;
+        top: -150px;
+      }
     </style>
 
     <uvalib-page>
 
+      <app-box effects="parallax-background">
+        <h2>Banner work still in progress</h2>
+        <img background src="//app-layout-assets.appspot.com/assets/bg1.jpg" style="width:100%; height: 900px" />
+      </app-box>
+<div id="wrapper"><div id="content">
       <uvalib-news-banner></uvalib-news-banner>
 
       <uvalib-search-box advanced-search site-search></uvalib-search-box>
@@ -66,7 +86,11 @@ Library Web HomePage
           </div>
         </uvalib-hours-card>
 
-        <uvalib-events-card heading="Events"></uvalib-events-card>
+        <uvalib-events-card heading="Upcoming Events" elevation="3" max-num-events-shown="4" cat-ids-filter="27116 26930">
+          <div class="card-actions">
+            <uvalib-button href="http://cal.lib.virginia.edu/calendar/events">View calendar</uvalib-button>
+          </div>
+        </uvalib-events-card>
       </div>
 
       <uvalib-news-section></uvalib-news-section>
@@ -92,6 +116,7 @@ Library Web HomePage
             </div>
         </uvalib-card>
       </div>
+</div></div>
 
     </uvalib-page>
 
