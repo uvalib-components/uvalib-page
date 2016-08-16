@@ -38,12 +38,35 @@ Library Web HomePage
       }
       #content {
         max-width: 1440px;
+        width: 100%;
       }
       #wrapper {
         @apply(--layout-vertical);
         @apply(--layout-center);
         position: relative;
-        top: -150px;
+        top: -720px;
+      }
+      #shady-box {
+        height: 570px;
+        background-color: var(--color-light-gray);
+      }
+      .vert-card-container {
+        padding-top: 50px;
+        padding-bottom: 20px;
+      }
+      .card {
+        @apply(--layout-flex);
+        padding-left: 30px;
+        padding-right: 30px;
+      }
+
+      @media (min-width: 1460px) {
+        uvalib-hours-card:first-child, uvalib-card:first-child {
+          padding-left: 0;
+        }
+        uvalib-hours-card:last-child, uvalib-card:last-child {
+          padding-right: 0;
+        }
       }
     </style>
 
@@ -53,25 +76,26 @@ Library Web HomePage
         <h2>Banner work still in progress</h2>
         <img background src="//app-layout-assets.appspot.com/assets/bg1.jpg" style="width:100%; height: 900px" />
       </app-box>
+      <div id="shady-box"></div>
 <div id="wrapper"><div id="content">
+
       <uvalib-news-banner></uvalib-news-banner>
 
       <uvalib-search-box advanced-search site-search></uvalib-search-box>
 
-      <div class="vert-card-container">
-          <uvalib-card vertical heading="Research Tools" image="https://static.lib.virginia.edu/images/research.png">
+      <div class="top vert-card-container">
+          <uvalib-hours-card class="card" locations="alderman,brown,clemons">
+            <div class="card-actions">
+              <uvalib-button href="http://www.library.virginia.edu/hours/#!/">View all hours</uvalib-button>
+            </div>
+          </uvalib-hours-card>
+          <uvalib-card class="card" vertical heading="Research Tools" image="https://static.lib.virginia.edu/images/research.png">
               <div class="card-content">Content/links here</div>
               <div class="card-actions">
                   <uvalib-button href="//www.library.virginia.edu/research/">More Research Tools</uvalib-button>
               </div>
           </uvalib-card>
-          <uvalib-card vertical heading="Services" image="https://static.lib.virginia.edu/images/services_image.png">
-              <div class="card-content">Content/links here</div>
-              <div class="card-actions">
-                  <uvalib-button href="//www.library.virginia.edu/services/">More Services</uvalib-button>
-              </div>
-          </uvalib-card>
-          <uvalib-card vertical heading="Spaces" image="https://static.lib.virginia.edu/images/spaces_image.png">
+          <uvalib-card class="card" vertical heading="Spaces" image="https://static.lib.virginia.edu/images/spaces_image.png">
               <div class="card-content">Content/links here</div>
               <div class="card-actions">
                   <uvalib-button href="http://www.library.virginia.edu/map/#!/study/">Find a study space</uvalib-button>
@@ -80,13 +104,13 @@ Library Web HomePage
       </div>
 
       <div class="vert-card-container">
-        <uvalib-hours-card locations="alderman,brown,clemons">
-          <div class="card-actions">
-            <uvalib-button href="http://www.library.virginia.edu/hours/#!/">View all hours</uvalib-button>
-          </div>
-        </uvalib-hours-card>
-
-        <uvalib-events-card heading="Upcoming Events" elevation="3" max-num-events-shown="4" cat-ids-filter="27116 26930">
+        <uvalib-card class="card" vertical heading="Services" image="https://static.lib.virginia.edu/images/services_image.png">
+            <div class="card-content">Content/links here</div>
+            <div class="card-actions">
+                <uvalib-button href="//www.library.virginia.edu/services/">More Services</uvalib-button>
+            </div>
+        </uvalib-card>
+        <uvalib-events-card class="card" heading="Upcoming Events" elevation="3" max-num-events-shown="4" cat-ids-filter="27116 26930">
           <div class="card-actions">
             <uvalib-button href="http://cal.lib.virginia.edu/calendar/events">View calendar</uvalib-button>
           </div>
@@ -116,6 +140,8 @@ Library Web HomePage
             </div>
         </uvalib-card>
       </div>
+
+
 </div></div>
 
     </uvalib-page>
