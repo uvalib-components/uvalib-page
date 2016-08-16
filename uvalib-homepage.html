@@ -30,7 +30,7 @@ Library Web HomePage
       uvalib-page {
         @apply(--layout-vertical);
       }
-      .vert-card-container {
+      .card-container {
         @apply(--layout-horizontal);
       }
       app-box {
@@ -50,7 +50,7 @@ Library Web HomePage
         height: 570px;
         background-color: var(--color-light-gray);
       }
-      .vert-card-container {
+      .card-container {
         padding-top: 50px;
         padding-bottom: 20px;
       }
@@ -58,6 +58,9 @@ Library Web HomePage
         @apply(--layout-flex);
         padding-left: 30px;
         padding-right: 30px;
+      }
+      uvalib-events-card.card {
+        @apply(--layout-flex-2);
       }
 
       @media (min-width: 1460px) {
@@ -83,7 +86,7 @@ Library Web HomePage
 
       <uvalib-search-box advanced-search site-search></uvalib-search-box>
 
-      <div class="top vert-card-container">
+      <div class="top card-container">
           <uvalib-hours-card class="card" locations="alderman,brown,clemons">
             <div class="card-actions">
               <uvalib-button href="http://www.library.virginia.edu/hours/#!/">View all hours</uvalib-button>
@@ -103,7 +106,7 @@ Library Web HomePage
           </uvalib-card>
       </div>
 
-      <div class="vert-card-container">
+      <div class="card-container">
         <uvalib-card class="card" vertical heading="Services" image="https://static.lib.virginia.edu/images/services_image.png">
             <div class="card-content">Content/links here</div>
             <div class="card-actions">
@@ -119,7 +122,7 @@ Library Web HomePage
 
       <uvalib-news-section></uvalib-news-section>
 
-      <div class="vert-card-container">
+      <div class="card-container bottom">
         <uvalib-card horizontal heading="Exhibitions"
                              image="https://static.lib.virginia.edu/images/shakespeare_exhibit.png">
             <div class="card-content">
