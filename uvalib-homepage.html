@@ -41,11 +41,14 @@ Library Web HomePage
       .card-container {
         padding-top: 50px;
         padding-bottom: 20px;
+        @apply(--layout-wrap);
       }
       .card {
         @apply(--layout-flex);
-        padding-left: 2%;
-        padding-right: 2%;
+        padding: 2%;
+      }
+      .card[vertical] {
+        min-width: 200px;
       }
       uvalib-events-card.card {
         @apply(--layout-flex-2);
@@ -94,7 +97,6 @@ Library Web HomePage
       @media (min-width: 601px) and (max-width: 992px) {
         .card-container {
           @apply(--layout-horizontal);
-          @apply(--layout-wrap);
         }
       }
       /* mobile */
@@ -123,7 +125,7 @@ Library Web HomePage
       <div id="shady-box">
         <uvalib-search-box advanced-search site-search></uvalib-search-box>
         <div class="top card-container">
-              <uvalib-hours-card class="card" locations="alderman,brown,clemons">
+              <uvalib-hours-card class="card" vertical locations="alderman,brown,clemons">
                 <div class="card-actions">
                   <uvalib-button href="http://www.library.virginia.edu/hours/#!/">View all hours</uvalib-button>
                 </div>
@@ -150,7 +152,7 @@ Library Web HomePage
                   <uvalib-button href="//www.library.virginia.edu/services/">More Services</uvalib-button>
               </div>
           </uvalib-card>
-          <uvalib-events-card class="card" heading="Upcoming Events" elevation="3" max-num-events-shown="4" cat-ids-filter="27116 26930">
+          <uvalib-events-card vertical class="card" heading="Upcoming Events" elevation="3" max-num-events-shown="4" cat-ids-filter="27116 26930">
             <div class="card-actions">
               <uvalib-button href="http://cal.lib.virginia.edu/calendar/events">View calendar</uvalib-button>
             </div>
