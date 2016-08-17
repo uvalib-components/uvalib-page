@@ -63,6 +63,13 @@ Library Web HomePage
         }
       }
 
+      #shady-box {
+        position: absolute;
+        background-color: var(--color-light-gray);
+        height: 540px;
+        width: 100%;
+      }
+
       #content {
         @apply(--layout-vertical);
       }
@@ -100,6 +107,7 @@ Library Web HomePage
         <img background src="//app-layout-assets.appspot.com/assets/bg1.jpg" style="width:100%; height: 900px" />
       </app-box>
       <uvalib-news-banner></uvalib-news-banner>
+      <div id="shady-box"></div>
       <div id="content">
         <uvalib-search-box advanced-search site-search></uvalib-search-box>
 
