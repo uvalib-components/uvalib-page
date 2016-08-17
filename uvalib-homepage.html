@@ -33,9 +33,6 @@ Library Web HomePage
         @apply(--layout-vertical);
       }
 
-      .card-container {
-        @apply(--layout-horizontal);
-      }
       app-box {
         height: 600px;
         width: 100%;
@@ -47,8 +44,8 @@ Library Web HomePage
       }
       .card {
         @apply(--layout-flex);
-        padding-left: 30px;
-        padding-right: 30px;
+        padding-left: 2%;
+        padding-right: 2%;
       }
       uvalib-events-card.card {
         @apply(--layout-flex-2);
@@ -64,14 +61,17 @@ Library Web HomePage
       }
 
       #shady-box {
-        position: absolute;
+        @apply(--layout-vertical);
         background-color: var(--color-light-gray);
-        height: 540px;
         width: 100%;
       }
 
       #content {
         @apply(--layout-vertical);
+      }
+      .top {
+        padding-top: 85px;
+        padding-bottom: 50px;
       }
       uvalib-search-box, .card-container, uvalib-news-section {
         max-width: 1440px;
@@ -86,12 +86,26 @@ Library Web HomePage
 
       /* desktop */
       @media (min-width: 993px) {
+        .card-container {
+          @apply(--layout-horizontal);
+        }
       }
       /* tablet */
       @media (min-width: 601px) and (max-width: 992px) {
+        .card-container {
+          @apply(--layout-horizontal);
+          @apply(--layout-wrap);
+        }
       }
       /* mobile */
       @media (max-width: 600px) {
+        uvalib-search-box {
+          display: none;
+        }
+        .card-container {
+          @apply(--layout-vertical);
+          @apply(--layout-center-center);
+        }
       }
 
     </style>
@@ -103,14 +117,11 @@ Library Web HomePage
     <uvalib-page>
 
       <app-box effects="parallax-background">
-        <h2>Banner work still in progress</h2>
         <img background src="//app-layout-assets.appspot.com/assets/bg1.jpg" style="width:100%; height: 900px" />
       </app-box>
       <uvalib-news-banner></uvalib-news-banner>
-      <div id="shady-box"></div>
-      <div id="content">
+      <div id="shady-box">
         <uvalib-search-box advanced-search site-search></uvalib-search-box>
-
         <div class="top card-container">
               <uvalib-hours-card class="card" locations="alderman,brown,clemons">
                 <div class="card-actions">
@@ -130,7 +141,8 @@ Library Web HomePage
                   </div>
               </uvalib-card>
         </div>
-
+      </div>
+      <div id="content">
         <div class="card-container">
           <uvalib-card class="card" vertical heading="Services" image="https://static.lib.virginia.edu/images/services_image.png">
               <div class="card-content">Content/links here</div>
