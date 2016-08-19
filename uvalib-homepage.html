@@ -124,7 +124,7 @@ Library Web HomePage
       </app-box>
       <uvalib-news-banner></uvalib-news-banner>
       <div id="shady-box">
-        <uvalib-search-box advanced-search site-search></uvalib-search-box>
+        <uvalib-search-box advanced-search site-search hidden$="{{!largeScreen}}"></uvalib-search-box>
         <div class="top card-container">
           <template is="dom-if" if="{{largeScreen}}">
             <uvalib-hours-card class="card" vertical locations="alderman,brown,clemons">
