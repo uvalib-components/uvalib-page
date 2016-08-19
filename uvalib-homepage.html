@@ -157,7 +157,7 @@ Library Web HomePage
           </template>
         </div>
 
-        <uvalib-news-section></uvalib-news-section>
+        <uvalib-news-section num-items="{{_newsCount(largeScreen)}}"></uvalib-news-section>
 
         <div class="card-container bottom">
           <uvalib-featured-exhibit-card horizontal></uvalib-featured-exhibit-card>
@@ -180,6 +180,11 @@ Library Web HomePage
           value: 'uvalib-page',
         },
       },
+
+      _newsCount: function(){
+          if (this.largeScreen) return 3;
+          else return 2;
+      }
 
     });
   </script>
