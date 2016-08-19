@@ -35,6 +35,7 @@
     "polymer": "^1.6.0",
     "uvalib-theme": "master",
     "webcomponentsjs": "^0.7.20",
-    "polymer-font-awesome-icons": "master"
+    "polymer-font-awesome-icons": "master",
+    "uvalib-nav": "master"
   }
 }

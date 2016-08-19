@@ -138,21 +138,23 @@ Library Web HomePage
               <uvalib-button href="http://www.library.virginia.edu/hours/#!/">View all hours</uvalib-button>
             </uvalib-hours-card>
             <uvalib-events-card vertical class="card" heading="Upcoming Events" elevation="3" max-num-events-shown="4" cat-ids-filter="27116 26930">
-              <div class="card-actions">
-                <uvalib-button href="http://cal.lib.virginia.edu/calendar/events">View calendar</uvalib-button>
-              </div>
+              <uvalib-button href="http://cal.lib.virginia.edu/calendar/events">View calendar</uvalib-button>
             </uvalib-events-card>
           </template>
         </div>
       </div>
       <div id="content">
         <div class="card-container">
-          <uvalib-services-card class="card"></uvalib-services-card>
-          <uvalib-events-card vertical class="card" heading="Upcoming Events" elevation="3" max-num-events-shown="4" cat-ids-filter="27116 26930">
-            <div class="card-actions">
-              <uvalib-button href="http://cal.lib.virginia.edu/calendar/events">View calendar</uvalib-button>
-            </div>
-          </uvalib-events-card>
+          <template is="dom-if" if="{{largeScreen}}">
+            <uvalib-services-card class="card"></uvalib-services-card>
+            <uvalib-events-card vertical class="card" heading="Upcoming Events" elevation="3" max-num-events-shown="4" cat-ids-filter="27116 26930">
+                <uvalib-button href="http://cal.lib.virginia.edu/calendar/events">View calendar</uvalib-button>
+            </uvalib-events-card>
+          </template>
+          <template is="dom-if" if="{{!largeScreen}}">
+            <uvalib-research-card class="card"></uvalib-research-card>
+            <uvalib-spaces-card class="card"></uvalib-spaces-card>
+          </template>
         </div>
 
         <uvalib-news-section></uvalib-news-section>
