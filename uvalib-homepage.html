@@ -99,6 +99,12 @@ Library Web HomePage
         .card-container {
           @apply(--layout-horizontal);
         }
+        .card {
+          min-width: 300px;
+        }
+        uvalib-events-card {
+          min-width: 400px;
+        }
       }
       /* mobile */
       @media (max-width: 600px) {
@@ -137,9 +143,7 @@ Library Web HomePage
             <uvalib-hours-card class="card" vertical locations="alderman,brown,clemons">
               <uvalib-button href="http://www.library.virginia.edu/hours/#!/">View all hours</uvalib-button>
             </uvalib-hours-card>
-            <uvalib-events-card vertical class="card" heading="Upcoming Events" elevation="3" max-num-events-shown="4" cat-ids-filter="27116 26930">
-              <uvalib-button href="http://cal.lib.virginia.edu/calendar/events">View calendar</uvalib-button>
-            </uvalib-events-card>
+            <uvalib-research-card class="card"></uvalib-research-card>
           </template>
         </div>
       </div>
@@ -147,13 +151,16 @@ Library Web HomePage
         <div class="card-container">
           <template is="dom-if" if="{{largeScreen}}">
             <uvalib-services-card class="card"></uvalib-services-card>
-            <uvalib-events-card vertical class="card" heading="Upcoming Events" elevation="3" max-num-events-shown="4" cat-ids-filter="27116 26930">
+            <uvalib-events-card class="card" heading="Upcoming Events" elevation="3" max-num-events-shown="4" cat-ids-filter="27116 26930">
                 <uvalib-button href="http://cal.lib.virginia.edu/calendar/events">View calendar</uvalib-button>
             </uvalib-events-card>
           </template>
           <template is="dom-if" if="{{!largeScreen}}">
-            <uvalib-research-card class="card"></uvalib-research-card>
             <uvalib-spaces-card class="card"></uvalib-spaces-card>
+            <uvalib-services-card class="card"></uvalib-services-card>
+            <uvalib-events-card class="card" heading="Upcoming Events" elevation="3" max-num-events-shown="4" cat-ids-filter="27116 26930">
+                <uvalib-button href="http://cal.lib.virginia.edu/calendar/events">View calendar</uvalib-button>
+            </uvalib-events-card>
           </template>
         </div>
 
