@@ -1,6 +1,7 @@
 <link rel="import" href="../polymer/polymer.html">
 <link rel="import" href="../uvalib-analytics/uvalib-analytics.html">
 <link rel="import" href="../uvalib-header/uvalib-header.html">
+<link rel="import" href="../uvalib-nav/uvalib-nav.html">
 <link rel="import" href="../uvalib-footer/uvalib-footer.html">
 <link rel="import" href="../iron-flex-layout/iron-flex-layout.html">
 <link rel="import" href="../iron-media-query/iron-media-query.html">
@@ -28,13 +29,13 @@ Library Web Page template
     <iron-media-query query="(max-width: 600px)" query-matches="{{_smallScreen}}"></iron-media-query>
     <iron-media-query query="(min-width: 600px) and (max-width: 992px)" query-matches="{{_mediumScreen}}"></iron-media-query>
 
-    <uvalib-header screen-size="{{screenSize}}" on-togglemenu="_toggleDrawer"></uvalib-header>
+    <uvalib-header screen-size="{{screenSize}}" on-togglemenu="_toggleDrawer" navigation="{{navigation}}"></uvalib-header>
 
     <!-- Lazy-create the drawer for small screen sizes. -->
     <template is="dom-if" if="{{_smallScreen}}">
       <!-- Two-way bind `drawerOpened` since app-drawer can update `opened` itself. -->
       <app-drawer opened="{{drawerOpened}}" swipe-open tabindex="0">
-        Hello
+        <uvalib-nav stacked navigation="{{navigation}}"></uvalib-nav>
       </app-drawer>
     </template>
 
@@ -52,6 +53,18 @@ Library Web Page template
       is: 'uvalib-page',
 
       properties: {
+        /**
+         * Array of JSON items that represent the navigation. Each JSON item has a label property, an icon property, and a url property.
+         */
+        navigation: {
+          type: Array,
+          value: [
+            {"label": "About", "icon": "university", "url": "//www.library.virginia.edu/about/"},
+            {"label": "Research", "icon": "graduation-cap", "url": "//www.library.virginia.edu/research/"},
+            {"label": "Collections", "icon": "book", "url": "//www.library.virginia.edu/collections/"},
+            {"label": "Services", "icon": "cloud", "url": "//www.library.virginia.edu/services/"}
+          ],
+        },
         _smallScreen: Boolean,
         _mediumScreen: Boolean,
         screenSize: {
