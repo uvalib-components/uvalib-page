@@ -32,6 +32,8 @@
     "uvalib-card": "master",
     "uvalib-search-box": "master",
     "polymer": "^1.6.0",
-    "uvalib-theme": "master"
+    "uvalib-theme": "master",
+    "webcomponentsjs": "^0.7.20",
+    "polymer-font-awesome-icons": "master"
   }
 }

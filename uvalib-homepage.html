@@ -7,7 +7,7 @@
 <link rel="import" href="../uvalib-news-section/uvalib-news-banner.html">
 -->
 <link rel="import" href="../uvalib-search-box/uvalib-search-box.html">
-<link rel="import" href="../uvalib-card/uvalib-card.html">
+<link rel="import" href="../uvalib-card/uvalib-common-cards.html">
 <link rel="import" href="../uvalib-button/uvalib-button.html">
 <link rel="import" href="../uvalib-hours-card/uvalib-hours-card.html">
 <link rel="import" href="../uvalib-events-card/uvalib-events-card.html">
@@ -45,13 +45,11 @@ Library Web HomePage
       }
       .card {
         @apply(--layout-flex);
+        @apply(--layout-self-stretch);
         padding: 2%;
       }
       .card[vertical] {
         min-width: 200px;
-      }
-      uvalib-events-card.card {
-        @apply(--layout-flex-2);
       }
 
       @media (min-width: 1460px) {
@@ -92,6 +90,9 @@ Library Web HomePage
         .card-container {
           @apply(--layout-horizontal);
         }
+        uvalib-events-card.card {
+          @apply(--layout-flex-2);
+        }
       }
       /* tablet */
       @media (min-width: 601px) and (max-width: 992px) {
@@ -125,33 +126,28 @@ Library Web HomePage
       <div id="shady-box">
         <uvalib-search-box advanced-search site-search></uvalib-search-box>
         <div class="top card-container">
-              <uvalib-hours-card class="card" vertical locations="alderman,brown,clemons">
-                <div class="card-actions">
-                  <uvalib-button href="http://www.library.virginia.edu/hours/#!/">View all hours</uvalib-button>
-                </div>
-              </uvalib-hours-card>
-              <uvalib-card class="card" vertical heading="Research Tools" image="https://static.lib.virginia.edu/images/research.png">
-                  <div class="card-content">Content/links here</div>
-                  <div class="card-actions">
-                      <uvalib-button href="//www.library.virginia.edu/research/">More Research Tools</uvalib-button>
-                  </div>
-              </uvalib-card>
-              <uvalib-card class="card" vertical heading="Spaces" image="https://static.lib.virginia.edu/images/spaces_image.png">
-                  <div class="card-content">Content/links here</div>
-                  <div class="card-actions">
-                      <uvalib-button href="http://www.library.virginia.edu/map/#!/study/">Find a study space</uvalib-button>
-                  </div>
-              </uvalib-card>
+          <template is="dom-if" if="{{largeScreen}}">
+            <uvalib-hours-card class="card" vertical locations="alderman,brown,clemons">
+              <uvalib-button href="http://www.library.virginia.edu/hours/#!/">View all hours</uvalib-button>
+            </uvalib-hours-card>
+            <uvalib-research-card class="card"></uvalib-research-card>
+            <uvalib-spaces-card class="card"></uvalib-spaces-card>
+          </template>
+          <template is="dom-if" if="{{!largeScreen}}">
+            <uvalib-hours-card class="card" vertical locations="alderman,brown,clemons">
+              <uvalib-button href="http://www.library.virginia.edu/hours/#!/">View all hours</uvalib-button>
+            </uvalib-hours-card>
+            <uvalib-events-card vertical class="card" heading="Upcoming Events" elevation="3" max-num-events-shown="4" cat-ids-filter="27116 26930">
+              <div class="card-actions">
+                <uvalib-button href="http://cal.lib.virginia.edu/calendar/events">View calendar</uvalib-button>
+              </div>
+            </uvalib-events-card>
+          </template>
         </div>
       </div>
       <div id="content">
         <div class="card-container">
-          <uvalib-card class="card" vertical heading="Services" image="https://static.lib.virginia.edu/images/services_image.png">
-              <div class="card-content">Content/links here</div>
-              <div class="card-actions">
-                  <uvalib-button href="//www.library.virginia.edu/services/">More Services</uvalib-button>
-              </div>
-          </uvalib-card>
+          <uvalib-services-card class="card"></uvalib-services-card>
           <uvalib-events-card vertical class="card" heading="Upcoming Events" elevation="3" max-num-events-shown="4" cat-ids-filter="27116 26930">
             <div class="card-actions">
               <uvalib-button href="http://cal.lib.virginia.edu/calendar/events">View calendar</uvalib-button>
@@ -162,25 +158,8 @@ Library Web HomePage
         <uvalib-news-section></uvalib-news-section>
 
         <div class="card-container bottom">
-          <uvalib-card class="card" horizontal heading="Exhibitions"
-                               image="https://static.lib.virginia.edu/images/shakespeare_exhibit.png">
-              <div class="card-content">
-                <p>Marking 400 years since Shakespeare's death, the new exhibition in Harrison/Small celebrates the vibrant, complex, and sometimes contentious history of bringing his works into print.<p>
-              </div>
-              <div class="card-actions">
-                  <uvalib-button href="//shakespeare.lib.virginia.edu/">Schedule a Tour</uvalib-button>
-              </div>
-          </uvalib-card>
-
-          <uvalib-card class="card" horizontal heading="Giving"
-                               image="https://static.lib.virginia.edu/images/support_engage_connect.png">
-              <div class="card-content">
-                <p>Contribute your time or resources, take advantage of access for alumni and community members, and join us on social media.</p>
-              </div>
-              <div class="card-actions">
-                  <uvalib-button href="//www.library.virginia.edu/support/">Learn more</uvalib-button>
-              </div>
-          </uvalib-card>
+          <uvalib-featured-exhibit-card horizontal></uvalib-featured-exhibit-card>
+          <uvalib-engage-card horizontal></uvalib-engage-card>
         </div>
       </div>
 
