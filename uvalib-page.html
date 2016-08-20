@@ -7,6 +7,7 @@
 <link rel="import" href="../iron-media-query/iron-media-query.html">
 <link rel="import" href="../uvalib-theme/uvalib-theme.html">
 <link rel="import" href="../app-layout/app-drawer/app-drawer.html">
+<link rel="import" href="../platinum-https-redirect/platinum-https-redirect.html">
 
 <!--
 `uvalib-page`
@@ -26,6 +27,7 @@ Library Web Page template
       }
     </style>
 
+    <platinum-https-redirect></platinum-https-redirect>
     <iron-media-query query="(max-width: 600px)" query-matches="{{_smallScreen}}"></iron-media-query>
     <iron-media-query query="(min-width: 600px) and (max-width: 992px)" query-matches="{{_mediumScreen}}"></iron-media-query>
 
