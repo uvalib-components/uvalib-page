@@ -1,6 +1,7 @@
 <link rel="import" href="../polymer/polymer.html">
 <link rel="import" href="../uvalib-analytics/uvalib-analytics.html">
 <link rel="import" href="../uvalib-header/uvalib-header.html">
+<link rel="import" href="../uvalib-logos/uvalib-logo.html">
 <link rel="import" href="../uvalib-nav/uvalib-nav.html">
 <link rel="import" href="../uvalib-footer/uvalib-footer.html">
 <link rel="import" href="../iron-flex-layout/iron-flex-layout.html">
@@ -8,6 +9,7 @@
 <link rel="import" href="../uvalib-theme/uvalib-theme.html">
 <link rel="import" href="../app-layout/app-drawer/app-drawer.html">
 <link rel="import" href="../platinum-https-redirect/platinum-https-redirect.html">
+<link rel="import" href="../app-layout/app-toolbar/app-toolbar.html">
 
 <!--
 `uvalib-page`
@@ -22,8 +24,24 @@ Library Web Page template
       :host {
         display: block;
       }
+
       uvalib-header {
         z-index: 1000
+      }
+      app-toolbar {
+        width: 256px;
+        height: 110px;
+        padding: 20px 0px 0px 0px;
+
+        background-color: var(--color-primary-blue);
+      }
+      uvalib-logo {
+        width: 235px;
+        height: 110px;
+        margin: 10px;
+      }
+      app-drawer {
+        z-index: 1500
       }
     </style>
 
@@ -31,15 +49,16 @@ Library Web Page template
     <iron-media-query query="(max-width: 600px)" query-matches="{{_smallScreen}}"></iron-media-query>
     <iron-media-query query="(min-width: 600px) and (max-width: 992px)" query-matches="{{_mediumScreen}}"></iron-media-query>
 
-    <uvalib-header screen-size="{{screenSize}}" on-togglemenu="_toggleDrawer" navigation="{{navigation}}"></uvalib-header>
+    <uvalib-header screen-size="{{screenSize}}" navigation="{{navigation}}" on-open-drawer="_toggleDrawer"></uvalib-header>
 
     <!-- Lazy-create the drawer for small screen sizes. -->
-    <template is="dom-if" if="{{_smallScreen}}">
       <!-- Two-way bind `drawerOpened` since app-drawer can update `opened` itself. -->
-      <app-drawer opened="{{drawerOpened}}" swipe-open tabindex="0">
-        <uvalib-nav stacked navigation="{{navigation}}"></uvalib-nav>
+      <app-drawer id="sidenav" swipe-open tabindex="0">
+        <app-toolbar>
+          <uvalib-logo stacked reverse two-color></uvalib-logo>
+        </app-toolbar>
+        <uvalib-nav stacked navigation="{{mobileNavigation}}"></uvalib-nav>
       </app-drawer>
-    </template>
 
     <div class="content"><content></content></div>
 
@@ -67,7 +86,22 @@ Library Web Page template
             {"label": "Services", "icon": "cloud", "url": "//www.library.virginia.edu/services/"}
           ],
         },
-        _smallScreen: Boolean,
+        mobileNavigation: {
+          type: Array,
+          value: [
+            {"label": "About", "icon": "university", "url": "//www.library.virginia.edu/about/"},
+            {"label": "Research", "icon": "graduation-cap", "url": "//www.library.virginia.edu/research/"},
+            {"label": "Collections", "icon": "book", "url": "//www.library.virginia.edu/collections/"},
+            {"label": "Services", "icon": "cloud", "url": "//www.library.virginia.edu/services/"},
+            {"label": "Ask A Librarian", "icon": "comments", "url": "//www.library.virginia.edu/askalibrarian/"}
+          ],
+        },
+        _smallScreen: {
+          type: Boolean,
+          notify: true,
+          value: false,
+          reflectToAttribute: true
+        },
         _mediumScreen: Boolean,
         screenSize: {
           type: String,
@@ -80,7 +114,7 @@ Library Web Page template
         '_updateScreenSize(_smallScreen,_mediumScreen)'
       ],
       _toggleDrawer: function() {
-        this.drawerOpened = !this.drawerOpened;
+        this.$.sidenav.toggle();
       },
       _updateScreenSize: function() {
         this._setScreenSize(

@@ -75,7 +75,7 @@ Library Web HomePage
         padding-bottom: 50px;
       }
       uvalib-search-box, .card-container, uvalib-news-section {
-        max-width: 1440px;
+        max-width: 1200px;
         width: 100%;
         @apply(--layout-self-center);
       }
@@ -133,14 +133,14 @@ Library Web HomePage
         <uvalib-search-box advanced-search site-search hidden$="{{!largeScreen}}"></uvalib-search-box>
         <div class="top card-container">
           <template is="dom-if" if="{{largeScreen}}">
-            <uvalib-hours-card class="card" vertical locations="alderman,brown,clemons">
+            <uvalib-hours-card class="card" vertical locations="Alderman,Brown,Clemons,Fine,Special">
               <uvalib-button href="http://www.library.virginia.edu/hours/#!/">View all hours</uvalib-button>
             </uvalib-hours-card>
             <uvalib-research-card class="card"></uvalib-research-card>
             <uvalib-spaces-card class="card"></uvalib-spaces-card>
           </template>
           <template is="dom-if" if="{{!largeScreen}}">
-            <uvalib-hours-card class="card" vertical locations="alderman,brown,clemons">
+            <uvalib-hours-card class="card" vertical locations="Alderman,Brown,Clemons,Special">
               <uvalib-button href="http://www.library.virginia.edu/hours/#!/">View all hours</uvalib-button>
             </uvalib-hours-card>
             <uvalib-research-card class="card"></uvalib-research-card>
