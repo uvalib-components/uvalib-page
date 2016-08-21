@@ -1,0 +1,257 @@
+<link rel="import" href="../polymer/polymer.html">
+<!--
+<link rel="import" href="../iron-media-query/iron-media-query.html">
+<link rel="import" href="../iron-flex-layout/iron-flex-layout.html">
+<link rel="import" href="../iron-signals/iron-signals.html">
+<link rel="import" href="../app-layout/app-box/app-box.html">
+<link rel="import" href="../uvalib-theme/uvalib-theme.html">
+<link rel="import" href="../uvalib-search-box/uvalib-search-box.html">
+<link rel="import" href="../uvalib-card/uvalib-common-cards.html">
+<link rel="import" href="../uvalib-button/uvalib-button.html">
+<link rel="import" href="../uvalib-hours-card/uvalib-hours-card.html">
+<link rel="import" href="../uvalib-events-card/uvalib-events-card.html">
+<link rel="import" href="../uvalib-news-section/uvalib-news-section.html">
+-->
+
+<link rel="import" href="uvalib-page.html">
+
+<!--
+`uvalib-page`
+Library Web HomePage
+
+@demo demo/index.html
+-->
+
+<dom-module id="uvalib-homepage">
+  <template>
+    <style is="custom-style">
+      :host {
+        display: block;
+      }
+
+      uvalib-page {
+        @apply(--layout-vertical);
+      }
+
+      app-box {
+        height: 600px;
+        width: 100%;
+      }
+
+      .card-container {
+        padding-top: 50px;
+        padding-bottom: 20px;
+        @apply(--layout-wrap);
+      }
+      .card {
+        @apply(--layout-flex);
+        @apply(--layout-self-stretch);
+        padding: 2%;
+      }
+      .card[vertical] {
+        min-width: 200px;
+      }
+
+      @media (min-width: 1460px) {
+        uvalib-hours-card:first-child, uvalib-card:first-child {
+          padding-left: 0;
+        }
+        uvalib-hours-card:last-child, uvalib-card:last-child {
+          padding-right: 0;
+        }
+      }
+
+      #shady-box {
+        @apply(--layout-vertical);
+        background-color: var(--color-light-gray);
+        width: 100%;
+      }
+
+      #content {
+        @apply(--layout-vertical);
+      }
+      .top {
+        padding-top: 85px;
+        padding-bottom: 50px;
+      }
+      uvalib-search-box, .card-container, uvalib-news-section {
+        max-width: 1200px;
+        width: 100%;
+        @apply(--layout-self-center);
+      }
+      uvalib-search-box {
+        position: absolute;
+        z-index: 500;
+        top: 464px;
+      }
+
+      /* desktop */
+      @media (min-width: 993px) {
+        .card-container {
+          @apply(--layout-horizontal);
+        }
+        uvalib-events-card.card {
+          @apply(--layout-flex-2);
+        }
+      }
+      /* tablet */
+      @media (min-width: 601px) and (max-width: 992px) {
+        .card-container {
+          @apply(--layout-horizontal);
+        }
+        .card {
+          min-width: 300px;
+        }
+        uvalib-events-card {
+          min-width: 400px;
+        }
+      }
+      /* mobile */
+      @media (max-width: 600px) {
+        uvalib-search-box {
+          display: none;
+        }
+        .card-container {
+          @apply(--layout-vertical);
+          @apply(--layout-center-center);
+        }
+      }
+
+    </style>
+
+    <iron-media-query query="(max-width: 600px)" query-matches="{{smallScreen}}"></iron-media-query>
+    <iron-media-query query="(min-width: 601px) and (max-width: 992px)" query-matches="{{mediumScreen}}"></iron-media-query>
+    <iron-media-query query="(min-width: 993px)" query-matches="{{largeScreen}}"></iron-media-query>
+
+    <uvalib-page>
+
+      <app-box effects="parallax-background">
+        <img background src="//app-layout-assets.appspot.com/assets/bg1.jpg" style="width:100%; height: 900px" />
+      </app-box>
+      <uvalib-news-banner></uvalib-news-banner>
+      <div id="shady-box">
+        <uvalib-search-box id="searchbox" advanced-search site-search hidden$="{{!largeScreen}}"></uvalib-search-box>
+        <div class="top card-container">
+          <template is="dom-if" if="{{largeScreen}}">
+            <uvalib-hours-card class="card" vertical locations="Alderman,Brown,Clemons,Fine,Special">
+              <uvalib-button href="http://www.library.virginia.edu/hours/#!/">View all hours</uvalib-button>
+            </uvalib-hours-card>
+            <uvalib-research-card class="card"></uvalib-research-card>
+            <uvalib-spaces-card class="card"></uvalib-spaces-card>
+          </template>
+          <template is="dom-if" if="{{!largeScreen}}">
+            <uvalib-hours-card class="card" vertical locations="Alderman,Brown,Clemons,Special">
+              <uvalib-button href="http://www.library.virginia.edu/hours/#!/">View all hours</uvalib-button>
+            </uvalib-hours-card>
+            <uvalib-research-card class="card"></uvalib-research-card>
+          </template>
+        </div>
+      </div>
+      <div id="content">
+        <div class="card-container">
+          <template is="dom-if" if="{{largeScreen}}">
+            <uvalib-services-card class="card"></uvalib-services-card>
+            <uvalib-events-card class="card" heading="Upcoming Events" elevation="3" max-num-events-shown="4" cat-ids-filter="27116 26930">
+                <uvalib-button href="http://cal.lib.virginia.edu/calendar/events">View calendar</uvalib-button>
+            </uvalib-events-card>
+          </template>
+          <template is="dom-if" if="{{!largeScreen}}">
+            <uvalib-spaces-card class="card"></uvalib-spaces-card>
+            <uvalib-services-card class="card"></uvalib-services-card>
+            <uvalib-events-card class="card" heading="Upcoming Events" elevation="3" max-num-events-shown="4" cat-ids-filter="27116 26930">
+                <uvalib-button href="http://cal.lib.virginia.edu/calendar/events">View calendar</uvalib-button>
+            </uvalib-events-card>
+          </template>
+        </div>
+
+        <uvalib-news-section num-items="{{_newsCount(largeScreen)}}"></uvalib-news-section>
+
+        <div class="card-container bottom">
+          <uvalib-featured-exhibit-card horizontal></uvalib-featured-exhibit-card>
+          <uvalib-engage-card horizontal></uvalib-engage-card>
+        </div>
+      </div>
+
+    </uvalib-page>
+
+  </template>
+
+  <script>
+
+    Polymer({
+
+      is: 'uvalib-homepage',
+
+      properties: {
+        prop1: {
+          type: String,
+          value: 'uvalib-page',
+        },
+        _searchInView: {
+          type: Boolean,
+          value: true,
+          observer: '_searchInViewChange'
+        }
+      },
+
+      _newsCount: function(){
+          if (this.largeScreen) return 3;
+          else return 2;
+      },
+
+      ready: function(){
+        this.fnIsVis();
+        document.addEventListener("scroll", this.fnIsVis.bind(this));
+      },
+
+      fnIsVis: function(){
+          var ele = this.$.searchbox;
+          this._searchInView = isElementInViewport(ele) || isElementPartiallyInViewport(ele);
+      },
+
+      _searchInViewChange: function(){
+        this.fire('iron-signal', {name: "searchinview", data: this._searchInView});
+      }
+
+    });
+
+    function isElementPartiallyInViewport(el)
+    {
+        //special bonus for those using jQuery
+        if (typeof jQuery !== 'undefined' && el instanceof jQuery) el = el[0];
+
+        var rect = el.getBoundingClientRect();
+        // DOMRect { x: 8, y: 8, width: 100, height: 100, top: 8, right: 108, bottom: 108, left: 8 }
+        var windowHeight = (window.innerHeight || document.documentElement.clientHeight);
+        var windowWidth = (window.innerWidth || document.documentElement.clientWidth);
+
+        // http://stackoverflow.com/questions/325933/determine-whether-two-date-ranges-overlap
+        var vertInView = (rect.top <= windowHeight) && ((rect.top + rect.height) >= 0);
+        var horInView = (rect.left <= windowWidth) && ((rect.left + rect.width) >= 0);
+
+        return (vertInView && horInView);
+    }
+
+    // http://stackoverflow.com/questions/123999/how-to-tell-if-a-dom-element-is-visible-in-the-current-viewport
+    function isElementInViewport (el)
+    {
+        //special bonus for those using jQuery
+        if (typeof jQuery !== 'undefined' && el instanceof jQuery) el = el[0];
+
+        var rect = el.getBoundingClientRect();
+        var windowHeight = (window.innerHeight || document.documentElement.clientHeight);
+        var windowWidth = (window.innerWidth || document.documentElement.clientWidth);
+
+        return (
+               (rect.left >= 0)
+            && (rect.top >= 0)
+            && ((rect.left + rect.width) <= windowWidth)
+            && ((rect.top + rect.height) <= windowHeight)
+        );
+
+    }
+
+
+
+  </script>
+</dom-module>
