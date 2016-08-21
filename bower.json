@@ -3,8 +3,8 @@
   "description": "Library Web Page template",
   "main": "uvalib-page.html",
   "dependencies": {
-    "polymer": "Polymer/polymer#^1.4.0",
-    "app-layout": "PolymerElements/app-layout#^0.10.1",
+    "polymer": "polymer/polymer#^1.6.1",
+    "app-layout": "PolymerElements/app-layout#^0.10.2",
     "uvalib-footer": "uvalib-components/uvalib-footer#master",
     "uvalib-theme": "uvalib-components/uvalib-theme#master",
     "uvalib-logos": "uvalib-components/uvalib-logos#master",
@@ -19,24 +19,22 @@
     "uvalib-hours-card": "uvalib-components/uvalib-hours-card#master",
     "uvalib-events-card": "uvalib-components/uvalib-events-card#master",
     "uvalib-card": "uvalib-components/uvalib-card#master",
-    "platinum-https-redirect": "PolymerElements/platinum-https-redirect#^1.0.2"
+    "platinum-https-redirect": "PolymerElements/platinum-https-redirect#^1.0.2",
+    "iron-signals": "PolymerElements/iron-signals#^1.0.3"
   },
   "devDependencies": {
     "iron-component-page": "PolymerElements/iron-component-page#^1.0.0",
     "web-component-tester": "^4.0.0",
-    "webcomponentsjs": "webcomponents/webcomponentsjs#^0.7.0"
+    "webcomponentsjs": "webcomponents/webcomponentsjs#^0.7.22"
   },
   "resolutions": {
-    "uvalib-footer": "master",
-    "uvalib-logos": "master",
-    "uvalib-button": "master",
     "lodash": "^4.13.1",
-    "uvalib-card": "master",
     "uvalib-search-box": "master",
-    "polymer": "^1.6.0",
+    "polymer": "^1.6.1",
     "uvalib-theme": "master",
     "webcomponentsjs": "^0.7.20",
     "polymer-font-awesome-icons": "master",
-    "uvalib-nav": "master"
+    "uvalib-nav": "master",
+    "iron-demo-helpers": "^1.2.5"
   }
 }

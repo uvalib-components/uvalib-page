@@ -1,6 +1,7 @@
 <link rel="import" href="../polymer/polymer.html">
 <link rel="import" href="../iron-media-query/iron-media-query.html">
 <link rel="import" href="../iron-flex-layout/iron-flex-layout.html">
+<link rel="import" href="../iron-signals/iron-signals.html">
 <link rel="import" href="../app-layout/app-box/app-box.html">
 <link rel="import" href="../uvalib-theme/uvalib-theme.html">
 <!--
@@ -130,7 +131,7 @@ Library Web HomePage
       </app-box>
       <uvalib-news-banner></uvalib-news-banner>
       <div id="shady-box">
-        <uvalib-search-box advanced-search site-search hidden$="{{!largeScreen}}"></uvalib-search-box>
+        <uvalib-search-box id="searchbox" advanced-search site-search hidden$="{{!largeScreen}}"></uvalib-search-box>
         <div class="top card-container">
           <template is="dom-if" if="{{largeScreen}}">
             <uvalib-hours-card class="card" vertical locations="Alderman,Brown,Clemons,Fine,Special">
@@ -177,6 +178,7 @@ Library Web HomePage
   </template>
 
   <script>
+
     Polymer({
 
       is: 'uvalib-homepage',
@@ -186,13 +188,52 @@ Library Web HomePage
           type: String,
           value: 'uvalib-page',
         },
+        _searchInView: {
+          type: Boolean,
+          observer: '_searchInViewChange'
+        }
       },
 
       _newsCount: function(){
           if (this.largeScreen) return 3;
           else return 2;
+      },
+
+      ready: function(){
+        document.addEventListener("scroll", this.fnIsVis.bind(this));
+      },
+
+      fnIsVis: function(){
+          var ele = this.$.searchbox;
+          this._searchInView = isElementInViewport(ele);
+      },
+
+      _searchInViewChange: function(){
+        this.fire('iron-signal', {name: "searchinview", data: this._searchInView});
       }
 
     });
+
+    // http://stackoverflow.com/questions/123999/how-to-tell-if-a-dom-element-is-visible-in-the-current-viewport
+    function isElementInViewport (el)
+    {
+        //special bonus for those using jQuery
+        if (typeof jQuery !== 'undefined' && el instanceof jQuery) el = el[0];
+
+        var rect = el.getBoundingClientRect();
+        var windowHeight = (window.innerHeight || document.documentElement.clientHeight);
+        var windowWidth = (window.innerWidth || document.documentElement.clientWidth);
+
+        return (
+               (rect.left >= 0)
+            && (rect.top >= 0)
+            && ((rect.left + rect.width) <= windowWidth)
+            && ((rect.top + rect.height) <= windowHeight)
+        );
+
+    }
+
+
+
   </script>
 </dom-module>
