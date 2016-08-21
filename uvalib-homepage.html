@@ -190,6 +190,7 @@ Library Web HomePage
         },
         _searchInView: {
           type: Boolean,
+          value: true,
           observer: '_searchInViewChange'
         }
       },
@@ -206,6 +207,10 @@ Library Web HomePage
       fnIsVis: function(){
           var ele = this.$.searchbox;
           this._searchInView = isElementInViewport(ele);
+      },
+
+      ready: function(){
+        this.fnIsVis();
       },
 
       _searchInViewChange: function(){
