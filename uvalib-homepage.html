@@ -120,6 +120,7 @@ Library Web HomePage
 
     </style>
 
+    <iron-signals on-iron-signal-triggersearch="_triggerSearch"></iron-signals>
     <iron-media-query query="(max-width: 600px)" query-matches="{{smallScreen}}"></iron-media-query>
     <iron-media-query query="(min-width: 601px) and (max-width: 992px)" query-matches="{{mediumScreen}}"></iron-media-query>
     <iron-media-query query="(min-width: 993px)" query-matches="{{largeScreen}}"></iron-media-query>
@@ -201,7 +202,6 @@ Library Web HomePage
       },
 
       ready: function(){
-//        this.fnIsVis();
         document.addEventListener("scroll", this.fnIsVis.bind(this));
       },
       attached: function(){
@@ -215,6 +215,9 @@ Library Web HomePage
 
       _searchInViewChange: function(){
         this.fire('iron-signal', {name: "searchinview", data: this._searchInView});
+      },
+      _triggerSearch: function(){
+        window.scrollTo(0, 0);
       }
 
     });
