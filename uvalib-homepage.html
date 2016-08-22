@@ -91,6 +91,9 @@ Library Web HomePage
         .card-container {
           @apply(--layout-horizontal);
         }
+        .card-container.upper {
+          height: 605px;
+        }
         uvalib-events-card.card {
           @apply(--layout-flex-2);
         }
@@ -153,7 +156,7 @@ Library Web HomePage
         </div>
       </div>
       <div id="content">
-        <div class="card-container">
+        <div class="upper card-container">
           <template is="dom-if" if="{{largeScreen}}">
             <uvalib-services-card class="card"></uvalib-services-card>
             <uvalib-events-card class="card" heading="Upcoming Events" elevation="3" max-num-events-shown="4" cat-ids-filter="27116 26930">
@@ -171,7 +174,7 @@ Library Web HomePage
 
         <uvalib-news-section num-items="{{_newsCount(largeScreen)}}"></uvalib-news-section>
 
-        <div class="card-container bottom">
+        <div class="lower card-container bottom">
           <uvalib-featured-exhibit-card horizontal></uvalib-featured-exhibit-card>
           <uvalib-engage-card horizontal></uvalib-engage-card>
         </div>
