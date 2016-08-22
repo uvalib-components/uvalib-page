@@ -201,8 +201,11 @@ Library Web HomePage
       },
 
       ready: function(){
-        this.fnIsVis();
+//        this.fnIsVis();
         document.addEventListener("scroll", this.fnIsVis.bind(this));
+      },
+      attached: function(){
+        this.fnIsVis();
       },
 
       fnIsVis: function(){
