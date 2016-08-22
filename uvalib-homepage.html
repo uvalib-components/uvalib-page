@@ -90,7 +90,7 @@ Library Web HomePage
 
       app-box.banner {
         --app-box-background-front-layer: {
-          background-image: linear-gradient( rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5) ), url(//static.lib.virginia.edu/images/homepage-images/memorial.jpg);
+          background-image: linear-gradient( rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3) ), url(//static.lib.virginia.edu/images/homepage-images/memorial.jpg);
           background-position: bottom;
           padding-bottom: 220px;
           margin-top: -20px;
@@ -111,6 +111,9 @@ Library Web HomePage
         }
         #shady-box {
           height: 700px;
+        }
+        uvalib-spaces-card {
+          padding: 2% 0 2% 2% !important;
         }
       }
       /* tablet */
@@ -156,14 +159,14 @@ Library Web HomePage
       <div id="shady-box">
         <uvalib-search-box id="searchbox" advanced-search site-search hidden$="{{!largeScreen}}"></uvalib-search-box>
         <div class="top card-container">
-          <template is="dom-if" if="{{largeScreen}}">
+          <template is="dom-if" if="{{largeScreen}}" restamp>
             <uvalib-hours-card class="card" vertical locations="Alderman,Brown,Clemons,Fine,Special">
               <uvalib-button href="http://www.library.virginia.edu/hours/#!/">View all hours</uvalib-button>
             </uvalib-hours-card>
             <uvalib-research-card class="card"></uvalib-research-card>
             <uvalib-spaces-card class="card"></uvalib-spaces-card>
           </template>
-          <template is="dom-if" if="{{!largeScreen}}">
+          <template is="dom-if" if="{{!largeScreen}}" restamp>
             <uvalib-hours-card class="card" vertical locations="Alderman,Brown,Clemons,Special">
               <uvalib-button href="http://www.library.virginia.edu/hours/#!/">View all hours</uvalib-button>
             </uvalib-hours-card>
