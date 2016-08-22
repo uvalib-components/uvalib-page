@@ -29,12 +29,9 @@
   },
   "resolutions": {
     "lodash": "^4.13.1",
-    "uvalib-search-box": "master",
     "polymer": "^1.6.1",
     "uvalib-theme": "master",
     "webcomponentsjs": "^0.7.20",
-    "polymer-font-awesome-icons": "master",
-    "uvalib-nav": "master",
     "iron-demo-helpers": "^1.2.5"
   }
 }
