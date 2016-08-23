@@ -37,7 +37,9 @@ Library Web HomePage
       .card-container {
         padding-top: 50px;
         padding-bottom: 20px;
+        /*
         @apply(--layout-wrap);
+        */
       }
       .card {
         @apply(--layout-flex);
@@ -90,6 +92,7 @@ Library Web HomePage
         }
         .card-container {
           @apply(--layout-horizontal);
+          @apply(--layout-wrap);
         }
         .card-container.upper {
           height: 605px;
@@ -146,6 +149,7 @@ Library Web HomePage
         }
         .card-container {
           @apply(--layout-horizontal);
+          @apply(--layout-wrap);
         }
         .card {
           min-width: 300px;
@@ -294,10 +298,12 @@ Library Web HomePage
 
         <uvalib-news-section num-items="{{_newsCount(largeScreen)}}"></uvalib-news-section>
 
+<!--
         <div class="lower card-container bottom">
           <uvalib-featured-exhibit-card horizontal></uvalib-featured-exhibit-card>
           <uvalib-engage-card horizontal></uvalib-engage-card>
         </div>
+-->
       </div>
 
     </uvalib-page>
