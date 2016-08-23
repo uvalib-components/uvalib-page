@@ -249,9 +249,11 @@ Library Web HomePage
           </template>
         </div>
         <template is="dom-if" if="{{!largeScreen}}" restamp>
-          <uvalib-events-card class="card" heading="Upcoming Events" elevation="3" max-num-events-shown="{{_eventsCount(largeScreen)}}">
-              <uvalib-button href="http://cal.lib.virginia.edu/calendar/events">View calendar</uvalib-button>
-          </uvalib-events-card>
+          <div class="card-container">
+            <uvalib-events-card class="card" heading="Upcoming Events" elevation="3" max-num-events-shown="{{_eventsCount(largeScreen)}}">
+                <uvalib-button href="http://cal.lib.virginia.edu/calendar/events">View calendar</uvalib-button>
+            </uvalib-events-card>
+          </div>
         </template>
 
         <uvalib-news-section num-items="{{_newsCount(largeScreen)}}"></uvalib-news-section>
