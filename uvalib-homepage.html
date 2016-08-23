@@ -178,15 +178,20 @@ Library Web HomePage
         <div class="upper card-container">
           <template is="dom-if" if="{{largeScreen}}" restamp>
             <uvalib-services-card class="card"></uvalib-services-card>
+            <uvalib-events-card class="card" heading="Upcoming Events" elevation="3" max-num-events-shown="{{_eventsCount(largeScreen)}}">
+                <uvalib-button href="http://cal.lib.virginia.edu/calendar/events">View calendar</uvalib-button>
+            </uvalib-events-card>
           </template>
           <template is="dom-if" if="{{!largeScreen}}" restamp>
             <uvalib-spaces-card class="card"></uvalib-spaces-card>
             <uvalib-services-card class="card"></uvalib-services-card>
           </template>
-          <uvalib-events-card class="card" heading="Upcoming Events" elevation="3" max-num-events-shown="6">
+        </div>
+        <template is="dom-if" if="{{!largeScreen}}" restamp>
+          <uvalib-events-card class="card" heading="Upcoming Events" elevation="3" max-num-events-shown="{{_eventsCount(largeScreen)}}">
               <uvalib-button href="http://cal.lib.virginia.edu/calendar/events">View calendar</uvalib-button>
           </uvalib-events-card>
-        </div>
+        </template>
 
         <uvalib-news-section num-items="{{_newsCount(largeScreen)}}"></uvalib-news-section>
 
@@ -221,6 +226,11 @@ Library Web HomePage
       _newsCount: function(){
           if (this.largeScreen) return 3;
           else return 2;
+      },
+
+      _eventsCount: function(){
+          if (this.largeScreen) return 6;
+          else return 4;
       },
 
       ready: function(){
