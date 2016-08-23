@@ -90,9 +90,9 @@ Library Web HomePage
 
       app-box.banner {
         --app-box-background-front-layer: {
-          background-image: linear-gradient( rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3) ), url(//static.lib.virginia.edu/images/homepage-images/memorial.jpg);
+          background-image: linear-gradient( rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0) ), url(//static.lib.virginia.edu/images/homepage-images/memorial.jpg);
           background-position: bottom;
-          padding-bottom: 220px;
+          padding-bottom: 180px;
           margin-top: -20px;
           height: 100%;
         };
@@ -139,6 +139,26 @@ Library Web HomePage
         }
       }
 
+      #banner-txt {
+        position: relative;
+        top: 155px;
+        left: 150px;
+      }
+      app-box h2, app-box p {
+        color: var(--color-white);
+      }
+      app-box h2 {
+        font-size: 50px;
+      }
+      app-box p {
+        font-size: 20px;
+        font-weight: 200;
+      }
+      app-box uvalib-button {
+        --uvalib-button-bkgrd-color: var(--color-white);
+        color: var(--color-text-gray);
+      }
+
     </style>
 
     <iron-signals on-iron-signal-triggersearch="_triggerSearch"></iron-signals>
@@ -149,11 +169,11 @@ Library Web HomePage
     <uvalib-page>
 
       <app-box class="banner" effects="parallax-background">
-<!--
-        <h2>Welcome back, students!</h2>
-        <p>Let us help you get ready for a new year. Ask us anything!</p>
-        <uvalib-button>Ask a Librarian</uvalib-button>
--->
+        <div id="banner-txt">
+          <h2>Welcome back, students!</h2>
+          <p>Let us help you get ready for a new year. Ask us anything!</p>
+          <uvalib-button href="http://www.library.virginia.edu/askalibrarian/">Ask a Librarian</uvalib-button>
+        </div>
       </app-box>
       <uvalib-news-banner></uvalib-news-banner>
       <div id="shady-box">
