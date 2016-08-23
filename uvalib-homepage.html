@@ -34,11 +34,6 @@ Library Web HomePage
         @apply(--layout-vertical);
       }
 
-      app-box {
-        height: 700px;
-        width: 100%;
-      }
-
       .card-container {
         padding-top: 50px;
         padding-bottom: 20px;
@@ -72,7 +67,6 @@ Library Web HomePage
         @apply(--layout-vertical);
       }
       .top {
-        padding-top: 85px;
         padding-bottom: 50px;
       }
       uvalib-search-box, .card-container, uvalib-news-section {
@@ -88,18 +82,12 @@ Library Web HomePage
         transform: translateX(-50%);
       }
 
-      app-box.banner {
-        --app-box-background-front-layer: {
-          background-image: linear-gradient( rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3) ), url(//static.lib.virginia.edu/images/homepage-images/memorial.jpg);
-          background-position: bottom;
-          padding-bottom: 220px;
-          margin-top: -20px;
-          height: 100%;
-        };
-      }
 
       /* desktop */
       @media (min-width: 993px) {
+        .top {
+          padding-top: 85px;
+        }
         .card-container {
           @apply(--layout-horizontal);
         }
@@ -115,9 +103,47 @@ Library Web HomePage
         uvalib-spaces-card {
           padding: 2% 0 2% 2% !important;
         }
+
+
+        app-box {
+          height: 700px;
+          width: 100%;
+        }
+        app-box.banner {
+          --app-box-background-front-layer: {
+            background-image: linear-gradient( rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0) ), url(//static.lib.virginia.edu/images/homepage-images/memorial.jpg);
+            background-position: bottom;
+            padding-bottom: 180px;
+            margin-top: -20px;
+            height: 100%;
+          };
+        }
+        #banner-txt {
+          position: relative;
+          top: 155px;
+          left: 150px;
+        }
+        app-box h2, app-box p {
+          color: var(--color-white);
+        }
+        app-box h2 {
+          font-size: 50px;
+        }
+        app-box p {
+          font-size: 20px;
+          font-weight: 200;
+        }
+        app-box uvalib-button {
+          --uvalib-button-bkgrd-color: var(--color-white);
+          color: var(--color-text-gray);
+        }
+
       }
       /* tablet */
       @media (min-width: 601px) and (max-width: 992px) {
+        .top {
+          padding-top: 15px;
+        }
         .card-container {
           @apply(--layout-horizontal);
         }
@@ -127,6 +153,40 @@ Library Web HomePage
         uvalib-events-card {
           min-width: 400px;
         }
+
+        app-box {
+          height: 400px;
+          width: 100%;
+        }
+        app-box.banner {
+          --app-box-background-front-layer: {
+            background-image: linear-gradient( rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0) ), url(//static.lib.virginia.edu/images/homepage-images/memorial.jpg);
+            background-position: bottom;
+            padding-bottom: 180px;
+            margin-top: -20px;
+            height: 100%;
+          };
+        }
+        #banner-txt {
+          position: relative;
+          top: 125px;
+          left: 40px;
+        }
+        app-box h2, app-box p {
+          color: var(--color-white);
+        }
+        app-box h2 {
+          font-size: 40px;
+        }
+        app-box p {
+          font-size: 20px;
+          font-weight: 200;
+        }
+        app-box uvalib-button {
+          --uvalib-button-bkgrd-color: var(--color-white);
+          color: var(--color-text-gray);
+        }
+
       }
       /* mobile */
       @media (max-width: 600px) {
@@ -139,6 +199,7 @@ Library Web HomePage
         }
       }
 
+
     </style>
 
     <iron-signals on-iron-signal-triggersearch="_triggerSearch"></iron-signals>
@@ -149,11 +210,11 @@ Library Web HomePage
     <uvalib-page>
 
       <app-box class="banner" effects="parallax-background">
-<!--
-        <h2>Welcome back, students!</h2>
-        <p>Let us help you get ready for a new year. Ask us anything!</p>
-        <uvalib-button>Ask a Librarian</uvalib-button>
--->
+        <div id="banner-txt">
+          <h2>Welcome back, students!</h2>
+          <p>Let us help you get ready for a new year. Ask us anything!</p>
+          <uvalib-button href="http://www.library.virginia.edu/askalibrarian/">Ask a Librarian</uvalib-button>
+        </div>
       </app-box>
       <uvalib-news-banner></uvalib-news-banner>
       <div id="shady-box">
