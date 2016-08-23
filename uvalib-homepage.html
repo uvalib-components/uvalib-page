@@ -49,6 +49,10 @@ Library Web HomePage
       .card[vertical] {
         min-width: 200px;
       }
+      .card[horizontal] {
+        min-width: 530px;
+        padding-bottom: 40px;
+      }
 
       @media (min-width: 1460px) {
         uvalib-hours-card:first-child, uvalib-card:first-child {
@@ -97,6 +101,7 @@ Library Web HomePage
         .card-container.upper {
           height: 605px;
         }
+
         uvalib-events-card.card {
           @apply(--layout-flex-2);
         }
@@ -197,11 +202,12 @@ Library Web HomePage
         uvalib-search-box {
           display: none;
         }
+        /*
         .card-container {
           @apply(--layout-vertical);
           @apply(--layout-center-center);
         }
-
+*/
         app-box {
           height: 350px;
           width: 100%;
@@ -298,12 +304,17 @@ Library Web HomePage
 
         <uvalib-news-section num-items="{{_newsCount(largeScreen)}}"></uvalib-news-section>
 
-<!--
         <div class="lower card-container bottom">
-          <uvalib-featured-exhibit-card horizontal></uvalib-featured-exhibit-card>
-          <uvalib-engage-card horizontal></uvalib-engage-card>
+          <template is="dom-if" if="{{!smallScreen}}" restamp>
+            <uvalib-featured-exhibit-card class="card" horizontal></uvalib-featured-exhibit-card>
+            <uvalib-engage-card class="card" horizontal></uvalib-engage-card>
+          </template>
+          <template is="dom-if" if="{{smallScreen}}" restamp>
+            <uvalib-featured-exhibit-card class="card"></uvalib-featured-exhibit-card>
+            <uvalib-engage-card class="card"></uvalib-engage-card>
+          </template>
         </div>
--->
+
       </div>
 
     </uvalib-page>
