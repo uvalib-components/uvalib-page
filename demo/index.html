@@ -4,16 +4,21 @@
     <title>UVA Library</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1, user-scalable=yes">
-    <script src="../../webcomponentsjs/webcomponents.js"></script>
+    <script>
+      Polymer = {dom: 'shadow'};
 
-<!--
-    <link rel="import" href="../uvalib-search-box/uvalib-search-box.html">
-    <link rel="import" href="../uvalib-card/uvalib-card.html">
-    <link rel="import" href="../uvalib-button/uvalib-button.html">
-    <link rel="import" href="../uvalib-hours-card/uvalib-hours-card.html">
-    <link rel="import" href="../uvalib-events-card/uvalib-events-card.html">
-    <link rel="import" href="../uvalib-news-card/uvalib-news-card.html">
--->
+      (function() {
+        if ('registerElement' in document
+            && 'import' in document.createElement('link')
+            && 'content' in document.createElement('template')) {
+          // platform is good!
+        } else {
+          document.write( '<script src="../../webcomponentsjs/webcomponents-lite.min.js">\x3C/script>')
+        }
+      })();
+    </script>
+
+    <link rel="import" href="../../uvalib-theme/uvalib-constants.html">
     <link rel="import" href="../uvalib-homepage.html">
 
     <style is="custom-style">

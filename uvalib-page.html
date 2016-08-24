@@ -6,7 +6,7 @@
 <link rel="import" href="../uvalib-footer/uvalib-footer.html">
 <link rel="import" href="../iron-flex-layout/iron-flex-layout.html">
 <link rel="import" href="../iron-media-query/iron-media-query.html">
-<link rel="import" href="../uvalib-theme/uvalib-theme.html">
+<link rel="import" href="../uvalib-theme/uvalib-common-styles.html">
 <link rel="import" href="../app-layout/app-drawer/app-drawer.html">
 <link rel="import" href="../platinum-https-redirect/platinum-https-redirect.html">
 <link rel="import" href="../app-layout/app-toolbar/app-toolbar.html">
@@ -20,7 +20,7 @@ Library Web Page template
 
 <dom-module id="uvalib-page">
   <template>
-    <style>
+    <style is="custom-style" include="uvalib-theme">
       :host {
         display: block;
       }
