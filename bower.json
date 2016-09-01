@@ -19,7 +19,6 @@
     "uvalib-hours-card": "uvalib-components/uvalib-hours-card#master",
     "uvalib-events-card": "uvalib-components/uvalib-events-card#master",
     "uvalib-card": "uvalib-components/uvalib-card#master",
-    "platinum-https-redirect": "PolymerElements/platinum-https-redirect#^1.0.2",
     "iron-signals": "PolymerElements/iron-signals#^1.0.3"
   },
   "devDependencies": {
