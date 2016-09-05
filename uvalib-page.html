@@ -42,6 +42,9 @@ Library Web Page template
       app-drawer {
         z-index: 1500
       }
+      .content {
+        @apply(--layout-vertical);
+      }
     </style>
 
     <iron-media-query query="(max-width: 600px)" query-matches="{{_smallScreen}}"></iron-media-query>
