@@ -48,7 +48,7 @@ Library Web Page template
     <iron-media-query query="(max-width: 600px)" query-matches="{{_smallScreen}}"></iron-media-query>
     <iron-media-query query="(min-width: 600px) and (max-width: 992px)" query-matches="{{_mediumScreen}}"></iron-media-query>
 
-    <uvalib-header screen-size="{{screenSize}}" navigation="{{navigation}}" on-open-drawer="_toggleDrawer" content-has-no-search-box="{{contentHasNoSearchBox}}"></uvalib-header>
+    <uvalib-header screen-size="{{screenSize}}" navigation="{{navigation}}" on-open-drawer="_toggleDrawer" content-has-search-box="{{contentHasSearchBox}}"></uvalib-header>
 
     <!-- Lazy-create the drawer for small screen sizes. -->
       <!-- Two-way bind `drawerOpened` since app-drawer can update `opened` itself. -->
@@ -114,8 +114,7 @@ Library Web Page template
         },
       },
       observers: [
-        '_updateScreenSize(_smallScreen,_mediumScreen)',
-        '_searchInViewChange(contentHasNoSearchBox)'
+        '_updateScreenSize(_smallScreen,_mediumScreen)'
       ],
       _toggleDrawer: function() {
         this.$.sidenav.toggle();
