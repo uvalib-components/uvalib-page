@@ -95,7 +95,7 @@ Library Web Page template
             {"label": "Ask A Librarian", "icon": "comments", "url": "/askalibrarian/"}
           ],
         },
-        contentHasNoSearchBox: {
+        contentHasSearchBox: {
           type: Boolean,
           value: false
         },
@@ -117,11 +117,6 @@ Library Web Page template
         '_updateScreenSize(_smallScreen,_mediumScreen)',
         '_searchInViewChange(contentHasNoSearchBox)'
       ],
-      _searchInViewChange: function(inView) {
-        if (this.screenSize == 'large') {
-          this.fire('iron-signal', {name: "searchinview", data: !inView});
-        }
-      },
       _toggleDrawer: function() {
         this.$.sidenav.toggle();
       },
