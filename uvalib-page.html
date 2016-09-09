@@ -119,7 +119,7 @@ Library Web Page template
       ],
       _searchInViewChange: function(inView) {
         if (this.screenSize == 'large') {
-          this.fire('iron-signal', {name: "searchinview", data: inView});
+          this.fire('iron-signal', {name: "searchinview", data: !inView});
         }
       },
       _toggleDrawer: function() {
