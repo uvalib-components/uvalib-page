@@ -65,6 +65,9 @@ Library Web HomePage
       }
 
       #shady-box {
+        position: relative;
+        top: -45px;
+
         @apply(--layout-vertical);
         background-color: var(--color-light-gray);
         width: 100%;
@@ -84,9 +87,16 @@ Library Web HomePage
       uvalib-search-box {
         position: absolute;
         z-index: 500;
-        top: 605px;
+        top: -125px;
         left: 50%;
         transform: translateX(-50%);
+      }
+      app-box uvalib-button {
+        --uvalib-button-bkgrd-color: var(--uvalib-grey-200);
+        color: var(--color-primary-blue);
+      }
+      app-box h2, app-box p {
+        color: var(--color-primary-blue);
       }
 
       /* desktop */
@@ -113,13 +123,12 @@ Library Web HomePage
         }
         app-box {
           position: relative;
-          top: -45px;
           height: 700px;
           width: 100%;
         }
         app-box.banner {
           --app-box-background-front-layer: {
-            background-image: linear-gradient( rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0) ), url(//static.lib.virginia.edu/images/homepage-images/memorial.jpg);
+
             background-position: bottom;
             padding-bottom: 180px;
             margin-top: -20px;
@@ -131,9 +140,6 @@ Library Web HomePage
           top: 155px;
           left: 150px;
         }
-        app-box h2, app-box p {
-          color: var(--color-white);
-        }
         app-box h2 {
           font-size: 50px;
         }
@@ -142,10 +148,7 @@ Library Web HomePage
           font-weight: 200;
           max-width: 50%;
         }
-        app-box uvalib-button {
-          --uvalib-button-bkgrd-color: var(--color-white);
-          color: var(--color-text-gray);
-        }
+
         uvalib-news-section {
           height: 550px;
         }
@@ -168,13 +171,12 @@ Library Web HomePage
 
         app-box {
           position: relative;
-          top: -45px;
-          height: 400px;
+          height: 475px;
           width: 100%;
         }
         app-box.banner {
           --app-box-background-front-layer: {
-            background-image: linear-gradient( rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0) ), url(//static.lib.virginia.edu/images/homepage-images/memorial.jpg);
+            background-image: url(//static.lib.virginia.edu/images/homepage-images/newresources.png);
             background-position: bottom;
             padding-bottom: 180px;
             margin-top: -20px;
@@ -186,9 +188,6 @@ Library Web HomePage
           top: 125px;
           left: 40px;
         }
-        app-box h2, app-box p {
-          color: var(--color-white);
-        }
         app-box h2 {
           font-size: 40px;
         }
@@ -197,10 +196,6 @@ Library Web HomePage
           font-weight: 200;
           width: 50%;
           line-height: 22px;
-        }
-        app-box uvalib-button {
-          --uvalib-button-bkgrd-color: var(--color-white);
-          color: var(--color-text-gray);
         }
         uvalib-news-section {
           height: 587px;
@@ -219,13 +214,12 @@ Library Web HomePage
 */
         app-box {
           position: relative;
-          top: -55px;
-          height: 350px;
+          height: 375px;
           width: 100%;
         }
         app-box.banner {
           --app-box-background-front-layer: {
-            background-image: linear-gradient( rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0) ), url(//static.lib.virginia.edu/images/homepage-images/memorial.jpg);
+            background-image: url(//static.lib.virginia.edu/images/homepage-images/newresources.png);
             background-position: bottom;
             padding-bottom: 100px;
             margin-top: -20px;
@@ -238,9 +232,6 @@ Library Web HomePage
           left: 40px;
           max-width: 300px;
         }
-        app-box h2, app-box p {
-          color: var(--color-white);
-        }
         app-box h2 {
           font-size: 25px;
         }
@@ -248,10 +239,6 @@ Library Web HomePage
           font-size: 15px;
           font-weight: 200;
           line-height: 17px;
-        }
-        app-box uvalib-button {
-          --uvalib-button-bkgrd-color: var(--color-white);
-          color: var(--color-text-gray);
         }
         uvalib-news-section {
           height: 875px;
@@ -270,9 +257,9 @@ Library Web HomePage
 
       <app-box class="banner" effects="parallax-background">
         <div id="banner-txt">
-          <h2>UVA Library welcomes you!</h2>
-          <p>Let us help you succeed in learning, researching, and teaching. Ask us anything!</p>
-          <uvalib-button href="http://www.library.virginia.edu/askalibrarian/">Ask a Librarian</uvalib-button>
+          <h2>Don't miss a new resource</h2>
+          <p>Find the newest resources the Library has to offer - the latest databases, books, videos, and journals.</p>
+          <uvalib-button href="http://guides.lib.virginia.edu/newresources">See New Resources</uvalib-button>
         </div>
       </app-box>
       <!-- uvalib-news-banner></uvalib-news-banner -->
