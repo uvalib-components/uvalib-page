@@ -42,15 +42,12 @@ Library Web Page template
       app-drawer {
         z-index: 1500
       }
-      .content {
-        margin-top: 118px; /* to make sure WordPress content not cut off */
-      }
     </style>
 
     <iron-media-query query="(max-width: 600px)" query-matches="{{_smallScreen}}"></iron-media-query>
     <iron-media-query query="(min-width: 600px) and (max-width: 992px)" query-matches="{{_mediumScreen}}"></iron-media-query>
 
-    <uvalib-header screen-size="{{screenSize}}" navigation="{{navigation}}" on-open-drawer="_toggleDrawer"></uvalib-header>
+    <uvalib-header screen-size="{{screenSize}}" navigation="{{navigation}}" on-open-drawer="_toggleDrawer" content-has-search-box="{{contentHasSearchBox}}"></uvalib-header>
 
     <!-- Lazy-create the drawer for small screen sizes. -->
       <!-- Two-way bind `drawerOpened` since app-drawer can update `opened` itself. -->
@@ -96,6 +93,10 @@ Library Web Page template
             {"label": "Services", "icon": "cloud", "url": "/services/"},
             {"label": "Ask A Librarian", "icon": "comments", "url": "/askalibrarian/"}
           ],
+        },
+        contentHasSearchBox: {
+          type: Boolean,
+          value: false
         },
         _smallScreen: {
           type: Boolean,
