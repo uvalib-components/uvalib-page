@@ -20,7 +20,8 @@
     "uvalib-events-card": "uvalib-components/uvalib-events-card#master",
     "uvalib-card": "uvalib-components/uvalib-card#master",
     "iron-signals": "PolymerElements/iron-signals#^1.0.3",
-    "uvalib-banner": "uvalib-components/uvalib-banner#master"
+    "uvalib-banner": "uvalib-components/uvalib-banner#master",
+    "uvalib-alerts": "uvalib-components/uvalib-alerts#master"
   },
   "devDependencies": {
     "iron-component-page": "PolymerElements/iron-component-page#^1.1.7",
