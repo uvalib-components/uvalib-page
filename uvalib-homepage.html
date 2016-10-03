@@ -29,10 +29,6 @@ Library Web HomePage
         display: block;
       }
 
-      uvalib-banner {
-        margin-top: 115px;
-      }
-
       uvalib-page {
         @apply(--layout-vertical);
       }
@@ -171,7 +167,7 @@ Library Web HomePage
           </template>
           <template is="dom-if" if="{{!largeScreen}}" restamp>
             <uvalib-hours-card class="card" vertical locations="Alderman,Brown,Clemons,Special">
-              <uvalib-button href="http://www.library.virginia.edu/hours/#!/">View all hours</uvalib-button>
+              <uvalib-button href="http://cal.lib.virginia.edu/hours/">View all hours</uvalib-button>
             </uvalib-hours-card>
             <uvalib-research-card class="card"></uvalib-research-card>
           </template>
@@ -199,18 +195,18 @@ Library Web HomePage
         </template>
 
         <uvalib-news-section num-items="{{_newsCount(largeScreen)}}"></uvalib-news-section>
-<!--
+
         <div class="lower card-container bottom">
           <template is="dom-if" if="{{!smallScreen}}" restamp>
             <uvalib-featured-exhibit-card class="card" horizontal></uvalib-featured-exhibit-card>
             <uvalib-engage-card class="card" horizontal></uvalib-engage-card>
           </template>
           <template is="dom-if" if="{{smallScreen}}" restamp>
-            <uvalib-featured-exhibit-card class="card"></uvalib-featured-exhibit-card>
-            <uvalib-engage-card class="card"></uvalib-engage-card>
+            <uvalib-featured-exhibit-card class="card" horizontal></uvalib-featured-exhibit-card>
+            <uvalib-engage-card class="card" horizontal></uvalib-engage-card>
           </template>
         </div>
--->
+
       </div>
 
     </uvalib-page>
