@@ -96,6 +96,12 @@ Library Web HomePage
         transform: translateX(-50%);
       }
 
+      .bottom {
+        max-width: none;
+        background-color: var(--color-light-gray);
+        width: 100%;
+      }
+
       /* desktop */
       @media (min-width: 993px) {
         .top {
@@ -208,18 +214,20 @@ Library Web HomePage
           </div>
         </template>
 
-        <uvalib-news-section num-items="{{_newsCount(largeScreen)}}"></uvalib-news-section>
+        <div  class="card-container">
+          <uvalib-news-section num-items="{{_newsCount(largeScreen)}}"></uvalib-news-section>
+        </div>
 
-        <!-- div class="lower card-container bottom">
+        <div class="lower card-container bottom">
           <template is="dom-if" if="{{!smallScreen}}" restamp>
             <uvalib-featured-exhibit-card class="card" horizontal></uvalib-featured-exhibit-card>
             <uvalib-engage-card class="card" horizontal></uvalib-engage-card>
           </template>
           <template is="dom-if" if="{{smallScreen}}" restamp>
-            <uvalib-featured-exhibit-card class="card" horizontal></uvalib-featured-exhibit-card>
-            <uvalib-engage-card class="card" horizontal></uvalib-engage-card>
+            <uvalib-featured-exhibit-card class="card"></uvalib-featured-exhibit-card>
+            <uvalib-engage-card class="card"></uvalib-engage-card>
           </template>
-        </div -->
+        </div>
 
       </div>
 
