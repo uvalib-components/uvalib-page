@@ -173,7 +173,7 @@ Library Web HomePage
     <iron-media-query query="(min-width: 601px) and (max-width: 992px)" query-matches="{{mediumScreen}}"></iron-media-query>
     <iron-media-query query="(min-width: 993px)" query-matches="{{largeScreen}}"></iron-media-query>
 
-    <uvalib-page content-has-search-box>
+    <uvalib-page content-has-search-box main-content="#searchbox">
       <uvalib-banner></uvalib-banner>
       <div id="shady-box">
         <uvalib-search-box id="searchbox" advanced-search site-search hidden$="{{!largeScreen}}"></uvalib-search-box>
