@@ -1,5 +1,7 @@
 <link rel="import" href="../polymer/polymer.html">
+<!--
 <link rel="import" href="../iron-media-query/iron-media-query.html">
+-->
 <link rel="import" href="../iron-flex-layout/iron-flex-layout.html">
 <link rel="import" href="../iron-signals/iron-signals.html">
 <link rel="import" href="../uvalib-theme/uvalib-theme.html">
@@ -170,12 +172,16 @@ Library Web HomePage
     </style>
 
     <iron-signals on-iron-signal-triggersearch="_triggerSearch"></iron-signals>
+<!--
     <iron-media-query query="(max-width: 600px)" query-matches="{{smallScreen}}"></iron-media-query>
     <iron-media-query query="(min-width: 601px) and (max-width: 992px)" query-matches="{{mediumScreen}}"></iron-media-query>
     <iron-media-query query="(min-width: 993px)" query-matches="{{largeScreen}}"></iron-media-query>
+-->
 
-    <uvalib-page content-has-search-box main-content="#searchbox">
-      <uvalib-banner></uvalib-banner>
+    <uvalib-page content-has-search-box main-content="#searchbox"
+                small-screen="{{smallScreen}}" medium-screen="{{mediumScreen}}" large-screen="{{largeScreen}}"
+                screen-size="{{screenSize}}">
+      <uvalib-banner small-screen="{{smallScreen}}" medium-screen="{{mediumScreen}}" large-screen="{{largeScreen}}"></uvalib-banner>
       <div id="shady-box">
         <uvalib-search-box id="searchbox" advanced-search site-search hidden$="{{!largeScreen}}"></uvalib-search-box>
         <div class="top card-container">
@@ -251,7 +257,11 @@ Library Web HomePage
           type: Boolean,
           value: true,
           observer: '_searchInViewChange'
-        }
+        },
+        smallScreen: Boolean,
+        mediumScreen: Boolean,
+        largeScreen: Boolean,
+        screenSize: String,
       },
 
       _newsCount: function(){

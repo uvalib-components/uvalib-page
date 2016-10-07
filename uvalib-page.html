@@ -47,8 +47,9 @@ Library Web Page template
       }
     </style>
 
-    <iron-media-query query="(max-width: 600px)" query-matches="{{_smallScreen}}"></iron-media-query>
-    <iron-media-query query="(min-width: 600px) and (max-width: 992px)" query-matches="{{_mediumScreen}}"></iron-media-query>
+    <iron-media-query query="(max-width: 600px)" query-matches="{{smallScreen}}"></iron-media-query>
+    <iron-media-query query="(min-width: 600px) and (max-width: 992px)" query-matches="{{mediumScreen}}"></iron-media-query>
+    <iron-media-query query="(min-width: 993px)" query-matches="{{largeScreen}}"></iron-media-query>
 
     <uvalib-header screen-size="{{screenSize}}" navigation="{{navigation}}" on-open-drawer="_toggleDrawer" content-has-search-box="{{contentHasSearchBox}}"></uvalib-header>
 
@@ -105,33 +106,45 @@ Library Web Page template
           type: String,
           value: "content"
         },
-        _smallScreen: {
+        smallScreen: {
           type: Boolean,
           notify: true,
           value: false,
           reflectToAttribute: true
         },
-        _mediumScreen: Boolean,
+        mediumScreen: {
+          type: Boolean,
+          notify: true,
+          value: false,
+          reflectToAttribute: true
+        },
+        largeScreen: {
+          type: Boolean,
+          notify: true,
+          value: false,
+          reflectToAttribute: true
+        },
         screenSize: {
           type: String,
           value: 'large',
           notify: true,
-          readOnly: true
+          readOnly: true,
+          reflectToAttribute: true
         },
       },
       listeners: {
         'skiptocontent': '_changeFocusTo'
       },
       observers: [
-        '_updateScreenSize(_smallScreen,_mediumScreen)'
+        '_updateScreenSize(smallScreen,mediumScreen)'
       ],
       _toggleDrawer: function() {
         this.$.sidenav.toggle();
       },
       _updateScreenSize: function() {
         this._setScreenSize(
-          (this._smallScreen)?'small':
-                              (this._mediumScreen)?'medium':
+          (this.smallScreen)?'small':
+                              (this.mediumScreen)?'medium':
                                                    'large'
         );
       },
