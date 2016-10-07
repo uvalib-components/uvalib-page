@@ -101,6 +101,10 @@ Library Web Page template
           type: Boolean,
           value: false
         },
+        mainContent: {
+          type: String,
+          value: "content"
+        },
         _smallScreen: {
           type: Boolean,
           notify: true,
@@ -115,6 +119,9 @@ Library Web Page template
           readOnly: true
         },
       },
+      listeners: {
+        'skiptocontent': '_changeFocusTo'
+      },
       observers: [
         '_updateScreenSize(_smallScreen,_mediumScreen)'
       ],
@@ -127,7 +134,26 @@ Library Web Page template
                               (this._mediumScreen)?'medium':
                                                    'large'
         );
+      },
+      _changeFocusTo: function() {
+        this.querySelector(this.mainContent).tabIndex = "-1";
+        // reduce y position of scroll to account for sticky header so content does not roll up behind it
+        window.scrollTo(0,findPos(document.getElementById(this.mainContent.split('#')[1])) - 110);
+        this.querySelector(this.mainContent).focus();
       }
+
     });
+
+    // http://stackoverflow.com/questions/5007530/how-do-i-scroll-to-an-element-using-javascript
+    // Finds y value of given object
+    function findPos(obj) {
+      var curtop = 0;
+      if (obj.offsetParent) {
+        do {
+          curtop += obj.offsetTop;
+        } while (obj = obj.offsetParent);
+        return [curtop];
+      }
+    }
   </script>
 </dom-module>
