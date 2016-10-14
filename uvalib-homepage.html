@@ -36,34 +36,55 @@ Library Web HomePage
       }
 
       uvalib-banner {
-        height: auto;
-        top: 118px;
-        position: relative;
         width: 100%;
-        max-height: 450px;
+      }
+
+      #shady-box {
+        background-color: var(--color-light-gray);
       }
 
       .card-container {
-        padding-top: 50px;
-        padding-bottom: 20px;
-        /*
+        @apply(--layout-horizontal);
         @apply(--layout-wrap);
-        */
+        width: 100%;
+        position: relative;
+        padding-bottom: 2%;
+        padding-top: 2%;
       }
+
+      uvalib-search-box {
+        position: absolute;
+        z-index: 500;
+        width: 100%;
+        top: -55px;
+
+        left: 50%;
+        transform: translateX(-50%);
+      }
+
       .card {
         @apply(--layout-flex);
         @apply(--layout-self-stretch);
         padding: 2%;
-/*        height: 100%; */
       }
       .card[vertical] {
         min-width: 200px;
+        min-height: 400px;
       }
+
       .card[horizontal] {
         min-width: 530px;
         padding-bottom: 40px;
       }
 
+      .lower {
+        max-width: none;
+        background-color: var(--color-light-gray);
+        width: 100%;
+      }
+
+
+/*
       @media (min-width: 1460px) {
         uvalib-hours-card:first-child, uvalib-card:first-child {
           padding-left: 0;
@@ -72,45 +93,16 @@ Library Web HomePage
           padding-right: 0;
         }
       }
-
-      #shady-box {
-        position: relative;
-        top: 111px;
-
-        @apply(--layout-vertical);
-        background-color: var(--color-light-gray);
-        width: 100%;
-      }
-
-      #content {
-        @apply(--layout-vertical);
-      }
-      .top {
-        padding-bottom: 50px;
-      }
-      uvalib-search-box, .card-container, uvalib-news-section {
-        max-width: 1200px;
-        width: 100%;
-        @apply(--layout-self-center);
-      }
-      uvalib-search-box {
-        position: absolute;
-        z-index: 500;
-        top: -78px;
-        left: 50%;
-        transform: translateX(-50%);
-      }
-
-      .bottom {
-        max-width: none;
-        background-color: var(--color-light-gray);
-        width: 100%;
-      }
+*/
 
       /* desktop */
       @media (min-width: 993px) {
+        #shady-box {
+          padding-top: 140px;
+        }
+/*
         .top {
-          padding-top: 85px;
+          padding-top: 125px;
         }
         .card-container {
           @apply(--layout-horizontal);
@@ -122,21 +114,24 @@ Library Web HomePage
         uvalib-events-card.card {
           @apply(--layout-flex-2);
         }
+*/
+/*
         #shady-box {
-          height: 700px;
+          margin-bottom: 75px;
         }
+
         uvalib-spaces-card {
           padding: 2% 0 2% 2% !important;
         }
         uvalib-news-section {
           height: 550px;
         }
-        uvalib-banner {
-          /*height: 750px;*/
-        }
+*/
       }
       /* tablet */
       @media (min-width: 601px) and (max-width: 992px) {
+
+/*
         .top {
           padding-top: 15px;
         }
@@ -153,91 +148,105 @@ Library Web HomePage
         uvalib-news-section {
           height: 587px;
         }
-        uvalib-banner {
-          /*height: 560px;*/
-        }
+*/
       }
       /* mobile */
       @media (max-width: 600px) {
+        .card {
+          @apply(--layout-flex);
+        }
+        .card-container {
+          @apply(--layout-vertical);
+        }
+        #shady-box {
+          min-height: 1300px;
+        }
+        .upper {
+          min-height: 1400px;
+        }
+        .events {
+          min-height: 400px;
+        }
+        .news {
+          height: 550px;
+        }
+        .lower {
+          min-height: 1970px;
+        }
+/*
+        .top, .shady-box {
+          height: 1000px;
+        }
+
+        #content {
+          height: 5000px;
+          @apply(--layout-vertical);
+        }
+
+        .card-container {
+          @apply(--layout-vertical);
+        }
+
+        #content .card-container {
+          @apply(--layout-flex);
+        }
+
         uvalib-search-box {
           display: none;
         }
+*/
+/*
         uvalib-news-section {
           height: 875px;
         }
-        uvalib-banner {
-          /*height: 400px;*/
-        }
+*/
       }
-
 
     </style>
 
     <iron-signals on-iron-signal-triggersearch="_triggerSearch"></iron-signals>
-<!--
-    <iron-media-query query="(max-width: 600px)" query-matches="{{smallScreen}}"></iron-media-query>
-    <iron-media-query query="(min-width: 601px) and (max-width: 992px)" query-matches="{{mediumScreen}}"></iron-media-query>
-    <iron-media-query query="(min-width: 993px)" query-matches="{{largeScreen}}"></iron-media-query>
--->
 
     <uvalib-page content-has-search-box main-content="#searchbox"
                 small-screen="{{smallScreen}}" medium-screen="{{mediumScreen}}" large-screen="{{largeScreen}}"
                 screen-size="{{screenSize}}">
+
       <uvalib-banner small-screen="{{smallScreen}}" medium-screen="{{mediumScreen}}" large-screen="{{largeScreen}}"></uvalib-banner>
-      <div id="shady-box">
+
+      <div id="shady-box" class="card-container">
         <uvalib-search-box id="searchbox" advanced-search site-search hidden$="{{!largeScreen}}"></uvalib-search-box>
-        <div class="top card-container">
-          <template is="dom-if" if="{{largeScreen}}" restamp>
-            <uvalib-hours-card class="card" vertical locations="Alderman,Brown,Clemons,Fine,Special">
-              <uvalib-button href="http://cal.lib.virginia.edu/hours/">View all hours</uvalib-button>
-            </uvalib-hours-card>
-            <uvalib-research-card class="card"></uvalib-research-card>
-            <uvalib-spaces-card class="card"></uvalib-spaces-card>
-          </template>
-          <template is="dom-if" if="{{!largeScreen}}" restamp>
-            <uvalib-hours-card class="card" vertical locations="Alderman,Brown,Clemons,Special">
-              <uvalib-button href="http://cal.lib.virginia.edu/hours/">View all hours</uvalib-button>
-            </uvalib-hours-card>
-            <uvalib-research-card class="card"></uvalib-research-card>
-          </template>
-        </div>
+        <uvalib-hours-card class="card" vertical locations="Alderman,Brown,Clemons,Fine,Special">
+          <uvalib-button href="http://cal.lib.virginia.edu/hours/">View all hours</uvalib-button>
+        </uvalib-hours-card>
+        <uvalib-research-card class="card"></uvalib-research-card>
+        <uvalib-spaces-card class="card" hidden$="{{!largeScreen}}"></uvalib-spaces-card>
       </div>
-      <div id="content">
-        <div class="upper card-container">
-          <template is="dom-if" if="{{largeScreen}}" restamp>
-            <uvalib-services-card class="card"></uvalib-services-card>
-            <uvalib-events-card class="card" heading="Upcoming Events" elevation="3" max-num-events-shown="{{_eventsCount(largeScreen)}}">
-                <uvalib-button href="http://cal.lib.virginia.edu/calendar/events">View calendar</uvalib-button>
-            </uvalib-events-card>
-          </template>
-          <template is="dom-if" if="{{!largeScreen}}" restamp>
-            <uvalib-spaces-card class="card"></uvalib-spaces-card>
-            <uvalib-services-card class="card"></uvalib-services-card>
-          </template>
-        </div>
-        <template is="dom-if" if="{{!largeScreen}}" restamp>
-          <div class="card-container">
-            <uvalib-events-card class="card" heading="Upcoming Events" elevation="3" max-num-events-shown="{{_eventsCount(largeScreen)}}">
-                <uvalib-button href="http://cal.lib.virginia.edu/calendar/events">View calendar</uvalib-button>
-            </uvalib-events-card>
-          </div>
+
+      <div class="upper card-container">
+        <uvalib-spaces-card class="card" hidden$="{{largeScreen}}"></uvalib-spaces-card>
+        <uvalib-services-card class="card"></uvalib-services-card>
+        <template is="dom-if" if="{{largeScreen}}">
+          <uvalib-events-card class="card" heading="Upcoming Events" elevation="3" max-num-events-shown="6">
+              <uvalib-button href="http://cal.lib.virginia.edu/calendar/events">View calendar</uvalib-button>
+          </uvalib-events-card>
         </template>
+      </div>
 
-        <div  class="card-container">
-          <uvalib-news-section num-items="{{_newsCount(largeScreen)}}"></uvalib-news-section>
+      <template is="dom-if" if="{{!largeScreen}}">
+        <div class="events card-container" hidden$="{{largeScreen}}">
+          <uvalib-events-card class="card" heading="Upcoming Events" elevation="3" max-num-events-shown="4">
+              <uvalib-button href="http://cal.lib.virginia.edu/calendar/events">View calendar</uvalib-button>
+          </uvalib-events-card>
         </div>
+      </template>
 
-        <div class="lower card-container bottom">
-          <template is="dom-if" if="{{!smallScreen}}" restamp>
-            <uvalib-featured-exhibit-card class="card" horizontal></uvalib-featured-exhibit-card>
-            <uvalib-engage-card class="card" horizontal></uvalib-engage-card>
-          </template>
-          <template is="dom-if" if="{{smallScreen}}" restamp>
-            <uvalib-featured-exhibit-card class="card"></uvalib-featured-exhibit-card>
-            <uvalib-engage-card class="card"></uvalib-engage-card>
-          </template>
-        </div>
 
+      <div  class="news card-container">
+        <uvalib-news-section num-items="{{_newsCount(largeScreen)}}"></uvalib-news-section>
+      </div>
+
+      <div class="lower card-container">
+        <uvalib-featured-exhibit-card class="card" horizontal$="{{!smallScreen}}"></uvalib-featured-exhibit-card>
+        <uvalib-engage-card class="card" horizontal$="{{!smallScreen}}"></uvalib-engage-card>
       </div>
 
     </uvalib-page>
@@ -269,11 +278,6 @@ Library Web HomePage
       _newsCount: function(){
           if (this.largeScreen) return 3;
           else return 2;
-      },
-
-      _eventsCount: function(){
-          if (this.largeScreen) return 6;
-          else return 4;
       },
 
       ready: function(){
