@@ -31,7 +31,6 @@
   "resolutions": {
     "lodash": "^4.13.1",
     "polymer": "^1.6.1",
-    "uvalib-theme": "master",
     "iron-demo-helpers": "^1.2.5"
   }
 }
