@@ -45,10 +45,19 @@ Library Web Page template
       app-drawer {
         z-index: 1500
       }
+      .content-holder {
+        position: relative;
+        top: 118px;
+        text-align: center;
+      }
       .content {
         max-width: 73.75rem;
         margin-left: auto;
         margin-right: auto;
+      }
+      uvalib-footer {
+        position: relative;
+        top: 118px;
       }
     </style>
 
@@ -67,7 +76,9 @@ Library Web Page template
         <uvalib-nav stacked navigation="{{mobileNavigation}}"></uvalib-nav>
       </app-drawer>
 
-    <div class="content"><content></content></div>
+    <div class="content-holder">
+      <div class="content"><content></content></div>
+    </div>
 
     <uvalib-footer></uvalib-footer>
 
