@@ -55,6 +55,7 @@ Library Web Page template
         max-width: 1200px;
         margin-left: auto;
         margin-right: auto;
+        text-align: initial;
       }
       uvalib-footer {
         position: relative;
@@ -66,7 +67,10 @@ Library Web Page template
     <iron-media-query query="(min-width: 600px) and (max-width: 992px)" query-matches="{{mediumScreen}}"></iron-media-query>
     <iron-media-query query="(min-width: 993px)" query-matches="{{largeScreen}}"></iron-media-query>
 
-    <uvalib-header screen-size="{{screenSize}}" navigation="{{navigation}}" on-open-drawer="_toggleDrawer" content-has-search-box="{{contentHasSearchBox}}"></uvalib-header>
+    <template is="dom-if" if="{{!_hasCustomHeader()}}">
+      <uvalib-header screen-size="{{screenSize}}" navigation="{{navigation}}" on-open-drawer="_toggleDrawer" content-has-search-box="{{contentHasSearchBox}}"></uvalib-header>
+    </template>
+    <content select="[header]"></content>
 
     <!-- Lazy-create the drawer for small screen sizes. -->
       <!-- Two-way bind `drawerOpened` since app-drawer can update `opened` itself. -->
@@ -81,7 +85,10 @@ Library Web Page template
       <div class="content"><content></content></div>
     </div>
 
-    <uvalib-footer></uvalib-footer>
+    <template is="dom-if" if="{{!_hasCustomFooter}}">
+      <uvalib-footer></uvalib-footer>
+    </template>
+    <content select="[footer]"></content>
 
     <!-- Library Site Analytics -->
     <uvalib-analytics site-id="10"></uvalib-analytics>
@@ -170,6 +177,20 @@ Library Web Page template
         // reduce y position of scroll to account for sticky header so content does not roll up behind it
         window.scrollTo(0,findPos(document.getElementById(this.mainContent.split('#')[1])) - 110);
         this.querySelector(this.mainContent).focus();
+      },
+      _hasCustomHeader: function(){
+        for (var i=0; i<Polymer.dom(this).children.length; i++) {
+          if (Polymer.dom(this).children[i].hasAttribute('header'))
+            return true;
+        }
+        return false;
+      },
+      _hasCustomFooter: function(){
+        for (var i=0; i<Polymer.dom(this).children.length; i++) {
+          if (Polymer.dom(this).children[i].hasAttribute('footer'))
+            return true;
+        }
+        return false;
       }
 
     });
