@@ -46,16 +46,15 @@ Library Web Page template
         z-index: 1500
       }
       .content-holder {
+        @apply(--layout-horizontal);
+        @apply(--layout-center-justified);
+
         background-color: var(--color-white);
         position: relative;
         top: 118px;
-        text-align: center;
       }
       .content {
         max-width: 1200px;
-        margin-left: auto;
-        margin-right: auto;
-        text-align: initial;
       }
       uvalib-footer {
         position: relative;
