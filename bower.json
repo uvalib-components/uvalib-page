@@ -13,7 +13,7 @@
     "iron-media-query": "PolymerElements/iron-media-query#^1.0.8",
     "iron-flex-layout": "^1.3.1",
     "uvalib-button": "uvalib-components/uvalib-button#master",
-    "uvalib-header": "uvalib-components/uvalib-header#master",
+    "uvalib-header": "uvalib-components/uvalib-header#latest",
     "uvalib-nav": "uvalib-components/uvalib-nav#master",
     "uvalib-news-section": "uvalib-components/uvalib-news-section#master",
     "uvalib-hours-card": "uvalib-components/uvalib-hours-card#master",
@@ -32,6 +32,7 @@
   "resolutions": {
     "lodash": "^4.13.1",
     "polymer": "^1.6.1",
-    "iron-demo-helpers": "^1.2.5"
+    "iron-demo-helpers": "^1.2.5",
+    "uvalib-button": "master"
   }
 }
