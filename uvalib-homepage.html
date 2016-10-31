@@ -1,13 +1,7 @@
 <link rel="import" href="../polymer/polymer.html">
-<!--
-<link rel="import" href="../iron-media-query/iron-media-query.html">
--->
 <link rel="import" href="../iron-flex-layout/iron-flex-layout.html">
 <link rel="import" href="../iron-signals/iron-signals.html">
 <link rel="import" href="../uvalib-theme/uvalib-theme.html">
-<!--
-<link rel="import" href="../uvalib-news-section/uvalib-news-banner.html">
--->
 <link rel="import" href="../uvalib-search-box/uvalib-search-box.html">
 <link rel="import" href="../uvalib-card/uvalib-common-cards.html">
 <link rel="import" href="../uvalib-button/uvalib-button.html">
@@ -83,72 +77,16 @@ Library Web HomePage
         width: 100%;
       }
 
-
-/*
-      @media (min-width: 1460px) {
-        uvalib-hours-card:first-child, uvalib-card:first-child {
-          padding-left: 0;
-        }
-        uvalib-hours-card:last-child, uvalib-card:last-child {
-          padding-right: 0;
-        }
-      }
-*/
-
       /* desktop */
       @media (min-width: 993px) {
         #shady-box {
           padding-top: 140px;
         }
-/*
-        .top {
-          padding-top: 125px;
-        }
-        .card-container {
-          @apply(--layout-horizontal);
-          @apply(--layout-wrap);
-        }
-        .card-container.upper {
-          height: 605px;
-        }
-        uvalib-events-card.card {
-          @apply(--layout-flex-2);
-        }
-*/
-/*
-        #shady-box {
-          margin-bottom: 75px;
-        }
 
-        uvalib-spaces-card {
-          padding: 2% 0 2% 2% !important;
-        }
-        uvalib-news-section {
-          height: 550px;
-        }
-*/
       }
       /* tablet */
       @media (min-width: 601px) and (max-width: 992px) {
 
-/*
-        .top {
-          padding-top: 15px;
-        }
-        .card-container {
-          @apply(--layout-horizontal);
-          @apply(--layout-wrap);
-        }
-        .card {
-          min-width: 300px;
-        }
-        uvalib-events-card {
-          min-width: 400px;
-        }
-        uvalib-news-section {
-          height: 587px;
-        }
-*/
       }
       /* mobile */
       @media (max-width: 600px) {
@@ -173,33 +111,7 @@ Library Web HomePage
         .lower {
           min-height: 1970px;
         }
-/*
-        .top, .shady-box {
-          height: 1000px;
-        }
 
-        #content {
-          height: 5000px;
-          @apply(--layout-vertical);
-        }
-
-        .card-container {
-          @apply(--layout-vertical);
-        }
-
-        #content .card-container {
-          @apply(--layout-flex);
-        }
-
-        uvalib-search-box {
-          display: none;
-        }
-*/
-/*
-        uvalib-news-section {
-          height: 875px;
-        }
-*/
       }
 
     </style>
@@ -224,14 +136,14 @@ Library Web HomePage
       <div class="upper card-container">
         <uvalib-spaces-card class="card" hidden$="{{largeScreen}}"></uvalib-spaces-card>
         <uvalib-services-card class="card"></uvalib-services-card>
-        <template is="dom-if" if="{{largeScreen}}">
+        <template is="dom-if" if="{{largeScreen}}" restamp>
           <uvalib-events-card class="card" heading="Upcoming Events" elevation="3" max-num-events-shown="6">
               <uvalib-button href="http://cal.lib.virginia.edu/calendar/events">View calendar</uvalib-button>
           </uvalib-events-card>
         </template>
       </div>
 
-      <template is="dom-if" if="{{!largeScreen}}">
+      <template is="dom-if" if="{{!largeScreen}}" restamp>
         <div class="events card-container" hidden$="{{largeScreen}}">
           <uvalib-events-card class="card" heading="Upcoming Events" elevation="3" max-num-events-shown="4">
               <uvalib-button href="http://cal.lib.virginia.edu/calendar/events">View calendar</uvalib-button>
