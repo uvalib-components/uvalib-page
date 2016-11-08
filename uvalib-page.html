@@ -136,6 +136,10 @@ Library Web Page template
           type: String,
           value: "content"
         },
+        searchInput: {
+          type: String,
+          value: "searchbox"
+        },
         smallScreen: {
           type: Boolean,
           notify: true,
@@ -163,7 +167,8 @@ Library Web Page template
         },
       },
       listeners: {
-        'skiptocontent': '_changeFocusTo'
+        'skiptocontent': '_focusOnContent',
+        'skiptosearch': '_focusOnSearch'
       },
       observers: [
         '_updateScreenSize(smallScreen,mediumScreen)'
@@ -178,11 +183,17 @@ Library Web Page template
                                                    'large'
         );
       },
-      _changeFocusTo: function() {
+      _focusOnContent: function() {
         this.querySelector(this.mainContent).tabIndex = "-1";
         // reduce y position of scroll to account for sticky header so content does not roll up behind it
         window.scrollTo(0,findPos(document.getElementById(this.mainContent.split('#')[1])) - 110);
         this.querySelector(this.mainContent).focus();
+      },
+      _focusOnSearch: function() {
+        this.querySelector(this.searchInput).tabIndex = "-1";
+        // reduce y position of scroll to account for sticky header so content does not roll up behind it
+        window.scrollTo(0,findPos(document.getElementById(this.searchInput.split('#')[1])) - 110);
+        this.querySelector(this.searchInput).focus();
       },
       _hasCustomHeader: function(){
         for (var i=0; i<Polymer.dom(this).children.length; i++) {

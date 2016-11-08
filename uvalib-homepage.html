@@ -118,7 +118,7 @@ Library Web HomePage
 
     <iron-signals on-iron-signal-triggersearch="_triggerSearch"></iron-signals>
 
-    <uvalib-page content-has-search-box main-content="#searchbox"
+    <uvalib-page content-has-search-box main-content="#todayhours" search-input="#searchbox"
                 small-screen="{{smallScreen}}" medium-screen="{{mediumScreen}}" large-screen="{{largeScreen}}"
                 screen-size="{{screenSize}}">
 
@@ -126,7 +126,7 @@ Library Web HomePage
 
       <div id="shady-box" class="card-container">
         <uvalib-search-box id="searchbox" advanced-search site-search hidden$="{{!largeScreen}}"></uvalib-search-box>
-        <uvalib-hours-card class="card" vertical locations="Alderman,Brown,Clemons,Fine,Special">
+        <uvalib-hours-card id="todayhours" class="card" vertical locations="Alderman,Brown,Clemons,Fine,Special">
           <uvalib-button href="http://cal.lib.virginia.edu/hours/">View all hours</uvalib-button>
         </uvalib-hours-card>
         <uvalib-research-card class="card"></uvalib-research-card>
