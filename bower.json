@@ -23,7 +23,6 @@
     "uvalib-banner": "uvalib-components/uvalib-banner#master",
     "uvalib-alerts": "uvalib-components/uvalib-alerts#master",
     "uvalib-helper-libs": "uvalib-components/uvalib-helper-libs#master",
-    "uvalib-behaviors": "uvalib-components/uvalib-behaviors#master",
     "uva-brand-style": "uva-components/uva-brand-style#^0.0.1"
   },
   "devDependencies": {
