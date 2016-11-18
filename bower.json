@@ -22,7 +22,9 @@
     "iron-signals": "PolymerElements/iron-signals#^1.0.3",
     "uvalib-banner": "uvalib-components/uvalib-banner#master",
     "uvalib-alerts": "uvalib-components/uvalib-alerts#master",
-    "uvalib-helper-libs": "uvalib-components/uvalib-helper-libs#master"
+    "uvalib-helper-libs": "uvalib-components/uvalib-helper-libs#master",
+    "uvalib-behaviors": "uvalib-components/uvalib-behaviors#master",
+    "uva-brand-style": "uva-components/uva-brand-style#^0.0.1"
   },
   "devDependencies": {
     "iron-component-page": "PolymerElements/iron-component-page#^1.1.7",
@@ -33,6 +35,7 @@
     "lodash": "^4.13.1",
     "polymer": "^1.6.1",
     "iron-demo-helpers": "^1.2.5",
-    "uvalib-button": "master"
+    "uvalib-button": "master",
+    "uva-brand-style": "master"
   }
 }

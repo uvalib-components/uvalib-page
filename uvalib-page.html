@@ -9,9 +9,7 @@
 <link rel="import" href="../uvalib-theme/uvalib-theme.html">
 <link rel="import" href="../app-layout/app-drawer/app-drawer.html">
 <link rel="import" href="../app-layout/app-toolbar/app-toolbar.html">
-<!--
-<link rel="import" href="../uvalib-alerts/uvalib-alerts.html">
--->
+<link rel="import" href="../uva-brand-style/uva-layout-behavior.html">
 
 <!--
 `uvalib-page`
@@ -62,9 +60,9 @@ Library Web Page template
       }
     </style>
 
-    <iron-media-query query="(max-width: 600px)" query-matches="{{smallScreen}}"></iron-media-query>
-    <iron-media-query query="(min-width: 600px) and (max-width: 992px)" query-matches="{{mediumScreen}}"></iron-media-query>
-    <iron-media-query query="(min-width: 993px)" query-matches="{{largeScreen}}"></iron-media-query>
+    <iron-media-query query="{{smallScreenQuery}}" query-matches="{{smallScreen}}"></iron-media-query>
+    <iron-media-query query="{{mediumScreenQuery}}" query-matches="{{mediumScreen}}"></iron-media-query>
+    <iron-media-query query="{{largeScreenQuery}}" query-matches="{{largeScreen}}"></iron-media-query>
 
     <template is="dom-if" if="{{!_hasCustomHeader()}}">
       <uvalib-header small-screen="{{smallScreen}}" medium-screen="{{mediumScreen}}" large-screen="{{largeScreen}}" navigation="{{navigation}}" on-open-drawer="_toggleDrawer" content-has-search-box="{{contentHasSearchBox}}"></uvalib-header>
@@ -97,6 +95,7 @@ Library Web Page template
     Polymer({
 
       is: 'uvalib-page',
+      behaviors: [uvabehaviors.layout],
 
       properties: {
         /**
