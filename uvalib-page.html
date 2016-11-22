@@ -10,6 +10,7 @@
 <link rel="import" href="../app-layout/app-drawer/app-drawer.html">
 <link rel="import" href="../app-layout/app-toolbar/app-toolbar.html">
 <link rel="import" href="../uva-brand-style/uva-layout-behavior.html">
+<link rel="import" href="uvalib-page-behaviors.html">
 
 <!--
 `uvalib-page`
@@ -65,7 +66,8 @@ Library Web Page template
     <iron-media-query query="{{largeScreenQuery}}" query-matches="{{largeScreen}}"></iron-media-query>
 
     <template is="dom-if" if="{{!_hasCustomHeader()}}">
-      <uvalib-header small-screen="{{smallScreen}}" medium-screen="{{mediumScreen}}" large-screen="{{largeScreen}}" navigation="{{navigation}}" on-open-drawer="_toggleDrawer" content-has-search-box="{{contentHasSearchBox}}"></uvalib-header>
+      <uvalib-header small-screen="{{smallScreen}}" medium-screen="{{mediumScreen}}" large-screen="{{largeScreen}}" navigation="{{navigation}}"
+                    on-open-drawer="_toggleDrawer" content-has-search-box="{{contentHasSearchBox}}"></uvalib-header>
     </template>
     <content select="[header]"></content>
 
@@ -95,16 +97,10 @@ Library Web Page template
     Polymer({
 
       is: 'uvalib-page',
-      behaviors: [uvabehaviors.layout],
+      behaviors: [uvabehaviors.layout, uvalibbehaviors.page],
 
       properties: {
-        /**
-         * Piwik id of site this page template is used in
-         */
-        analyticsSiteId: {
-          type: Number,
-          value: 10
-        },
+
         /**
          * Array of JSON items that represent the navigation. Each JSON item has a label property, an icon property, and a url property.
          */
@@ -193,22 +189,7 @@ Library Web Page template
         // reduce y position of scroll to account for sticky header so content does not roll up behind it
         window.scrollTo(0,findPos(document.getElementById(this.searchInput.split('#')[1])) - 110);
         this.querySelector(this.searchInput).focus();
-      },
-      _hasCustomHeader: function(){
-        for (var i=0; i<Polymer.dom(this).children.length; i++) {
-          if (Polymer.dom(this).children[i].hasAttribute('header'))
-            return true;
-        }
-        return false;
-      },
-      _hasCustomFooter: function(){
-        for (var i=0; i<Polymer.dom(this).children.length; i++) {
-          if (Polymer.dom(this).children[i].hasAttribute('footer'))
-            return true;
-        }
-        return false;
       }
-
     });
 
     // http://stackoverflow.com/questions/5007530/how-do-i-scroll-to-an-element-using-javascript

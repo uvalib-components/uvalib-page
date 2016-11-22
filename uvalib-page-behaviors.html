@@ -1,0 +1,35 @@
+<link rel="import" href="../polymer/polymer.html">
+
+<script>
+  /**
+   * @demo demo/index.html
+   * @uvaBehavior uvalibbehaviors.page
+   */
+  window.uvalibbehaviors = window.uvalibbehaviors || {};
+  uvalibbehaviors.page = {
+    properties: {
+      /**
+       * Piwik id of site this page template is used in
+       */
+      analyticsSiteId: {
+        type: Number,
+        value: 10
+      }
+    },
+    _hasCustomHeader: function(){
+      for (var i=0; i<Polymer.dom(this).children.length; i++) {
+        if (Polymer.dom(this).children[i].hasAttribute('header'))
+          return true;
+      }
+      return false;
+    },
+    _hasCustomFooter: function(){
+      for (var i=0; i<Polymer.dom(this).children.length; i++) {
+        if (Polymer.dom(this).children[i].hasAttribute('footer'))
+          return true;
+      }
+      return false;
+    }
+  };
+
+</script>

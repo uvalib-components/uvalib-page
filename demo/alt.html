@@ -18,15 +18,23 @@
       })();
     </script>
 
-    <link rel="import" href="../uvalib-homepage.html">
+    <link rel="import" href="../uvalib-alt-page.html">
 
     <style is="custom-style">
       body {
         margin:0;
       }
+      .full {
+        max-width: 95%;
+      }
     </style>
   </head>
   <body unresolved>
-    <uvalib-alt-page></uvalib-alt-page>
+    <uvalib-alt-page title="Hello World" sub-title="A quick demo page"
+                    image="https://staffnews.staffweb.lib.virginia.edu/wp-content/uploads/sites/3/2016/11/header_image_rotunda.jpg">
+      <h1>Hello</h1>
+      <p>World</p>
+      <div style="height:2000px"></div>
+    </uvalib-alt-page>
   </body>
 </html>
