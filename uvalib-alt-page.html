@@ -13,7 +13,7 @@
     <iron-media-query query="{{mediumScreenQuery}}" query-matches="{{mediumScreen}}"></iron-media-query>
     <iron-media-query query="{{largeScreenQuery}}" query-matches="{{largeScreen}}"></iron-media-query>
 
-    <uvalib-alt-header title="{{title}}" sub-title="{{subTitle}}" image="{{image}}">
+    <uvalib-alt-header root-path="{{rootPath}}" title="{{title}}" sub-title="{{subTitle}}" image="{{image}}">
       <content/></content>
     </uvalib-alt-header>
 
@@ -28,7 +28,8 @@
       properties: {
         image: String,
         title: String,
-        subTitle: String
+        subTitle: String,
+        rootPath: String
       }
     });
   </script>
