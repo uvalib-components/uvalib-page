@@ -5,18 +5,17 @@
 <link rel="import" href="../uva-brand-style/uva-layout-behavior.html">
 <link rel="import" href="uvalib-page-behaviors.html">
 
-
 <dom-module id="uvalib-alt-page">
   <template>
-    <style is="custom-style" include="uvalib-theme">
-
-    </style>
+    <style is="custom-style" include="uvalib-theme"></style>
 
     <iron-media-query query="{{smallScreenQuery}}" query-matches="{{smallScreen}}"></iron-media-query>
     <iron-media-query query="{{mediumScreenQuery}}" query-matches="{{mediumScreen}}"></iron-media-query>
     <iron-media-query query="{{largeScreenQuery}}" query-matches="{{largeScreen}}"></iron-media-query>
 
-    <uvalib-alt-header title="{{title}}" sub-title="{{subTitle}}" image="{{image}}"><content/></content></uvalib-alt-header>
+    <uvalib-alt-header title="{{title}}" sub-title="{{subTitle}}" image="{{image}}">
+      <content/></content>
+    </uvalib-alt-header>
 
     <!-- Library Site Analytics -->
     <uvalib-analytics site-id="[[analyticsSiteId]]"></uvalib-analytics>
