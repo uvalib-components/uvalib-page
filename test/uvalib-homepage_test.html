@@ -8,25 +8,25 @@
     <script src="../../webcomponentsjs/webcomponents-lite.js"></script>
     <script src="../../web-component-tester/browser.js"></script>
 
-    <link rel="import" href="../uvalib-page.html">
+    <link rel="import" href="../uvalib-homepage.html">
   </head>
   <body>
 
     <test-fixture id="basic">
       <template>
-        <uvalib-page></uvalib-page>
+        <uvalib-homepage></uvalib-homepage>
       </template>
     </test-fixture>
 
     <script>
-      suite('uvalib-page', function() {
+      suite('uvalib-homepage', function() {
 
         test('instantiating the element works', function() {
           var element = fixture('basic');
-          assert.equal(element.is, 'uvalib-page');
+          assert.equal(element.is, 'uvalib-homepage');
         });
 
-        a11ySuite('uvalib-page');
+        a11ySuite('uvalib-homepage');
       });
     </script>
   </body>
