@@ -3,11 +3,9 @@
   "description": "Library Web Page template",
   "main": "uvalib-page.html",
   "dependencies": {
-    "uvalib-elements": "uvalib-components/uvalib-elements#^0.0.3",
-    "uvalib-banner": "uvalib-components/uvalib-banner#^0.0.2"
+    "uvalib-elements": "uvalib-components/uvalib-elements#master"
   },
   "resolutions": {
-    "lodash": "^4.17.4",
-    "uvalib-elements": "^0.0.3"
+    "lodash": "^4.17.4"
   }
 }
