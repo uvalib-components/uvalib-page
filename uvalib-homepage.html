@@ -144,6 +144,32 @@ Library Web HomePage
         margin-right: 0;
       }
 
+      #lower {
+        @apply(--layout-vertical);
+        @apply(--layout-center);
+        position: relative;
+      }
+      #lower .card-container {
+        margin-top: 48px;
+        max-width: var(--uvalib-display-width-max);
+        margin-bottom: 48px;
+      }
+      #lower .card-container .card {
+        height: 216px;
+        overflow: hidden;
+        margin: 0 8.5px 0 8.5px;
+        border: solid 1px #e0e0e0;
+      }
+      #lower .card-container uvalib-services-card {
+        margin-left: 0 !important;
+        @apply(--layout-flex-1);
+      }
+      #lower .card-container uvalib-events-card {
+        margin-right: 0 !important;
+        @apply(--layout-flex-2);
+      }
+
+/*
       .card[vertical] {
         min-width: 200px;
       }
@@ -157,7 +183,7 @@ Library Web HomePage
         background-color: var(--color-light-gray);
         width: 100%;
       }
-
+*/
 
       /* mobile */
       @media (max-width: 600px) {
@@ -239,10 +265,11 @@ Library Web HomePage
       </div>
 -->
 
-
-      <div class="lower card-container">
-        <uvalib-featured-exhibit-card class="card" horizontal$="{{!smallScreen}}"></uvalib-featured-exhibit-card>
-        <uvalib-engage-card class="card" horizontal$="{{!smallScreen}}"></uvalib-engage-card>
+      <div id="lower">
+        <div class="card-container">
+          <uvalib-featured-exhibit-card class="card" horizontal$="{{!smallScreen}}"></uvalib-featured-exhibit-card>
+          <uvalib-engage-card class="card" horizontal$="{{!smallScreen}}"></uvalib-engage-card>
+        </div>
       </div>
 
     </uvalib-page>

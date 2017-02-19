@@ -24,6 +24,7 @@ Library Web Page template
     <style is="custom-style" include="uvalib-theme">
       :host {
         display: block;
+        position: relative;
       }
 
       uvalib-header {
@@ -56,8 +57,9 @@ Library Web Page template
     <iron-media-query query="{{mediumScreenQuery}}" query-matches="{{mediumScreen}}"></iron-media-query>
     <iron-media-query query="{{largeScreenQuery}}" query-matches="{{largeScreen}}"></iron-media-query>
 
+
     <template is="dom-if" if="{{!_hasCustomHeader()}}">
-      <uvalib-header small-screen="{{smallScreen}}" medium-screen="{{mediumScreen}}" large-screen="{{largeScreen}}" navigation="{{navigation}}"
+      <uvalib-header search-frame small-screen="{{smallScreen}}" medium-screen="{{mediumScreen}}" large-screen="{{largeScreen}}" navigation="{{navigation}}"
                     on-open-drawer="_toggleDrawer" content-has-search-box="{{contentHasSearchBox}}"></uvalib-header>
     </template>
     <content select="[header]"></content>
@@ -77,6 +79,8 @@ Library Web Page template
       <uvalib-footer></uvalib-footer>
     </template>
     <content select="[footer]"></content>
+
+
 
     <!-- Library Site Analytics -->
     <uvalib-analytics site-id="[[analyticsSiteId]]"></uvalib-analytics>
