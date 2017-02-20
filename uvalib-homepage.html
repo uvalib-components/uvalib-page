@@ -61,6 +61,7 @@ Library Web HomePage
         margin-top: 114px;
         max-width: var(--uvalib-display-width-max);
         margin-bottom: 48px;
+        width: 100%;
       }
       #shady-box .card-container .card {
         height: 336px;
@@ -84,6 +85,7 @@ Library Web HomePage
         margin-top: 48px;
         max-width: var(--uvalib-display-width-max);
         margin-bottom: 48px;
+        width: 100%
       }
       #upper .card-container .card {
         height: 336px;
@@ -223,7 +225,7 @@ Library Web HomePage
       <div id="shady-box">
         <uvalib-search-box id="searchbox" advanced-search site-search hidden$="{{!largeScreen}}"></uvalib-search-box>
         <div class="card-container">
-          <uvalib-hours-card id="todayhours" class="card" vertical locations="Alderman,Brown,Clemons,Fine,Special">
+          <uvalib-hours-card id="todayhours" class="card" vertical locations="Alderman,Brown,Clemons">
             <uvalib-button href="http://cal.lib.virginia.edu/hours/">View all hours</uvalib-button>
           </uvalib-hours-card>
           <uvalib-research-card class="card"></uvalib-research-card>
