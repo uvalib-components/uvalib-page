@@ -2,6 +2,7 @@
 <link rel="import" href="../uvalib-banner/uvalib-banner.html">
 <link rel="import" href="../iron-flex-layout/iron-flex-layout.html">
 <link rel="import" href="../iron-signals/iron-signals.html">
+<link rel="import" href="../iron-dropdown/iron-dropdown.html">
 <link rel="import" href="../paper-material/paper-material.html">
 <link rel="import" href="../uvalib-theme/uvalib-theme.html">
 <link rel="import" href="../uvalib-search-box/uvalib-search-box.html">
@@ -213,7 +214,7 @@ Library Web HomePage
 
     <iron-signals on-iron-signal-triggersearch="_triggerSearch"></iron-signals>
 
-    <uvalib-page content-has-search-box main-content="#todayhours" search-input="#searchbox"
+    <uvalib-page b$="{{b}}" content-has-search-box main-content="#todayhours" search-input="#searchbox"
                 small-screen="{{smallScreen}}" medium-screen="{{mediumScreen}}" large-screen="{{largeScreen}}"
                 screen-size="{{screenSize}}">
 
@@ -296,6 +297,7 @@ Library Web HomePage
         mediumScreen: Boolean,
         largeScreen: Boolean,
         screenSize: String,
+        b: Boolean
       },
 
       _newsCount: function(){
