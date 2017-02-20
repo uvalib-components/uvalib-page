@@ -51,6 +51,11 @@ Library Web HomePage
         z-index: 1000000000;
       }
 
+      #shady-box, #upper, #news, #lower {
+        padding-left: 10px;
+        padding-right: 10px;
+      }
+
       #shady-box {
         background-color: #f5f5f5;
         @apply(--layout-vertical);
@@ -188,6 +193,10 @@ Library Web HomePage
       }
 */
 
+      @media (min-width: 1200px) {
+        /* add some padding */
+      }
+
       /* mobile */
       @media (max-width: 600px) {
         .card {
@@ -223,20 +232,22 @@ Library Web HomePage
       <uvalib-banners large-screen$="{{largeScreen}}" medium-screen$="{{mediumScreen}}"></uvalib-banners>
 
       <div id="shady-box">
-        <uvalib-search-box id="searchbox" advanced-search site-search hidden$="{{!largeScreen}}"></uvalib-search-box>
-        <div class="card-container">
-          <uvalib-hours-card id="todayhours" class="card" vertical locations="Alderman,Brown,Clemons">
-            <uvalib-button href="http://cal.lib.virginia.edu/hours/">View all hours</uvalib-button>
-          </uvalib-hours-card>
-          <uvalib-research-card class="card"></uvalib-research-card>
-          <uvalib-spaces-card class="card" hidden$="{{!largeScreen}}"></uvalib-spaces-card>
-      </div>
+
+          <uvalib-search-box id="searchbox" advanced-search site-search hidden$="{{!largeScreen}}"></uvalib-search-box>
+          <div class="card-container">
+            <uvalib-hours-card id="todayhours" class="card" vertical locations="Alderman,Brown,Clemons">
+              <uvalib-button href="http://cal.lib.virginia.edu/hours/">View all hours</uvalib-button>
+            </uvalib-hours-card>
+            <uvalib-research-card class="card"></uvalib-research-card>
+            <uvalib-spaces-card class="card"></uvalib-spaces-card>
+            <uvalib-services-card class="card" hidden$="{{largeScreen}}"></uvalib-services-card>
+          </div>
+
       </div>
 
       <div id="upper">
         <div class="card-container">
-          <uvalib-spaces-card class="card" hidden="{{largeScreen}}"></uvalib-spaces-card>
-          <uvalib-services-card class="card"></uvalib-services-card>
+          <uvalib-services-card class="card" ></uvalib-services-card>
           <template is="dom-if" if="{{largeScreen}}" restamp>
             <uvalib-events-card class="card" heading="Upcoming Events" elevation="3" max-num-events-shown="6">
                 <uvalib-button href="http://cal.lib.virginia.edu/calendar/events">View calendar</uvalib-button>
