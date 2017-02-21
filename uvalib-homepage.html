@@ -76,6 +76,10 @@ Library Web HomePage
         max-width: var(--uvalib-display-width-max);
         width: 100%;
       }
+      :host([small-screen]) #shady-box .card-container {
+          @apply(--layout-vertical);
+          height: 710px;
+      }
       #shady-box .card-container .card {
         height: 336px;
         overflow: hidden;
@@ -230,7 +234,7 @@ Library Web HomePage
                 <uvalib-spaces-card class="card"></uvalib-spaces-card>
               </div>
             </template>
-            <template is="dom-if" if="{{mediumScreen}}" restamp>
+            <template is="dom-if" if="{{!largeScreen}}" restamp>
               <div class="card-container" style="margin-bottom: 0;">
                 <uvalib-hours-card id="todayhours" class="card" vertical locations="Alderman,Brown,Clemons">
                   <uvalib-button href="http://cal.lib.virginia.edu/hours/">View all hours</uvalib-button>
