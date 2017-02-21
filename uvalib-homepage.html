@@ -23,6 +23,7 @@ Library Web HomePage
 <dom-module id="uvalib-homepage">
   <template>
     <style is="custom-style" include="uvalib-theme">
+
       :host {
         display: block;
       }
@@ -62,10 +63,17 @@ Library Web HomePage
         @apply(--layout-center);
         position: relative;
       }
+      :host([large-screen]) #shady-box .card-container {
+        margin-top: 114px;
+        margin-bottom: 48px;
+      }
+      :host([medium-screen]) #shady-box .card-container {
+        margin-top: 22px;
+        margin-bottom: 23px;
+      }
       #shady-box .card-container {
         margin-top: 114px;
         max-width: var(--uvalib-display-width-max);
-        margin-bottom: 48px;
         width: 100%;
       }
       #shady-box .card-container .card {
@@ -106,6 +114,13 @@ Library Web HomePage
         margin-right: 0 !important;
         @apply(--layout-flex-2);
       }
+      :host([medium-screen]) #upper .card-container {
+        margin-top: 24px;
+        margin-bottom: 24px;
+      }
+      :host([medium-screen]) #upper .card-container uvalib-events-card {
+        margin: 0;
+      }
 
       #news {
         background-color: #f5f5f5;
@@ -113,6 +128,9 @@ Library Web HomePage
         @apply(--layout-center);
         position: relative;
         height: 456px;
+      }
+      :host([medium-screen]) #news {
+        height: 361px;
       }
       #news h2 {
         font-family: var(--font-primary);
@@ -132,6 +150,9 @@ Library Web HomePage
         margin: 0;
         @apply(--layout-horizontal);
       }
+      :host([medium-screen]) #news .card-container {
+        padding-top: 24px;
+      }
       #news .card-container .card {
         overflow: hidden;
         margin: 0 8.5px 0 8.5px;
@@ -144,6 +165,9 @@ Library Web HomePage
       }
       #news uvalib-button {
         margin-top: 26px;
+      }
+      :host([medium-screen]) #news uvalib-button {
+        margin-top: 22px;
       }
       #news .card-container .card:first-child {
         margin-left: 0;
@@ -162,11 +186,18 @@ Library Web HomePage
         max-width: var(--uvalib-display-width-max);
         margin-bottom: 48px;
       }
+      :host([medium-screen]) #lower .card-container {
+        @apply(--layout-vertical);
+        height: 472px;
+      }
       #lower .card-container .card {
         height: 216px;
         overflow: hidden;
         margin: 0 8.5px 0 8.5px;
         border: solid 1px #e0e0e0;
+      }
+      :host([medium-screen]) #lower .card-container .card {
+        margin-bottom: 22px;
       }
       #lower .card-container uvalib-services-card {
         margin-left: 0 !important;
@@ -175,50 +206,6 @@ Library Web HomePage
       #lower .card-container uvalib-events-card {
         margin-right: 0 !important;
         @apply(--layout-flex-2);
-      }
-
-/*
-      .card[vertical] {
-        min-width: 200px;
-      }
-      .card[horizontal] {
-        min-width: 530px;
-        padding-bottom: 40px;
-      }
-
-      .lower {
-        max-width: none;
-        background-color: var(--color-light-gray);
-        width: 100%;
-      }
-*/
-
-      @media (min-width: 1200px) {
-        /* add some padding */
-      }
-
-      /* mobile */
-      @media (max-width: 600px) {
-        .card {
-          @apply(--layout-flex);
-        }
-        .card-container {
-          @apply(--layout-vertical);
-        }
-        #shady-box {
-          min-height: 1300px;
-        }
-        .upper {
-          min-height: 1400px;
-        }
-        .events {
-          min-height: 400px;
-        }
-
-        .lower {
-          min-height: 1970px;
-        }
-
       }
 
     </style>
@@ -233,39 +220,42 @@ Library Web HomePage
 
       <div id="shady-box">
 
-          <uvalib-search-box id="searchbox" advanced-search site-search hidden$="{{!largeScreen}}"></uvalib-search-box>
-          <div class="card-container">
-            <uvalib-hours-card id="todayhours" class="card" vertical locations="Alderman,Brown,Clemons">
-              <uvalib-button href="http://cal.lib.virginia.edu/hours/">View all hours</uvalib-button>
-            </uvalib-hours-card>
-            <uvalib-research-card class="card"></uvalib-research-card>
-            <uvalib-spaces-card class="card"></uvalib-spaces-card>
-            <uvalib-services-card class="card" hidden$="{{largeScreen}}"></uvalib-services-card>
-          </div>
+            <template is="dom-if" if="{{largeScreen}}" restamp>
+              <div class="card-container">
+                <uvalib-search-box id="searchbox" advanced-search site-search></uvalib-search-box>
+                <uvalib-hours-card id="todayhours" class="card" vertical locations="Alderman,Brown,Clemons">
+                  <uvalib-button href="http://cal.lib.virginia.edu/hours/">View all hours</uvalib-button>
+                </uvalib-hours-card>
+                <uvalib-research-card class="card"></uvalib-research-card>
+                <uvalib-spaces-card class="card"></uvalib-spaces-card>
+              </div>
+            </template>
+            <template is="dom-if" if="{{mediumScreen}}" restamp>
+              <div class="card-container" style="margin-bottom: 0;">
+                <uvalib-hours-card id="todayhours" class="card" vertical locations="Alderman,Brown,Clemons">
+                  <uvalib-button href="http://cal.lib.virginia.edu/hours/">View all hours</uvalib-button>
+                </uvalib-hours-card>
+                <uvalib-research-card class="card"></uvalib-research-card>
+              </div>
+              <div class="card-container">
+                <uvalib-spaces-card class="card"></uvalib-spaces-card>
+                <uvalib-services-card class="card" hidden$="{{largeScreen}}"></uvalib-services-card>
+              </div>
+            </template>
 
       </div>
 
       <div id="upper">
         <div class="card-container">
-          <uvalib-services-card class="card" ></uvalib-services-card>
-          <template is="dom-if" if="{{largeScreen}}" restamp>
-            <uvalib-events-card class="card" heading="Upcoming Events" elevation="3" max-num-events-shown="6">
-                <uvalib-button href="http://cal.lib.virginia.edu/calendar/events">View calendar</uvalib-button>
-            </uvalib-events-card>
-          </template>
-        </div>
-      </div>
-
-      <template is="dom-if" if="{{!largeScreen}}" restamp>
-        <div class="events card-container" hidden$="{{largeScreen}}">
-          <uvalib-events-card class="card" heading="Upcoming Events" elevation="3" max-num-events-shown="4">
+          <uvalib-services-card class="card" hidden$="{{!largeScreen}}"></uvalib-services-card>
+          <uvalib-events-card class="card" heading="Upcoming Events" elevation="3" max-num-events-shown="6">
               <uvalib-button href="http://cal.lib.virginia.edu/calendar/events">View calendar</uvalib-button>
           </uvalib-events-card>
         </div>
-      </template>
+      </div>
 
       <div id="news">
-        <h2>Library News</h2>
+        <h2 hidden$="{{!largeScreen}}">Library News</h2>
         <div class="card-container">
           <div class="card"></div>
           <div class="card"></div>
@@ -273,11 +263,6 @@ Library Web HomePage
         </div>
         <uvalib-button>More News</uvalib-button>
       </div>
-<!--
-      <div  class="news card-container">
-        <uvalib-news-section num-items="{{_newsCount(largeScreen)}}"></uvalib-news-section>
-      </div>
--->
 
       <div id="lower">
         <div class="card-container">
@@ -306,9 +291,18 @@ Library Web HomePage
           value: true,
           observer: '_searchInViewChange'
         },
-        smallScreen: Boolean,
-        mediumScreen: Boolean,
-        largeScreen: Boolean,
+        smallScreen: {
+          type: Boolean,
+          reflectToAttribute: true
+        },
+        mediumScreen: {
+          type: Boolean,
+          reflectToAttribute: true
+        },
+        largeScreen: {
+          type: Boolean,
+          reflectToAttribute: true
+        },
         screenSize: String,
         b: Boolean
       },
@@ -318,64 +312,7 @@ Library Web HomePage
           else return 2;
       },
 
-      ready: function(){
-        document.addEventListener("scroll", this.fnIsVis.bind(this));
-      },
-      attached: function(){
-        this.fnIsVis();
-      },
-
-      fnIsVis: function(){
-          var ele = this.$.searchbox;
-          this._searchInView = isElementInViewport(ele) || isElementPartiallyInViewport(ele);
-      },
-
-      _searchInViewChange: function(){
-        this.fire('iron-signal', {name: "searchinview", data: this._searchInView});
-      },
-      _triggerSearch: function(){
-        window.scrollTo(0, 0);
-        this.$.searchbox.focusTextbox();
-      }
-
     });
-
-    function isElementPartiallyInViewport(el)
-    {
-        //special bonus for those using jQuery
-        if (typeof jQuery !== 'undefined' && el instanceof jQuery) el = el[0];
-
-        var rect = el.getBoundingClientRect();
-        // DOMRect { x: 8, y: 8, width: 100, height: 100, top: 8, right: 108, bottom: 108, left: 8 }
-        var windowHeight = (window.innerHeight || document.documentElement.clientHeight);
-        var windowWidth = (window.innerWidth || document.documentElement.clientWidth);
-
-        // http://stackoverflow.com/questions/325933/determine-whether-two-date-ranges-overlap
-        var vertInView = (rect.top <= windowHeight) && ((rect.top + rect.height) >= 0);
-        var horInView = (rect.left <= windowWidth) && ((rect.left + rect.width) >= 0);
-
-        return (vertInView && horInView);
-    }
-
-    // http://stackoverflow.com/questions/123999/how-to-tell-if-a-dom-element-is-visible-in-the-current-viewport
-    function isElementInViewport (el)
-    {
-        //special bonus for those using jQuery
-        if (typeof jQuery !== 'undefined' && el instanceof jQuery) el = el[0];
-
-        var rect = el.getBoundingClientRect();
-        var windowHeight = (window.innerHeight || document.documentElement.clientHeight);
-        var windowWidth = (window.innerWidth || document.documentElement.clientWidth);
-
-        return (
-               (rect.left >= 0)
-            && (rect.top >= 0)
-            && ((rect.left + rect.width) <= windowWidth)
-            && ((rect.top + rect.height) <= windowHeight)
-        );
-
-    }
-
 
 
   </script>
