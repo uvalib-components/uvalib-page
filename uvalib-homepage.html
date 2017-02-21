@@ -1,9 +1,12 @@
 <link rel="import" href="../polymer/polymer.html">
-<link rel="import" href="../uvalib-banner/uvalib-banner.html">
+<link rel="import" href="../app-route/app-location.html">
+<link rel="import" href="../app-route/app-route.html">
 <link rel="import" href="../iron-flex-layout/iron-flex-layout.html">
 <link rel="import" href="../iron-signals/iron-signals.html">
 <link rel="import" href="../iron-dropdown/iron-dropdown.html">
+<link rel="import" href="../iron-pages/iron-pages.html">
 <link rel="import" href="../paper-material/paper-material.html">
+<link rel="import" href="../uvalib-banner/uvalib-banner.html">
 <link rel="import" href="../uvalib-theme/uvalib-theme.html">
 <link rel="import" href="../uvalib-search-box/uvalib-search-box.html">
 <link rel="import" href="../uvalib-card/uvalib-common-cards.html">
@@ -257,6 +260,13 @@ Library Web HomePage
                 small-screen="{{smallScreen}}" medium-screen="{{mediumScreen}}" large-screen="{{largeScreen}}"
                 screen-size="{{screenSize}}">
 
+<app-location route="{{route}}"></app-location>
+<app-route route="{{route}}" pattern="/uvalib-page/components/uvalib-page/demo/:page" data="{{data}}"></app-route>
+
+<iron-pages attr-for-selected="name" selected="{{data.page}}">
+  <div name="">
+
+
       <uvalib-banners large-screen$="{{largeScreen}}" medium-screen$="{{mediumScreen}}"></uvalib-banners>
 
       <div id="shady-box">
@@ -311,6 +321,67 @@ Library Web HomePage
           <uvalib-engage-card class="card" horizontal$="{{!smallScreen}}"></uvalib-engage-card>
         </div>
       </div>
+  </div>
+
+
+
+  <div name="about">
+                          <p class="breadcrumbs"><!-- Breadcrumb NavXT 5.6.0 -->
+<a title="Go to University of Virginia Library." href="http://www.library.virginia.edu">University of Virginia Library</a>&nbsp;&nbsp;»&nbsp;&nbsp;<strong>About UVA Library</strong></p>      <h1 class="page-title">About UVA Library</h1>
+      <h2>Welcome to UVA Library</h2>
+<p>We invite&nbsp;you to explore the wealth of resources and opportunities made possible by UVA Library, one of the nation’s top-tier academic libraries. Our goal is to be your partner in research, teaching, and learning excellence.</p>
+<ul>
+<li>Learn more about&nbsp;<a href="http://static.lib.virginia.edu/directory/organization.html">our organization</a></li>
+</ul>
+<hr>
+<h2>Learn about the libraries at UVA</h2>
+<h3>Using our libraries</h3>
+<ul>
+<li><a href="http://static.lib.virginia.edu/directory/libraries.html">Libraries &amp; Labs</a></li>
+<li><a href="http://www.library.virginia.edu/policies/">Library Policies</a></li>
+</ul>
+<h3>Happening at the Library</h3>
+<ul>
+<li><a href="http://cal.lib.virginia.edu/calendar/events">UVA Library Events</a></li>
+<li><a href="http://news.library.virginia.edu/">Library News</a></li>
+<li><a href="http://www.library.virginia.edu/social-media/">Blogs and Social Media</a></li>
+<li><a href="http://aldermanrenewal.library.virginia.edu/">Alderman Renewal</a></li>
+<li><a href="http://facultynews.library.virginia.edu/news/">Faculty Library Newsletter</a></li>
+</ul>
+<h3>Library data and research</h3>
+<ul>
+<li><a href="http://assessment.library.virginia.edu/statistics/">Facts and Statistics</a></li>
+<li><a href="http://assessment.library.virginia.edu/surveys-and-reports/">Surveys and Reports</a></li>
+</ul>
+<hr>
+<h2>Find Library help</h2>
+<ul>
+<li><a href="http://www.library.virginia.edu/askalibrarian/">Ask a Librarian</a></li>
+<li><a href="http://guides.lib.virginia.edu/subjectlibrarians">Find a Subject Liaison</a></li>
+<li><a href="https://www.library.virginia.edu/services/sourcedorks/">SourceDorks</a> (peer student research help)</li>
+<li><a href="http://www.library.virginia.edu/services/accessibility-services/">Accessibility at the Library</a></li>
+<li><a href="http://static.lib.virginia.edu/directory/">Staff Directory</a></li>
+</ul>
+<hr>
+<h2>Plan a visit</h2>
+<ul>
+<li><a href="http://www.library.virginia.edu/map/#!/map/alderman/4">Find Directions and Parking</a></li>
+<li><a href="http://static.lib.virginia.edu/images/map.pdf">Map of UVA libraries and drop boxes</a></li>
+<li><a href="http://www.virginia.edu/maps">Maps of UVA Grounds</a></li>
+<li><a href="http://small.library.virginia.edu/home/visit/">Plan a visit to Special Collections</a></li>
+<li><a href="http://www.library.virginia.edu/exhibitions/">Learn about our Exhibitions</a></li>
+</ul>
+<hr>
+<h2>Join the UVA Library community</h2>
+<ul>
+<li><a href="http://www.library.virginia.edu/jobs/">Job Opportunities</a></li>
+<li><a href="http://www.library.virginia.edu/jobs/fellowships/">Fellowship Opportunities</a></li>
+<li><a href="http://www.library.virginia.edu/jobs/">Volunteer at the library</a></li>
+<li><a href="http://www.library.virginia.edu/services/community-patrons/">Become a Community Patron</a></li>
+<li><a href="http://www.library.virginia.edu/support">Give to the Library</a></li>
+</ul>
+                              </div>
+</iron-pages>
 
     </uvalib-page>
 
