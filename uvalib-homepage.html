@@ -79,12 +79,17 @@ Library Web HomePage
       :host([small-screen]) #shady-box .card-container {
           @apply(--layout-vertical);
           height: 710px;
+          margin-top: 0;
+          margin-bottom:15px;
       }
       #shady-box .card-container .card {
         height: 336px;
         overflow: hidden;
         margin: 0 8.5px 0 8.5px;
         border: solid 1px #e0e0e0;
+      }
+      :host([small-screen]) #shady-box .card-container .card {
+        margin-top: 15px;
       }
       #shady-box .card-container .card:first-child {
         margin-left: 0;
@@ -122,8 +127,16 @@ Library Web HomePage
         margin-top: 24px;
         margin-bottom: 24px;
       }
+      :host([small-screen]) #upper .card-container {
+        margin-top: 15px;
+        margin-bottom: 15px;
+      }
       :host([medium-screen]) #upper .card-container uvalib-events-card {
         margin: 0;
+      }
+      :host([small-screen]) #upper .card-container uvalib-events-card {
+        margin: 0;
+        height: 384px;
       }
 
       #news {
@@ -135,6 +148,9 @@ Library Web HomePage
       }
       :host([medium-screen]) #news {
         height: 361px;
+      }
+      :host([small-screen]) #news {
+        height: 588px;
       }
       #news h2 {
         font-family: var(--font-primary);
@@ -157,6 +173,11 @@ Library Web HomePage
       :host([medium-screen]) #news .card-container {
         padding-top: 24px;
       }
+      :host([small-screen]) #news .card-container {
+        padding-top: 15px;
+        height: 588px;
+        @apply(--layout-vertical);
+      }
       #news .card-container .card {
         overflow: hidden;
         margin: 0 8.5px 0 8.5px;
@@ -167,11 +188,19 @@ Library Web HomePage
         background-color: #ffffff;
         border: solid 1px #e0e0e0;
       }
+      :host([small-screen]) #news .card-container .card {
+        height: 240px;
+        margin-bottom: 15px;
+      }
       #news uvalib-button {
         margin-top: 26px;
       }
       :host([medium-screen]) #news uvalib-button {
         margin-top: 22px;
+      }
+      :host([small-screen]) #news uvalib-button {
+        margin-top: 15px;
+        margin-bottom: 15px;
       }
       #news .card-container .card:first-child {
         margin-left: 0;
@@ -194,6 +223,11 @@ Library Web HomePage
         @apply(--layout-vertical);
         height: 472px;
       }
+      :host([small-screen]) #lower .card-container {
+        @apply(--layout-vertical);
+        height: 444px;
+        margin-top: 15px;
+      }
       #lower .card-container .card {
         height: 216px;
         overflow: hidden;
@@ -202,6 +236,9 @@ Library Web HomePage
       }
       :host([medium-screen]) #lower .card-container .card {
         margin-bottom: 22px;
+      }
+      :host([small-screen]) #lower .card-container .card {
+        margin-bottom: 15px;
       }
       #lower .card-container uvalib-services-card {
         margin-left: 0 !important;
@@ -263,7 +300,7 @@ Library Web HomePage
         <div class="card-container">
           <div class="card"></div>
           <div class="card"></div>
-          <div class="card"></div>
+          <div class="card" hidden$="{{smallScreen}}"></div>
         </div>
         <uvalib-button>More News</uvalib-button>
       </div>
