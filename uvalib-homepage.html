@@ -265,6 +265,9 @@ Library Web HomePage
 
 <app-location route="{{route}}"></app-location>
 <app-route route="{{route}}" pattern="/uvalib-page/components/uvalib-page/demo/:page" data="{{data}}"></app-route>
+<!--
+<app-route route="{{route}}" pattern="/components/uvalib-page/demo/:page" data="{{data}}"></app-route>
+-->
 
 <iron-pages attr-for-selected="name" selected="{{data.page}}">
   <div name="">
@@ -302,7 +305,7 @@ Library Web HomePage
       <div id="upper">
         <div class="card-container">
           <uvalib-services-card class="card" hidden$="{{!largeScreen}}"></uvalib-services-card>
-          <uvalib-events-card class="card" heading="Upcoming Events" elevation="3" max-num-events-shown="6">
+          <uvalib-events-card class="card" heading="Upcoming Events" elevation="3" max-num-events-shown="2">
               <uvalib-button href="http://cal.lib.virginia.edu/calendar/events">View calendar</uvalib-button>
           </uvalib-events-card>
         </div>
