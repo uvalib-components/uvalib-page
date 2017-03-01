@@ -1,4 +1,5 @@
 <link rel="import" href="../polymer/polymer.html">
+<link rel="import" href="../uvalib-chat/uvalib-chat.html">
 <link rel="import" href="../uvalib-footer/uvalib-footer.html" >
 <link rel="import" href="../uvalib-analytics/uvalib-analytics.html">
 <link rel="import" href="../uvalib-header/uvalib-header.html">
@@ -63,6 +64,8 @@ Library Web Page template
                     on-open-drawer="_toggleDrawer" content-has-search-box="{{contentHasSearchBox}}"></uvalib-header>
     </template>
     <content select="[header]"></content>
+
+    <uvalib-chat></uvalib-chat>
 
     <!-- Lazy-create the drawer for small screen sizes. -->
     <!-- Two-way bind `drawerOpened` since app-drawer can update `opened` itself. -->
