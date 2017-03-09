@@ -54,9 +54,9 @@ Library Web Page template
       }
     </style>
 
-    <iron-media-query query="{{smallScreenQuery}}" query-matches="{{smallScreen}}"></iron-media-query>
-    <iron-media-query query="{{mediumScreenQuery}}" query-matches="{{mediumScreen}}"></iron-media-query>
-    <iron-media-query query="{{largeScreenQuery}}" query-matches="{{largeScreen}}"></iron-media-query>
+    <iron-media-query query="{{smallScreenQuery}}" query-matches="{{_smallScreen}}"></iron-media-query>
+    <iron-media-query query="{{mediumScreenQuery}}" query-matches="{{_mediumScreen}}"></iron-media-query>
+    <iron-media-query query="{{largeScreenQuery}}" query-matches="{{_largeScreen}}"></iron-media-query>
 
 
     <template is="dom-if" if="{{!_hasCustomHeader()}}">
@@ -130,24 +130,51 @@ Library Web Page template
           type: String,
           value: "searchbox"
         },
+        /*
+         *  Is the screen small sized (phone sized device)
+         */
         smallScreen: {
           type: Boolean,
           notify: true,
           value: false,
+          readOnly: true,
           reflectToAttribute: true
         },
+        /*
+         *  Is the screen medium sized (tablet sized device)
+         */
         mediumScreen: {
           type: Boolean,
           notify: true,
           value: false,
+          readOnly: true,
           reflectToAttribute: true
         },
+        /*
+         *  Is the screen large sized (desktop sized screen)
+         */
         largeScreen: {
           type: Boolean,
           notify: true,
           value: false,
+          readOnly: true,
           reflectToAttribute: true
         },
+        _smallScreen: {
+          type: Boolean,
+          notify: true,
+        },
+        _mediumScreen: {
+          type: Boolean,
+          notify: true,
+        },
+        _largeScreen: {
+          type: Boolean,
+          notify: true,
+        },
+        /*
+         *  The size of the screen ('small', 'medium', 'large')
+         */
         screenSize: {
           type: String,
           value: 'large',
@@ -162,17 +189,30 @@ Library Web Page template
         'skiptosearch': '_focusOnSearch'
       },
       observers: [
-        '_updateScreenSize(smallScreen,mediumScreen)'
+        '_updateScreenSize(_smallScreen,_mediumScreen,_largeScreen)'
       ],
       _toggleDrawer: function() {
         this.$.sidenav.toggle();
       },
       _updateScreenSize: function() {
-        this._setScreenSize(
-          (this.smallScreen)?'small':
-                              (this.mediumScreen)?'medium':
-                                                   'large'
-        );
+        this.debounce('screen', function(){
+          if (this._smallScreen) {
+            this._setScreenSize('small');
+            this._setSmallScreen(true);
+            this._setMediumScreen(false);
+            this._setLargeScreen(false);
+          } else if (this._mediumScreen) {
+            this._setScreenSize('medium');
+            this._setSmallScreen(false);
+            this._setMediumScreen(true);
+            this._setLargeScreen(false);
+          } else {
+            this._setScreenSize('large');
+            this._setSmallScreen(false);
+            this._setMediumScreen(false);
+            this._setLargeScreen(true);
+          }
+        }, 100);
       },
       _focusOnContent: function() {
         this.querySelector(this.mainContent).tabIndex = "-1";
