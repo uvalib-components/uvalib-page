@@ -60,7 +60,7 @@ Library Web Page template
 
 
     <template is="dom-if" if="{{!_hasCustomHeader()}}">
-      <uvalib-header b$="{{b}}" search-frame small-screen$="{{smallScreen}}" medium-screen$="{{mediumScreen}}" large-screen$="{{largeScreen}}" navigation="{{navigation}}"
+      <uvalib-header search-frame small-screen$="{{smallScreen}}" medium-screen$="{{mediumScreen}}" large-screen$="{{largeScreen}}" navigation="{{navigation}}"
                     on-open-drawer="_toggleDrawer"></uvalib-header>
     </template>
     <content select="[header]"></content>
@@ -118,7 +118,7 @@ Library Web Page template
             {"label": "Services", "icon": "cloud", "url": "/www.library.virginia.edu/services/"}
           ],
         },
-        mainContent: {
+        _mainContent: {
           type: String,
           value: "content"
         },
@@ -177,8 +177,7 @@ Library Web Page template
           notify: true,
           readOnly: true,
           reflectToAttribute: true
-        },
-        b: Boolean
+        }
       },
       listeners: {
         'skiptocontent': '_focusOnContent',
@@ -211,10 +210,10 @@ Library Web Page template
         }, 100);
       },
       _focusOnContent: function() {
-        this.querySelector(this.mainContent).tabIndex = "-1";
+        this.querySelector(this._mainContent).tabIndex = "-1";
         // reduce y position of scroll to account for sticky header so content does not roll up behind it
-        window.scrollTo(0,findPos(document.getElementById(this.mainContent.split('#')[1])) - 110);
-        this.querySelector(this.mainContent).focus();
+        window.scrollTo(0,findPos(document.getElementById(this._mainContent.split('#')[1])) - 110);
+        this.querySelector(this._mainContent).focus();
       },
       _focusOnSearch: function() {
         this.querySelector(this.searchInput).tabIndex = "-1";
