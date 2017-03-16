@@ -118,14 +118,6 @@ Library Web Page template
             {"label": "Services", "icon": "cloud", "url": "/www.library.virginia.edu/services/"}
           ],
         },
-        _mainContent: {
-          type: String,
-          value: "content"
-        },
-        searchInput: {
-          type: String,
-          value: "searchbox"
-        },
         /*
          *  Is the screen small sized (phone sized device)
          */
@@ -179,10 +171,6 @@ Library Web Page template
           reflectToAttribute: true
         }
       },
-      listeners: {
-        'skiptocontent': '_focusOnContent',
-        'skiptosearch': '_focusOnSearch'
-      },
       observers: [
         '_updateScreenSize(_smallScreen,_mediumScreen,_largeScreen)'
       ],
@@ -209,18 +197,6 @@ Library Web Page template
           }
         }, 100);
       },
-      _focusOnContent: function() {
-        this.querySelector(this._mainContent).tabIndex = "-1";
-        // reduce y position of scroll to account for sticky header so content does not roll up behind it
-        window.scrollTo(0,findPos(document.getElementById(this._mainContent.split('#')[1])) - 110);
-        this.querySelector(this._mainContent).focus();
-      },
-      _focusOnSearch: function() {
-        this.querySelector(this.searchInput).tabIndex = "-1";
-        // reduce y position of scroll to account for sticky header so content does not roll up behind it
-        window.scrollTo(0,findPos(document.getElementById(this.searchInput.split('#')[1])) - 110);
-        this.querySelector(this.searchInput).focus();
-      }
     });
 
     // http://stackoverflow.com/questions/5007530/how-do-i-scroll-to-an-element-using-javascript
