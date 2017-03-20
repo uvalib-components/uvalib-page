@@ -26,6 +26,7 @@ Library Web Page template
       :host {
         display: block;
         position: relative;
+        @apply(--layout-vertical);
       }
 
       uvalib-header {
@@ -47,10 +48,22 @@ Library Web Page template
         z-index: 100000000000;
       }
       .content {
-
+        max-width: var(--uvalib-display-width-max);
       }
       uvalib-footer {
         position: relative;
+      }
+
+      #wrapper {
+        @apply(--layout-horizontal);
+        @apply(--layout-center-justified);
+      }
+
+      /* hack - figure out how to do this using max width custom property */
+      @media (max-width: 1200px) {
+        .content {
+          margin: 20px;
+        }
       }
     </style>
 
@@ -76,14 +89,14 @@ Library Web Page template
       <uvalib-nav stacked navigation="{{mobileNavigation}}"></uvalib-nav>
     </app-drawer>
 
-    <div class="content"><content></content></div>
+    <div id="wrapper">
+      <div class="content"><content></content></div>
+    </div>
 
     <template is="dom-if" if="{{!_hasCustomFooter()}}">
       <uvalib-footer></uvalib-footer>
     </template>
     <content select="[footer]"></content>
-
-
 
     <!-- Library Site Analytics -->
     <uvalib-analytics site-id="[[analyticsSiteId]]"></uvalib-analytics>
