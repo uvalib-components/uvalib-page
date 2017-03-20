@@ -174,8 +174,17 @@ Library Web Page template
       observers: [
         '_updateScreenSize(_smallScreen,_mediumScreen,_largeScreen)'
       ],
-      _closeDrawer: function() {
+      /**
+       * Close the side navigation drawer if open
+       */
+      closeDrawer: function() {
         this.$.sidenav.close();
+      },
+      /**
+       * Open the side navigation drawer if open
+       */
+      openDrawer: function(){
+        this.$.sidenav.open();
       },
       _toggleDrawer: function() {
         this.$.sidenav.toggle();
