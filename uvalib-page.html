@@ -48,7 +48,7 @@ Library Web Page template
         z-index: 100000000000;
       }
       .content {
-        
+
       }
       uvalib-footer {
         position: relative;
@@ -57,13 +57,13 @@ Library Web Page template
 
     </style>
 
-    <iron-media-query query="{{smallScreenQuery}}" query-matches="{{_smallScreen}}"></iron-media-query>
-    <iron-media-query query="{{mediumScreenQuery}}" query-matches="{{_mediumScreen}}"></iron-media-query>
-    <iron-media-query query="{{largeScreenQuery}}" query-matches="{{_largeScreen}}"></iron-media-query>
+    <iron-media-query query="[[smallScreenQuery]]" query-matches="{{_smallScreen}}"></iron-media-query>
+    <iron-media-query query="[[mediumScreenQuery]]" query-matches="{{_mediumScreen}}"></iron-media-query>
+    <iron-media-query query="[[largeScreenQuery]]" query-matches="{{_largeScreen}}"></iron-media-query>
 
 
-    <template is="dom-if" if="{{!_hasCustomHeader()}}">
-      <uvalib-header search-frame small-screen$="{{smallScreen}}" medium-screen$="{{mediumScreen}}" large-screen$="{{largeScreen}}" navigation="{{navigation}}"
+    <template is="dom-if" if="[[!_hasCustomHeader()]]">
+      <uvalib-header search-frame small-screen$="[[smallScreen]]" medium-screen$="[[mediumScreen]]" large-screen$="[[largeScreen]]" navigation="[[navigation]]"
                     on-open-drawer="_toggleDrawer"></uvalib-header>
     </template>
     <content select="[header]"></content>
@@ -76,14 +76,14 @@ Library Web Page template
       <app-toolbar>
         <uvalib-logo stacked reverse two-color></uvalib-logo>
       </app-toolbar>
-      <uvalib-nav stacked navigation="{{mobileNavigation}}"></uvalib-nav>
+      <uvalib-nav stacked navigation="[[mobileNavigation]]"></uvalib-nav>
     </app-drawer>
 
 
       <div class="content"><content></content></div>
 
 
-    <template is="dom-if" if="{{!_hasCustomFooter()}}">
+    <template is="dom-if" if="[[!_hasCustomFooter()]]">
       <uvalib-footer></uvalib-footer>
     </template>
     <content select="[footer]"></content>
