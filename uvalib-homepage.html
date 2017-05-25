@@ -8,7 +8,7 @@
 <link rel="import" href="../uvalib-hours-card/uvalib-hours-card.html">
 <link rel="import" href="../uvalib-events-card/uvalib-events-card.html">
 <link rel="import" href="../uvalib-news-section/uvalib-news-section.html">
-<link rel="import" href="../uvalib-banner/uvalib-banner.html">
+<link rel="import" href="../uvalib-banner/uvalib-banners.html">
 <link rel="import" href="uvalib-page.html">
 
 <!--
@@ -121,29 +121,29 @@ Library Web HomePage
                 small-screen="{{smallScreen}}" medium-screen="{{mediumScreen}}" large-screen="{{largeScreen}}"
                 screen-size="{{screenSize}}">
 
-      <uvalib-banner small-screen="{{smallScreen}}" medium-screen="{{mediumScreen}}" large-screen="{{largeScreen}}"></uvalib-banner>
+      <uvalib-banners small-screen$="[[smallScreen]]" medium-screen$="[[mediumScreen]]" large-screen$="[[largeScreen]]"></uvalib-banners>
 
       <div id="shady-box" class="card-container">
-        <uvalib-search-box id="searchbox" advanced-search site-search hidden$="{{!largeScreen}}"></uvalib-search-box>
+        <uvalib-search-box id="searchbox" advanced-search site-search hidden$="[[!largeScreen]]"></uvalib-search-box>
         <uvalib-hours-card id="todayhours" class="card" vertical locations="Alderman,Brown,Clemons,Fine,Special">
           <uvalib-button href="http://cal.lib.virginia.edu/hours/">View all hours</uvalib-button>
         </uvalib-hours-card>
         <uvalib-research-card class="card"></uvalib-research-card>
-        <uvalib-spaces-card class="card" hidden$="{{!largeScreen}}"></uvalib-spaces-card>
+        <uvalib-spaces-card class="card" hidden$="[[!largeScreen]]"></uvalib-spaces-card>
       </div>
 
       <div class="upper card-container">
-        <uvalib-spaces-card class="card" hidden$="{{largeScreen}}"></uvalib-spaces-card>
+        <uvalib-spaces-card class="card" hidden$="[[largeScreen]]"></uvalib-spaces-card>
         <uvalib-services-card class="card"></uvalib-services-card>
-        <template is="dom-if" if="{{largeScreen}}" restamp>
+        <template is="dom-if" if="[[largeScreen]]" restamp>
           <uvalib-events-card class="card" heading="Upcoming Events" elevation="3" max-num-events-shown="6">
               <uvalib-button href="http://cal.lib.virginia.edu/calendar/events">View calendar</uvalib-button>
           </uvalib-events-card>
         </template>
       </div>
 
-      <template is="dom-if" if="{{!largeScreen}}" restamp>
-        <div class="events card-container" hidden$="{{largeScreen}}">
+      <template is="dom-if" if="[[!largeScreen]]" restamp>
+        <div class="events card-container" hidden$="[[largeScreen]]">
           <uvalib-events-card class="card" heading="Upcoming Events" elevation="3" max-num-events-shown="4">
               <uvalib-button href="http://cal.lib.virginia.edu/calendar/events">View calendar</uvalib-button>
           </uvalib-events-card>
@@ -152,12 +152,12 @@ Library Web HomePage
 
 
       <div  class="news card-container">
-        <uvalib-news-section num-items="{{_newsCount(largeScreen)}}"></uvalib-news-section>
+        <uvalib-news-section num-items="[[_newsCount(largeScreen)]]"></uvalib-news-section>
       </div>
 
       <div class="lower card-container">
-        <uvalib-featured-exhibit-card class="card" horizontal$="{{!smallScreen}}"></uvalib-featured-exhibit-card>
-        <uvalib-engage-card class="card" horizontal$="{{!smallScreen}}"></uvalib-engage-card>
+        <uvalib-featured-exhibit-card class="card" horizontal$="[[!smallScreen]]"></uvalib-featured-exhibit-card>
+        <uvalib-engage-card class="card" horizontal$="[[!smallScreen]]"></uvalib-engage-card>
       </div>
 
     </uvalib-page>
