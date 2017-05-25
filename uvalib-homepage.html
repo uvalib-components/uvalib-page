@@ -195,19 +195,19 @@ Library Web HomePage
       },
 
       bannerSwiped: function(e){
-        this.set('latestEvent',{'banner','swiped'});
+        this.latestEvent = {'banner':'swiped'};
       },
       bannerNext: function(e){
-        this.set('latestEvent',{'banner','next'});
+        this.latestEvent={'banner':'next'};
       },
       bannerPrevious: function(e){
-        this.set('latestEvent',{'banner','previous'});
+        this.latestEvent={'banner':'previous'};
       },
       bannerNavigate: function(e){
-        this.set('latestEvent',{'banner','navigate'});
+        this.latestEvent={'banner':'navigate'};
       },
       bannerLinkClick: function(e){
-        this.set('latestEvent',{'banner','click'});
+        this.latestEvent={'banner':'click'};
       },
 
       _newsCount: function(){
