@@ -81,7 +81,7 @@ Library Web Page template
       </app-drawer>
 
     <div class="content-holder">
-      <div class="content"><content></content></div>
+      <div class="content" ><content></content></div>
     </div>
 
     <template is="dom-if" if="{{!_hasCustomFooter()}}">
@@ -90,7 +90,7 @@ Library Web Page template
     <content select="[footer]"></content>
 
     <!-- Library Site Analytics -->
-    <uvalib-analytics site-id="[[analyticsSiteId]]"></uvalib-analytics>
+    <uvalib-analytics event="[[latestEvent]]" site-id="[[analyticsSiteId]]"></uvalib-analytics>
   </template>
 
   <script>
@@ -122,6 +122,10 @@ Library Web Page template
             {"label": "Services", "icon": "cloud", "url": "/services/"},
             {"label": "Ask A Librarian", "icon": "comments", "url": "/askalibrarian/"}
           ],
+        },
+	latestEvent: {
+          type: Object,
+          value: null
         },
         contentHasSearchBox: {
           type: Boolean,

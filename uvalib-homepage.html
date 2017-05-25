@@ -29,7 +29,7 @@ Library Web HomePage
         @apply(--layout-vertical);
       }
 
-      uvalib-banner {
+      uvalib-banners {
         width: 100%;
       }
 
@@ -117,11 +117,14 @@ Library Web HomePage
 
     <iron-signals on-iron-signal-triggersearch="_triggerSearch"></iron-signals>
 
-    <uvalib-page content-has-search-box main-content="#todayhours" search-input="#searchbox"
+    <uvalib-page latest-event="[[latestEvent]]" content-has-search-box main-content="#todayhours" search-input="#searchbox"
                 small-screen="{{smallScreen}}" medium-screen="{{mediumScreen}}" large-screen="{{largeScreen}}"
                 screen-size="{{screenSize}}">
 
-      <uvalib-banners small-screen$="[[smallScreen]]" medium-screen$="[[mediumScreen]]" large-screen$="[[largeScreen]]"></uvalib-banners>
+      <uvalib-banners
+        on-swiped="bannerSwiped" on-next="bannerNext" on-previous="bannerPrevious" 
+        on-navigate="bannerNavigate" on-banner-link-click="bannerLinkClick" 
+        small-screen$="[[smallScreen]]" medium-screen$="[[mediumScreen]]" large-screen$="[[largeScreen]]"></uvalib-banners>
 
       <div id="shady-box" class="card-container">
         <uvalib-search-box id="searchbox" advanced-search site-search hidden$="[[!largeScreen]]"></uvalib-search-box>
@@ -171,6 +174,11 @@ Library Web HomePage
       is: 'uvalib-homepage',
 
       properties: {
+        latestEvent: {
+          type: Object,
+          value: null,
+          notify: true
+        },
         prop1: {
           type: String,
           value: 'uvalib-page',
@@ -184,6 +192,22 @@ Library Web HomePage
         mediumScreen: Boolean,
         largeScreen: Boolean,
         screenSize: String,
+      },
+
+      bannerSwiped: function(e){
+        this.set('latestEvent',{'banner','swiped'});
+      },
+      bannerNext: function(e){
+        this.set('latestEvent',{'banner','next'});
+      },
+      bannerPrevious: function(e){
+        this.set('latestEvent',{'banner','previous'});
+      },
+      bannerNavigate: function(e){
+        this.set('latestEvent',{'banner','navigate'});
+      },
+      bannerLinkClick: function(e){
+        this.set('latestEvent',{'banner','click'});
       },
 
       _newsCount: function(){
