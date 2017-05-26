@@ -122,8 +122,8 @@ Library Web HomePage
                 screen-size="{{screenSize}}">
 
       <uvalib-banners
-        on-swiped="bannerSwiped" on-next="bannerNext" on-previous="bannerPrevious" 
-        on-navigate="bannerNavigate" on-banner-link-click="bannerLinkClick" 
+        on-swiped="bannerSwiped" on-next="bannerNext" on-previous="bannerPrevious"
+        on-navigate="bannerNavigate" on-banner-link-click="bannerLinkClick"
         small-screen$="[[smallScreen]]" medium-screen$="[[mediumScreen]]" large-screen$="[[largeScreen]]"></uvalib-banners>
 
       <div id="shady-box" class="card-container">
@@ -207,7 +207,7 @@ Library Web HomePage
         this.latestEvent={'banner':'navigate'};
       },
       bannerLinkClick: function(e){
-        this.latestEvent={'banner':'click'};
+        this.latestEvent={'banner':'click: '+e.detail.href};
       },
 
       _newsCount: function(){
