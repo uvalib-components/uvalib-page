@@ -64,11 +64,13 @@ Library Web Page template
     <iron-media-query query="[[largeScreenQuery]]" query-matches="{{_largeScreen}}"></iron-media-query>
 
 
-    <template is="dom-if" if="[[!_hasCustomHeader()]]">
-      <uvalib-header search-frame small-screen$="[[smallScreen]]" medium-screen$="[[mediumScreen]]" large-screen$="[[largeScreen]]" navigation="[[navigation]]"
+    <template is="dom-if" if="[[!_hasCustomHeader()]]" restamp>
+      <uvalib-header tab-index="1" search-frame small-screen$="[[smallScreen]]" medium-screen$="[[mediumScreen]]" large-screen$="[[largeScreen]]" navigation="[[navigation]]"
                     on-open-drawer="_toggleDrawer"></uvalib-header>
     </template>
-    <content select="[header]"></content>
+    <template is="dom-if" if="[[_hasCustomHeader()]]" restamp>
+      <content tab-index="1" select="[header]"></content>
+    </template>
 <!--
     <uvalib-chat></uvalib-chat>
 -->
@@ -82,13 +84,15 @@ Library Web Page template
     </app-drawer>
 
 
-      <div class="content"><content></content></div>
+      <div tab-index="2" class="content"><content></content></div>
 
 
-    <template is="dom-if" if="[[!_hasCustomFooter()]]">
-      <uvalib-footer></uvalib-footer>
+    <template is="dom-if" if="[[!_hasCustomFooter()]]" restamp>
+      <uvalib-footer tab-index="3"></uvalib-footer>
     </template>
-    <content select="[footer]"></content>
+    <template is="dom-if" if="[[_hasCustomFooter()]]" restamp>
+      <content tab-index="3" select="[footer]"></content>
+    </template>
 
     <!-- Library Site Analytics -->
     <uvalib-analytics site-id="[[analyticsSiteId]]"></uvalib-analytics>
