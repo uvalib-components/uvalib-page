@@ -88,7 +88,10 @@ Library Web Page template
 
 
     <template is="dom-if" if="[[!_hasCustomFooter()]]" restamp>
-      <uvalib-footer tab-index="3"></uvalib-footer>
+      <uvalib-footer tab-index="3"
+                     small-screen="[[_smallScreen]]"
+                     medium-screen="[[_mediumScreen]]"
+                     large-screen="[[_largeScreen]]"></uvalib-footer>
     </template>
     <template is="dom-if" if="[[_hasCustomFooter()]]" restamp>
       <content tab-index="3" select="[footer]"></content>
