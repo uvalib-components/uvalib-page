@@ -27,6 +27,10 @@
     "iron-list": "^1.0.0",
     "paper-button": "^1.0.0",
     "paper-card": "^1.0.0",
-    "test-fixture": "^1.0.0"
+    "test-fixture": "^1.0.0",
+    "uvalib-elements": "1.x",
+    "uvalib-logos": "1.x",
+    "paper-material": "^1.0.5",
+    "app-route": "^0.9.0"
   }
 }
