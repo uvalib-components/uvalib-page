@@ -1,10 +1,11 @@
 <!doctype html>
-
 <html lang="en">
   <head>
-    <title>uvalib-page test</title>
     <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1, user-scalable=yes">
+    <meta name="viewport" content="width=device-width, minimum-scale=1, initial-scale=1, user-scalable=yes">
+
+    <title>uvalib-page test</title>
+
     <script src="../../webcomponentsjs/webcomponents-lite.js"></script>
     <script src="../../web-component-tester/browser.js"></script>
 
@@ -12,22 +13,40 @@
   </head>
   <body>
 
-    <test-fixture id="basic">
+    <test-fixture id="BasicTestFixture">
       <template>
         <uvalib-page></uvalib-page>
       </template>
     </test-fixture>
 
-    <script>
-      suite('uvalib-page', function() {
+    <test-fixture id="ChangedPropertyTestFixture">
+      <template>
+        <uvalib-page prop1="new-prop1"></uvalib-page>
+      </template>
+    </test-fixture>
 
-        test('instantiating the element works', function() {
-          var element = fixture('basic');
-          assert.equal(element.is, 'uvalib-page');
+    <script>
+      suite('uvalib-page', () => {
+
+        test('instantiating the element with default properties works', () => {
+          const element = fixture('BasicTestFixture');
+          assert.equal(element.prop1, 'uvalib-page');
+          const elementShadowRoot = element.shadowRoot;
+          const elementHeader = elementShadowRoot.querySelector('h2');
+          assert.equal(elementHeader.innerHTML, 'Hello uvalib-page!');
         });
 
-        a11ySuite('uvalib-page');
+        test('setting a property on the element works', () => {
+          // Create a test fixture
+          const element = fixture('ChangedPropertyTestFixture');
+          assert.equal(element.prop1, 'new-prop1');
+          const elementShadowRoot = element.shadowRoot;
+          const elementHeader = elementShadowRoot.querySelector('h2');
+          assert.equal(elementHeader.innerHTML, 'Hello new-prop1!');
+        });
+
       });
     </script>
+
   </body>
 </html>

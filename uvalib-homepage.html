@@ -1,0 +1,45 @@
+<link rel="import" href="../polymer/polymer-element.html">
+<link rel="import" href="../uvalib-card/uvalib-card.html">
+
+<dom-module id="uvalib-homepage">
+  <template>
+    <style>
+      :host {
+        display: block;
+      }
+      uvalib-card {
+        max-width: 350px;
+      }
+    </style>
+    <div id="container">
+      <uvalib-card id="research" uuid="1731a2e1-8094-415b-aed6-9b7e2eb844bd"></uvalib-card>
+      <uvalib-card id="spaces" uuid="68a9ea1d-0864-45d9-81be-224a9cf744e6"></uvalib-card>
+      <uvalib-card id="services" uuid="3c39aacf-2f2f-49e6-8ad2-b1ec0e29f44d"></uvalib-card>
+      <uvalib-card id="support" uuid="793b7ec2-17b4-44f2-b9fa-119abcbc9ac4"></uvalib-card>
+    </div>
+  </template>
+
+  <script>
+    /**
+     * `uvalib-homepage`
+     * UVA Library page layout component
+     *
+     * @customElement
+     * @polymer
+     * @demo demo/index.html
+     */
+    class UvalibHomepage extends Polymer.Element {
+      static get is() { return 'uvalib-homepage'; }
+      static get properties() {
+        return {
+          prop1: {
+            type: String,
+            value: 'uvalib-homepage'
+          }
+        };
+      }
+    }
+
+    window.customElements.define(UvalibHomepage.is, UvalibHomepage);
+  </script>
+</dom-module>
