@@ -1,0 +1,102 @@
+services<link rel="import" href="../uvalib-theme/uvalib-ui-element.html">
+<link rel="import" href="../paper-input/paper-input.html">
+<link rel="import" href="../paper-icon-button/paper-icon-button.html">
+<link rel="import" href="../uvalib-theme/uvalib-icons.html">
+<link rel="import" href="../iron-list/iron-list.html">
+<link rel="import" href="../uva-models/uva-library.html">
+
+<dom-module id="uvalib-services">
+  <template>
+    <style>
+      :host {
+        display: block;
+      }
+      .searchField .search-field {
+        margin: 0px;
+        padding: 0px;
+        display: inline-block;
+        width: 91%;
+        max-width: 500px;
+        --paper-input-container: {
+          background-color: var(--color-white);
+          color: var(--color-text-gray);
+          border-top-right-radius: 0;
+          border-bottom-right-radius: 0;
+          border-top-left-radius: 3px;
+          border-bottom-left-radius: 3px;
+          line-height: 30px;
+        }
+        --paper-input-container-underline: {
+          display: none;
+        }
+        --paper-input-container-underline-focus: {
+          display: none;
+        }
+        --paper-input-container-underline-disabled: {
+          display: none;
+        }
+        --paper-input-container-input: {
+          text-align: left;
+          padding-left: 10px;
+          padding-right: 10px;
+        }
+      }
+      .searchField {
+        margin-left: auto;
+        margin-right: auto;
+        width: 94%;
+      }
+      #container {
+      }
+      iron-list {
+        height: 50vh; 
+      }
+    </style>
+    <div id="container">
+      <div class="searchField">
+        <paper-input on-keydown="_checkForEnter" no-label-float class="search-field" id="q1" value="{{_query}}" label="" placeholder="Find Service by Name or Location" tabindex="0"></paper-input>
+        <paper-icon-button class="search" on-tap="submitSearch" alt="Search Services" icon="search"></paper-icon-button>
+      </div>
+      <div>
+        Need to contact a staff member?<br />
+        <a href="/directory">Visit our staff directory ></a>
+      </div>
+      <hr />
+      <uva-library path="services" last-response="{{services}}"></uva-library>
+      <iron-list items="[[services]]">
+        <template>
+          <div>[[item.title]]</div>
+        </template>
+      </iron-list>
+    </div>
+  </template>
+
+  <script>
+    /**
+     * `uvalib-services`
+     * UVA Library page layout component
+     *
+     * @customElement
+     * @polymer
+     * @demo demo/index.html
+     */
+    class UvalibServices extends UvalibUiElement {
+      static get is() { return 'uvalib-services'; }
+      static get properties() {
+        return Object.assign(super.properties,
+            {
+
+            });
+      }
+      //Concat the this elements template with the parents
+      static get template() {
+        var parentTemplate = UvalibUiElement.template.cloneNode(true);
+        var childTemplate = Polymer.DomModule.import('uvalib-services', 'template');
+        parentTemplate.content.insertBefore(childTemplate.content,null);
+        return parentTemplate;
+      }
+    }
+
+    window.customElements.define(UvalibServices.is, UvalibServices);
+  </script>
+</dom-module>
