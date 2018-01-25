@@ -4,12 +4,21 @@
 <dom-module id="uvalib-homepage">
   <template>
     <style>
-      :host {
-        display: block;
-      }
-      uvalib-card {
-        max-width: 350px;
-      }
+    :host {
+      display: block;
+      margin: 0 -10000px 0 -10000px;
+      background: grey;
+      @apply --layout-horizontal;
+      @apply --layout-center-justified;
+    }
+    #container {
+      @apply --layout-flex;
+      max-width: var(--uvalib-display-width-max);
+      @apply --layout-horizontal;
+    }
+    uvalib-card {
+      max-width: 350px;
+    }
     </style>
     <div id="container">
       <uvalib-card id="research" uuid="1731a2e1-8094-415b-aed6-9b7e2eb844bd"></uvalib-card>
