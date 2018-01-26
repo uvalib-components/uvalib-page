@@ -53,7 +53,7 @@
     </style>
     <div id="container">
       <div class="searchField">
-        <paper-input on-keydown="_checkForEnter" no-label-float class="search-field" id="q1" value="{{_query}}" label="" placeholder="Find Service by Name or Location" tabindex="0"></paper-input>
+        <paper-input no-label-float class="search-field" value="{{_query}}" label="" placeholder="Find Service by Name or Location" tabindex="0"></paper-input>
         <paper-icon-button class="search" on-tap="submitSearch" alt="Search Services" icon="search"></paper-icon-button>
       </div>
       <div>
@@ -62,7 +62,7 @@
       </div>
       <hr />
       <uva-library path="services" last-response="{{services}}"></uva-library>
-      <template is="dom-repeat" items="[[_filt(services)]]">
+      <template is="dom-repeat" items="[[_filt(services,_query)]]">
           <template is="dom-if" if="[[item.siteLink]]">
             <div><a href="[[item.siteLink]]">[[item.title]]</a></div>
           </template>
@@ -98,11 +98,17 @@
         return parentTemplate;
       }
       _filt(){
-        var l = this.services.splice(0);
+        var l = JSON.parse(JSON.stringify(this.services));
         l.sort(function(a, b) {
           return a.title.toLowerCase().localeCompare(b.title.toLowerCase());
         });
-        return l;
+        if (this._query) {
+          return l.filter(function(s){
+                    return s.title.toLowerCase().includes(this._query.toLowerCase());
+                  }.bind(this));
+        } else {
+          return l;
+        }
       }
     }
 
