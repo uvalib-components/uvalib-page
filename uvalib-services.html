@@ -62,7 +62,7 @@
       </div>
       <hr />
       <uva-library path="services" last-response="{{services}}"></uva-library>
-      <template is="dom-repeat" items="[[services]]">
+      <template is="dom-repeat" items="[[_filt(services)]]">
           <template is="dom-if" if="[[item.siteLink]]">
             <div><a href="[[item.siteLink]]">[[item.title]]</a></div>
           </template>
@@ -87,11 +87,7 @@
       static get properties() {
         return Object.assign(super.properties,
             {
-//              _filteredServices: {
-//                type: Array,
-//                notify: true,
-//                computed: '_filtered(services)'
-//              }
+              services: Array
             });
       }
       //Concat the this elements template with the parents
@@ -101,16 +97,12 @@
         parentTemplate.content.insertBefore(childTemplate.content,null);
         return parentTemplate;
       }
-      _filtered(items){
-        if (Array.isArray(items)) {
-          var myArray = items.slice(0);
-          myArray.sort(function(a,b){
-            return a.title.toLowerCase().localCompare(b.title.toLowerCase());
-          });
-          return myArray;
-        } else {
-          return [];
-        }
+      _filt(){
+        var l = this.services.splice(0);
+        l.sort(function(a, b) {
+          return a.title.toLowerCase().localeCompare(b.title.toLowerCase());
+        });
+        return l;
       }
     }
 
