@@ -1,8 +1,7 @@
-services<link rel="import" href="../uvalib-theme/uvalib-ui-element.html">
+<link rel="import" href="../uvalib-theme/uvalib-ui-element.html">
 <link rel="import" href="../paper-input/paper-input.html">
 <link rel="import" href="../paper-icon-button/paper-icon-button.html">
 <link rel="import" href="../uvalib-theme/uvalib-icons.html">
-<link rel="import" href="../iron-list/iron-list.html">
 <link rel="import" href="../uva-models/uva-library.html">
 
 <dom-module id="uvalib-services">
@@ -49,7 +48,7 @@ services<link rel="import" href="../uvalib-theme/uvalib-ui-element.html">
       #container {
       }
       iron-list {
-        height: 50vh; 
+        height: 50vh;
       }
     </style>
     <div id="container">
@@ -63,11 +62,14 @@ services<link rel="import" href="../uvalib-theme/uvalib-ui-element.html">
       </div>
       <hr />
       <uva-library path="services" last-response="{{services}}"></uva-library>
-      <iron-list items="[[services]]">
-        <template>
-          <div>[[item.title]]</div>
-        </template>
-      </iron-list>
+      <template is="dom-repeat" items="[[services]]">
+          <template is="dom-if" if="[[item.siteLink]]">
+            <div><a href="[[item.siteLink]]">[[item.title]]</a></div>
+          </template>
+          <template is="dom-if" if="[[!item.siteLink]]">
+            <div>[[item.title]]</div>
+          </template>
+      </template>
     </div>
   </template>
 
@@ -85,7 +87,11 @@ services<link rel="import" href="../uvalib-theme/uvalib-ui-element.html">
       static get properties() {
         return Object.assign(super.properties,
             {
-
+//              _filteredServices: {
+//                type: Array,
+//                notify: true,
+//                computed: '_filtered(services)'
+//              }
             });
       }
       //Concat the this elements template with the parents
@@ -94,6 +100,17 @@ services<link rel="import" href="../uvalib-theme/uvalib-ui-element.html">
         var childTemplate = Polymer.DomModule.import('uvalib-services', 'template');
         parentTemplate.content.insertBefore(childTemplate.content,null);
         return parentTemplate;
+      }
+      _filtered(items){
+        if (Array.isArray(items)) {
+          var myArray = items.slice(0);
+          myArray.sort(function(a,b){
+            return a.title.toLowerCase().localCompare(b.title.toLowerCase());
+          });
+          return myArray;
+        } else {
+          return [];
+        }
       }
     }
 
