@@ -3,6 +3,8 @@
 <link rel="import" href="../paper-icon-button/paper-icon-button.html">
 <link rel="import" href="../uvalib-theme/uvalib-icons.html">
 <link rel="import" href="../uva-models/uva-library.html">
+<link rel="import" href="../marked-element/marked-element.html">
+<link rel="import" href="../uva-helper-libs/polyfills/string.includes.html">
 
 <dom-module id="uvalib-services">
   <template>
@@ -50,6 +52,12 @@
       iron-list {
         height: 50vh;
       }
+      tbody tr:nth-child(odd) {
+        background-color: #ccc;
+      }
+      tr {
+        height: 50px;
+      }
     </style>
     <div id="container">
       <div class="searchField">
@@ -61,15 +69,38 @@
         <a href="/directory">Visit our staff directory ></a>
       </div>
       <hr />
+      <uva-library id="libs" last-response="{{libraries}}"></uva-library>
       <uva-library path="services" last-response="{{services}}"></uva-library>
-      <template is="dom-repeat" items="[[_filt(services,_query)]]">
-          <template is="dom-if" if="[[item.siteLink]]">
-            <div><a href="[[item.siteLink]]">[[item.title]]</a></div>
-          </template>
-          <template is="dom-if" if="[[!item.siteLink]]">
-            <div>[[item.title]]</div>
-          </template>
-      </template>
+      <table>
+        <thead>
+          <tr>
+            <th>Service</th>
+            <th>Location</th>
+            <th>Contact</th>
+          </tr>
+        </thead>
+        <tbody>
+<template is="dom-repeat" items="[[_filt(services,_query,libraries)]]">
+  <tr>
+      <td>
+<template is="dom-if" if="[[item.siteLink]]">
+        <div><a href="[[item.siteLink]]">[[item.title]]</a></div>
+</template>
+<template is="dom-if" if="[[!item.siteLink]]">
+        <div>[[item.title]]</div>
+</template>
+        <template is="dom-if" if="[[item.body]]">
+          <marked-element markdown="[[item.body]]"><div slot="markdown-html"></div></marked-element>
+        </template>
+      </td>
+      <td>[[_getLibs(item.library)]]</td>
+      <td></td>
+    </template>
+  </tr>
+</template>
+        </tbody>
+      </table>
+
     </div>
   </template>
 
@@ -87,7 +118,9 @@
       static get properties() {
         return Object.assign(super.properties,
             {
-              services: Array
+              services: {
+                type:Array
+              }
             });
       }
       //Concat the this elements template with the parents
@@ -97,19 +130,50 @@
         parentTemplate.content.insertBefore(childTemplate.content,null);
         return parentTemplate;
       }
-      _filt(){
-        var l = JSON.parse(JSON.stringify(this.services));
-        l.sort(function(a, b) {
-          return a.title.toLowerCase().localeCompare(b.title.toLowerCase());
-        });
-        if (this._query) {
-          return l.filter(function(s){
-                    return s.title.toLowerCase().includes(this._query.toLowerCase());
-                  }.bind(this));
+      _getLibs(libs){
+        if (!libs) {
+          return "online";
         } else {
-          return l;
+          if (!this._libs) {
+            this._libs = this.$.libs.getHash('id',['title']);
+          }
+          if (Object.keys(this._libs).length > 0) {
+            libs = Array.isArray(libs)?libs:[libs];
+            return libs.map(a => this._libs[a.id].title).sort().join(', ');
+          }
+          return "";
         }
       }
+      _copy(aObject) {
+        var bObject, v, k;
+        bObject = Array.isArray(aObject) ? [] : {};
+        for (k in aObject) {
+          v = aObject[k];
+          bObject[k] = (typeof v === "object") ? this._copy(v) : v;
+        }
+        return bObject;
+      }
+      _alphaSort(a,b){
+        return a.title.toLowerCase().localeCompare(b.title.toLowerCase());
+      }
+      _filt(){
+        if(Array.isArray(this.services)) {
+
+          var l = this.services.map( (s) => this._copy(s) );
+          l.sort(this._alphaSort);
+          if (this._query) {
+            return l.filter(function(s){
+                      return s.title.toLowerCase().includes(this._query.toLowerCase())
+                             ||
+                             this._getLibs(s.library).toLowerCase().includes(this._query.toLowerCase());
+                    }.bind(this));
+          } else {
+            return l;
+          }
+
+        }
+      }
+
     }
 
     window.customElements.define(UvalibServices.is, UvalibServices);
