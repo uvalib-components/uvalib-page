@@ -94,7 +94,17 @@
         </template>
       </td>
       <td>[[_getLibs(item.library)]]</td>
-      <td></td>
+      <td>
+        <template is="dom-if" if="[[item.emailAddress]]">
+          <div><a href="mailto:[[item.emailAddress]]">[[item.emailAddress]]</a></div>
+        </template>
+        <template is="dom-if" if="[[item.phoneNumber]]">
+          <div>[[item.phoneNumber]]</div>
+        </template>
+        <template is="dom-if" if="">
+          <div></div>
+        </template>
+      </td>
     </template>
   </tr>
 </template>
