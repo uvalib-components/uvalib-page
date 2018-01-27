@@ -173,9 +173,9 @@
           l.sort(this._alphaSort);
           if (this._query) {
             return l.filter(function(s){
-                      return s.title.toLowerCase().includes(this._query.toLowerCase())
+                      return s.title.toLowerCase().includes(this._query.toLowerCase().trim().replace(/ +(?= )/g,''))
                              ||
-                             this._getLibs(s.library).toLowerCase().includes(this._query.toLowerCase());
+                             this._getLibs(s.library).toLowerCase().includes(this._query.toLowerCase().trim().replace(/ +(?= )/g,''));
                     }.bind(this));
           } else {
             return l;
