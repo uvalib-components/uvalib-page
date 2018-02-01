@@ -6,112 +6,39 @@
 <link rel="import" href="../marked-element/marked-element.html">
 <link rel="import" href="../uva-helper-libs/polyfills/string.includes.html">
 
+<link rel="import" href="../paper-datatable-api/paper-datatable-api-column.html">
+<link rel="import" href="../paper-datatable-api/paper-datatable-api.html">
+
 <dom-module id="uvalib-services">
   <template>
     <style>
       :host {
         display: block;
       }
-      .searchField .search-field {
-        margin: 0px;
-        padding: 0px;
-        display: inline-block;
-        width: 91%;
-        max-width: 500px;
-        --paper-input-container: {
-          background-color: var(--color-white);
-          color: var(--color-text-gray);
-          border-top-right-radius: 0;
-          border-bottom-right-radius: 0;
-          border-top-left-radius: 3px;
-          border-bottom-left-radius: 3px;
-          line-height: 30px;
-        }
-        --paper-input-container-underline: {
-          display: none;
-        }
-        --paper-input-container-underline-focus: {
-          display: none;
-        }
-        --paper-input-container-underline-disabled: {
-          display: none;
-        }
-        --paper-input-container-input: {
-          text-align: left;
-          padding-left: 10px;
-          padding-right: 10px;
-        }
-      }
-      .searchField {
-        margin-left: auto;
-        margin-right: auto;
-        width: 94%;
-      }
-      #container {
-      }
-      iron-list {
-        height: 50vh;
-      }
-      tbody tr:nth-child(odd) {
-        background-color: #ccc;
-      }
-      tr {
-        height: 50px;
-      }
-    </style>
-    <div id="container">
-      <div class="searchField">
-        <paper-input no-label-float class="search-field" value="{{_query}}" label="" placeholder="Find Service by Name or Location" tabindex="0"></paper-input>
-        <paper-icon-button class="search" on-tap="submitSearch" alt="Search Services" icon="search"></paper-icon-button>
-      </div>
-      <div>
-        Need to contact a staff member?<br />
-        <a href="/directory">Visit our staff directory ></a>
-      </div>
-      <hr />
-      <uva-library id="libs" last-response="{{libraries}}"></uva-library>
-      <uva-library path="services" last-response="{{services}}"></uva-library>
-      <table>
-        <thead>
-          <tr>
-            <th>Service</th>
-            <th>Location</th>
-            <th>Contact</th>
-          </tr>
-        </thead>
-        <tbody>
-<template is="dom-repeat" items="[[_filt(services,_query,libraries)]]">
-  <tr>
-      <td>
-<template is="dom-if" if="[[item.siteLink]]">
-        <div><a href="[[item.siteLink]]">[[item.title]]</a></div>
-</template>
-<template is="dom-if" if="[[!item.siteLink]]">
-        <div>[[item.title]]</div>
-</template>
-        <template is="dom-if" if="[[item.body]]">
-          <marked-element markdown="[[item.body]]"><div slot="markdown-html"></div></marked-element>
-        </template>
-      </td>
-      <td>[[_getLibs(item.library)]]</td>
-      <td>
-        <template is="dom-if" if="[[item.emailAddress]]">
-          <div><a href="mailto:[[item.emailAddress]]">[[item.emailAddress]]</a></div>
-        </template>
-        <template is="dom-if" if="[[item.phoneNumber]]">
-          <div>[[item.phoneNumber]]</div>
-        </template>
-        <template is="dom-if" if="">
-          <div></div>
-        </template>
-      </td>
-    </template>
-  </tr>
-</template>
-        </tbody>
-      </table>
 
-    </div>
+    </style>
+
+    <uva-library id="libs" last-response="{{_libraries}}"></uva-library>
+    <uva-library path="services" last-response="{{_services}}"></uva-library>
+
+    <paper-datatable-api data="[[_data]]" on-sort="_handleSort">
+      <paper-datatable-api-column header="Service" property="title" sortable>
+        <template>
+          <span>{{value}}</span>
+        </template>
+      </paper-datatable-api-column>
+      <paper-datatable-api-column header="Location" property="id" sortable>
+        <template>
+          <span>{{value}}</span>
+        </template>
+      </paper-datatable-api-column>
+      <paper-datatable-api-column header="Contact" property="uuid">
+        <template>
+          <span>{{value}}</span>
+        </template>
+      </paper-datatable-api-column>
+    </paper-datatable-api>
+
   </template>
 
   <script>
@@ -128,8 +55,20 @@
       static get properties() {
         return Object.assign(super.properties,
             {
-              services: {
-                type:Array
+              _libraries: {
+                type: Array,
+                notify: true,
+                observer: "_addLibs"
+              },
+              _services: {
+                type:Array,
+                notify: true,
+                observer: "_mkServices"
+              },
+              _data: {
+                type: Array,
+                value: function(){ return []; },
+                notify: true
               }
             });
       }
@@ -139,6 +78,16 @@
         var childTemplate = Polymer.DomModule.import('uvalib-services', 'template');
         parentTemplate.content.insertBefore(childTemplate.content,null);
         return parentTemplate;
+      }
+      _addLibs() {
+        if (this._data && this._data.length > 0) {}
+      }
+      _mkServices() {
+        //clone the pristine services listing so that we can come back from filters w/o reloading
+        this._data = JSON.parse(JSON.stringify(this._services));
+      }
+      _handleSort(event) {
+        console.log(event.detail.sort.property + ',' + event.detail.sort.direction);
       }
       _getLibs(libs){
         if (!libs) {
