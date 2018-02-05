@@ -1,0 +1,81 @@
+<link rel="import" href="../polymer/polymer-element.html">
+<link rel="import" href="../uvalib-theme/uvalib-theme.html">
+<link rel="import" href="../uvalib-theme/uvalib-page-style.html">
+<link rel="import" href="../uvalib-card/uvalib-card.html">
+<link rel="import" href="../iron-image/iron-image.html">
+<link rel="import" href="../iron-flex-layout/iron-flex-layout.html">
+<link rel="import" href="../iron-flex-layout/iron-flex-layout-classes.html">
+
+<dom-module id="uvalib-aboutpage">
+  <template>
+    <custom-style>
+      <style include="uvalib-theme iron-flex uvalib-page-style">
+        :host {
+          display: block;
+        }
+        #profile {
+          margin: 0 10px 0 10px;
+          min-width: 300px;
+        }
+        #profile > p:first-of-type:first-letter {
+          float: left;
+          font-size: 60px;
+          line-height: 60px;
+          padding-right: 8px;
+        }
+        uvalib-card {
+          margin: 10px 10px 10px 10px;
+          max-width: 500px;
+          min-width: 290px;
+        }
+        iron-image {min-width: 300px;}
+      </style>
+    </custom-style>
+
+    <div class="layout horizontal wrap">
+      <figure id="profileImage">
+        <iron-image class="round" src="https://wwwstatic.lib.virginia.edu/files/2017-05/jmu2m_0.jpg"></iron-image>
+        <figcaption>John Unsworth, University Librarian and Dean of Libraries</figcaption>
+      </figure>
+
+      <div id="profile" class="layout flex">
+        <p>Lorem ipsum dolor sit amet, eos petentium deterruisset at, mei ea augue praesent delicatissimi. Doming aeterno fuisset ea mel, ad usu eros fierent, errem ubique argumentum ne mel. Sit malis assueverit in. Te per nisl nominavi liberavisse. Vim doctus dolorem te, solet feugiat comprehensam ex eos, falli laudem neglegentur in eam. An ius quodsi corrumpit, cu justo novum fabellas usu, vocibus delectus ei vix. Lorem ipsum dolor sit amet, eos petentium deterruisset at, mei ea augue praesent delicatissimi.</p>
+        <p>Doming aeterno fuisset ea mel, ad usu eros fierent, errem ubique argumentum ne mel. Sit malis assueverit in. Te per nisl nominavi liberavisse. Vim doctus dolorem te, solet feugiat comprehensam ex eos, falli laudem neglegentur in eam. An ius quodsi corrumpit, cu justo novum fabellas usu, vocibus delectus ei vix.</p>
+      </div>
+      </div>
+    </div>
+    <div class="shady layout horizontal wrap center-justified">
+      <div class="flex layout horizontal wrap center-justified">
+        <uvalib-card id="research" class="flex" uuid="1731a2e1-8094-415b-aed6-9b7e2eb844bd"></uvalib-card>
+        <uvalib-card id="research" class="flex" uuid="1731a2e1-8094-415b-aed6-9b7e2eb844bd"></uvalib-card>
+        <uvalib-card id="research" class="flex" uuid="1731a2e1-8094-415b-aed6-9b7e2eb844bd"></uvalib-card>
+        <uvalib-card id="research" class="flex" uuid="1731a2e1-8094-415b-aed6-9b7e2eb844bd"></uvalib-card>
+      </div>
+      <div>
+        <uvalib-card id="services" class="flex" uuid="3c39aacf-2f2f-49e6-8ad2-b1ec0e29f44d"></uvalib-card>
+      </div>
+    </div>
+
+  </template>
+
+  <script>
+    /**
+     * `uvalib-aboutpage`
+     * UVA Library page layout component
+     *
+     * @customElement
+     * @polymer
+     * @demo demo/index.html
+     */
+    class UvalibAboutpage extends Polymer.Element {
+      static get is() { return 'uvalib-aboutpage'; }
+      static get properties() {
+        return {
+
+        };
+      }
+    }
+
+    window.customElements.define(UvalibAboutpage.is, UvalibAboutpage);
+  </script>
+</dom-module>
