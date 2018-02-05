@@ -1,4 +1,4 @@
-<link rel="import" href="../polymer/polymer-element.html">
+<link rel="import" href="../uvalib-theme/uvalib-ui-element.html">
 <link rel="import" href="../uvalib-card/uvalib-card.html">
 <link rel="import" href="../uvalib-theme/uvalib-theme.html">
 <link rel="import" href="../uvalib-theme/uvalib-page-style.html">
@@ -53,10 +53,19 @@
      * @polymer
      * @demo demo/index.html
      */
-    class UvalibHomepage extends Polymer.Element {
+    class UvalibHomepage extends UvalibUiElement {
       static get is() { return 'uvalib-homepage'; }
       static get properties() {
-        return {};
+        return Object.assign(super.properties,{
+
+        });
+      }
+      //Concat the this elements template with the parents
+      static get template() {
+        var parentTemplate = UvalibUiElement.template.cloneNode(true);
+        var childTemplate = Polymer.DomModule.import('uvalib-homepage', 'template');
+        parentTemplate.content.insertBefore(childTemplate.content,null);
+        return parentTemplate;
       }
     }
 
