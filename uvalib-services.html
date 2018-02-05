@@ -48,7 +48,7 @@
                   </template>
                   <marked-element markdown="[[item.body]]"><div slot="markdown-html"></div></marked-element>
                 </td>
-                <td>_getLibs(item.library,_libraries)</td>
+                <td>[[_getLibs(item.library,_libraries)]]</td>
                 <td>
                   <template is="dom-if" if="[[item.emailAddress]]">
                     <div><a href="mailto:[[item.emailAddress]]">[[item.emailAddress]]</a></div>
@@ -109,9 +109,11 @@
       }
       _mkServices() {
         //clone the pristine services listing so that we can come back from filters w/o reloading
-//        if (this._libraries && this._libraries.length > 0){
+        if (this._libraries && this._libraries.length > 0){
           this.set('_data', JSON.parse(JSON.stringify(this._services)) );
-//        }
+        } else {
+          setTimeout(function(){this._mkServices()}.bind(this),500);
+        }
       }
       _getLibs(libs){
         if (!libs) {
