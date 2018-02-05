@@ -7,6 +7,9 @@
 <link rel="import" href="../uvalib-theme/uvalib-theme.html">
 <link rel="import" href="../uvalib-theme/uvalib-page-style.html">
 
+<link rel="import" href="../bwt-datatable/bwt-datatable-column.html">
+<link rel="import" href="../bwt-datatable/bwt-datatable.html">
+
 <dom-module id="uvalib-services">
   <template>
     <custom-style>
@@ -18,6 +21,7 @@
     </custom-style>
 
     <div id="container">
+      <!--
       <div class="searchField">
         <paper-input no-label-float class="search-field" value="{{_query}}" label="" placeholder="Find Service by Name or Location" tabindex="0"></paper-input>
       </div>
@@ -26,45 +30,22 @@
         <a href="/directory">Visit our staff directory ></a>
       </div>
       <hr />
+    -->
       <uva-library id="libs" last-response="{{_libraries}}"></uva-library>
       <uva-library path="services" last-response="{{_services}}"></uva-library>
-      <table>
-        <thead>
-          <tr>
-            <th>Service</th>
-            <th>Location</th>
-            <th>Contact</th>
-          </tr>
-        </thead>
-        <tbody>
-          <template is="dom-repeat" items="[[_data]]" filter="{{_filter(_query)}}">
-            <tr>
-                <td>
-                  <template is="dom-if" if="[[item.siteLink]]">
-                    <div><a href="[[item.siteLink]]">[[item.title]]</a></div>
-                  </template>
-                  <template is="dom-if" if="[[!item.siteLink]]">
-                    <div>[[item.title]]</div>
-                  </template>
-                  <marked-element markdown="[[item.body]]"><div slot="markdown-html"></div></marked-element>
-                </td>
-                <td>[[_getLibs(item.library,_libraries)]]</td>
-                <td>
-                  <template is="dom-if" if="[[item.emailAddress]]">
-                    <div><a href="mailto:[[item.emailAddress]]">[[item.emailAddress]]</a></div>
-                  </template>
-                  <template is="dom-if" if="[[item.phoneNumber]]">
-                    <div>[[item.phoneNumber]]</div>
-                  </template>
-                  <template is="dom-if" if="">
-                    <div></div>
-                  </template>
-                </td>
-              </template>
-            </tr>
-          </template>
-        </tbody>
-      </table>
+      <paper-datatable data="{{_data}}">
+				<paper-datatable-column header="Service" property="title" type="String" sortable sorted sort-direction="{{_sortDir}}"></paper-datatable-column>
+				<paper-datatable-column header="Location" property="library" type="Object" default="1">
+          <template>[[_getLibs(value)]]</template>
+        </paper-datatable-column>
+				<paper-datatable-column header="Contact" property="float" type="Number" default="1">
+          <template>
+						<span>[[value.integer]]</span>
+						=
+						<span>[[value.string]]</span>
+					</template>
+        </paper-datatable-column>
+			</paper-datatable>
 
     </div>
   </template>
@@ -96,6 +77,11 @@
                 type: Array,
                 value: function(){ return []; },
                 notify: true
+              },
+              _sortDir: {
+                type: String,
+                value: "desc",
+                observer: "_sortChange"
               }
             });
       }
@@ -109,9 +95,29 @@
       _mkServices() {
         //clone the pristine services listing so that we can come back from filters w/o reloading
         if (this._libraries && this._libraries.length > 0){
-          this.set('_data', JSON.parse(JSON.stringify(this._services)) );
+          var data = JSON.parse(JSON.stringify(this._services));
+          this._sortData(data);
         } else {
           setTimeout(function(){this._mkServices()}.bind(this),500);
+        }
+      }
+      _sortChange(){
+        if(this._data) {
+          this._sortData( JSON.parse(JSON.stringify(this._data)) );
+        }
+      }
+      _sortData(data){
+        var dir = this._sortDir;
+        console.log(dir);
+        if(data) {
+          data.sort(function(a,b){
+            if (dir === "desc") {
+              return a.title.toLowerCase().localeCompare(b.title.toLowerCase());
+            } else {
+              return b.title.toLowerCase().localeCompare(a.title.toLowerCase());
+            }
+          });
+          this.set('_data', data );
         }
       }
       _getLibs(libs){
@@ -123,7 +129,7 @@
           }
           if (Object.keys(this._libs).length > 0) {
             libs = Array.isArray(libs)?libs:[libs];
-            return libs.map(a => this._libs[a.id].title).sort().join(', ');
+            return libs.map(function(a){return (this._libs[a.id])? this._libs[a.id].title: null;}.bind(this)).sort().join(', ');
           }
           return "";
         }
