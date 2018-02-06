@@ -6,6 +6,8 @@
 <link rel="import" href="../uva-helper-libs/polyfills/string.includes.html">
 <link rel="import" href="../uvalib-theme/uvalib-theme.html">
 <link rel="import" href="../uvalib-theme/uvalib-page-style.html">
+<link rel="import" href="../paper-toggle-button/paper-toggle-button.html">
+<link rel="import" href="../app-storage/app-localstorage/app-localstorage-document.html" />
 
 <link rel="import" href="../bwt-datatable/bwt-datatable-column.html">
 <link rel="import" href="../bwt-datatable/bwt-datatable.html">
@@ -17,9 +19,13 @@
         :host {
           display: block;
         }
+        [hidden] {
+          display: none;
+        }
       </style>
     </custom-style>
 
+    <app-localstorage-document key="uvalib-staff-view" data="{{_staffView}}"></app-localstorage-document>
     <div id="container">
       <!--
       <div class="searchField">
@@ -31,6 +37,14 @@
       </div>
       <hr />
     -->
+      <div id="controls">
+        <paper-input label="Filter" value="{{_query}}"></paper-input>
+        <paper-toggle-button id="staffSelect" checked="{{_staffView}}">
+          <template is="dom-if" if="[[_staffView]]">Staff View</template>
+          <template is="dom-if" if="[[!_staffView]]">Public View</template>
+        </paper-toggle-button>
+      </div>
+
       <uva-library id="libs" last-response="{{_libraries}}"></uva-library>
       <uva-library path="services" last-response="{{_services}}"></uva-library>
       <paper-datatable data="{{_data}}">
@@ -38,11 +52,11 @@
 				<paper-datatable-column header="Location" property="library" type="Object" default="1">
           <template>[[_getLibs(value)]]</template>
         </paper-datatable-column>
-				<paper-datatable-column header="Contact" property="float" type="Number" default="1">
+				<paper-datatable-column header="Contact">
           <template>
-						<span>[[value.integer]]</span>
-						=
-						<span>[[value.string]]</span>
+            <!-- use uvalib-liame for email -->
+            <div hidden$="[[!item.emailAddress]]"><a href="mailto:[[item.emailAddress]]">[[item.emailAddress]]</a><br /></div>
+            <div hidden$="[[!item.phoneNumber]]"><a href="tel:[[item.phoneNumber]]">[[item.phoneNumber]]</a><br /></div>
 					</template>
         </paper-datatable-column>
 			</paper-datatable>
@@ -64,6 +78,16 @@
       static get properties() {
         return Object.assign(super.properties,
             {
+              _query: {
+                type:String,
+                observer: "_mkServices"
+              },
+              _staffView: {
+                type: Boolean,
+                value: false,
+                notify: true,
+                observer: "_mkServices"
+              },
               _libraries: {
                 type: Array,
                 notify: true,
@@ -96,9 +120,19 @@
         //clone the pristine services listing so that we can come back from filters w/o reloading
         if (this._libraries && this._libraries.length > 0){
           var data = JSON.parse(JSON.stringify(this._services));
-          this._sortData(data);
+          this._sortData(this._filterData(data));
         } else {
           setTimeout(function(){this._mkServices()}.bind(this),500);
+        }
+      }
+      _filterData(data){
+        if (this._query) {
+          data = data.filter( this._filter(this._query) );
+        }
+        if (!this._staffView) {
+          return data.filter( (s)=>(!s.audience || s.audience != "staff") );
+        } else {
+          return data;
         }
       }
       _sortChange(){
