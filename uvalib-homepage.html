@@ -15,24 +15,25 @@
           display: block;
         }
 
-        paper-material {
+        paper-material, paper-card {
           margin: 10px 10px 10px 10px;
           /*max-width: 500px*/;
           min-width: 290px;
           height: 300px;
         }
+
+        paper-card {
+          background-color: lightgray;
+        }
       </style>
+
     </custom-style>
 
     <div class="layout horizontal wrap">
       <paper-material class="flex-2" style="background: url(https://storage.googleapis.com/uvalib-api.appspot.com/5f66df14-cfab-4c38-a06f-a3da7e6f9c76.webp) no-repeat center center;" elevation="3"></paper-material>
       <paper-card class="flex" heading="Today's Hours" elevation="3">
-        <div class="card-content">
-
-        </div>
-        <div class="card-actions">
-          
-        </div>
+        <div class="card-content"></div>
+        <div class="card-actions"></div>
       </paper-card>
     </div>
 
@@ -43,8 +44,14 @@
     </div>
 
     <div class="layout horizontal wrap center-justified">
-      <div id="events"></div>
-      <div id="news"></div>
+      <paper-card class="flex" heading="Events" elevation="3">
+        <div class="card-content"></div>
+        <div class="card-actions"></div>
+      </paper-card>
+      <paper-card class="flex-2" style="max-width:1000px;" heading="Library News" elevation="3">
+        <div class="card-content"></div>
+        <div class="card-actions"></div>
+      </paper-card>
     </div>
 
     <div class="shady layout horizontal wrap center-justified">
