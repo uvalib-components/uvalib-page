@@ -41,8 +41,12 @@
       <tr>
         <td>
           <paper-button disabled$="[[!page]]" on-tap="_setPageZero">Today</paper-button>
+          <paper-button hidden$="[[!page]]" on-tap="_pageDown"><iron-icon icon="angle-left"></iron-icon></paper-button>
+          <paper-button on-tap="_pageUp"><iron-icon icon="angle-right"></iron-icon></paper-button>
+          <!--
           <paper-icon-button hidden$="[[!page]]" icon="angle-left" on-tap="_pageDown"></paper-icon-button>
           <paper-icon-button icon="angle-right" on-tap="_pageUp"></paper-icon-button>
+-->
           <paper-button>Expand All</paper-button>
         </td>
         <template is="dom-repeat" items="[[_days]]">
@@ -108,7 +112,7 @@
         return parentTemplate;
       }
       _getOpenRange(lid,d){
-        if (this.times[lid] && this.times[lid][d])
+        if (this.times && this.times[lid] && this.times[lid][d])
           return this.times[lid][d].rendered;
       }
       _pageUp(){
