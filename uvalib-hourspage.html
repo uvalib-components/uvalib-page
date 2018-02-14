@@ -8,6 +8,7 @@
 <link rel="import" href="../uva-models/uva-library-hours.html">
 <link rel="import" href="../uva-helper-libs/moment-timezone.html">
 <link rel="import" href="../iron-collapse/iron-collapse.html">
+
 <link rel="import" href="../uvalib-theme/uvalib-icons.html">
 
 <dom-module id="uvalib-hourspage">
@@ -41,8 +42,8 @@
       <tr>
         <td>
           <paper-button disabled$="[[!page]]" on-tap="_setPageZero">Today</paper-button>
-          <paper-button hidden$="[[!page]]" on-tap="_pageDown"><iron-icon icon="angle-left"></iron-icon></paper-button>
-          <paper-button on-tap="_pageUp"><iron-icon icon="angle-right"></iron-icon></paper-button>
+          <paper-button hidden$="[[!page]]" on-tap="_pageDown">Previous</iron-icon></paper-button>
+          <paper-button on-tap="_pageUp">Next</iron-icon></paper-button>
           <!--
           <paper-icon-button hidden$="[[!page]]" icon="angle-left" on-tap="_pageDown"></paper-icon-button>
           <paper-icon-button icon="angle-right" on-tap="_pageUp"></paper-icon-button>
