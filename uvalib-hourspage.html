@@ -1,0 +1,148 @@
+<link rel="import" href="../uvalib-theme/uvalib-ui-element.html">
+<link rel="import" href="../uvalib-theme/uvalib-theme.html">
+<link rel="import" href="../uvalib-theme/uvalib-page-style.html">
+<link rel="import" href="../paper-button/paper-button.html">
+<link rel="import" href="../paper-icon-button/paper-icon-button.html">
+<link rel="import" href="../paper-material/paper-material.html">
+<link rel="import" href="../uva-models/uva-library.html">
+<link rel="import" href="../uva-models/uva-library-hours.html">
+<link rel="import" href="../uva-helper-libs/moment-timezone.html">
+<link rel="import" href="../iron-collapse/iron-collapse.html">
+<link rel="import" href="../uvalib-theme/uvalib-icons.html">
+
+<dom-module id="uvalib-hourspage">
+  <template>
+    <custom-style>
+      <style include="uvalib-theme uvalib-page-style iron-flex-factors">
+        :host {
+          display: block;
+        }
+        [hidden] {
+          display: none;
+        }
+      </style>
+    </custom-style>
+
+    <div class="horizontal layout end-justified wrap">
+      <paper-button raised>Maps of the Libraries</paper-button>
+      <paper-button raised>Find a Study Space</paper-button>
+      <paper-button raised>Room Reservations</paper-button>
+    </div>
+
+    <uva-library filter="libcalID" items="{{_libraries}}" sort-by="shortTitle"></uva-library>
+    <uva-library-hours start="[[_start]]" end="[[_end]]" times="{{times}}"></uva-library-hours>
+    <table>
+      <colgroup>
+        <col />
+        <tempplate is="dom-repeat" items="[[_days]]">
+          <col shady$="[[item.today]]" />
+        </tempplate>
+      </colgroup>
+      <tr>
+        <td>
+          <paper-button disabled$="[[!page]]" on-tap="_setPageZero">Today</paper-button>
+          <paper-icon-button hidden$="[[!page]]" icon="angle-left" on-tap="_pageDown"></paper-icon-button>
+          <paper-icon-button icon="angle-right" on-tap="_pageUp"></paper-icon-button>
+          <paper-button>Expand All</paper-button>
+        </td>
+        <template is="dom-repeat" items="[[_days]]">
+          <th>[[item.date]]<br />[[item.title]]</th>
+        </template>
+      </tr>
+      <template is="dom-repeat" items="[[_libraries]]" as="library">
+        <tr>
+          <td>[[library.title]]</td>
+          <template is="dom-repeat" items="[[_days]]" as="day">
+            <td>{{_getOpenRange(library.libcalID,day.id,times)}}</td>
+          </template>
+        </tr>
+      </template>
+    </table>
+
+  </template>
+
+  <script>
+    /**
+     * `uvalib-hourspage`
+     * UVA Library page layout component
+     *
+     * @customElement
+     * @polymer
+     * @demo demo/index.html
+     */
+    class UvalibHourspage extends UvalibUiElement {
+      static get is() { return 'uvalib-hourspage'; }
+      static get properties() {
+        return Object.assign(super.properties,{
+          _libraries: Array,
+          page: {
+            type: Number,
+            value: 0
+          },
+          count: {
+            type: Number,
+            value: 7
+          },
+          _start: {
+            type: Object,
+            computed: '_getStartDate(page,count)',
+            notify: true
+          },
+          _end: {
+            type: Object,
+            computed: '_getEndDate(page,count)',
+            notify: true
+          },
+          _days: {
+            type: Array,
+            computed: '_getDays(_start,_end)'
+          },
+          times: Object
+        });
+      }
+      //Concat the this elements template with the parents
+      static get template() {
+        var parentTemplate = UvalibUiElement.template.cloneNode(true);
+        var childTemplate = Polymer.DomModule.import('uvalib-hourspage', 'template');
+        parentTemplate.content.insertBefore(childTemplate.content,null);
+        return parentTemplate;
+      }
+      _getOpenRange(lid,d){
+        if (this.times[lid] && this.times[lid][d])
+          return this.times[lid][d].rendered;
+      }
+      _pageUp(){
+        this.page++;
+      }
+      _pageDown(){
+        this.page--;
+      }
+      _setPageZero(){
+        this.page=0;
+      }
+      _getStartDate(page,count){
+        return moment().add(page*count,'days');
+      }
+      _getEndDate(page,count){
+        return moment().add(page*count+count,'days');
+      }
+      _getDays(start, end) {
+        var s = moment(start),
+            range = [];
+        while (s < end) {
+          var isToday = s.isSame(new Date(),'day'),
+              sf = s.tz('America/New_York');
+          range.push({
+            id:sf.format('YYYY-MM-DD'),
+            date:sf.format('MMM D'),
+            title:(isToday)?'Today':sf.format('dddd'),
+            today:isToday});
+          s.add(1,'days');
+        }
+        return range;
+      }
+    }
+
+    window.customElements.define(UvalibHourspage.is, UvalibHourspage);
+  </script>
+</dom-module>
