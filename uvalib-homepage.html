@@ -4,6 +4,7 @@
 <link rel="import" href="../uvalib-theme/uvalib-theme.html">
 <link rel="import" href="../uvalib-theme/uvalib-page-style.html">
 <link rel="import" href="../paper-material/paper-material.html">
+<link rel="import" href="../uvalib-card/uvalib-hours-card.html">
 
 
 <dom-module id="uvalib-homepage">
@@ -31,10 +32,7 @@
 
     <div class="layout horizontal wrap">
       <paper-material class="flex-2" style="background: url(https://storage.googleapis.com/uvalib-api.appspot.com/5f66df14-cfab-4c38-a06f-a3da7e6f9c76.webp) no-repeat center center;" elevation="3"></paper-material>
-      <paper-card class="flex" heading="Today's Hours" elevation="3">
-        <div class="card-content"></div>
-        <div class="card-actions"></div>
-      </paper-card>
+      <uvalib-hours-card></uvalib-hours-card>
     </div>
 
     <div class="shady layout horizontal wrap center-justified">
