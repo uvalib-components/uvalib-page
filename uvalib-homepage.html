@@ -21,14 +21,14 @@
 
     <!-- Banner at top outside of card if not large screen -->
     <template is="dom-if" if="[[!largeScreen]]">
-      <div id="banner">
+      <div id="banner" tabindex="-1">
         <iron-image src="https://storage.googleapis.com/uvalib-api.appspot.com/5f66df14-cfab-4c38-a06f-a3da7e6f9c76.webp" alt="banner placeholder"></iron-image>
       </div>
 
       <!-- Stick hours and research in w/ white background if not large -->
       <div class="layout horizontal wrap">
         <paper-card class="flex" id="hours-card" heading="Today's Hours" elevation="3">
-          <div class="card-content">
+          <div class="card-content full-card">
             <uvalib-hours-ui single-day></uvalib-hours-ui>
           </div>
           <div class="card-actions">
@@ -122,13 +122,14 @@
     <template is="dom-if" if="[[largeScreen]]">
       <!-- Desktop has Banner next to hours card -->
       <div class="layout horizontal">
-        <paper-card id="banner-card" class="flex" elevation="3" style="width: 200px; max-width: none; min-width: none;">
+        <paper-card id="banner" class="flex" elevation="3" style="width: 200px; max-width: none; min-width: none;" tabindex="-1">
           <div class="card-content" style="overflow: hidden">
             <iron-image src="https://storage.googleapis.com/uvalib-api.appspot.com/5f66df14-cfab-4c38-a06f-a3da7e6f9c76.webp" alt="banner placeholder"></iron-image>
+<a href="">focusable content in the banner</a>
           </div>
         </paper-card>
         <paper-card id="hours-card" heading="Today's Hours" elevation="3" style="width: 200px; max-width: none; min-width: none;">
-          <div class="card-content">
+          <div class="card-content full-card">
             <uvalib-hours-ui single-day></uvalib-hours-ui>
           </div>
           <div class="card-actions">

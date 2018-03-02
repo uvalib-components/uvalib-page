@@ -97,12 +97,19 @@
         </template>
       </div>
     </template>
+    <div class="horizontal layout center-justified wrap">
+      <a href="#darden" tabindex="-1"><paper-button raised>Darden Library</paper-button></a>
+      <a href="#health-sciences" tabindex="-1"><paper-button raised>Health Sciences Library</paper-button></a>
+      <a href="#jag" tabindex="-1"><paper-button raised>JAG School Library</paper-button></a>
+      <a href="#law" tabindex="-1"><paper-button raised>Law Library</paper-button></a>
+    </div>
 
     <div class="layout horizontal wrap">
       <template is="dom-repeat" items="[[_libraries]]" as="lib">
         <paper-card heading="[[lib.title]]"></paper-card>
       </template>
     </div>
+
   </template>
 
   <script>
