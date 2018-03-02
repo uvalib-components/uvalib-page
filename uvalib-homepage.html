@@ -38,7 +38,7 @@
             </a>
           </div>
         </paper-card>
-        <paper-card id="research" class="flex" heading="Research" class="flex" elevation="3" image="/files/cards/research.jpg" alt="Image of student doing research in the Library">
+        <paper-card id="research" class="flex" heading="Research" elevation="3" image="/files/cards/research.jpg" alt="Image of student doing research in the Library">
           <div class="card-content">
             <ul>
               <li><a href="https://search.lib.virginia.edu">Virgo: Library Catalog</a></li>
@@ -56,8 +56,68 @@
           </div>
         </paper-card>
       </div>
-
+      <div class="shady layout horizontal wrap">
+        <paper-card id="spaces" class="flex" heading="Spaces &amp; Equipment" elevation="3" image="/files/cards/spaces.jpg" alt="Student studying in an egg.">
+          <div class="card-content">
+            <ul>
+              <li><a href="/map/#!/study/">Find study spaces</a></li>
+              <li><a href="/policies/">Using the library - policies </a></li>
+              <li><a href="/print-copy-scan-computing/">Printers &amp; scanning</a></li>
+              <li><a href="/services/reserve-equipment-computers/">Borrow equipment</a></li>
+              <li><a href="/services/reserve-rooms/">Reserve a room</a></li>
+              <li><a href="/services/digital-labs/">Digital labs</a></li>
+            </ul>
+          </div>
+          <div class="card-actions">
+            <a tabindex="-1" href="http://static.lib.virginia.edu/directory/libraries.html">
+              <paper-button>Explore libraries &amp; labs</paper-button>
+            </a>
+          </div>
+        </paper-card>
+        <paper-card id="services" class="flex" heading="Services" elevation="3" image="/files/cards/services.jpg" alt="Librarian giving a presentation on a digital display.">
+          <div class="card-content">
+            <ul>
+              <li><a href="/services/ils/">LEO and Interlibrary Loan (ILL)</a></li>
+              <li><a href="http://guides.lib.virginia.edu/subjectlibrarians">Subject librarians</a></li>
+              <li><a href="/services/purchase-requests/">Purchase request</a></li>
+              <li><a href="/services/off-grounds-access/">Off-Grounds access</a></li>
+              <li><a href="/services/accessibility-services/">Accessibility Services </a></li>
+              <li><a href="/services/classes/">Library class request</a></li>
+            </ul>
+          </div>
+          <div class="card-actions">
+            <a tabindex="-1" href="https://library.virginia.edu/services">
+              <paper-button>More Services</paper-button>
+            </a>
+          </div>
+        </paper-card>
+      </div>
+      <div class="layout vertical">
+        <paper-card id="events" heading="Upcoming Events" elevation="3" style="max-width:100%">
+          <div class="card-content">
+            <uvalib-events-ui max-num-events-shown="3"></uvalib-events-ui>
+          </div>
+          <div class="card-actions">
+           <a tabindex="-1" href="http://cal.lib.virginia.edu/calendar/events">
+             <paper-button>View All Event</paper-button>
+           </a>
+          </div>
+        </paper-card>
+        <paper-card is="news" heading="Library News" elevation="3" style="max-width:100%">
+          <div class="card-content">
+            <uvalib-news-section num-items="3"></uvalib-news-section>
+          </div>
+          <div class="card-actions">
+           <a tabindex="-1" href="http://news.library.virginia.edu">
+             <paper-button>More News</paper-button>
+           </a>
+          </div>
+        </paper-card>
+      </div>
     </template>
+
+
+
 
 
     <template is="dom-if" if="[[largeScreen]]">
@@ -133,103 +193,31 @@
           </div>
         </paper-card>
       </div>
+      <div class="layout horizontal">
+        <paper-card class="flex" id="events" heading="Upcoming Events" elevation="3">
+          <div class="card-content">
+            <uvalib-events-ui max-num-events-shown="3"></uvalib-events-ui>
+          </div>
+          <div class="card-actions">
+           <a tabindex="-1" href="http://cal.lib.virginia.edu/calendar/events">
+             <paper-button>View All Event</paper-button>
+           </a>
+          </div>
+        </paper-card>
+        <paper-card class="flex" is="news" heading="Library News" elevation="3">
+          <div class="card-content">
+            <uvalib-news-section num-items="3"></uvalib-news-section>
+          </div>
+          <div class="card-actions">
+           <a tabindex="-1" href="http://news.library.virginia.edu">
+             <paper-button>More News</paper-button>
+           </a>
+          </div>
+        </paper-card>
+      </div>
     </template>
 
-
-
-<!--
-    <div id="home-1">
-
-      <paper-card id="hours-card" heading="Today's Hours" elevation="3">
-        <div class="card-content">
-          <uvalib-hours-ui single-day></uvalib-hours-ui>
-        </div>
-        <div class="card-actions">
-          <a href="/hours" tabindex="-1">
-            <paper-button>View All Hours ⟶</paper-button>
-          </a>
-        </div>
-      </paper-card>
-    </div>
-
-    <div class="shady layout horizontal wrap center-justified">
-      <paper-card id="research" heading="Research" class="flex" elevation="3" image="/files/cards/research.jpg" alt="Image of student doing research in the Library">
-        <div class="card-content">
-  <ul>
-            <li><a href="https://search.lib.virginia.edu">Virgo: Library Catalog</a></li>
-            <li><a href="https://guides.lib.virginia.edu/az.php">Databases A-Z</a></li>
-            <li><a href="/research/">Subject guides</a></li>
-            <li><a href="http://guides.lib.virginia.edu/journalfinder">Journal finder</a></li>
-            <li><a href="/services/search-course-reserves/">Search course reserves</a></li>
-            <li><a href="http://data.library.virginia.edu/research-software/">Research software</a></li>
-          </ul>
-        </div>
-        <div class="card-actions">
-          <a tabindex="-1" href="/research">
-            <paper-button>More Research Tools</paper-button>
-          </a>
-        </div>
-      </paper-card>
-      <paper-card id="spaces" class="flex" heading="Spaces &amp; Equipment" elevation="3" image="/files/cards/spaces.jpg" alt="Student studying in an egg.">
-        <div class="card-content">
-          <ul>
-            <li><a href="/map/#!/study/">Find study spaces</a></li>
-            <li><a href="/policies/">Using the library - policies </a></li>
-            <li><a href="/print-copy-scan-computing/">Printers &amp; scanning</a></li>
-            <li><a href="/services/reserve-equipment-computers/">Borrow equipment</a></li>
-            <li><a href="/services/reserve-rooms/">Reserve a room</a></li>
-            <li><a href="/services/digital-labs/">Digital labs</a></li>
-          </ul>
-        </div>
-        <div class="card-actions">
-          <a tabindex="-1" href="http://static.lib.virginia.edu/directory/libraries.html">
-            <paper-button>Explore libraries &amp; labs</paper-button>
-          </a>
-        </div>
-      </paper-card>
-      <paper-card id="services" class="flex" heading="Services" elevation="3" image="/files/cards/services.jpg" alt="Librarian giving a presentation on a digital display.">
-        <div class="card-content">
-          <ul>
-            <li><a href="/services/ils/">LEO and Interlibrary Loan (ILL)</a></li>
-            <li><a href="http://guides.lib.virginia.edu/subjectlibrarians">Subject librarians</a></li>
-            <li><a href="/services/purchase-requests/">Purchase request</a></li>
-            <li><a href="/services/off-grounds-access/">Off-Grounds access</a></li>
-            <li><a href="/services/accessibility-services/">Accessibility Services </a></li>
-            <li><a href="/services/classes/">Library class request</a></li>
-          </ul>
-        </div>
-        <div class="card-actions">
-          <a tabindex="-1" href="https://library.virginia.edu/services">
-            <paper-button>More Services</paper-button>
-          </a>
-        </div>
-      </paper-card>
-    </div>
-
-    <div class="layout horizontal wrap center-justified">
-      <paper-card id="events" class="flex" heading="Upcoming Events" elevation="3">
-        <div class="card-content">
-          <uvalib-events-ui max-num-events-shown="3"></uvalib-events-ui>
-        </div>
-        <div class="card-actions">
-         <a tabindex="-1" href="http://cal.lib.virginia.edu/calendar/events">
-           <paper-button>View All Event</paper-button>
-         </a>
-        </div>
-      </paper-card>
-      <paper-card is="news" class="flex-2" style="max-width:1000px;" heading="Library News" elevation="3">
-        <div class="card-content">
-          <uvalib-news-section num-items="3"></uvalib-news-section>
-        </div>
-        <div class="card-actions">
-         <a tabindex="-1" href="http://news.library.virginia.edu">
-           <paper-button>More News</paper-button>
-         </a>
-        </div>
-      </paper-card>
-    </div>
-
-    <div class="shady layout horizontal wrap center-justified">
+    <div class="shady layout horizontal wrap">
       <paper-card id="exhibit" heading="Exhibition Spotlight" elevation="3" image="/files/cards/100obj.gif" alt="The University of Virginia in one hundred objects">
         <div class="card-content">
           <p><em>The University of Virginia in 100 Objects</em>, a Bicentennial exhibition celebrating the history of the University on display through June 2018.</p>
@@ -255,7 +243,7 @@
         </div>
       </paper-card>
     </div>
--->
+
   </template>
 
   <script>
