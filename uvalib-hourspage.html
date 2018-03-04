@@ -3,8 +3,9 @@
 <link rel="import" href="../uvalib-theme/uvalib-page-style.html">
 <link rel="import" href="../uvalib-theme/uvalib-hourspage-style.html">
 <link rel="import" href="../paper-button/paper-button.html">
+<link rel="import" href="../paper-card/paper-card.html">
 <link rel="import" href="../paper-icon-button/paper-icon-button.html">
-<link rel="import" href="../paper-material/paper-material.html">
+<link rel="" href="../marked-element/marked-element.html">
 <link rel="import" href="../uva-models/uva-library.html">
 <link rel="import" href="../uva-models/uva-library-hours.html">
 <link rel="import" href="../uva-helper-libs/moment-timezone.html">
@@ -21,6 +22,11 @@
         }
         [hidden] {
           display: none;
+        }
+        paper-card {
+          --paper-card-header-image: {
+            max-height: 200px;
+          }
         }
       </style>
     </custom-style>
@@ -104,9 +110,13 @@
       <a href="#law" tabindex="-1"><paper-button raised>Law Library</paper-button></a>
     </div>
 
-    <div class="layout horizontal wrap">
+    <div class="shady layout horizontal wrap">
       <template is="dom-repeat" items="[[_libraries]]" as="lib">
-        <paper-card heading="[[lib.title]]"></paper-card>
+        <paper-card heading="[[lib.title]]" image="[[lib.mainImage.url]]">
+          <marked-element markdown="[[lib.body]]">
+            <div slot="markdown-html"></div>
+          </marked-element>
+        </paper-card>
       </template>
     </div>
 
