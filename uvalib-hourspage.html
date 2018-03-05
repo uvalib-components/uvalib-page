@@ -212,13 +212,6 @@
               this._refresh++;  // the change forces the dom-bound method to evaluate
             }.bind(this), 300000);
       }
-      connectedCallback(){
-        super.connectedCallback();
-        // update the open/closed and range every 5 minutes
-        this._intervalId = setInterval(function(){
-              this._refresh++;  // the change forces the dom-bound method to evaluate
-            }.bind(this), 300000);
-      }
       disconnectedCallback(){
         super.disconnectedCallback();
         clearInterval(this._intervalId);
