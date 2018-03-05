@@ -30,17 +30,31 @@
     </custom-style>
 
     <uva-library filter="libcalID" items="{{_libraries}}" sort-by="shortTitle"></uva-library>
-    <uva-library path="exhibits" items="{{_exhibits}}" sort-by="date"></uva-library>
+    <uva-library path="exhibits" items="{{_exhibits}}" sort-by="date" sort-order="desc"></uva-library>
 
     <div class="shady layout horizontal wrap center-justified">
       <template is="dom-repeat" items="[[_exhibits]]" as="exhibit">
         <paper-card heading$="[[exhibit.title]]" image$="[[exhibit.image.url]]">
           <div class="card-content">
-
+            <marked-element markdown="[[exhibit.body]]">
+              <div slot="markdown-html"></div>
+            </marked-element>
+            <dl>
+              <dt hidden$="[[!exhibit.date]]">Start Date</dt>
+              <dd hidden$="[[!exhibit.date]]">[[exhibit.date]]</dd>
+              <dt hidden$="[[!exhibit.endDate]]">End Date</dt>
+              <dd hidden$="[[!exhibit.endDate]]">[[exhibit.endDate]]</dd>
+              <dt hidden$="[[!exhibit.furtherLocInfo]]">Location Information</dt>
+              <dd hidden$="[[!exhibit.furtherLocInfo]]">[[exhibit.furtherLocInfo]]</dd>
+            </dl>
           </div>
-          <div class="card-actions">
-            <paper-button data-location="[[lib.location]]" on-tap="_mapIt">Map It</paper-button>
-          </div>
+          <template is="dom-if" if="[[exhibit.link]]">
+            <div class="card-actions">
+              <a href="[[exhibit.link]]" target="-1">
+                <paper-button>Online Exhibit</paper-button>
+              </a>
+            </div>
+          </template>
 
         </paper-card>
       </template>
