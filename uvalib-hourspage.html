@@ -24,7 +24,7 @@
           display: none;
         }
         paper-card {
-          max-width: 24em;
+          max-width: 20em;
           --paper-card-header-image: {
             max-height: 300px;
           }
@@ -51,11 +51,11 @@
           </colgroup>
           <tr>
             <td>
-              <paper-button raised disabled$="[[!page]]" on-tap="_setPageZero">Today</paper-button>
-              <paper-button raised hidden$="[[!page]]" on-tap="_pageDown">Previous</iron-icon></paper-button>
-              <paper-button raised on-tap="_pageUp">Next</iron-icon></paper-button>
+              <paper-button class="smallButton" raised disabled$="[[!page]]" on-tap="_setPageZero">Today</paper-button>
+              <paper-button class="smallButton" raised hidden$="[[!page]]" on-tap="_pageDown">Previous</iron-icon></paper-button>
+              <paper-button class="smallButton" raised on-tap="_pageUp">Next</iron-icon></paper-button>
 
-              <paper-button raised>Expand All</paper-button>
+              <paper-button class="smallButton" raised>Expand All</paper-button>
             </td>
             <template is="dom-repeat" items="[[_days]]">
               <th>[[item.date]]<br />[[item.title]]</th>
@@ -104,7 +104,7 @@
         </template>
       </div>
     </template>
-    <div class="horizontal layout center-justified wrap">
+    <div class="horizontal layout center-justified wrap uva-margin-bottom">
       <a href="#darden" tabindex="-1"><paper-button raised>Darden Library</paper-button></a>
       <a href="#health-sciences" tabindex="-1"><paper-button raised>Health Sciences Library</paper-button></a>
       <a href="#jag" tabindex="-1"><paper-button raised>JAG School Library</paper-button></a>
@@ -114,20 +114,9 @@
     <div class="shady layout horizontal wrap center-justified">
       <template is="dom-repeat" items="[[_libraries]]" as="lib">
         <paper-card heading$="[[lib.title]]" image$="[[lib.mainImage.url]]">
-          <div class="card-content">
-            <marked-element markdown="[[lib.body]]">
-              <div slot="markdown-html"></div>
-            </marked-element>
-            <dl>
-              <dt hidden$="[[!lib.emailAddress]]">Email</dt>
-              <dd hidden$="[[!lib.emailAddress]]">[[lib.emailAddress]]</dd>
-              <dt hidden$="[[!lib.phoneNumber]]">Phone</dt>
-              <dd hidden$="[[!lib.phoneNumber]]">[[lib.phoneNumber]]</dd>
-            </dl>
-          </div>
-          <div class="card-actions">
-            <paper-button>Map It</paper-button>
-          </div>
+          <marked-element markdown="[[lib.body]]">
+            <div slot="markdown-html" class="card-content"></div>
+          </marked-element>
         </paper-card>
       </template>
     </div>
