@@ -12,6 +12,9 @@
 <link rel="import" href="../iron-collapse/iron-collapse.html">
 <link rel="import" href="../uvalib-theme/uvalib-icons.html">
 <link rel="import" href="../uva-accordion/uva-accordion.html">
+<link rel="import" href="../paper-dialog/paper-dialog.html">
+<link rel="import" href="../google-map/google-map.html" />
+<link rel="import" href="../google-map/google-map-marker.html">
 
 <dom-module id="uvalib-hourspage">
   <template>
@@ -29,6 +32,16 @@
             max-height: 300px;
           }
         }
+        #mapDialog {
+          position: fixed;
+          margin: 0;
+          top:0;
+          width: 100%;
+          height: 100vh;
+          overflow: auto;
+          background-color: var(--color-primary-color);
+        }
+
       </style>
     </custom-style>
 
@@ -125,12 +138,22 @@
               <dd hidden$="[[!lib.phoneNumber]]">[[lib.phoneNumber]]</dd>
             </dl>
           </div>
-          <div class="card-actions">
-            <paper-button>Map It</paper-button>
-          </div>
+          <template is="dom-if" if="[[lib.location]]">
+            <div class="card-actions">
+              <paper-button data-location="[[lib.location]]" on-tap="_mapIt">Map It</paper-button>
+            </div>
+          </template>
         </paper-card>
       </template>
     </div>
+
+    <paper-dialog id="mapDialog" with-backdrop>
+      <template is="dom-if" if="[[_mapLat]]">
+        <google-map id="gmap" style="height:100vh;" zoom="18" latitude="[[_mapLat]]" longitude="[[_mapLon]]" api-key="AIzaSyBxAaVYnYIkwmvR4pigOojpxvli_OxBeFs">
+          <google-map-marker latitude="[[_mapLat]]" longitude="[[_mapLon]]"></google-map-marker>
+        </google-map>
+      </template>
+    </paper-dialog>
 
   </template>
 
@@ -202,6 +225,14 @@
       disconnectedCallback(){
         super.disconnectedCallback();
         clearInterval(this._intervalId);
+      }
+      _mapIt(e){
+        var loc = e.currentTarget.dataLocation;
+        if (loc.lat && loc.lng) {
+          this._mapLon = loc.lng;
+          this._mapLat = loc.lat;
+          this.$.mapDialog.open();
+        }
       }
       _cardTap(e){
         var foo="bar";
