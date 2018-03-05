@@ -24,8 +24,9 @@
           display: none;
         }
         paper-card {
+          max-width: 24em;
           --paper-card-header-image: {
-            max-height: 200px;
+            max-height: 300px;
           }
         }
       </style>
@@ -110,9 +111,9 @@
       <a href="#law" tabindex="-1"><paper-button raised>Law Library</paper-button></a>
     </div>
 
-    <div class="shady layout horizontal wrap">
+    <div class="shady layout horizontal wrap center-justified">
       <template is="dom-repeat" items="[[_libraries]]" as="lib">
-        <paper-card heading="[[lib.title]]" image="[[lib.mainImage.url]]">
+        <paper-card heading$="[[lib.title]]" image$="[[lib.mainImage.url]]">
           <marked-element markdown="[[lib.body]]">
             <div slot="markdown-html"></div>
           </marked-element>
