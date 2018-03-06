@@ -3,6 +3,7 @@
 <link rel="import" href="../uvalib-theme/uvalib-theme.html">
 <link rel="import" href="../uvalib-theme/uvalib-page-style.html">
 <link rel="import" href="../uvalib-theme/uvalib-card-style.html">
+<link rel="import" href="../uvalib-banner/uvalib-banner.html">
 
 <dom-module id="uvalib-homepage">
   <template>
@@ -13,6 +14,7 @@
         }
         #banner {
           width: 100vw;
+          max-width: 100%;
           margin: 0 0 0 -.95em;
           overflow: hidden;
         }
@@ -22,7 +24,7 @@
     <!-- Banner at top outside of card if not large screen -->
     <template is="dom-if" if="[[!largeScreen]]">
       <div id="banner" tabindex="-1">
-        <iron-image src="https://storage.googleapis.com/uvalib-api.appspot.com/5f66df14-cfab-4c38-a06f-a3da7e6f9c76.webp" alt="banner placeholder"></iron-image>
+        <uvalib-banner></uvalib-banner>
       </div>
 
       <!-- Stick hours and research in w/ white background if not large -->
@@ -124,8 +126,7 @@
       <div class="layout horizontal">
         <paper-card id="banner" class="flex" elevation="3" style="width: 200px; max-width: none; min-width: none;" tabindex="-1">
           <div class="card-content" style="overflow: hidden">
-            <iron-image src="https://storage.googleapis.com/uvalib-api.appspot.com/5f66df14-cfab-4c38-a06f-a3da7e6f9c76.webp" alt="banner placeholder"></iron-image>
-<a href="">focusable content in the banner</a>
+            <uvalib-banner></uvalib-banner>
           </div>
         </paper-card>
         <paper-card id="hours-card" heading="Today's Hours" elevation="3" style="width: 200px; max-width: none; min-width: none;">
