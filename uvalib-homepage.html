@@ -29,7 +29,7 @@
 
       <!-- Stick hours and research in w/ white background if not large -->
       <div class="layout horizontal wrap">
-        <paper-card class="flex" id="hours-card" heading="Today's Hours" elevation="3">
+        <paper-card class="flex" id="hours-card" heading="Today's Hours">
           <div class="card-content full-card">
             <uvalib-hours-ui single-day></uvalib-hours-ui>
           </div>
@@ -39,7 +39,7 @@
             </a>
           </div>
         </paper-card>
-        <paper-card id="research" class="flex" heading="Research" elevation="3" image="/files/cards/research.jpg" alt="Image of student doing research in the Library">
+        <paper-card id="research" class="flex" heading="Research" image="/files/cards/research.jpg" alt="Image of student doing research in the Library">
           <div class="card-content">
             <ul>
               <li><a href="https://search.lib.virginia.edu">Virgo: Library Catalog</a></li>
@@ -58,7 +58,7 @@
         </paper-card>
       </div>
       <div class="shady layout horizontal wrap">
-        <paper-card id="spaces" class="flex" heading="Spaces &amp; Equipment" elevation="3" image="/files/cards/spaces.jpg" alt="Student studying in an egg.">
+        <paper-card id="spaces" class="flex" heading="Spaces &amp; Equipment" image="/files/cards/spaces.jpg" alt="Student studying in an egg.">
           <div class="card-content">
             <ul>
               <li><a href="/map/#!/study/">Find study spaces</a></li>
@@ -75,7 +75,7 @@
             </a>
           </div>
         </paper-card>
-        <paper-card id="services" class="flex" heading="Services" elevation="3" image="/files/cards/services.jpg" alt="Librarian giving a presentation on a digital display.">
+        <paper-card id="services" class="flex" heading="Services" image="/files/cards/services.jpg" alt="Librarian giving a presentation on a digital display.">
           <div class="card-content">
             <ul>
               <li><a href="/services/ils/">LEO and Interlibrary Loan (ILL)</a></li>
@@ -94,7 +94,7 @@
         </paper-card>
       </div>
       <div class="layout vertical">
-        <paper-card id="events" heading="Upcoming Events" elevation="3" style="max-width:100%">
+        <paper-card id="events" heading="Upcoming Events" style="max-width:100%">
           <div class="card-content">
             <uvalib-events-ui max-num-events-shown="3"></uvalib-events-ui>
           </div>
@@ -104,7 +104,7 @@
            </a>
           </div>
         </paper-card>
-        <paper-card is="news" heading="Library News" elevation="3" style="max-width:100%">
+        <paper-card is="news" heading="Library News" style="max-width:100%">
           <div class="card-content">
             <uvalib-news-section num-items="3"></uvalib-news-section>
           </div>
@@ -124,12 +124,12 @@
     <template is="dom-if" if="[[largeScreen]]">
       <!-- Desktop has Banner next to hours card -->
       <div class="layout horizontal">
-        <paper-card id="banner" class="flex" elevation="3" style="width: 200px; max-width: none; min-width: none;" tabindex="-1">
+        <paper-card id="banner" class="flex" style="width: 200px; max-width: none; min-width: none;" tabindex="-1">
           <div class="card-content" style="overflow: hidden">
             <uvalib-banner></uvalib-banner>
           </div>
         </paper-card>
-        <paper-card id="hours-card" heading="Today's Hours" elevation="3" style="width: 200px; max-width: none; min-width: none;">
+        <paper-card id="hours-card" heading="Today's Hours" style="width: 200px; max-width: none; min-width: none;">
           <div class="card-content full-card">
             <uvalib-hours-ui single-day></uvalib-hours-ui>
           </div>
@@ -142,7 +142,7 @@
       </div>
       <!-- then shady area with research, spaces, and services -->
       <div class="shady layout horizontal">
-        <paper-card id="research" heading="Research" class="flex" elevation="3" image="/files/cards/research.jpg" alt="Image of student doing research in the Library">
+        <paper-card id="research" heading="Research" class="flex" image="/files/cards/research.jpg" alt="Image of student doing research in the Library">
           <div class="card-content">
             <ul>
               <li><a href="https://search.lib.virginia.edu">Virgo: Library Catalog</a></li>
@@ -159,7 +159,7 @@
             </a>
           </div>
         </paper-card>
-        <paper-card id="spaces" class="flex" heading="Spaces &amp; Equipment" elevation="3" image="/files/cards/spaces.jpg" alt="Student studying in an egg.">
+        <paper-card id="spaces" class="flex" heading="Spaces &amp; Equipment" image="/files/cards/spaces.jpg" alt="Student studying in an egg.">
           <div class="card-content">
             <ul>
               <li><a href="/map/#!/study/">Find study spaces</a></li>
@@ -176,7 +176,7 @@
             </a>
           </div>
         </paper-card>
-        <paper-card id="services" class="flex" heading="Services" elevation="3" image="/files/cards/services.jpg" alt="Librarian giving a presentation on a digital display.">
+        <paper-card id="services" class="flex" heading="Services" image="/files/cards/services.jpg" alt="Librarian giving a presentation on a digital display.">
           <div class="card-content">
             <ul>
               <li><a href="/services/ils/">LEO and Interlibrary Loan (ILL)</a></li>
@@ -195,7 +195,7 @@
         </paper-card>
       </div>
       <div class="layout horizontal">
-        <paper-card class="flex" id="events" heading="Upcoming Events" elevation="3">
+        <paper-card class="flex" id="events" heading="Upcoming Events">
           <div class="card-content">
             <uvalib-events-ui max-num-events-shown="3"></uvalib-events-ui>
           </div>
@@ -205,7 +205,7 @@
            </a>
           </div>
         </paper-card>
-        <paper-card class="flex" is="news" heading="Library News" elevation="3">
+        <paper-card class="flex" is="news" heading="Library News">
           <div class="card-content">
             <uvalib-news-section num-items="3"></uvalib-news-section>
           </div>
@@ -219,7 +219,7 @@
     </template>
 
     <div class="shady layout horizontal wrap">
-      <paper-card id="exhibit" heading="Exhibition Spotlight" elevation="3" image="/files/cards/100obj.gif" alt="The University of Virginia in one hundred objects">
+      <paper-card id="exhibit" heading="Exhibition Spotlight" image="/files/cards/100obj.gif" alt="The University of Virginia in one hundred objects">
         <div class="card-content">
           <p><em>The University of Virginia in 100 Objects</em>, a Bicentennial exhibition celebrating the history of the University on display through June 2018.</p>
         </div>
@@ -229,7 +229,7 @@
           </a>
         </div>
       </paper-card>
-      <paper-card id="support" elevation="3" heading="Spaces &amp; Equipment" image="/files/cards/engage.jpg" alt="Students studying in the Library">
+      <paper-card id="support" heading="Spaces &amp; Equipment" image="/files/cards/engage.jpg" alt="Students studying in the Library">
         <div class="card-content">
           <ul>
             <li><a href="/jobs">Volunteer Opportunities</a></li>
