@@ -1,0 +1,191 @@
+<link rel="import" href="../uvalib-theme/uvalib-ui-element.html">
+<link rel="import" href="../uvalib-theme/uvalib-theme.html">
+<link rel="import" href="../uvalib-theme/uvalib-page-style.html">
+<link rel="import" href="../paper-button/paper-button.html">
+<link rel="import" href="../paper-card/paper-card.html">
+<link rel="import" href="../marked-element/marked-element.html">
+<link rel="import" href="../uva-models/uva-library.html">
+<link rel="import" href="../uvalib-theme/uvalib-icons.html">
+
+
+<dom-module id="uvalib-pre-services">
+  <template>
+    <custom-style>
+      <style include="uvalib-theme uvalib-page-style iron-flex-factors">
+        :host {
+          display: block;
+        }
+        [hidden] {
+          display: none;
+        }
+        paper-card {
+          max-width: 20em;
+          --paper-card-header-image: {
+            max-height: 300px;
+          }
+        }
+
+
+      </style>
+    </custom-style>
+
+    <uva-library filter="libcalID" items="{{_libraries}}" sort-by="shortTitle"></uva-library>
+    <uva-library path="exhibits" items="{{_exhibits}}" sort-by="date" sort-order="desc"></uva-library>
+
+    <div class="layout horizontal wrap center-justified">
+      <paper-card heading="Collections Services">
+        <div class="card-content">
+          <p>See something missing from our collections? U.Va. students, faculty and staff can submit purchase requests or get materials through Interlibrary Loan. Faculty can also request office delivery of materials. To learn more about specific collections and collection news, see our <a title="Collections" href="/collections/">Collections</a> page.</p>
+          <div>
+            <h4>Get Materials</h4>
+            <ol>
+              <li>
+                <a href="https://www.library.virginia.edu/services/purchase-requests/">Purchase Request</a>
+              </li>
+              <li>
+                <a href="/about-available-to-order-items/">Available to Order</a>
+              </li>
+              <li>
+                <a href="/services/ils/">Interlibrary Loan</a>
+              </li>
+              <li>
+                <a href="/services/ils/leo/">LEO Delivery</a>
+              </li>
+            </ol>
+          </div>
+          <div>
+            <h4>Course Reserves</h4>
+            <ol>
+              <li>
+                <a title="Search Course Reserves" href="/services/search-course-reserves/">Search Course Reserves</a>
+              </li>
+              <li>
+                <a title="Course Reserves" href="/services/course-reserves/">Place Items on Course Reserve</a>
+              </li>
+            </ol>
+          </div>
+        </div>
+      </paper-card>
+      <paper-card heading="Data Services">
+        <div class="card-content">
+          <p>Data services at the Library are evolving to meet emerging research needs. We can help you access, install, and use U.Va. site-licensed research software; find, create, use, and analyze data; help develop and execute data management plans; and assist with submitting data sets to <a href="http://libra.virginia.edu" target="_blank">Libra</a> or another repository. Our experts offer workshops and other forms of training, and are available for one-on-one consultation.</p>
+          <div>
+            <h4>Get help with</h4>
+            <ol>
+              <li><a title="Data Management Consulting Group" href="http://data.library.virginia.edu/data-management">Data Management</a></li>
+              <li><a href="http://scholarslab.org/geospatial-services/">GIS</a></li>
+              <li><a href="http://data.library.virginia.edu/statlab">Data Analysis (via StatLab)</a></li>
+              <li><a href="http://data.library.virginia.edu/datasources/">Data Discovery &amp; Acquisition</a></li>
+              <li><a href="http://data.library.virginia.edu/research-software/">Research Software Support</a></li>
+            </ol>
+          </div>
+        </div>
+      </paper-card>
+      <paper-card heading="Digitization &amp; Computing">
+        <div class="card-content">
+          <p>The Library offers scanning, printing, and copying services. You can also connect to Library databases from off-Grounds (U.Va. community only). There are public computers in Alderman, Brown, and Clemons, but these are very popular so we recommend you bring your laptop for working in the Library.</p>
+          <div>
+            <h4>Digitization &amp; Scanning</h4>
+            <ol>
+              <li><a href="/services/scanning-self-service/">Self-service</a></li>
+              <li><a href="/services/digitization/">Request Digitization</a></li>
+            </ol>
+          </div>
+          <div>
+            <h4>Computing</h4>
+            <ol>
+              <li><a href="http://guides.lib.virginia.edu/accounts">Computing Accounts</a></li>
+              <li><a title="Off-Grounds Access" href="/services/off-grounds-access/">Off-Grounds Access</a></li>
+              <li><a title="Public Computing" href="/services/computing/">Computing Information</a></li>
+              <li><a title="Printing &amp; Photocopying" href="/services/printing-photocopying/">Printing &amp; Photocopying</a></li>
+            </ol>
+          </div>
+        </div>
+      </paper-card>
+      <paper-card heading="Reference, Consultations, &amp; Classes">
+        <div class="card-content">
+          <p>Library staff are research experts who can help you navigate our resources to get your work done. We offer reference assistance, one-on-one or in-class instruction, short courses, and subject expertise, as well as consultations on data management and specialized fields like GIS and digital research and scholarship.</p>
+          <div>
+            <h4>Specialized Consultation</h4>
+            <ol>
+              <li><a href="http://guides.lib.virginia.edu/subjectlibrarians">Subject Librarians</a></li>
+              <li><a href="http://scholarslab.org/about/">Digital Research and Scholarship</a></li>
+              <li><a href="http://scholarslab.org/geospatial-services/">GIS</a></li>
+              <li><a title="Emerging Media Technologies" href="/services/emerging-media-technologies/">Emerging Media Technologies</a></li>
+              <li><a href="http://dmconsult.library.virginia.edu">Data Management</a></li>
+              <li><a href="http://small.library.virginia.edu/services/reference-requests/">Special Collections</a></li>
+              <li><a href="http://www.library.virginia.edu/askalibrarian/">Ask a Librarian</a></li>
+              <li><a href="http://www.library.virginia.edu/services/metadata-analysis-design-services/">Metadata Analysis &amp; Design</a></li>
+              <li><a href="http://www.library.virginia.edu/services/sourcedorks/">SourceDorks Research Help</a></li>
+            </ol>
+          </div>
+          <div>
+            <h4>Instruction &amp; Workshops</h4>
+            <ol>
+              <li><a title="Classes" href="https://www.library.virginia.edu/services/classes/">Classes</a></li>
+              <li><a title="Research Tutorials" href="https://www.library.virginia.edu/services/research-tutorial-request/">Research Tutorial Request Form</a></li>
+              <li><a href="https://small.library.virginia.edu/services/instruction/">Special Collections Instruction Sessions</a></li>
+              <li><a href="/teaching-and-learning/">Teaching &amp; Learning Resources</a></li>
+            </ol>
+          </div>
+        </div>
+      </paper-card>
+      <paper-card heading="Rooms, Equipment, &amp; Reservations">
+        <div class="card-content">
+          <p>Explore our study spaces or check out equipment needed for your digital project. You can also reserve collaborative study rooms at several libraries.</p>
+          <div>
+            <h4>Space Information</h4>
+            <ol>
+              <li><a href="/hours">Libraries</a></li>
+              <li><a href="http://uvalibrary.maps.arcgis.com/apps/Shortlist/index.html?appid=e6cb8c4cde61410f873bc780c38bd958">Study Space Information</a></li>
+              <li><a title="Digital Labs" href="/services/digital-labs/">Digital Labs</a></li>
+            </ol>
+          </div>
+          <div>
+            <h4>Reservations</h4>
+            <ol>
+              <li><a title="Reserve Equipment &amp; Computers" href="/services/reserve-equipment-computers/">Reserve Equipment &amp; Computers</a></li>
+              <li><a title="Reserve &amp; Rent Rooms" href="/services/reserve-rooms/">Reserve &amp; Rent Spaces</a></li>
+              <li><a href="http://www.library.virginia.edu/alderman-library-carrel-policies/">Apply for a Library carrel</a></li>
+              <li><a href="https://www.library.virginia.edu/services/tables-and-displays/">Reserve the Tabling Table in Clemons</a></li>
+            </ol>
+          </div>
+        </div>
+      </paper-card>
+      <paper-card heading="Scholarly Communication Services">
+        <div class="card-content">
+          <p>The Library supports the growing movement to reform scholarly communication within the academy. Libra, U.Va&#8217;s institutional repository, assists in this effort by allowing members of the U.Va. community to deposit their scholarship for preservation and open access. We also provide information about copyright, fair use, intellectual property, and related issues affecting teaching, research and scholarly communication.</p>
+          <div>
+            <h4>More Information</h4>
+            <ol>
+              <li><a href="http://libra.virginia.edu/">Libra (U.Va. Institutional Repository)</a></li>
+              <li><a href="http://copyright.library.virginia.edu/">Copyright and Scholarly Communication Resources</a></li>
+            </ol>
+          </div>
+        </div>
+      </paper-card>
+    </div>
+
+  </template>
+
+  <script>
+    /**
+     * `uvalib-aboutpage`
+     * UVA Library page layout component
+     *
+     * @customElement
+     * @polymer
+     * @demo demo/index.html
+     */
+    class UvalibPreServicespage extends Polymer.Element {
+      static get is() { return 'uvalib-pre-services'; }
+      static get properties() {
+        return {
+
+        };
+      }
+    }
+
+    window.customElements.define(UvalibPreServicespage.is, UvalibPreServicespage);
+  </script>
+</dom-module>
