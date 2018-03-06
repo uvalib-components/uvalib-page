@@ -26,8 +26,8 @@
 
     <!-- Banner at top outside of card if not large screen -->
     <template is="dom-if" if="[[!largeScreen]]">
-      <div id="banner" tabindex="-1">
-        <uvalib-banner></uvalib-banner>
+      <div>
+        <uvalib-banner id="banner" tabindex="-1"></uvalib-banner>
       </div>
 
       <!-- Stick hours and research in w/ white background if not large -->
@@ -127,9 +127,9 @@
     <template is="dom-if" if="[[largeScreen]]">
       <!-- Desktop has Banner next to hours card -->
       <div class="layout horizontal">
-        <paper-card class="flex layout vertical" style="width: 200px; max-width: none; min-width: none;" tabindex="-1">
+        <paper-card class="flex layout vertical" style="width: 200px; max-width: none; min-width: none;">
           <div class="card-content flex" style="overflow: hidden; padding:0; margin:0">
-            <uvalib-banner style="height:100%;width:100%;"></uvalib-banner>
+            <uvalib-banner id="bannerLg" style="height:100%;width:100%;" tabindex="-1"></uvalib-banner>
           </div>
         </paper-card>
         <paper-card id="hours-card" heading="Today's Hours" style="width: 200px; max-width: none; min-width: none;">
@@ -272,6 +272,14 @@
         var childTemplate = Polymer.DomModule.import('uvalib-homepage', 'template');
         parentTemplate.content.insertBefore(childTemplate.content,null);
         return parentTemplate;
+      }
+      setBannerFocus() {
+        console.log('banner focus');
+        if (this.largeScreen) {
+          this.$.bannerLg.focus();
+        } else {
+          this.$.banner.focus();
+        }
       }
     }
 
