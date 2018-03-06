@@ -124,9 +124,9 @@
     <template is="dom-if" if="[[largeScreen]]">
       <!-- Desktop has Banner next to hours card -->
       <div class="layout horizontal">
-        <paper-card id="banner" class="flex" style="width: 200px; max-width: none; min-width: none;" tabindex="-1">
-          <div class="card-content" style="overflow: hidden">
-            <uvalib-banner></uvalib-banner>
+        <paper-card class="flex layout vertical" style="width: 200px; max-width: none; min-width: none;" tabindex="-1">
+          <div class="card-content flex" style="overflow: hidden">
+            <uvalib-banner style="height:100%;width:100%;"></uvalib-banner>
           </div>
         </paper-card>
         <paper-card id="hours-card" heading="Today's Hours" style="width: 200px; max-width: none; min-width: none;">
