@@ -1,0 +1,93 @@
+<link rel="import" href="../uvalib-theme/uvalib-ui-element.html">
+<link rel="import" href="../uvalib-theme/uvalib-theme.html">
+<link rel="import" href="../uvalib-theme/uvalib-page-style.html">
+<link rel="import" href="../paper-button/paper-button.html">
+<link rel="import" href="../paper-card/paper-card.html">
+<link rel="import" href="../marked-element/marked-element.html">
+<link rel="import" href="../uva-models/uva-library.html">
+<link rel="import" href="../uvalib-theme/uvalib-icons.html">
+
+
+<dom-module id="uvalib-collectionspage">
+  <template>
+    <custom-style>
+      <style include="uvalib-theme uvalib-page-style iron-flex-factors">
+        :host {
+          display: block;
+        }
+        [hidden] {
+          display: none;
+        }
+        paper-card {
+          max-width: 20em;
+          --paper-card-header-image: {
+            max-height: 300px;
+          }
+        }
+
+
+      </style>
+    </custom-style>
+
+    <uva-library path="collections" items="{{_collections}}" sort-by="title" sort-order="desc"></uva-library>
+
+    <div class="shady layout horizontal wrap center-justified">
+      <template is="dom-repeat" items="[[_collections]]" as="col">
+        <paper-card heading$="[[col.title]]">
+          <div class="card-content">
+            <marked-element markdown="[[col.body]]">
+              <div slot="markdown-html"></div>
+            </marked-element>
+            <!--
+            <dl>
+              <dt hidden$="[[!exhibit.date]]">Start Date</dt>
+              <dd hidden$="[[!exhibit.date]]">[[exhibit.date]]</dd>
+              <dt hidden$="[[!exhibit.endDate]]">End Date</dt>
+              <dd hidden$="[[!exhibit.endDate]]">[[exhibit.endDate]]</dd>
+              <dt hidden$="[[!exhibit.furtherLocInfo]]">Location Information</dt>
+              <dd hidden$="[[!exhibit.furtherLocInfo]]">[[exhibit.furtherLocInfo]]</dd>
+            </dl>
+            -->
+          </div>
+          <template is="dom-if" if="[[col.collectionURL]]">
+            <div class="card-actions">
+              <a href="[[col.collectionURL]]" target="-1">
+                <paper-button>Go to Collection</paper-button>
+              </a>
+            </div>
+          </template>
+
+        </paper-card>
+      </template>
+    </div>
+
+  </template>
+
+  <script>
+    /**
+     * `uvalib-collectionspage`
+     * UVA Library collections page layout component
+     *
+     * @customElement
+     * @polymer
+     * @demo demo/exhibits.html
+     */
+    class UvalibCollectionspage extends UvalibUiElement {
+      static get is() { return 'uvalib-collectionspage'; }
+      static get properties() {
+        return Object.assign(super.properties,{
+          _exhibits: Array
+        });
+      }
+      //Concat the this elements template with the parents
+      static get template() {
+        var parentTemplate = UvalibUiElement.template.cloneNode(true);
+        var childTemplate = Polymer.DomModule.import('uvalib-collectionspage', 'template');
+        parentTemplate.content.insertBefore(childTemplate.content,null);
+        return parentTemplate;
+      }
+    }
+
+    window.customElements.define(UvalibCollectionspage.is, UvalibCollectionspage);
+  </script>
+</dom-module>
