@@ -52,34 +52,34 @@
           <paper-button raised>Room Reservations</paper-button>
         </div>
 
-        <table>
-          <colgroup>
-            <col />
-            <tempplate is="dom-repeat" items="[[_days]]">
-              <col shady$="[[item.today]]" />
-            </tempplate>
-          </colgroup>
-          <tr>
-            <td>
+        <div class="table">
+          <div class="colgroup">
+            <div class="col"></div>
+            <template is="dom-repeat" items="[[_days]]">
+              <div class="col" shady$="[[item.today]]"></div>
+            </template>
+          </div>
+          <div class="tr">
+            <div class="td">
               <paper-button class="smallButton" raised disabled$="[[!page]]" on-tap="_setPageZero">Today</paper-button>
               <paper-button class="smallButton" raised hidden$="[[!page]]" on-tap="_pageDown">Previous</iron-icon></paper-button>
               <paper-button class="smallButton" raised on-tap="_pageUp">Next</iron-icon></paper-button>
 
               <paper-button class="smallButton" raised>Expand All</paper-button>
-            </td>
+            </div>
             <template is="dom-repeat" items="[[_days]]">
-              <th>[[item.date]]<br />[[item.title]]</th>
+              <div class="th">[[item.date]]<br />[[item.title]]</div>
             </template>
-          </tr>
+          </div>
           <template is="dom-repeat" items="[[_libraries]]" as="library">
-            <tr>
-              <td>[[library.title]]</td>
+            <div class="tr">
+              <div class="td">[[library.title]]</div>
               <template is="dom-repeat" items="[[_days]]" as="day">
-                <td>[[_getOpenRange(library.libcalID,day.id,_times)]]</td>
+                <div class="td">[[_getOpenRange(library.libcalID,day.id,_times)]]</div>
               </template>
-            </tr>
+            </div>
           </template>
-        </table>
+        </div>
     </template>
     <template is="dom-if" if="[[!largeScreen]]">
       <div class="layout vertical">
@@ -137,7 +137,7 @@
           </div>
           <template is="dom-if" if="[[lib.location]]">
             <div class="card-actions">
-              <paper-button data-location="[[lib.location]]" on-tap="_mapIt">Map It</paper-button>
+              <paper-button raised data-location="[[lib.location]]" on-tap="_mapIt" class="uva-margin-top uva-margin-bottom">Map It</paper-button>
             </div>
           </template>
         </paper-card>
