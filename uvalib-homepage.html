@@ -30,7 +30,7 @@
     <!-- Banner at top outside of card if not large screen -->
     <template is="dom-if" if="[[!largeScreen]]">
       <div>
-        <uvalib-banners id="banner"></uvalib-banners>
+        <uvalib-banners id="banner" tabindex="-1"></uvalib-banners>
       </div>
 
       <!-- Stick hours and research in w/ white background if not large -->
@@ -276,12 +276,16 @@
         parentTemplate.content.insertBefore(childTemplate.content,null);
         return parentTemplate;
       }
+      ready() {
+        super.ready();
+      }
       setBannerFocus() {
-        console.log('banner focus');
         if (this.largeScreen) {
-          this.$.bannerLg.focus();
+          this.shadowRoot.querySelector('#bannerLg').focus();
+          console.log('large banner focus');
         } else {
-          this.$.banner.focus();
+          this.shadowRoot.querySelector('#banner').focus();
+          console.log('not large banner focus');
         }
       }
     }
