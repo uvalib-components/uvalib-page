@@ -3,7 +3,7 @@
 <link rel="import" href="../uvalib-theme/uvalib-theme.html">
 <link rel="import" href="../uvalib-theme/uvalib-page-style.html">
 <link rel="import" href="../uvalib-theme/uvalib-card-style.html">
-<link rel="import" href="../uvalib-banner/uvalib-banner.html">
+<link rel="import" href="../uvalib-banner/uvalib-banners.html">
 
 <dom-module id="uvalib-homepage">
   <template>
@@ -30,7 +30,7 @@
     <!-- Banner at top outside of card if not large screen -->
     <template is="dom-if" if="[[!largeScreen]]">
       <div>
-        <uvalib-banner id="banner" tabindex="-1"></uvalib-banner>
+        <uvalib-banners id="banner"></uvalib-banners>
       </div>
 
       <!-- Stick hours and research in w/ white background if not large -->
@@ -132,7 +132,7 @@
       <div class="layout horizontal">
         <paper-card class="flex layout vertical" style="width: 200px; max-width: none; min-width: none;">
           <div class="card-content flex" style="overflow: hidden; padding:0; margin:0">
-            <uvalib-banner id="bannerLg" style="height:100%;width:100%;" tabindex="-1"></uvalib-banner>
+            <uvalib-banners id="bannerLg" style="height:100%;width:100%;" tabindex="-1"></uvalib-banners>
           </div>
         </paper-card>
         <paper-card id="hours-card" heading="Today's Hours" style="width: 200px; max-width: none; min-width: none;">
