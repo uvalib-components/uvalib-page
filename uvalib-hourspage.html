@@ -29,6 +29,36 @@
             max-height: 300px;
           }
         }
+        :host([medium-screen]) paper-card {
+          max-width: 100%;
+        }
+        .card-content {
+          padding-top: 0;
+        }
+        .days {
+          @apply --uvalib-TB-margin;
+          width: 100%;
+        }
+        .current-times {
+          font-weight: 700;
+          font-size: 1.25em;
+          background-color: var(--uvalib-main-rotunda-orange);
+          color: var(--color-white);
+          text-align: center;
+          padding: .4em;
+          margin-bottom: 1em;
+        }
+        .date-row {
+          padding-top: .5em;
+          padding-bottom: .5em;
+        }
+        .date-row:nth-child(odd) {
+          background-color: var(--color-light-gray);
+        }
+        .date, .hours {
+          text-align: center;
+        }
+        
         #mapDialog {
           position: fixed;
           margin: 0;
