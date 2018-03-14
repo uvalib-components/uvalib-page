@@ -6,6 +6,7 @@
 <link rel="import" href="../marked-element/marked-element.html">
 <link rel="import" href="../uva-models/uva-library.html">
 <link rel="import" href="../uvalib-theme/uvalib-icons.html">
+<link rel="import" href="../uvalib-helper-libs/uvalib-helper-libs.html">
 
 
 <dom-module id="uvalib-exhibitspage">
@@ -32,8 +33,11 @@
     <uva-library filter="libcalID" items="{{_libraries}}" sort-by="shortTitle"></uva-library>
     <uva-library path="exhibits" items="{{_exhibits}}" sort-by="date" sort-order="desc"></uva-library>
 
+    <div class=“shady”>
+       <h2 class=“uva-padding-top”>Current Exhibits</h2>
+    </div>
     <div class="shady layout horizontal wrap center-justified">
-      <template is="dom-repeat" items="[[_exhibits]]" as="exhibit">
+      <template is="dom-repeat" items="[[_exhibits]]" filter="_isCurrent" as="exhibit">
         <paper-card heading$="[[exhibit.title]]" image$="[[exhibit.image.url]]">
           <div class="card-content">
             <marked-element markdown="[[exhibit.body]]">
@@ -60,6 +64,67 @@
       </template>
     </div>
 
+    <div class=“shady”>
+       <h2 class=“uva-padding-top”>Featured Exhibits</h2>
+    </div>
+    <div class="shady layout horizontal wrap center-justified">
+      <template is="dom-repeat" items="[[_exhibits]]" filter="_isFeatured" as="exhibit">
+        <paper-card heading$="[[exhibit.title]]" image$="[[exhibit.image.url]]">
+          <div class="card-content">
+            <marked-element markdown="[[exhibit.body]]">
+              <div slot="markdown-html"></div>
+            </marked-element>
+            <dl>
+              <dt hidden$="[[!exhibit.date]]">Start Date</dt>
+              <dd hidden$="[[!exhibit.date]]">[[exhibit.date]]</dd>
+              <dt hidden$="[[!exhibit.endDate]]">End Date</dt>
+              <dd hidden$="[[!exhibit.endDate]]">[[exhibit.endDate]]</dd>
+              <dt hidden$="[[!exhibit.furtherLocInfo]]">Location Information</dt>
+              <dd hidden$="[[!exhibit.furtherLocInfo]]">[[exhibit.furtherLocInfo]]</dd>
+            </dl>
+          </div>
+          <template is="dom-if" if="[[exhibit.link]]">
+            <div class="card-actions">
+              <a href="[[exhibit.link]]" target="-1">
+                <paper-button>Online Exhibit</paper-button>
+              </a>
+            </div>
+          </template>
+
+        </paper-card>
+      </template>
+    </div>
+
+    <div class=“shady”>
+       <h2 class=“uva-padding-top”>Archived Exhibits</h2>
+    </div>
+    <div class="shady layout horizontal wrap center-justified">
+      <template is="dom-repeat" items="[[_exhibits]]" filter="_isNotCurrentOrFeatured" as="exhibit">
+        <paper-card heading$="[[exhibit.title]]" image$="[[exhibit.image.url]]">
+          <div class="card-content">
+            <marked-element markdown="[[exhibit.body]]">
+              <div slot="markdown-html"></div>
+            </marked-element>
+            <dl>
+              <dt hidden$="[[!exhibit.date]]">Start Date</dt>
+              <dd hidden$="[[!exhibit.date]]">[[exhibit.date]]</dd>
+              <dt hidden$="[[!exhibit.endDate]]">End Date</dt>
+              <dd hidden$="[[!exhibit.endDate]]">[[exhibit.endDate]]</dd>
+              <dt hidden$="[[!exhibit.furtherLocInfo]]">Location Information</dt>
+              <dd hidden$="[[!exhibit.furtherLocInfo]]">[[exhibit.furtherLocInfo]]</dd>
+            </dl>
+          </div>
+          <template is="dom-if" if="[[exhibit.link]]">
+            <div class="card-actions">
+              <a href="[[exhibit.link]]" target="-1">
+                <paper-button>Online Exhibit</paper-button>
+              </a>
+            </div>
+          </template>
+
+        </paper-card>
+      </template>
+    </div>
   </template>
 
   <script>
@@ -85,6 +150,18 @@
         var childTemplate = Polymer.DomModule.import('uvalib-exhibitspage', 'template');
         parentTemplate.content.insertBefore(childTemplate.content,null);
         return parentTemplate;
+      }
+
+      _isCurrent(exhibit) {
+        return (_.find(exhibit.exhibitStatus, {'value': 'current'})) ? true : false;
+      }
+
+      _isFeatured(exhibit) {
+        return (_.find(exhibit.exhibitStatus, {'value': 'featured'})) ? true : false;
+      }
+
+      _isNotCurrentOrFeatured(exhibit) {
+        return true;
       }
     }
 
