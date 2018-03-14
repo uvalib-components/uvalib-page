@@ -33,8 +33,8 @@
     <uva-library filter="libcalID" items="{{_libraries}}" sort-by="shortTitle"></uva-library>
     <uva-library path="exhibits" items="{{_exhibits}}" sort-by="date" sort-order="desc"></uva-library>
 
-    <div class=“shady”>
-       <h2 class=“uva-padding-top”>Current Exhibits</h2>
+    <div class="shady">
+       <h2 class="uva-padding-top">Current Exhibits</h2>
     </div>
     <div class="shady layout horizontal wrap center-justified">
       <template is="dom-repeat" items="[[_exhibits]]" filter="_isCurrent" as="exhibit">
@@ -64,8 +64,8 @@
       </template>
     </div>
 
-    <div class=“shady”>
-       <h2 class=“uva-padding-top”>Featured Exhibits</h2>
+    <div class="shady">
+       <h2 class="uva-padding-top">Featured Exhibits</h2>
     </div>
     <div class="shady layout horizontal wrap center-justified">
       <template is="dom-repeat" items="[[_exhibits]]" filter="_isFeatured" as="exhibit">
@@ -95,8 +95,8 @@
       </template>
     </div>
 
-    <div class=“shady”>
-       <h2 class=“uva-padding-top”>Archived Exhibits</h2>
+    <div class="shady">
+       <h2 class="uva-padding-top">Archived Exhibits</h2>
     </div>
     <div class="shady layout horizontal wrap center-justified">
       <template is="dom-repeat" items="[[_exhibits]]" filter="_isNotCurrentOrFeatured" as="exhibit">
@@ -161,7 +161,8 @@
       }
 
       _isNotCurrentOrFeatured(exhibit) {
-        return true;
+        return ((! _.find(exhibit.exhibitStatus, {'value': 'current'})) ||
+          (! _.find(exhibit.exhibitStatus, {'value': 'featured'}))) ? true : false;
       }
     }
 
