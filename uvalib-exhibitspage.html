@@ -25,6 +25,9 @@
             max-height: 300px;
           }
         }
+        .h2Exhibit {
+          margin-top: 0;
+        }
 
 
       </style>
@@ -65,7 +68,7 @@
     </div>
 
     <div class="shady">
-       <h2 class="uva-padding-top">Featured Exhibits</h2>
+       <h2 class="uva-padding-top h2Exhibit">Featured Exhibits</h2>
     </div>
     <div class="shady layout horizontal wrap center-justified">
       <template is="dom-repeat" items="[[_exhibits]]" filter="_isFeatured" as="exhibit">
@@ -96,7 +99,7 @@
     </div>
 
     <div class="shady">
-       <h2 class="uva-padding-top">Archived Exhibits</h2>
+       <h2 class="uva-padding-top h2Exhibit">Archived Exhibits</h2>
     </div>
     <div class="shady layout horizontal wrap center-justified">
       <template is="dom-repeat" items="[[_exhibits]]" filter="_isNotCurrentOrFeatured" as="exhibit">
