@@ -58,7 +58,7 @@
         .date, .hours {
           text-align: center;
         }
-        
+
         #mapDialog {
           position: fixed;
           margin: 0;
@@ -68,7 +68,6 @@
           overflow: auto;
           background-color: var(--color-primary-color);
         }
-
       </style>
     </custom-style>
 
@@ -126,11 +125,13 @@
                     </div>
                     <div class="days">
                       <template is="dom-repeat" items="[[_days]]" as="day">
-                        <div class="date">
-                          [[day.title]] [[day.date]]
-                        </div>
-                        <div class="hours">
-                          [[_getOpenRange(library.libcalID,day.id,_times)]]
+                        <div class="date-row layout horizontal around-justified">
+                          <div class="date">
+                            [[day.title]] [[day.date]]
+                          </div>
+                          <div class="hours">
+                            [[_getOpenRange(library.libcalID,day.id,_times)]]
+                          </div>
                         </div>
                       </template>
                     </div>
