@@ -35,6 +35,48 @@
         .card-content {
           padding-top: 0;
         }
+
+        .table { margin: 2em auto; }
+        .th {
+          font-family: 'franklingothic-demi';
+          text-align: center;
+        }
+        .th:first-of-type, .td:nth-child(2) {
+          background-color: var(--uvalib-main-rotunda-orange);
+          color: var(--color-white);
+        }
+        .td {
+          text-align: center;
+          padding-bottom: .4em;
+          padding-top: .4em;
+          width: auto;
+        }
+        .td:first-child {
+          padding-left: 1em;
+          padding-right: 0em;
+          text-align: left;
+          width: 30%;
+          font-family: 'franklin-gothic-urw-cond','arial narrow',sans-serif;
+          font-weight: 700;
+        }
+        .tr:nth-child(odd) { background-color: var(--color-light-gray); }
+        .tr:nth-child(2) > .td, .tr:nth-child(2) > .th {
+          border-bottom: 2px solid var(--uvalib-grey-600);
+          padding-bottom: .5em;
+        }
+        .tr:hover:not(.first-row) {
+          background-color: var(--color-medium-gray);
+          color: var(--uvalib-text-dk-grey);
+        }
+        .tr:hover:not(.first-row) {
+          background-color: var(--color-medium-gray);
+          color: var(--uvalib-text-dk-grey);
+        }
+        .tr:hover:not(.first-row) .td:nth-child(2) {
+          background-color: var(--uvalib-orange-800);
+        }
+
+        /* Mobile */
         .days {
           @apply --uvalib-TB-margin;
           width: 100%;
@@ -58,7 +100,6 @@
         .date, .hours {
           text-align: center;
         }
-
         #mapDialog {
           position: fixed;
           margin: 0;
@@ -88,7 +129,7 @@
               <div class="col" shady$="[[item.today]]"></div>
             </template>
           </div>
-          <div class="tr">
+          <div class="tr first-row">
             <div class="td">
               <paper-button class="smallButton" raised disabled$="[[!page]]" on-tap="_setPageZero">Today</paper-button>
               <paper-button class="smallButton" raised hidden$="[[!page]]" on-tap="_pageDown">Previous</iron-icon></paper-button>
