@@ -41,7 +41,7 @@
     </div>
     <div class="shady layout horizontal wrap center-justified">
       <template is="dom-repeat" items="[[_exhibits]]" filter="_isCurrent" as="exhibit">
-        <paper-card heading$="[[exhibit.title]]" image$="[[exhibit.image.url]]">
+        <paper-card heading$="[[exhibit.title]]" image$="[[whichImage(exhibit.image.url)]]">
           <div class="card-content">
             <marked-element markdown="[[exhibit.body]]">
               <div slot="markdown-html"></div>
@@ -72,7 +72,7 @@
     </div>
     <div class="shady layout horizontal wrap center-justified">
       <template is="dom-repeat" items="[[_exhibits]]" filter="_isFeatured" as="exhibit">
-        <paper-card heading$="[[exhibit.title]]" image$="[[exhibit.image.url]]">
+        <paper-card heading$="[[exhibit.title]]" image$="[[whichImage(exhibit.image.url)]]">
           <div class="card-content">
             <marked-element markdown="[[exhibit.body]]">
               <div slot="markdown-html"></div>
@@ -103,7 +103,7 @@
     </div>
     <div class="shady layout horizontal wrap center-justified">
       <template is="dom-repeat" items="[[_exhibits]]" filter="_isNotCurrentOrFeatured" as="exhibit">
-        <paper-card heading$="[[exhibit.title]]" image$="[[exhibit.image.url]]">
+        <paper-card heading$="[[exhibit.title]]" image$="[[whichImage(exhibit.image.url)]]">
           <div class="card-content">
             <marked-element markdown="[[exhibit.body]]">
               <div slot="markdown-html"></div>

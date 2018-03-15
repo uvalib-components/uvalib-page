@@ -1,4 +1,4 @@
-<link rel="import" href="../polymer/polymer-element.html">
+<link rel="import" href="../uvalib-theme/uvalib-ui-element.html">
 <link rel="import" href="../uvalib-theme/uvalib-theme.html">
 <link rel="import" href="../uvalib-theme/uvalib-page-style.html">
 <link rel="import" href="../uvalib-card/uvalib-card.html">
@@ -18,7 +18,7 @@
 
     <div class="layout horizontal wrap">
       <figure id="profileImage">
-        <iron-image class="round" src="https://wwwstatic.lib.virginia.edu/files/2017-05/jmu2m_0.jpg"></iron-image>
+        <iron-image class="round" src$="[[whichImage('/files/2017-05/jmu2m_0.jpg')]]"></iron-image>
         <figcaption>John Unsworth, University Librarian and Dean of Libraries</figcaption>
       </figure>
 
@@ -51,13 +51,8 @@
      * @polymer
      * @demo demo/index.html
      */
-    class UvalibAboutpage extends Polymer.Element {
+    class UvalibAboutpage extends UvalibUiElement {
       static get is() { return 'uvalib-aboutpage'; }
-      static get properties() {
-        return {
-
-        };
-      }
     }
 
     window.customElements.define(UvalibAboutpage.is, UvalibAboutpage);

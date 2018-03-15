@@ -195,7 +195,7 @@
 
     <div class="shady layout horizontal wrap center-justified">
       <template is="dom-repeat" items="[[_libraries]]" as="lib">
-        <paper-card heading$="[[lib.title]]" image$="[[lib.mainImage.url]]">
+        <paper-card heading$="[[lib.title]]" image$="[[whichImage(lib.mainImage.url)]]">
           <div class="card-content">
             <marked-element markdown="[[lib.body]]">
               <div slot="markdown-html"></div>
