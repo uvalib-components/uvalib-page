@@ -155,6 +155,10 @@
         return parentTemplate;
       }
 
+      whichImage(img){
+        return super.whichImage(img.replace('https://wwwstatic.lib.virginia.edu','').replace('https://drupal.lib.virginia.edu/sites/default',''))
+      }
+
       _isCurrent(exhibit) {
         return (_.find(exhibit.exhibitStatus, {'value': 'current'})) ? true : false;
       }
