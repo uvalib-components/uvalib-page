@@ -25,8 +25,19 @@
             max-height: 300px;
           }
         }
-        .h2Exhibit {
+        .exhibitCategory {
           margin-top: 0;
+          margin-bottom: 0;
+          padding-top: var(--uvalib-spacing-unit);
+        }
+        .exhibitDates {
+          color: var(--uvalib-main-rotunda-orange);
+        }
+        h4 {
+          color: var(--uvalib-main-rotunda-orange);
+          text-transform: uppercase;
+          font-weight: bold;
+          font-size: var(--uvalib-spacing-unit);
         }
 
 
@@ -36,8 +47,14 @@
     <uva-library filter="libcalID" items="{{_libraries}}" sort-by="shortTitle"></uva-library>
     <uva-library path="exhibits" items="{{_exhibits}}" sort-by="date" sort-order="desc"></uva-library>
 
+    <div class="uva-margin-top-bottom uva-padding-top-bottom">
+      <paper-button raised><a href="/exhibitions/#currentExhibits">Current Exhibits</a></paper-button>
+      <paper-button raised><a href="/exhibitions/#featuredExhibits">Featured Exhibits</a></paper-button>
+      <paper-button raised><a href="/exhibitions/#pastExhibits">Past Exhibits</a></paper-button>
+    </div>
+
     <div class="shady">
-       <h2 class="uva-padding-top">Current Exhibits</h2>
+       <h2 id="currentExhibits" class="exhibitCategory">Current Exhibits</h2>
     </div>
     <div class="shady layout horizontal wrap center-justified">
       <template is="dom-repeat" items="[[_exhibits]]" filter="_isCurrent" as="exhibit">
@@ -46,19 +63,16 @@
             <marked-element markdown="[[exhibit.body]]">
               <div slot="markdown-html"></div>
             </marked-element>
-            <dl>
-              <dt hidden$="[[!exhibit.date]]">Start Date</dt>
-              <dd hidden$="[[!exhibit.date]]">[[exhibit.date]]</dd>
-              <dt hidden$="[[!exhibit.endDate]]">End Date</dt>
-              <dd hidden$="[[!exhibit.endDate]]">[[exhibit.endDate]]</dd>
-              <dt hidden$="[[!exhibit.furtherLocInfo]]">Location Information</dt>
-              <dd hidden$="[[!exhibit.furtherLocInfo]]">[[exhibit.furtherLocInfo]]</dd>
-            </dl>
+            <div>
+              <!-- <h4>Dates</h4> -->
+              <div class="exhibitDates"><strong><span hidden$="[[!exhibit.endDate]]">[[_dayMonthYear(exhibit.date)]]</span><span hidden$="[[exhibit.endDate]]">Ongoing</span><span hidden$="[[!exhibit.endDate]]">&nbsp;&mdash;&nbsp;[[_dayMonthYear(exhibit.endDate)]]</span></strong></div>
+              <p hidden$="[[!exhibit.furtherLocInfo]]"><strong>Location Information</strong><br />[[exhibit.furtherLocInfo]]</p>
+            </div>
           </div>
           <template is="dom-if" if="[[exhibit.link]]">
             <div class="card-actions">
               <a href="[[exhibit.link]]" target="-1">
-                <paper-button>Online Exhibit</paper-button>
+                <paper-button>more info</paper-button>
               </a>
             </div>
           </template>
@@ -68,7 +82,7 @@
     </div>
 
     <div class="shady">
-       <h2 class="uva-padding-top h2Exhibit">Featured Exhibits</h2>
+       <h2 id="featuredExhibits" class="exhibitCategory">Featured Exhibits</h2>
     </div>
     <div class="shady layout horizontal wrap center-justified">
       <template is="dom-repeat" items="[[_exhibits]]" filter="_isFeatured" as="exhibit">
@@ -77,19 +91,15 @@
             <marked-element markdown="[[exhibit.body]]">
               <div slot="markdown-html"></div>
             </marked-element>
-            <dl>
-              <dt hidden$="[[!exhibit.date]]">Start Date</dt>
-              <dd hidden$="[[!exhibit.date]]">[[exhibit.date]]</dd>
-              <dt hidden$="[[!exhibit.endDate]]">End Date</dt>
-              <dd hidden$="[[!exhibit.endDate]]">[[exhibit.endDate]]</dd>
-              <dt hidden$="[[!exhibit.furtherLocInfo]]">Location Information</dt>
-              <dd hidden$="[[!exhibit.furtherLocInfo]]">[[exhibit.furtherLocInfo]]</dd>
-            </dl>
+            <div class="uva-margin-top uva-padding-top">
+              <div class="exhibitDates"><strong><span hidden$="[[!exhibit.endDate]]">[[_dayMonthYear(exhibit.date)]]</span><span hidden$="[[exhibit.endDate]]">Ongoing</span><span hidden$="[[!exhibit.endDate]]">&nbsp;&mdash;&nbsp;[[_dayMonthYear(exhibit.endDate)]]</span></strong></div>
+              <p hidden$="[[!exhibit.furtherLocInfo]]"><strong>Location Information</strong><br />[[exhibit.furtherLocInfo]]</p>
+            </div>
           </div>
           <template is="dom-if" if="[[exhibit.link]]">
             <div class="card-actions">
               <a href="[[exhibit.link]]" target="-1">
-                <paper-button>Online Exhibit</paper-button>
+                <paper-button>more info</paper-button>
               </a>
             </div>
           </template>
@@ -99,7 +109,7 @@
     </div>
 
     <div class="shady">
-       <h2 class="uva-padding-top h2Exhibit">Archived Exhibits</h2>
+       <h2 id="pastExhibits" class="exhibitCategory">Past Exhibits</h2>
     </div>
     <div class="shady layout horizontal wrap center-justified">
       <template is="dom-repeat" items="[[_exhibits]]" filter="_isNotCurrentOrFeatured" as="exhibit">
@@ -108,23 +118,18 @@
             <marked-element markdown="[[exhibit.body]]">
               <div slot="markdown-html"></div>
             </marked-element>
-            <dl>
-              <dt hidden$="[[!exhibit.date]]">Start Date</dt>
-              <dd hidden$="[[!exhibit.date]]">[[exhibit.date]]</dd>
-              <dt hidden$="[[!exhibit.endDate]]">End Date</dt>
-              <dd hidden$="[[!exhibit.endDate]]">[[exhibit.endDate]]</dd>
-              <dt hidden$="[[!exhibit.furtherLocInfo]]">Location Information</dt>
-              <dd hidden$="[[!exhibit.furtherLocInfo]]">[[exhibit.furtherLocInfo]]</dd>
-            </dl>
+            <div class="uva-margin-top uva-padding-top">
+              <div class="exhibitDates"><strong><span hidden$="[[!exhibit.endDate]]">[[_dayMonthYear(exhibit.date)]]</span><span hidden$="[[exhibit.endDate]]">Ongoing</span><span hidden$="[[!exhibit.endDate]]">&nbsp;&mdash;&nbsp;[[_dayMonthYear(exhibit.endDate)]]</span></strong></div>
+              <p hidden$="[[!exhibit.furtherLocInfo]]"><strong>Location Information</strong><br />[[exhibit.furtherLocInfo]]</p>
+            </div>
           </div>
           <template is="dom-if" if="[[exhibit.link]]">
             <div class="card-actions">
               <a href="[[exhibit.link]]" target="-1">
-                <paper-button>Online Exhibit</paper-button>
+                <paper-button>more info</paper-button>
               </a>
             </div>
           </template>
-
         </paper-card>
       </template>
     </div>
@@ -170,6 +175,9 @@
       _isNotCurrentOrFeatured(exhibit) {
         return ((! _.find(exhibit.exhibitStatus, {'value': 'current'})) ||
           (! _.find(exhibit.exhibitStatus, {'value': 'featured'}))) ? true : false;
+      }
+      _dayMonthYear(dtString) {
+        return (dtString) ? moment.tz(dtString,'America/New_York').format("MM/DD/YYYY") : '';
       }
     }
 
