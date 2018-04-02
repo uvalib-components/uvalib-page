@@ -54,8 +54,7 @@
     </div>
 
     <div class="shady">
-       <h2 class="exhibitCategory">Current Exhibits</h2>
-       <a id="currentExhibits"></a>
+       <h2 id="currentExhibits" class="exhibitCategory">Current Exhibits</h2>
     </div>
     <div class="shady layout horizontal wrap center-justified">
       <template is="dom-repeat" items="[[_exhibits]]" filter="_isCurrent" as="exhibit">
@@ -83,8 +82,7 @@
     </div>
 
     <div class="shady">
-       <h2 class="exhibitCategory">Featured Exhibits</h2>
-       <a id="featuredExhibits"></a>
+       <h2 id="featuredExhibits" class="exhibitCategory">Featured Exhibits</h2>
     </div>
     <div class="shady layout horizontal wrap center-justified">
       <template is="dom-repeat" items="[[_exhibits]]" filter="_isFeatured" as="exhibit">
@@ -111,8 +109,7 @@
     </div>
 
     <div class="shady">
-       <h2 class="exhibitCategory">Past Exhibits</h2>
-       <a id="pastExhibits"></a>
+       <h2 id="pastExhibits" class="exhibitCategory">Past Exhibits</h2>
     </div>
     <div class="shady layout horizontal wrap center-justified">
       <template is="dom-repeat" items="[[_exhibits]]" filter="_isNotCurrentOrFeatured" as="exhibit">
