@@ -57,7 +57,7 @@
        <h2 id="currentExhibits" class="exhibitCategory">Current Exhibits</h2>
     </div>
     <div class="shady layout horizontal wrap center-justified">
-      <template is="dom-repeat" items="[[_exhibits]]" filter="_isCurrent" as="exhibit">
+      <template is="dom-repeat" items="[[_exhibits]]" filter="_isCurrent" as="exhibit" on-rendered-item-count-changed="_resized">
         <paper-card heading$="[[exhibit.title]]" image$="[[whichImage(exhibit.image.url)]]">
           <div class="card-content">
             <marked-element markdown="[[exhibit.body]]">
@@ -85,7 +85,7 @@
        <h2 id="featuredExhibits" class="exhibitCategory">Featured Exhibits</h2>
     </div>
     <div class="shady layout horizontal wrap center-justified">
-      <template is="dom-repeat" items="[[_exhibits]]" filter="_isFeatured" as="exhibit">
+      <template is="dom-repeat" items="[[_exhibits]]" filter="_isFeatured" as="exhibit" on-rendered-item-count-changed="_resized">
         <paper-card heading$="[[exhibit.title]]" image$="[[whichImage(exhibit.image.url)]]">
           <div class="card-content">
             <marked-element markdown="[[exhibit.body]]">
@@ -112,7 +112,7 @@
        <h2 id="pastExhibits" class="exhibitCategory">Past Exhibits</h2>
     </div>
     <div class="shady layout horizontal wrap center-justified">
-      <template is="dom-repeat" items="[[_exhibits]]" filter="_isNotCurrentOrFeatured" as="exhibit">
+      <template is="dom-repeat" items="[[_exhibits]]" filter="_isNotCurrentOrFeatured" as="exhibit" on-rendered-item-count-changed="_resized">
         <paper-card heading$="[[exhibit.title]]" image$="[[whichImage(exhibit.image.url)]]">
           <div class="card-content">
             <marked-element markdown="[[exhibit.body]]">
@@ -158,6 +158,11 @@
         var childTemplate = Polymer.DomModule.import('uvalib-exhibitspage', 'template');
         parentTemplate.content.insertBefore(childTemplate.content,null);
         return parentTemplate;
+      }
+
+      _resized(){
+        this._debouncer = Polymer.Debouncer.debounce(this._debouncer,
+            Polymer.Async.timeOut.after(1000), this._handleAnchor.bind(this));
       }
 
       whichImage(img){
