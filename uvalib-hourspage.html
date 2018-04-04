@@ -142,7 +142,7 @@
             </template>
           </div>
           <template is="dom-repeat" items="[[_libraries]]" as="library">
-            <div class="tr">
+            <div class="tr" id$="[[library.slug]]-hours">
               <div class="td">[[library.title]]</div>
               <template is="dom-repeat" items="[[_days]]" as="day">
                 <div class="td">[[_getOpenRange(library.libcalID,day.id,_times)]]</div>
