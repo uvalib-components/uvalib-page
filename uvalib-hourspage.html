@@ -155,7 +155,7 @@
       <div class="layout vertical">
         <template is="dom-repeat" items="[[_libraries]]" as="library">
           <template is="dom-if" if="[[library.libcalID]]">
-            <paper-card id="[[library.id]]-card" heading="[[library.title]]" on-tap="_cardTap">
+            <paper-card id$="[[library.id]]-card" heading="[[library.title]]" on-tap="_cardTap">
                 <div class="card-content">
                   <div class="current-times" closed$="[[_isClosed(library.libcalID,_times,_refresh)]]">[[_getRange(library.libcalID,_times,_refresh)]]</div>
                   <div class="extended-info">
@@ -195,7 +195,7 @@
 
     <div class="shady layout horizontal wrap center-justified">
       <template is="dom-repeat" items="[[_libraries]]" as="lib">
-        <paper-card heading$="[[lib.title]]" image$="[[whichImage(lib.mainImage.url)]]">
+        <paper-card id$="[[lib.slug]]" heading$="[[lib.title]]" image$="[[whichImage(lib.mainImage.url)]]">
           <div class="card-content">
             <marked-element markdown="[[lib.body]]">
               <div slot="markdown-html"></div>
