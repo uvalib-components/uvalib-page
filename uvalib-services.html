@@ -118,7 +118,7 @@
       }
       _mkServices() {
         //clone the pristine services listing so that we can come back from filters w/o reloading
-        if (this._libraries && this._libraries.length > 0){
+        if (this._libraries && this._libraries.length > 0 && this._services){
           var data = JSON.parse(JSON.stringify(this._services));
           this._sortData(this._filterData(data));
         } else {
@@ -180,37 +180,7 @@
           }.bind(this);
         }
       }
-/*
-      _copy(aObject) {
-        var bObject, v, k;
-        bObject = Array.isArray(aObject) ? [] : {};
-        for (k in aObject) {
-          v = aObject[k];
-          bObject[k] = (typeof v === "object") ? this._copy(v) : v;
-        }
-        return bObject;
-      }
-      _alphaSort(a,b){
-        return a.title.toLowerCase().localeCompare(b.title.toLowerCase());
-      }
-      _filt(){
-        if(Array.isArray(this.services)) {
 
-          var l = this.services.map( (s) => this._copy(s) );
-          l.sort(this._alphaSort);
-          if (this._query) {
-            return l.filter(function(s){
-                      return s.title.toLowerCase().includes(this._query.toLowerCase().trim().replace(/ +(?= )/g,''))
-                             ||
-                             this._getLibs(s.library).toLowerCase().includes(this._query.toLowerCase().trim().replace(/ +(?= )/g,''));
-                    }.bind(this));
-          } else {
-            return l;
-          }
-
-        }
-      }
-*/
     }
 
     window.customElements.define(UvalibServices.is, UvalibServices);
