@@ -4,6 +4,7 @@
 <link rel="import" href="../uvalib-theme/uvalib-page-style.html">
 <link rel="import" href="../uvalib-theme/uvalib-card-style.html">
 <link rel="import" href="../uvalib-banner/uvalib-banners.html">
+<link rel="import" href="../uvalib-exhibit-ui/uvalib-exhibit-ui.html">
 
 <dom-module id="uvalib-homepage">
   <template>
@@ -225,16 +226,18 @@
     </template>
 
     <div class="shady layout horizontal wrap">
-      <paper-card id="exhibit" heading="Exhibition Spotlight" image="/files/cards/100obj.gif" alt="The University of Virginia in one hundred objects">
-        <div class="card-content">
-          <p><em>The University of Virginia in 100 Objects</em>, a Bicentennial exhibition celebrating the history of the University on display through June 2018.</p>
-        </div>
-        <div class="card-actions">
-          <a tabindex="-1" href="http://100objects.lib.virginia.edu/">
-            <paper-button>Read More</paper-button>
-          </a>
-        </div>
-      </paper-card>
+      <uvalib-exhibit-ui main-exhibit="true" exhibits="{{_exhibits}}"></uvalib-exhibit-ui>
+      <template is="dom-repeat" items="{{_exhibits}}" as="exhibit">
+        <paper-card id="exhibit" heading="Exhibition Spotlight" image="[[whichImage(exhibit.image.url)]]" alt="[[exhibit.title]]">
+          <div class="card-content" inner-h-t-m-l="[[exhibit.body]]">
+          </div>
+          <div class="card-actions">
+            <a tabindex="-1" href="[[exhibit.link]]">
+              <paper-button>Read More</paper-button>
+            </a>
+          </div>
+        </paper-card>
+      </template>
       <paper-card id="support" heading="Join the Community" image="[[whichImage('/files/cards/engage.jpg')]]" alt="Students studying in the Library">
         <div class="card-content">
           <ul>
@@ -266,7 +269,9 @@
       static get is() { return 'uvalib-homepage'; }
       static get properties() {
         return Object.assign(super.properties,{
-
+          _exhibits: {
+            type: Array
+          }
         });
       }
       //Concat the this elements template with the parents
