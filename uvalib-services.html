@@ -48,7 +48,12 @@
       <uva-library id="libs" last-response="{{_libraries}}"></uva-library>
       <uva-library path="services" last-response="{{_services}}"></uva-library>
       <paper-datatable data="{{_data}}">
-				<paper-datatable-column header="Service" property="title" type="String" sortable sorted sort-direction="{{_sortDir}}"></paper-datatable-column>
+				<paper-datatable-column header="Service" property="title" type="String" sortable sorted sort-direction="{{_sortDir}}">
+          <template>
+            <div><a href="[[item.siteLink]]">[[item.title]]</a></div>
+            <div hidden$="[[!item.body]]" inner-h-t-m-l="[[item.body]]"></div>
+          </template>
+        </paper-datatable-column></paper-datatable-column>
 				<paper-datatable-column header="Location" property="library" type="Object" default="1">
           <template>[[_getLibs(value)]]</template>
         </paper-datatable-column>
@@ -57,6 +62,7 @@
             <!-- use uvalib-liame for email -->
             <div hidden$="[[!item.emailAddress]]"><a href="mailto:[[item.emailAddress]]">[[item.emailAddress]]</a><br /></div>
             <div hidden$="[[!item.phoneNumber]]"><a href="tel:[[item.phoneNumber]]">[[item.phoneNumber]]</a><br /></div>
+            <div hidden$="[[!item.formLink]]"><a href="[[item.formLink]]">Contact form</a><br /></div>
 					</template>
         </paper-datatable-column>
 			</paper-datatable>
