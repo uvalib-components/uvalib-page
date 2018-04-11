@@ -8,7 +8,6 @@
 <link rel="import" href="../uvalib-theme/uvalib-page-style.html">
 <link rel="import" href="../paper-toggle-button/paper-toggle-button.html">
 <link rel="import" href="../app-storage/app-localstorage/app-localstorage-document.html" />
-
 <link rel="import" href="../bwt-datatable/bwt-datatable-column.html">
 <link rel="import" href="../bwt-datatable/bwt-datatable.html">
 
@@ -48,13 +47,12 @@
       <uva-library id="libs" last-response="{{_libraries}}"></uva-library>
       <uva-library path="services" last-response="{{_services}}"></uva-library>
       <paper-datatable data="{{_data}}">
-				<paper-datatable-column header="Service" property="title" type="String" sortable sorted sort-direction="{{_sortDir}}">
+        <paper-datatable-column header="Service" sortable sorted sort-direction="{{_sortDir}}">
           <template>
-            <div hidden$="[[item.siteLink]]">[[item.title]]<br /></div>
             <div hidden$="[[!item.siteLink]]"><a href="[[item.siteLink]]">[[item.title]]</a><br /></div>
             <div hidden$="[[!item.body]]" inner-h-t-m-l="[[item.body]]"></div>
           </template>
-        </paper-datatable-column></paper-datatable-column>
+        </paper-datatable-column>
 				<paper-datatable-column header="Location" property="library" type="Object" default="1">
           <template>[[_getLibs(value)]]</template>
         </paper-datatable-column>
@@ -187,7 +185,16 @@
           }.bind(this);
         }
       }
-
+      _isEmpty(x) {
+//        console.log(x.hasOwnProperty('formLink'));
+//        return !x.hasOwnProperty('formLink');
+//        console.log(typeof(x['formLink']));
+//        return (typeof(x['formLink']) == 'undefined');
+//        console.log('*: '+x.formLink);
+//          return (x.formLink == '');
+          console.log(x['formLink'] == undefined);
+          return (x['formLink'] === undefined);
+      }
     }
 
     window.customElements.define(UvalibServices.is, UvalibServices);
