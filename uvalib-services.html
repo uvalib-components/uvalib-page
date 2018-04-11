@@ -50,7 +50,8 @@
       <paper-datatable data="{{_data}}">
 				<paper-datatable-column header="Service" property="title" type="String" sortable sorted sort-direction="{{_sortDir}}">
           <template>
-            <div><a href="[[item.siteLink]]">[[item.title]]</a></div>
+            <div hidden$="[[item.siteLink]]">[[item.title]]<br /></div>
+            <div hidden$="[[!item.siteLink]]"><a href="[[item.siteLink]]">[[item.title]]</a><br /></div>
             <div hidden$="[[!item.body]]" inner-h-t-m-l="[[item.body]]"></div>
           </template>
         </paper-datatable-column></paper-datatable-column>
