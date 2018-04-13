@@ -185,15 +185,15 @@
           }.bind(this);
         }
       }
-      _isEmpty(x) {
-//        console.log(x.hasOwnProperty('formLink'));
-//        return !x.hasOwnProperty('formLink');
+      _isEmpty(x,prop) {
+        console.log(x.hasOwnProperty(prop));
+        return !x.hasOwnProperty(prop);
 //        console.log(typeof(x['formLink']));
 //        return (typeof(x['formLink']) == 'undefined');
-//        console.log('*: '+x.formLink);
+//        console.log('formLink: '+x.formLink);
 //          return (x.formLink == '');
-          console.log(x['formLink'] == undefined);
-          return (x['formLink'] === undefined);
+//          console.log(x['formLink'] == undefined);
+//          return (x['formLink'] === undefined);
       }
     }
 
