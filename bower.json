@@ -3,7 +3,8 @@
   "description": "UVA Library page layout component",
   "main": "uvalib-page.html",
   "dependencies": {
-    "uvalib-elements": "uvalib-components/uvalib-elements#master"
+    "uvalib-elements": "uvalib-components/uvalib-elements#master",
+    "vaadin-grid": "vaadin/vaadin-grid#^4.1.7"
   },
   "resolutions": {
     "lodash": "^4.17.4",

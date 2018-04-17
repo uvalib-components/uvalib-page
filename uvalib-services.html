@@ -10,6 +10,8 @@
 <link rel="import" href="../app-storage/app-localstorage/app-localstorage-document.html" />
 <link rel="import" href="../bwt-datatable/bwt-datatable-column.html">
 <link rel="import" href="../bwt-datatable/bwt-datatable.html">
+<link rel="import" href="../vaadin-grid/vaadin-grid.html">
+<link rel="import" href="../vaadin-grid/vaadin-grid-sorter.html">
 
 <dom-module id="uvalib-services">
   <template>
@@ -20,6 +22,12 @@
         }
         [hidden] {
           display: none;
+        }
+        #controls {
+          padding-bottom: 20px;
+        }
+        vaadin-grid {
+          height: auto;
         }
       </style>
     </custom-style>
@@ -46,26 +54,29 @@
 
       <uva-library id="libs" last-response="{{_libraries}}"></uva-library>
       <uva-library path="services" last-response="{{_services}}"></uva-library>
-      <paper-datatable data="{{_data}}">
-        <paper-datatable-column header="Service" sortable sorted sort-direction="{{_sortDir}}">
+
+      <vaadin-grid theme="no-border row-stripes wrap-cell-content" aria-label="Service directory listing" items="[[_data]]">
+        <vaadin-grid-column width="45%">
+          <template class="header"><vaadin-grid-sorter path="title">Service</vaadin-grid-sorter></template>
           <template>
+            <div hidden$="[[item.siteLink]]">[[item.title]]<br /></div>
             <div hidden$="[[!item.siteLink]]"><a href="[[item.siteLink]]">[[item.title]]</a><br /></div>
             <div hidden$="[[!item.body]]" inner-h-t-m-l="[[item.body]]"></div>
           </template>
-        </paper-datatable-column>
-				<paper-datatable-column header="Location" property="library" type="Object" default="1">
-          <template>[[_getLibs(value)]]</template>
-        </paper-datatable-column>
-				<paper-datatable-column header="Contact">
+        </vaadin-grid-column>
+        <vaadin-grid-column width="30%">
+          <template class="header">Location</template>
+          <template>[[_getLibs(item.library)]]</template>
+        </vaadin-grid-column>
+        <vaadin-grid-column width="25%">
+          <template class="header">Contact</template>
           <template>
-            <!-- use uvalib-liame for email -->
             <div hidden$="[[!item.emailAddress]]"><a href="mailto:[[item.emailAddress]]">[[item.emailAddress]]</a><br /></div>
             <div hidden$="[[!item.phoneNumber]]"><a href="tel:[[item.phoneNumber]]">[[item.phoneNumber]]</a><br /></div>
-            <div hidden$="[[!item.formLink]]"><a href="[[item.formLink]]">Contact form</a><br /></div>
-					</template>
-        </paper-datatable-column>
-			</paper-datatable>
-
+            <div hidden$="[[!item.formLink]]"><a href="[[item.formLink]]">Contact form</a></div>
+          </template>
+        </vaadin-grid-column>
+      </vaadin-grid>
     </div>
   </template>
 
