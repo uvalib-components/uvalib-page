@@ -24,6 +24,28 @@
         #controls {
           padding-bottom: 20px;
         }
+
+        .title-text {
+          font-size: var(--uvalib-main-font-size-unit);
+          font-weight: 700;
+        }
+        .service-title {
+          font-size: var(--uvalib-main-font-size-unit);
+          font-weight: 700;
+          padding-top: var(--uvalib-spacing-unit);
+        }
+        .service-description p {
+          margin-top: 0;
+        }
+        .services-location {
+          list-style: none;
+          padding-left: 0;
+        }
+        .services-location li {
+          line-height: calc(var(--uvalib-spacing-unit)*1.1);
+          padding-bottom: var(--uvalib-spacing-unit);
+        }
+
       </style>
     </custom-style>
 
@@ -52,19 +74,19 @@
 
       <vaadin-grid height-by-rows="[[largeScreen]]" theme="no-border row-stripes wrap-cell-content" aria-label="Service directory listing" items="[[_data]]">
         <vaadin-grid-column width="45%">
-          <template class="header"><vaadin-grid-sorter path="title">Service</vaadin-grid-sorter></template>
+          <template class="header"><vaadin-grid-sorter path="title"><div class="title-text">Service</div></vaadin-grid-sorter></template>
           <template>
-            <div class="title" hidden$="[[item.siteLink]]">[[item.title]]<br /></div>
-            <div class="title" hidden$="[[!item.siteLink]]"><a href="[[item.siteLink]]">[[item.title]]</a><br /></div>
-            <div class="description" hidden$="[[!item.body]]" inner-h-t-m-l="[[item.body]]"></div>
+            <div class="title service-title" hidden$="[[item.siteLink]]">[[item.title]]<br /></div>
+            <div class="title service-title" hidden$="[[!item.siteLink]]"><a href="[[item.siteLink]]">[[item.title]]</a><br /></div>
+            <div class="description service-description" hidden$="[[!item.body]]" inner-h-t-m-l="[[item.body]]"></div>
           </template>
         </vaadin-grid-column>
         <vaadin-grid-column width="30%">
-          <template class="header">Location</template>
+          <template class="header"><div class="title-text">Location</div></template>
           <template><div class="location" inner-h-t-m-l="[[_getLibs(item.library)]]"></div></template>
         </vaadin-grid-column>
         <vaadin-grid-column width="25%">
-          <template class="header">Contact</template>
+          <template class="header"><div class="title-text">Contact</div></template>
           <template>
             <div class="email" hidden$="[[!item.emailAddress]]"><a href="mailto:[[item.emailAddress]]">[[item.emailAddress]]</a><br /></div>
             <div class="phone" hidden$="[[!item.phoneNumber]]"><a href="tel:[[item.phoneNumber]]">[[item.phoneNumber]]</a><br /></div>
@@ -171,14 +193,14 @@
       }
       _getLibs(libs){
         if (!libs) {
-          return "N/A";
+          return "&mdash;";
         } else {
           if (!this._libs) {
             this._libs = this.$.libs.getHash('id',['title']);
           }
           if (Object.keys(this._libs).length > 0) {
             libs = Array.isArray(libs)?libs:[libs];
-            return '<ul><li>'+libs.map(function(a){return (this._libs[a.id])? this._libs[a.id].title: null;}.bind(this)).sort().join('</li><li>')+'</li></ul>';
+            return '<ul class="services-location"><li>'+libs.map(function(a){return (this._libs[a.id])? this._libs[a.id].title: null;}.bind(this)).sort().join('</li><li>')+'</li></ul>';
           }
           return "";
         }
