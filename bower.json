@@ -4,12 +4,16 @@
   "main": "uvalib-page.html",
   "dependencies": {
     "uvalib-elements": "uvalib-components/uvalib-elements#master",
-    "vaadin-grid": "vaadin/vaadin-grid#^4.1.7"
+    "vaadin-grid": "vaadin/vaadin-grid#^5.0.0"
   },
   "resolutions": {
     "lodash": "^4.17.4",
     "paper-icon-button": "^2.0.1",
     "webcomponentsjs": "^v1.0.19",
-    "polymer": "^2.5.0"
+    "polymer": "^2.5.0",
+    "vaadin-grid": "^5.0.0",
+    "vaadin-checkbox": "^2.0.0",
+    "vaadin-text-field": "^2.0.0",
+    "vaadin-control-state-mixin": "^2.0.0"
   }
 }

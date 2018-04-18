@@ -24,9 +24,6 @@
         #controls {
           padding-bottom: 20px;
         }
-        vaadin-grid {
-          height: auto;
-        }
       </style>
     </custom-style>
 
@@ -53,25 +50,25 @@
       <uva-library id="libs" last-response="{{_libraries}}"></uva-library>
       <uva-library path="services" last-response="{{_services}}"></uva-library>
 
-      <vaadin-grid theme="no-border row-stripes wrap-cell-content" aria-label="Service directory listing" items="[[_data]]">
+      <vaadin-grid height-by-rows="[[largeScreen]]" theme="no-border row-stripes wrap-cell-content" aria-label="Service directory listing" items="[[_data]]">
         <vaadin-grid-column width="45%">
           <template class="header"><vaadin-grid-sorter path="title">Service</vaadin-grid-sorter></template>
           <template>
-            <div hidden$="[[item.siteLink]]">[[item.title]]<br /></div>
-            <div hidden$="[[!item.siteLink]]"><a href="[[item.siteLink]]">[[item.title]]</a><br /></div>
-            <div hidden$="[[!item.body]]" inner-h-t-m-l="[[item.body]]"></div>
+            <div class="title" hidden$="[[item.siteLink]]">[[item.title]]<br /></div>
+            <div class="title" hidden$="[[!item.siteLink]]"><a href="[[item.siteLink]]">[[item.title]]</a><br /></div>
+            <div class="description" hidden$="[[!item.body]]" inner-h-t-m-l="[[item.body]]"></div>
           </template>
         </vaadin-grid-column>
         <vaadin-grid-column width="30%">
           <template class="header">Location</template>
-          <template>[[_getLibs(item.library)]]</template>
+          <template><div class="location" inner-h-t-m-l="[[_getLibs(item.library)]]"></div></template>
         </vaadin-grid-column>
         <vaadin-grid-column width="25%">
           <template class="header">Contact</template>
           <template>
-            <div hidden$="[[!item.emailAddress]]"><a href="mailto:[[item.emailAddress]]">[[item.emailAddress]]</a><br /></div>
-            <div hidden$="[[!item.phoneNumber]]"><a href="tel:[[item.phoneNumber]]">[[item.phoneNumber]]</a><br /></div>
-            <div hidden$="[[!item.formLink]]"><a href="[[item.formLink]]">Contact form</a></div>
+            <div class="email" hidden$="[[!item.emailAddress]]"><a href="mailto:[[item.emailAddress]]">[[item.emailAddress]]</a><br /></div>
+            <div class="phone" hidden$="[[!item.phoneNumber]]"><a href="tel:[[item.phoneNumber]]">[[item.phoneNumber]]</a><br /></div>
+            <div class="form" hidden$="[[!item.formLink]]"><a href="[[item.formLink]]">Contact form</a></div>
           </template>
         </vaadin-grid-column>
       </vaadin-grid>
@@ -130,6 +127,10 @@
         parentTemplate.content.insertBefore(childTemplate.content,null);
         return parentTemplate;
       }
+      ready() {
+        super.ready();
+      }
+
       _mkServices() {
         //clone the pristine services listing so that we can come back from filters w/o reloading
         if (this._libraries && this._libraries.length > 0 && this._services){
@@ -170,14 +171,14 @@
       }
       _getLibs(libs){
         if (!libs) {
-          return "online";
+          return "N/A";
         } else {
           if (!this._libs) {
             this._libs = this.$.libs.getHash('id',['title']);
           }
           if (Object.keys(this._libs).length > 0) {
             libs = Array.isArray(libs)?libs:[libs];
-            return libs.map(function(a){return (this._libs[a.id])? this._libs[a.id].title: null;}.bind(this)).sort().join(', ');
+            return '<ul><li>'+libs.map(function(a){return (this._libs[a.id])? this._libs[a.id].title: null;}.bind(this)).sort().join('</li><li>')+'</li></ul>';
           }
           return "";
         }
@@ -193,16 +194,6 @@
             return (title.indexOf(query) != -1 || loc.indexOf(query) != -1);
           }.bind(this);
         }
-      }
-      _isEmpty(x,prop) {
-        console.log(x.hasOwnProperty(prop));
-        return !x.hasOwnProperty(prop);
-//        console.log(typeof(x['formLink']));
-//        return (typeof(x['formLink']) == 'undefined');
-//        console.log('formLink: '+x.formLink);
-//          return (x.formLink == '');
-//          console.log(x['formLink'] == undefined);
-//          return (x['formLink'] === undefined);
       }
     }
 
