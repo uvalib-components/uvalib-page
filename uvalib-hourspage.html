@@ -15,7 +15,7 @@
 
 <dom-module id="uvalib-hourspage">
   <template>
-    <custom-style>
+  <custom-style>
       <style include="uvalib-theme uvalib-page-style uvalib-hourspage-style iron-flex-factors">
         :host {
           display: block;
@@ -109,6 +109,10 @@
           overflow: auto;
           background-color: var(--color-primary-color);
         }
+        .otherLocationContainer a {
+          margin-top: calc(var(--uvalib-spacing-unit)/2);
+          margin-bottom: calc(var(--uvalib-spacing-unit)/2);
+        }
       </style>
     </custom-style>
 
@@ -186,7 +190,8 @@
         </template>
       </div>
     </template>
-    <div class="horizontal layout center-justified wrap uva-margin-bottom">
+    <div class="horizontal layout center-justified wrap uva-margin-bottom otherLocationContainer">
+      <a href="https://rotunda.virginia.edu/" tabindex="-1"><paper-button raised>The Rotunda</paper-button></a>
       <a href="https://www.darden.virginia.edu/current-students/library/hours-location/" tabindex="-1"><paper-button raised>Darden Library</paper-button></a>
       <a href="https://www.hsl.virginia.edu/hours" tabindex="-1"><paper-button raised>Health Sciences Library</paper-button></a>
       <a href="https://guides.lib.virginia.edu/jag-library" tabindex="-1"><paper-button raised>JAG School Library</paper-button></a>
