@@ -4,6 +4,7 @@
 <link rel="import" href="../uva-models/uva-library.html">
 <link rel="import" href="../marked-element/marked-element.html">
 <link rel="import" href="../uva-helper-libs/polyfills/string.includes.html">
+<link rel="import" href="../uva-helper-libs/polyfills/array.find.html">
 <link rel="import" href="../uvalib-theme/uvalib-theme.html">
 <link rel="import" href="../uvalib-theme/uvalib-page-style.html">
 <link rel="import" href="../paper-toggle-button/paper-toggle-button.html">
@@ -70,6 +71,8 @@
       </div>
 
       <uva-library id="libs" last-response="{{_libraries}}"></uva-library>
+      <uva-library path="people" id="people" last-response="{{_people}}"></uva-library>
+      <uva-library path="teams" id="teams" last-response="{{_teams}}"></uva-library>
       <uva-library path="services" last-response="{{_services}}"></uva-library>
 
       <vaadin-grid height-by-rows="[[largeScreen]]" theme="no-border row-stripes wrap-cell-content" aria-label="Service directory listing" items="[[_data]]">
@@ -91,6 +94,10 @@
             <div class="email" hidden$="[[!item.emailAddress]]"><a href="mailto:[[item.emailAddress]]">[[item.emailAddress]]</a><br /></div>
             <div class="phone" hidden$="[[!item.phoneNumber]]"><a href="tel:[[item.phoneNumber]]">[[item.phoneNumber]]</a><br /></div>
             <div class="form" hidden$="[[!item.formLink]]"><a href="[[item.formLink]]">Contact form</a></div>
+            <div hidden$="[[!_staffView]]">
+                <div class="owner-person" hidden$="[[!item.owner]]">Owner: [[_getPersonName(item.owner,_people)]]</div>
+                <div class="owner-person" hidden$="[[!item.team]]">Team Owner: [[_getTeamName(item.team,_teams)]]</div>
+            </div>
           </template>
         </vaadin-grid-column>
       </vaadin-grid>
@@ -124,6 +131,14 @@
               _libraries: {
                 type: Array,
                 notify: true,
+              },
+              _people: {
+                type: Array,
+                notify: true
+              },
+              _teams: {
+                type: Array,
+                notify: true
               },
               _services: {
                 type:Array,
@@ -179,7 +194,7 @@
       }
       _sortData(data){
         var dir = this._sortDir;
-        console.log(dir);
+//        console.log(dir);
         if(data) {
           data.sort(function(a,b){
             if (dir === "desc") {
@@ -215,6 +230,18 @@
             var loc = this._getLibs(s.library).toLowerCase();
             return (title.indexOf(query) != -1 || loc.indexOf(query) != -1);
           }.bind(this);
+        }
+      }
+      _getPersonName(uuid){
+        if (this._people && uuid) {
+          var person = this._people.find( person => person.uuid === uuid);
+          if (person) return person.displayName;
+        }
+      }
+      _getTeamName(uuid){
+        if (this._teams && uuid) {
+          var team = this._teams.find( team => team.uuid === uuid);
+          if (team) return team.title;
         }
       }
     }
