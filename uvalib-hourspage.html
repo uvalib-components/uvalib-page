@@ -33,7 +33,15 @@
           max-width: 100%;
         }
         .card-content {
-          padding-top: 0;
+          padding: var(--uvalib-spacing-unit);
+        }
+        .card-content dt, .card-content dd {
+          border-left: 0;
+          padding-left: 0;
+        }
+
+        .card-content dd a:before {
+          content: none;
         }
 
         .table { margin: 2em auto; }
