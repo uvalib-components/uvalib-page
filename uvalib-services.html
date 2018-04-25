@@ -63,11 +63,15 @@
       <hr />
     -->
       <div id="controls">
-        <paper-input label="Filter" value="{{_query}}"></paper-input>
-        <paper-toggle-button id="staffSelect" checked="{{_staffView}}">
+        <paper-input label="Search" value="{{_query}}">
+          <div slot="prefix">
+            <span class="uvalib-icon-search uva-padding-right"></span>
+          </div>
+        </paper-input>
+        <!--<paper-toggle-button id="staffSelect" checked="{{_staffView}}">
           <template is="dom-if" if="[[_staffView]]">Staff View</template>
           <template is="dom-if" if="[[!_staffView]]">Public View</template>
-        </paper-toggle-button>
+        </paper-toggle-button>-->
       </div>
 
       <uva-library id="libs" last-response="{{_libraries}}"></uva-library>
