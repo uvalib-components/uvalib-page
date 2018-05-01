@@ -52,6 +52,13 @@
 
     <app-localstorage-document key="uvalib-staff-view" data="{{_staffView}}"></app-localstorage-document>
     <div id="container">
+
+      <uva-library id="libs" last-response="{{_libraries}}"></uva-library>
+      <uva-library path="people" id="people" last-response="{{_people}}"></uva-library>
+      <uva-library path="teams" id="teams" last-response="{{_teams}}"></uva-library>
+      <uva-library path="services" last-response="{{_services}}"></uva-library>
+
+<template is="dom-if" if="[[largeScreen]]" restamp>
       <!--
       <div class="searchField">
         <paper-input no-label-float class="search-field" value="{{_query}}" label="" placeholder="Find Service by Name or Location" tabindex="0"></paper-input>
@@ -74,10 +81,7 @@
         </paper-toggle-button>-->
       </div>
 
-      <uva-library id="libs" last-response="{{_libraries}}"></uva-library>
-      <uva-library path="people" id="people" last-response="{{_people}}"></uva-library>
-      <uva-library path="teams" id="teams" last-response="{{_teams}}"></uva-library>
-      <uva-library path="services" last-response="{{_services}}"></uva-library>
+
 
       <vaadin-grid height-by-rows="[[largeScreen]]" theme="no-border row-stripes wrap-cell-content" aria-label="Service directory listing" items="[[_data]]">
         <vaadin-grid-column width="45%">
@@ -105,6 +109,8 @@
           </template>
         </vaadin-grid-column>
       </vaadin-grid>
+
+</template>
     </div>
   </template>
 
@@ -214,7 +220,7 @@
         if (!libs) {
           return "&mdash;";
         } else {
-          if (!this._libs) {
+          if (!this._libs && this.$.libs) {
             this._libs = this.$.libs.getHash('id',['title']);
           }
           if (Object.keys(this._libs).length > 0) {
