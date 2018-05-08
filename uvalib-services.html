@@ -115,7 +115,7 @@
       </div>
       <vaadin-grid height-by-rows="[[largeScreen]]" theme="no-border row-stripes wrap-cell-content" aria-label="Service directory listing" items="[[_data]]">
         <vaadin-grid-column width="45%">
-          <template class="header"><vaadin-grid-sorter path="title"><div class="title-text">Service</div></vaadin-grid-sorter></template>
+          <template class="header"><vaadin-grid-sorter direction="asc" path="title"><div class="title-text">Service</div></vaadin-grid-sorter></template>
           <template>
             <div class="title service-title" hidden$="[[item.siteLink]]">[[item.title]]</div>
             <div class="title service-title" hidden$="[[!item.siteLink]]"><a href="[[item.siteLink]]">[[item.title]]</a></div>
