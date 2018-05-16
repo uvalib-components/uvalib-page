@@ -3,10 +3,14 @@
 <link rel="import" href="../uvalib-theme/uvalib-theme.html">
 <link rel="import" href="../uvalib-theme/uvalib-page-style.html">
 <link rel="import" href="../uvalib-theme/uvalib-card-style.html">
-<link rel="import" href="../uvalib-banner/uvalib-banners.html">
-<link rel="import" href="../uvalib-exhibit-ui/uvalib-exhibit-ui.html">
 
 <dom-module id="uvalib-homepage">
+  <link rel="lazy-import" group="uvalib-homepage" href="../uvalib-banner/uvalib-banners.html">
+  <link rel="lazy-import" group="uvalib-homepage" href="../uvalib-exhibit-ui/uvalib-exhibit-ui.html">
+  <link rel="lazy-import" group="uvalib-homepage" href="../uvalib-card/uvalib-hours-ui.html">
+  <link rel="lazy-import" group="uvalib-homepage" href="../uvalib-events-ui/uvalib-events-ui.html">
+  <link rel="lazy-import" group="uvalib-homepage" href="../uvalib-news-section/uvalib-news-section.html">
+
   <template>
     <custom-style>
       <style include="uvalib-theme uvalib-page-style iron-flex iron-flex-factors uvalib-card-style">
@@ -280,6 +284,14 @@
         var childTemplate = Polymer.DomModule.import('uvalib-homepage', 'template');
         parentTemplate.content.insertBefore(childTemplate.content,null);
         return parentTemplate;
+      }
+      connectedCallback() {
+        super.connectedCallback();
+
+        // Load group1 then group2 then group3
+        this.importLazyGroup('uvalib-homepage').then( function(results) {
+          this.importLazyGroup('uvalib-homepage2');
+        }.bind(this));
       }
       ready() {
         super.ready();
