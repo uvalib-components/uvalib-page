@@ -146,8 +146,6 @@
               <paper-button class="smallButton" raised disabled$="[[!page]]" on-tap="_setPageZero">Today</paper-button>
               <paper-button class="smallButton" raised hidden$="[[!page]]" on-tap="_pageDown">Previous</iron-icon></paper-button>
               <paper-button class="smallButton" raised on-tap="_pageUp">Next</iron-icon></paper-button>
-
-              <paper-button class="smallButton" raised>Expand All</paper-button>
             </div>
             <template is="dom-repeat" items="[[_days]]">
               <div class="th">[[item.date]]<br />[[item.title]]</div>

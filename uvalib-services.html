@@ -46,7 +46,40 @@
           line-height: calc(var(--uvalib-spacing-unit)*1.1);
           padding-bottom: var(--uvalib-spacing-unit);
         }
+        /*MOBILE*/
+        iron-list {
+          display: inline-block;
+        }
 
+        #mobileDirectory {
+          margin-left: calc(var(--uvalib-spacing-unit)*-1);
+          margin-right: calc(var(--uvalib-spacing-unit)*-1);
+          padding-bottom: var(--uvalib-spacing-unit);
+          padding-left: calc(var(--uvalib-spacing-unit)*2);
+          padding-right: calc(var(--uvalib-spacing-unit)*2);
+        }
+
+        #mobileDirectory .service-title {
+          font-size: calc(var(--uvalib-main-font-size-unit)*1.2);
+          /* font-weight: 700;
+          padding-top: var(--uvalib-spacing-unit); */
+        }
+
+        #mobileDirectory .title-text {
+          margin-top: var(--uvalib-spacing-unit);
+        }
+        #mobileDirectory ul {
+          margin-top: 0;
+          margin-bottom: 0;
+        }
+
+        #mobileDirectory .services-location li {
+          padding-bottom: calc(var(--uvalib-spacing-unit)/2);
+        }
+
+        #mobileDirectory:nth-child(odd) {
+            background-color: var(--color-light-gray);
+        }
       </style>
     </custom-style>
 
@@ -58,7 +91,7 @@
       <uva-library path="teams" id="teams" last-response="{{_teams}}"></uva-library>
       <uva-library path="services" last-response="{{_services}}"></uva-library>
 
-<template is="dom-if" if="[[largeScreen]]" restamp>
+      <template is="dom-if" if="[[!smallScreen]]" restamp>
       <!--
       <div class="searchField">
         <paper-input no-label-float class="search-field" value="{{_query}}" label="" placeholder="Find Service by Name or Location" tabindex="0"></paper-input>
@@ -70,7 +103,7 @@
       <hr />
     -->
       <div id="controls">
-        <paper-input label="Search" value="{{_query}}">
+        <paper-input label="Search the directory" value="{{_query}}">
           <div slot="prefix">
             <span class="uvalib-icon-search uva-padding-right"></span>
           </div>
@@ -80,15 +113,12 @@
           <template is="dom-if" if="[[!_staffView]]">Public View</template>
         </paper-toggle-button>-->
       </div>
-
-
-
       <vaadin-grid height-by-rows="[[largeScreen]]" theme="no-border row-stripes wrap-cell-content" aria-label="Service directory listing" items="[[_data]]">
         <vaadin-grid-column width="45%">
-          <template class="header"><vaadin-grid-sorter path="title"><div class="title-text">Service</div></vaadin-grid-sorter></template>
+          <template class="header"><vaadin-grid-sorter direction="asc" path="title"><div class="title-text">Service</div></vaadin-grid-sorter></template>
           <template>
-            <div class="title service-title" hidden$="[[item.siteLink]]">[[item.title]]<br /></div>
-            <div class="title service-title" hidden$="[[!item.siteLink]]"><a href="[[item.siteLink]]">[[item.title]]</a><br /></div>
+            <div class="title service-title" hidden$="[[item.siteLink]]">[[item.title]]</div>
+            <div class="title service-title" hidden$="[[!item.siteLink]]"><a href="[[item.siteLink]]">[[item.title]]</a></div>
             <div class="description service-description" hidden$="[[!item.body]]" inner-h-t-m-l="[[item.body]]"></div>
           </template>
         </vaadin-grid-column>
@@ -99,8 +129,8 @@
         <vaadin-grid-column width="25%">
           <template class="header"><div class="title-text">Contact</div></template>
           <template>
-            <div class="email" hidden$="[[!item.emailAddress]]"><a href="mailto:[[item.emailAddress]]">[[item.emailAddress]]</a><br /></div>
-            <div class="phone" hidden$="[[!item.phoneNumber]]"><a href="tel:[[item.phoneNumber]]">[[item.phoneNumber]]</a><br /></div>
+            <div class="email" hidden$="[[!item.emailAddress]]"><a href="mailto:[[item.emailAddress]]">[[item.emailAddress]]</a></div>
+            <div class="phone" hidden$="[[!item.phoneNumber]]"><a href="tel:[[item.phoneNumber]]">[[item.phoneNumber]]</a></div>
             <div class="form" hidden$="[[!item.formLink]]"><a href="[[item.formLink]]">Contact form</a></div>
             <div hidden$="[[!_staffView]]">
                 <div class="owner-person" hidden$="[[!item.owner]]">Owner: [[_getPersonName(item.owner,_people)]]</div>
@@ -110,6 +140,34 @@
         </vaadin-grid-column>
       </vaadin-grid>
 
+</template>
+<template is="dom-if" if="[[smallScreen]]" restamp>
+  <div id="controls">
+    <paper-input label="Search the directory" value="{{_query}}">
+      <div slot="prefix">
+        <span class="uvalib-icon-search uva-padding-right"></span>
+      </div>
+    </paper-input>
+  </div>
+  <iron-list items="[[_data]]">
+    <template is="dom-repeat" items="[[_data]]">
+      <div id="mobileDirectory" even$="[[_isEven(index)]]">
+        <div class="title service-title" hidden$="[[item.siteLink]]">[[item.title]]</div>
+        <div class="title service-title" hidden$="[[!item.siteLink]]"><a href="[[item.siteLink]]">[[item.title]]</a></div>
+        <div class="description service-description" hidden$="[[!item.body]]" inner-h-t-m-l="[[item.body]]"></div>
+        <div hidden$="[[!_getLibs(item.library,smallScreen)]]">
+          <div class="title-text">Location</div>
+          <div class="location" inner-h-t-m-l="[[_getLibs(item.library)]]"></div>
+        </div>
+        <div hidden$=[[!_mobileContact(item.emailAddress,item.phoneNumber,item.formLink)]]>
+          <div class="title-text">Contact</div>
+          <div class="email" hidden$="[[!item.emailAddress]]"><a href="mailto:[[item.emailAddress]]">[[item.emailAddress]]</a></div>
+          <div class="phone" hidden$="[[!item.phoneNumber]]"><a href="tel:[[item.phoneNumber]]">[[item.phoneNumber]]</a></div>
+          <div class="form" hidden$="[[!item.formLink]]"><a href="[[item.formLink]]">Contact form</a></div>
+        </div>
+      </div>
+    </template>
+  </iron-list>
 </template>
     </div>
   </template>
@@ -218,7 +276,7 @@
       }
       _getLibs(libs){
         if (!libs) {
-          return "&mdash;";
+          return (this.smallScreen)? "":"&mdash;";
         } else {
           if (!this._libs && this.$.libs) {
             this._libs = this.$.libs.getHash('id',['title']);
@@ -253,6 +311,13 @@
           var team = this._teams.find( team => team.uuid === uuid);
           if (team) return team.title;
         }
+      }
+      _isEven(n) {
+        n = Number(n);
+        return n === 0 || !!(n && !(n%2));
+      }
+      _mobileContact(emailAddress,phoneNumber,formLink) {
+        return emailAddress || phoneNumber || formLink;
       }
     }
 
