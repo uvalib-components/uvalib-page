@@ -34,9 +34,10 @@
     </custom-style>
 
     <!-- Banner at top outside of card if not large screen -->
-    <template is="dom-if" if="[[!largeScreen]]">
+    <template is="dom-if" if="[[!largeScreen]]" restamp>
       <div>
-        <uvalib-banners id="banner"></uvalib-banners>
+        <div class="screen-reader-text" id="carouselheading">News, Events, and messages from the UVA Library</div>
+        <uvalib-banners id="banner" aria-labelledby="carouselheading"></uvalib-banners>
       </div>
 
       <!-- Stick hours and research in w/ white background if not large -->
@@ -129,12 +130,13 @@
       </div>
     </template>
 
-    <template is="dom-if" if="[[largeScreen]]">
+    <template is="dom-if" if="[[largeScreen]]" restamp>
       <!-- Desktop has Banner next to hours card -->
       <div class="layout horizontal">
         <paper-card class="flex layout vertical" style="width: 200px; max-width: none; min-width: none;">
           <div class="card-content flex" style="overflow: hidden; padding:0; margin:0">
-            <uvalib-banners id="bannerLg" style="height:100%;width:100%;"></uvalib-banners>
+            <div class="screen-reader-text" id="carouselheading">News, Events, and messages from the UVA Library</div>
+            <uvalib-banners id="bannerLg" style="height:100%;width:100%;" aria-labelledby="carouselheading"></uvalib-banners>
           </div>
         </paper-card>
         <paper-card id="hours-card" heading="Today's Hours" style="width: 200px; max-width: none; min-width: none;">
