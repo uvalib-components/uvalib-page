@@ -119,7 +119,7 @@
 
     <iron-collapse id="exhibitBookTour">
       <div class="exhibit-book-tour">
-        <paper-button class="exhibit-collapse-link">close x</paper-button>
+        <paper-button on-tap="_toggleBookTour" class="exhibit-collapse-link">close x</paper-button>
         <slot name="book-tour-language"></slot>
         <div id=“form_63a1706312fb1f702a78978a659be01e”></div>
         <script type=“text/javascript” src=“//virginia.libsurveys.com/form_loader.php?id=63a1706312fb1f702a78978a659be01e”></script>
@@ -128,7 +128,7 @@
 
     <iron-collapse id="exhibitOverview">
       <div class="exhibit-overview">
-        <paper-button class="exhibit-collapse-link">close x</paper-button>
+        <paper-button on-tap="_toggleOverview" class="exhibit-collapse-link">close x</paper-button>
         <h2>Overview</h2>
         <slot name="overview"></slot>
       </div>
