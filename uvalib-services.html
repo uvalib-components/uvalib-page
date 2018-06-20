@@ -8,9 +8,12 @@
 <link rel="import" href="../uvalib-theme/uvalib-theme.html">
 <link rel="import" href="../uvalib-theme/uvalib-page-style.html">
 <link rel="import" href="../paper-toggle-button/paper-toggle-button.html">
+<link rel="import" href="../paper-button/paper-button.html" >
 <link rel="import" href="../app-storage/app-localstorage/app-localstorage-document.html" />
 <link rel="import" href="../vaadin-grid/vaadin-grid.html">
 <link rel="import" href="../vaadin-grid/vaadin-grid-sorter.html">
+
+<link rel="import" href="../uvalib-account/uvalib-account-user.html">
 
 <dom-module id="uvalib-services">
   <template>
@@ -80,10 +83,16 @@
         #mobileDirectory:nth-child(odd) {
             background-color: var(--color-light-gray);
         }
+
+        #login-buttons {
+          float: right;
+        }
       </style>
     </custom-style>
 
+    <uvalib-account-user id="accountuser" signed-in="{{_signedIn}}" lib-staff="{{_staffmember}}"></uvalib-account-user>
     <app-localstorage-document key="uvalib-staff-view" data="{{_staffView}}"></app-localstorage-document>
+
     <div id="container">
 
       <uva-library id="libs" last-response="{{_libraries}}"></uva-library>
@@ -92,83 +101,79 @@
       <uva-library path="services" last-response="{{_services}}"></uva-library>
 
       <template is="dom-if" if="[[!smallScreen]]" restamp>
-      <!--
-      <div class="searchField">
-        <paper-input no-label-float class="search-field" value="{{_query}}" label="" placeholder="Find Service by Name or Location" tabindex="0"></paper-input>
-      </div>
-      <div>
-        Need to contact a staff member?<br />
-        <a href="/directory">Visit our staff directory ></a>
-      </div>
-      <hr />
-    -->
-      <div id="controls">
-        <paper-input label="Search the directory" value="{{_query}}">
-          <div slot="prefix">
-            <span class="uvalib-icon-search uva-padding-right"></span>
+        <div id="controls">
+
+          <div id="login-buttons">
+            <paper-button on-tap="_signIn" hidden$="[[_signedIn]]" raised>Staff Login</paper-button>
+            <paper-button on-tap="_signOut" hidden$="[[!_signedIn]]" raised>Sign Out</paper-button>
           </div>
-        </paper-input>
-        <!--<paper-toggle-button id="staffSelect" checked="{{_staffView}}">
-          <template is="dom-if" if="[[_staffView]]">Staff View</template>
-          <template is="dom-if" if="[[!_staffView]]">Public View</template>
-        </paper-toggle-button>-->
-      </div>
-      <vaadin-grid height-by-rows="[[largeScreen]]" theme="no-border row-stripes wrap-cell-content" aria-label="Service directory listing" items="[[_data]]">
-        <vaadin-grid-column width="45%">
-          <template class="header"><vaadin-grid-sorter direction="asc" path="title"><div class="title-text">Service</div></vaadin-grid-sorter></template>
-          <template>
-            <div class="title service-title" hidden$="[[item.siteLink]]">[[item.title]]</div>
-            <div class="title service-title" hidden$="[[!item.siteLink]]"><a href="[[item.siteLink]]">[[item.title]]</a></div>
-            <div class="description service-description" hidden$="[[!item.body]]" inner-h-t-m-l="[[item.body]]"></div>
-          </template>
-        </vaadin-grid-column>
-        <vaadin-grid-column width="30%">
-          <template class="header"><div class="title-text">Location</div></template>
-          <template><div class="location" inner-h-t-m-l="[[_getLibs(item.library)]]"></div></template>
-        </vaadin-grid-column>
-        <vaadin-grid-column width="25%">
-          <template class="header"><div class="title-text">Contact</div></template>
-          <template>
-            <div class="email" hidden$="[[!item.emailAddress]]"><a href="mailto:[[item.emailAddress]]">[[item.emailAddress]]</a></div>
-            <div class="phone" hidden$="[[!item.phoneNumber]]"><a href="tel:[[item.phoneNumber]]">[[item.phoneNumber]]</a></div>
-            <div class="form" hidden$="[[!item.formLink]]"><a href="[[item.formLink]]">Contact form</a></div>
-            <div hidden$="[[!_staffView]]">
-                <div class="owner-person" hidden$="[[!item.owner]]">Owner: [[_getPersonName(item.owner,_people)]]</div>
-                <div class="owner-person" hidden$="[[!item.team]]">Team Owner: [[_getTeamName(item.team,_teams)]]</div>
+
+          <paper-input label="Search the directory" value="{{_query}}">
+            <div slot="prefix">
+              <span class="uvalib-icon-search uva-padding-right"></span>
+            </div>
+          </paper-input>
+          <paper-toggle-button id="staffSelect" checked="{{_staffView}}" hidden$="[[!_staffmember]]">
+            <template is="dom-if" if="[[_staffView]]">Staff View</template>
+            <template is="dom-if" if="[[!_staffView]]">Public View</template>
+          </paper-toggle-button>
+        </div>
+        <vaadin-grid height-by-rows="[[largeScreen]]" theme="no-border row-stripes wrap-cell-content" aria-label="Service directory listing" items="[[_data]]">
+          <vaadin-grid-column width="45%">
+            <template class="header"><vaadin-grid-sorter direction="asc" path="title"><div class="title-text">Service</div></vaadin-grid-sorter></template>
+            <template>
+              <div class="title service-title" hidden$="[[item.siteLink]]">[[item.title]]</div>
+              <div class="title service-title" hidden$="[[!item.siteLink]]"><a href="[[item.siteLink]]">[[item.title]]</a></div>
+              <div class="description service-description" hidden$="[[!item.body]]" inner-h-t-m-l="[[item.body]]"></div>
+            </template>
+          </vaadin-grid-column>
+          <vaadin-grid-column width="30%">
+            <template class="header"><div class="title-text">Location</div></template>
+            <template><div class="location" inner-h-t-m-l="[[_getLibs(item.library)]]"></div></template>
+          </vaadin-grid-column>
+          <vaadin-grid-column width="25%">
+            <template class="header"><div class="title-text">Contact</div></template>
+            <template>
+              <div class="email" hidden$="[[!item.emailAddress]]"><a href="mailto:[[item.emailAddress]]">[[item.emailAddress]]</a></div>
+              <div class="phone" hidden$="[[!item.phoneNumber]]"><a href="tel:[[item.phoneNumber]]">[[item.phoneNumber]]</a></div>
+              <div class="form" hidden$="[[!item.formLink]]"><a href="[[item.formLink]]">Contact form</a></div>
+              <div hidden$="[[!_staffView]]">
+                  <div class="owner-person" hidden$="[[!item.owner]]">Owner: [[_getPersonName(item.owner,_people)]]</div>
+                  <div class="owner-person" hidden$="[[!item.team]]">Team Owner: [[_getTeamName(item.team,_teams)]]</div>
+              </div>
+            </template>
+          </vaadin-grid-column>
+        </vaadin-grid>
+
+      </template>
+      <template is="dom-if" if="[[smallScreen]]" restamp>
+        <div id="controls">
+          <paper-input label="Search the directory" value="{{_query}}">
+            <div slot="prefix">
+              <span class="uvalib-icon-search uva-padding-right"></span>
+            </div>
+          </paper-input>
+        </div>
+        <iron-list items="[[_data]]">
+          <template is="dom-repeat" items="[[_data]]">
+            <div id="mobileDirectory" even$="[[_isEven(index)]]">
+              <div class="title service-title" hidden$="[[item.siteLink]]">[[item.title]]</div>
+              <div class="title service-title" hidden$="[[!item.siteLink]]"><a href="[[item.siteLink]]">[[item.title]]</a></div>
+              <div class="description service-description" hidden$="[[!item.body]]" inner-h-t-m-l="[[item.body]]"></div>
+              <div hidden$="[[!_getLibs(item.library,smallScreen)]]">
+                <div class="title-text">Location</div>
+                <div class="location" inner-h-t-m-l="[[_getLibs(item.library)]]"></div>
+              </div>
+              <div hidden$=[[!_mobileContact(item.emailAddress,item.phoneNumber,item.formLink)]]>
+                <div class="title-text">Contact</div>
+                <div class="email" hidden$="[[!item.emailAddress]]"><a href="mailto:[[item.emailAddress]]">[[item.emailAddress]]</a></div>
+                <div class="phone" hidden$="[[!item.phoneNumber]]"><a href="tel:[[item.phoneNumber]]">[[item.phoneNumber]]</a></div>
+                <div class="form" hidden$="[[!item.formLink]]"><a href="[[item.formLink]]">Contact form</a></div>
+              </div>
             </div>
           </template>
-        </vaadin-grid-column>
-      </vaadin-grid>
-
-</template>
-<template is="dom-if" if="[[smallScreen]]" restamp>
-  <div id="controls">
-    <paper-input label="Search the directory" value="{{_query}}">
-      <div slot="prefix">
-        <span class="uvalib-icon-search uva-padding-right"></span>
-      </div>
-    </paper-input>
-  </div>
-  <iron-list items="[[_data]]">
-    <template is="dom-repeat" items="[[_data]]">
-      <div id="mobileDirectory" even$="[[_isEven(index)]]">
-        <div class="title service-title" hidden$="[[item.siteLink]]">[[item.title]]</div>
-        <div class="title service-title" hidden$="[[!item.siteLink]]"><a href="[[item.siteLink]]">[[item.title]]</a></div>
-        <div class="description service-description" hidden$="[[!item.body]]" inner-h-t-m-l="[[item.body]]"></div>
-        <div hidden$="[[!_getLibs(item.library,smallScreen)]]">
-          <div class="title-text">Location</div>
-          <div class="location" inner-h-t-m-l="[[_getLibs(item.library)]]"></div>
-        </div>
-        <div hidden$=[[!_mobileContact(item.emailAddress,item.phoneNumber,item.formLink)]]>
-          <div class="title-text">Contact</div>
-          <div class="email" hidden$="[[!item.emailAddress]]"><a href="mailto:[[item.emailAddress]]">[[item.emailAddress]]</a></div>
-          <div class="phone" hidden$="[[!item.phoneNumber]]"><a href="tel:[[item.phoneNumber]]">[[item.phoneNumber]]</a></div>
-          <div class="form" hidden$="[[!item.formLink]]"><a href="[[item.formLink]]">Contact form</a></div>
-        </div>
-      </div>
-    </template>
-  </iron-list>
-</template>
+        </iron-list>
+      </template>
     </div>
   </template>
 
@@ -189,6 +194,11 @@
               _query: {
                 type:String,
                 observer: "_mkServices"
+              },
+              _staffmember: {
+                type: Boolean,
+                value: false,
+                observer: "_staffmemberChange"
               },
               _staffView: {
                 type: Boolean,
@@ -235,7 +245,16 @@
       ready() {
         super.ready();
       }
-
+      _staffmemberChange() {
+        if (this._staffmember) this._staffView = true;
+      }
+      _signIn() {
+        this.shadowRoot.getElementById('accountuser').signInWithNetbadge();
+      }
+      _signOut() {
+        this.shadowRoot.getElementById('accountuser').signOut();
+        this._staffView = false;
+      }
       _mkServices() {
         //clone the pristine services listing so that we can come back from filters w/o reloading
         if (this._libraries && this._libraries.length > 0 && this._services){
