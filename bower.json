@@ -4,13 +4,11 @@
   "main": "uvalib-page.html",
   "dependencies": {
     "uvalib-elements": "uvalib-components/uvalib-elements#master",
-    "vaadin-grid": "vaadin/vaadin-grid#^5.0.0"
+    "vaadin-grid": "vaadin/vaadin-grid#^5.0.4"
   },
   "resolutions": {
-    "lodash": "^4.17.4",
-    "paper-icon-button": "^2.0.1",
-    "webcomponentsjs": "^v1.0.19",
-    "polymer": "^2.5.0",
-    "vaadin-grid": "^5.0.0"
+    "polymer": "^v2.0.0",
+    "lodash": "^4.17.5",
+    "webcomponentsjs": "^v1.1.0"
   }
 }
