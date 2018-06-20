@@ -4,6 +4,8 @@
 <link rel="import" href="../iron-collapse/iron-collapse.html">
 <link rel="import" href="../paper-button/paper-button.html">
 <link rel="import" href="../paper-card/paper-card.html">
+<link rel="import" href="../iron-ajax/iron-ajax.html">
+<link rel="import" href="../uvalib-imageviewer/uvalib-imageviewer.html">
 
 <!-- EXHIBITION FONT SELECTED from Drupal -->
 <link href="https://fonts.googleapis.com/css?family=Alegreya" rel="stylesheet">
@@ -155,7 +157,9 @@
           <div class="fred vertical layout justified">
             <div class="exhibit-card-title">Image gallery</div>
             <div class="exhibit-card-content">Browse through selected items on view in the exhibition.</div>
-            <div class="exhibit-card-link"><a>view images</a></div>
+            <div class="exhibit-card-link"><a on-tap="_openImageViewer">view images</a></div>
+            <iron-ajax auto id="ajax" last-response="{{items}}" url="https://uvalib-api.firebaseio.com/mediaobjects.json?orderBy=%22association%22&startAt=%22medicalHistory%22&endAt=%22medicalHistory%22" handle-as="json"></iron-ajax>
+            <uvalib-imageviewer id="imageViewer" items$="[[items]]" image-prop="image.url" thumb-prop="image.url" html-prop="body" firebase-array></uvalib-imageviewer>
           </div>
         </paper-card>
         <paper-card class="exhibit-gallery-item">
@@ -237,6 +241,7 @@
       static get is() { return 'uvalib-majorexhibitpage'; }
       _toggleOverview(){ this.shadowRoot.getElementById('exhibitOverview').toggle(); }
       _toggleBookTour(){ this.shadowRoot.getElementById('exhibitBookTour').toggle(); }
+      _openImageViewer(){ this.shadowRoot.getElementById('imageViewer').open(); }
     }
 
     window.customElements.define(UvalibMajorExhibitpage.is, UvalibMajorExhibitpage);
