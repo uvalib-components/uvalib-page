@@ -49,6 +49,35 @@
           line-height: calc(var(--uvalib-spacing-unit)*1.1);
           padding-bottom: var(--uvalib-spacing-unit);
         }
+
+        paper-toggle-button.orange {
+          --paper-toggle-button-checked-bar-color:  var(--uvalib-main-rotunda-orange);
+          --paper-toggle-button-checked-button-color:  var(--uvalib-main-rotunda-orange);
+          --paper-toggle-button-checked-ink-color: var(--uvalib-main-rotunda-orange);
+        }
+
+        vaadin-grid {
+          --vaadin-grid-body-cell: { border: 1px solid green; };
+          --vaadin-grid-cell-content: { border: 1px solid blue; };
+        }
+
+        /* Adds Border and Text for Staff-only items */
+        [staff] {
+          border-left: calc(var(--uvalib-spacing-unit)/2) solid var(--uvalib-main-rotunda-orange);
+          padding-left: var(--uvalib-spacing-unit);
+          margin-left: calc(var(--uvalib-spacing-unit)*-1);
+        }
+        span[staff-text]:before {
+          @apply --h4;
+          font-size: var(--uvalib-main-font-size-unit);
+          color: var(--uvalib-main-jefferson-blue);
+          margin-top: calc(var(--uvalib-spacing-unit)/1.6);
+          display: inline-block;
+          content: 'staff only';
+          text-transform: uppercase;
+          font-style: italic;
+        }
+
         /*MOBILE*/
         iron-list {
           display: inline-block;
@@ -113,8 +142,8 @@
               <span class="uvalib-icon-search uva-padding-right"></span>
             </div>
           </paper-input>
-          <paper-toggle-button id="staffSelect" checked="{{_staffView}}" hidden$="[[!_staffmember]]">
-            <template is="dom-if" if="[[_staffView]]">Staff View</template>
+          <paper-toggle-button id="staffSelect" checked="{{_staffView}}" hidden$="[[!_staffmember]]" class="orange">
+            <template is="dom-if" if="[[_staffView]]"><span class"staff-text">Staff View</span></template>
             <template is="dom-if" if="[[!_staffView]]">Public View</template>
           </paper-toggle-button>
         </div>
@@ -122,9 +151,12 @@
           <vaadin-grid-column width="45%">
             <template class="header"><vaadin-grid-sorter direction="asc" path="title"><div class="title-text">Service</div></vaadin-grid-sorter></template>
             <template>
-              <div class="title service-title" hidden$="[[item.siteLink]]">[[item.title]]</div>
-              <div class="title service-title" hidden$="[[!item.siteLink]]"><a href="[[item.siteLink]]">[[item.title]]</a></div>
-              <div class="description service-description" hidden$="[[!item.body]]" inner-h-t-m-l="[[item.body]]"></div>
+              <div staff$="[[item.audience]]">
+                <div class="title service-title" hidden$="[[item.siteLink]]">[[item.title]]</div>
+                <div class="title service-title" hidden$="[[!item.siteLink]]"><a href="[[item.siteLink]]">[[item.title]]</a></div>
+                <div class="description service-description" hidden$="[[!item.body]]" inner-h-t-m-l="[[item.body]]"></div>
+                <span staff-text$="[[item.audience]]"></span>
+              </div>
             </template>
           </vaadin-grid-column>
           <vaadin-grid-column width="30%">
@@ -148,15 +180,25 @@
       </template>
       <template is="dom-if" if="[[smallScreen]]" restamp>
         <div id="controls">
-          <paper-input label="Search the directory" value="{{_query}}">
-            <div slot="prefix">
-              <span class="uvalib-icon-search uva-padding-right"></span>
-            </div>
-          </paper-input>
+          <div id="login-buttons">
+            <paper-button on-tap="_signIn" hidden$="[[_signedIn]]" raised>Staff Login</paper-button>
+            <paper-button on-tap="_signOut" hidden$="[[!_signedIn]]" raised>Sign Out</paper-button>
+          </div>
+          <paper-toggle-button id="staffSelect" checked="{{_staffView}}" hidden$="[[!_staffmember]]" class="orange">
+            <template is="dom-if" if="[[_staffView]]"><span class"staff-text">Staff View</span></template>
+            <template is="dom-if" if="[[!_staffView]]">Public View</template>
+          </paper-toggle-button>
+          <div class="uva-margin-top">
+            <paper-input label="Search the directory" value="{{_query}}">
+              <div slot="prefix">
+                <span class="uvalib-icon-search uva-padding-right"></span>
+              </div>
+            </paper-input>
+          </div>
         </div>
         <iron-list items="[[_data]]">
           <template is="dom-repeat" items="[[_data]]">
-            <div id="mobileDirectory" even$="[[_isEven(index)]]">
+            <div id="mobileDirectory" even$="[[_isEven(index)]]" staff$="[[item.audience]]">
               <div class="title service-title" hidden$="[[item.siteLink]]">[[item.title]]</div>
               <div class="title service-title" hidden$="[[!item.siteLink]]"><a href="[[item.siteLink]]">[[item.title]]</a></div>
               <div class="description service-description" hidden$="[[!item.body]]" inner-h-t-m-l="[[item.body]]"></div>
@@ -170,6 +212,7 @@
                 <div class="phone" hidden$="[[!item.phoneNumber]]"><a href="tel:[[item.phoneNumber]]">[[item.phoneNumber]]</a></div>
                 <div class="form" hidden$="[[!item.formLink]]"><a href="[[item.formLink]]">Contact form</a></div>
               </div>
+              <span staff-text$="[[item.audience]]"></span>
             </div>
           </template>
         </iron-list>
