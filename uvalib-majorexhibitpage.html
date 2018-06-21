@@ -158,7 +158,7 @@
             <div class="exhibit-card-title">Image gallery</div>
             <div class="exhibit-card-content">Browse through selected items on view in the exhibition.</div>
             <div class="exhibit-card-link"><a on-tap="_openImageViewer">view images</a></div>
-            <iron-ajax auto id="ajax" last-response="{{_ivItems}}" url="https://uvalib-api.firebaseio.com/mediaobjects.json?orderBy=%22association%22&startAt=%22medicalHistory%22&endAt=%22medicalHistory%22" handle-as="json"></iron-ajax>
+            <iron-ajax auto id="ajax" last-response="{{_ivItems}}" url="[[_mkImagesFeedURL(exhibitSlug)]]" handle-as="json"></iron-ajax>
             <uvalib-imageviewer id="imageViewer" items$="[[_ivItems]]" image-prop="image.url" thumb-prop="image.url" html-prop="body" firebase-array></uvalib-imageviewer>
           </div>
         </paper-card>
@@ -239,6 +239,11 @@
      */
     class UvalibMajorExhibitpage extends UvalibUiElement {
       static get is() { return 'uvalib-majorexhibitpage'; }
+      static get properties() {
+        return Object.assign(super.properties, {
+          exhibitSlug: String
+        });
+      }
       _openCollapse(e){
         var collapseId = e.currentTarget.getAttribute('data-collapseid');
         // store opening element to restore focus on close
@@ -251,8 +256,11 @@
         var collapseId = e.currentTarget.getAttribute('data-collapseid');
         this.shadowRoot.getElementById(collapseId).hide();
       }
-//      _toggleBookTour(){ this.shadowRoot.getElementById('exhibitBookTour').toggle(); }
       _openImageViewer(){ this.shadowRoot.getElementById('imageViewer').open(); }
+      _mkImagesFeedURL(){
+        if (this.exhibitSlug)
+          return "https://uvalib-api.firebaseio.com/mediaobjects.json?orderBy=%22association%22&startAt=%22"+this.exhibitSlug+"%22&endAt=%22"+this.exhibitSlug+"%22"
+      }
     }
 
     window.customElements.define(UvalibMajorExhibitpage.is, UvalibMajorExhibitpage);
