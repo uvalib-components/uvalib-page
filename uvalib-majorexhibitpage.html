@@ -27,7 +27,7 @@
 
         .exhibit-header { margin-top: -1px; height: 520px; overflow-y: hidden; }
         .exhibit-main-image { float: left; }
-        .exhibit-main-image ::slotted(*) { margin: 0; background-color:blue }
+        .exhibit-main-image ::slotted(*) { margin: 0; }
         .exhibit-welcome { float: right; width: 43%; padding: 0 30px 0 30px; line-height: 1.5; }
         .exhibit-welcome .header-label { font-size: 16px; font-weight: 300; text-transform: uppercase; margin-top: calc(var(--uvalib-spacing-unit)*1.5); }
         .exhibit-welcome .header-title::slotted(h1) {
@@ -47,7 +47,7 @@
         .exhibit-overview { padding: var(--uvalib-spacing-unit); }
         .exhibit-collapse-link { float: right; text-transform: uppercase; }
         .exhibit-gallery-info, .exhibit-news { padding-top: 20px; padding-bottom: 20px; }
-        .exhibit-book-tour h2, .exhibit-overview h2:first-of-type, .exhibit-gallery-info h2, .exhibit-news h2 { text-align: center; }
+        .book-tour-language ::slotted(h2), .exhibit-overview h2:first-of-type, .exhibit-gallery-info h2, .exhibit-news h2 { text-align: center; clear: both; }
         .exhibit-gallery-item, .exhibit-news-item { padding: var(--uvalib-spacing-unit); width: 540px; border-radius: 5px; }
         .exhibit-gallery-item { padding-top: 20px;  height: 175px; }
         .exhibit-gallery-item .fred { height: 100%; }
@@ -60,23 +60,25 @@
         .exhibit-card-news-title { padding-bottom: calc(var(--uvalib-spacing-unit)/3); font-size: 24px; font-weight: 400; text-transform: capitalize; }
         .exhibit-card-news-copy {}
 
-        .exhibit-pre-footer { padding-top: calc(var(--uvalib-spacing-unit)*1.25); padding-bottom: calc(var(--uvalib-spacing-unit)*1.25); text-align: center; marcd }
+        .exhibit-pre-footer { padding-top: calc(var(--uvalib-spacing-unit)*1.25); padding-bottom: calc(var(--uvalib-spacing-unit)*1.25); text-align: center; margin-bottom: -64px; }
         .exhibit-pre-footer a:first-child { margin-right: calc(var(--uvalib-spacing-unit)*2.5);}
 
         /*MEDIUM BREAKPOINT*/
-        :host([medium-screen]) .exhibit-header  { height: 100%; }
-        :host([medium-screen]) .exhibit-main-image  { float: none; }
-        :host([medium-screen]) .exhibit-welcome ::slotted(*) { float: left; }
-        :host([medium-screen]) .exhibit-gallery-item, :host([medium-screen]) .exhibit-news-item { width: 330px; height: 200px; }
+        :host([medium-screen]) .exhibit-header  { margin-top: -5px; height: 100%; padding-left: 985px;  }
+        :host([medium-screen]) .exhibit-main-image ::slotted(*) {  }
+        :host([medium-screen]) .exhibit-welcome { float: left; padding-bottom: 32px; }
+        :host([medium-screen]) .exhibit-gallery-item, :host([medium-screen]) paper-card.exhibit-news-item { width: 45%; height: 200px; }
+        :host([medium-screen]) .exhibit-pre-footer { margin-bottom: -65px;}
 
         /*SMALL BREAKPOINT*/
-        :host([small-screen]) .exhibit-header ::slotted(*)  { height: 100%; }
-        :host([small-screen]) .exhibit-main-image ::slotted(*)  { float: none; margin: 0; width: 100%; }
-        :host([small-screen]) .exhibit-welcome ::slotted(*) { float: none; }
-        :host([small-screen]) .exhibit-gallery-info, :host([small-screen]) .exhibit-news, :host([small-screen]) .exhibit-overview, :host([small-screen]) .exhibit-book-tour { width: 100%; }
-        :host([small-screen]) .exhibit-gallery-item, :host([medium-screen]) .exhibit-news-item { width: 100%; height: 200px; }
-        :host([small-screen]) .exhibit-pre-footer { margin-bottom: 0px;}
-        :host([small-screen]) .exhibit-pre-footer a:first-child { margin-right: 0;}
+        :host([small-screen]) .exhibit-header { margin-top: -5px; height: 100%; padding-left: 985px; }
+        :host([small-screen]) .exhibit-main-image ::slotted(*)  { width: 100vw; }
+        :host([small-screen]) .exhibit-welcome { float: left; padding-bottom: 32px; width: 83vw; }
+        :host([small-screen]) .exhibit-gallery-info h2, :host([small-screen]) .exhibit-news h2 { width: 92vw; }
+        :host([small-screen]) .exhibit-gallery-item, :host([small-screen]) paper-card.exhibit-news-item { width: 92vw; height: auto; margin-left: 0; margin-right: 0;}
+        :host([small-screen]) .exhibit-pre-footer { margin-bottom: 0px; width: 92vw; padding-bottom: 0; }
+        :host([small-screen]) .exhibit-pre-footer paper-button { margin-bottom: var(--uvalib-spacing-unit); }
+
 
         /*CUSTOM STYLES HANDLED THROUGH DRUPAL*/
         /* header background color */
