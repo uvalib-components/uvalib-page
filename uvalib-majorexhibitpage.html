@@ -244,6 +244,13 @@
           exhibitSlug: String
         });
       }
+      //Concat the this elements template with the parents
+      static get template() {
+        var parentTemplate = UvalibUiElement.template.cloneNode(true);
+        var childTemplate = Polymer.DomModule.import('uvalib-majorexhibitpage', 'template');
+        parentTemplate.content.insertBefore(childTemplate.content,null);
+        return parentTemplate;
+      }
       _openCollapse(e){
         var collapseId = e.currentTarget.getAttribute('data-collapseid');
         // store opening element to restore focus on close
