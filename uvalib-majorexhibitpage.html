@@ -7,9 +7,10 @@
 <link rel="import" href="../iron-ajax/iron-ajax.html">
 <link rel="import" href="../uvalib-imageviewer/uvalib-imageviewer.html">
 <link rel="import" href="../uvalib-springshare-form/uvalib-springshare-form.html">
+<link rel="import" href="../moment/moment.js">
 
 <!-- EXHIBITION FONT SELECTED from Drupal -->
-<!-- <link href="https://fonts.googleapis.com/css?family=Alegreya" rel="stylesheet"> -->
+<link href="https://fonts.googleapis.com/css?family=Open+Sans:400,800" rel="stylesheet">
 <!-- END -->
 
 <dom-module id="uvalib-majorexhibitpage">
@@ -26,21 +27,15 @@
         }
 
         .exhibit-header { margin-top: -1px; height: 520px; overflow-y: hidden; }
-        .exhibit-main-image { float: left; }
-        .exhibit-main-image ::slotted(*) { margin: 0; }
-        .exhibit-welcome { float: right; width: 43%; padding: 0 30px 0 30px; line-height: 1.5; }
+        /* .exhibit-main-image { } */
+        .exhibit-main-image ::slotted(*) { margin: 0; --iron-image-width: auto; }
+        .exhibit-welcome { width: auto; padding: 0 30px; line-height: 1.5; }
         .exhibit-welcome .header-label { font-size: 16px; font-weight: 300; text-transform: uppercase; margin-top: calc(var(--uvalib-spacing-unit)*1.5); }
-        .exhibit-welcome .header-title::slotted(h1) {
-          line-height: 1.25 !important;
-          font-size: 36px !important;
-          margin-top: calc(var(--uvalib-spacing-unit)*1.25) !important;
-          margin-bottom: calc(var(--uvalib-spacing-unit)/2) !important;
-          padding-top: 0 !important;
-        }
+        .exhibit-welcome .header-title::slotted(h1) { line-height: 1.25 !important; font-size: 36px !important; margin-top: calc(var(--uvalib-spacing-unit)*1.25) !important; margin-bottom: calc(var(--uvalib-spacing-unit)/2) !important; padding-top: 0 !important; }
         .exhibit-welcome .header-supporting-text::slotted(p) { margin: 0 0 var(--uvalib-spacing-unit) 0; font-size: 21px; }
-        .exhibit-date-range { font-size: 24px; font-weight: 500; padding-top: calc(var(--uvalib-spacing-unit)*2); }
+        .exhibit-date-range { font-size: 24px; font-weight: 500; padding-top: calc(var(--uvalib-spacing-unit)*1.5); }
         .exhibit-location { font-size: 16px; font-weight: 400; padding-top: calc(var(--uvalib-spacing-unit)/2); }
-        .exhibit-button-group { padding-top: calc(var(--uvalib-spacing-unit)*2.25); }
+        .exhibit-button-group { padding-top: calc(var(--uvalib-spacing-unit)*1.75); }
         .exhibit-book-tour { padding: var(--uvalib-spacing-unit); text-align: center; }
         .exhibit-book-tour ::slotted(p) {text-align: center;}
 
@@ -65,14 +60,14 @@
 
         /*MEDIUM BREAKPOINT*/
         :host([medium-screen]) .exhibit-header  { margin-top: -5px; height: 100%; padding-left: 985px;  }
-        :host([medium-screen]) .exhibit-main-image ::slotted(*) {  }
+        :host([medium-screen]) .exhibit-main-image ::slotted(*) { --iron-image-width: 100vw; --iron-image-height: calc(100vw)/2; }
         :host([medium-screen]) .exhibit-welcome { float: left; padding-bottom: 32px; }
         :host([medium-screen]) .exhibit-gallery-item, :host([medium-screen]) paper-card.exhibit-news-item { width: 45%; height: 200px; }
         :host([medium-screen]) .exhibit-pre-footer { margin-bottom: -65px;}
 
         /*SMALL BREAKPOINT*/
         :host([small-screen]) .exhibit-header { margin-top: -5px; height: 100%; padding-left: 985px; }
-        :host([small-screen]) .exhibit-main-image ::slotted(*)  { width: 100vw; }
+        :host([small-screen]) .exhibit-main-image ::slotted(*)  { --iron-image-width: 100vw; }
         :host([small-screen]) .exhibit-welcome { float: left; padding-bottom: 32px; width: 83vw; }
         :host([small-screen]) .exhibit-gallery-info h2, :host([small-screen]) .exhibit-news h2 { width: 92vw; }
         :host([small-screen]) .exhibit-gallery-item, :host([small-screen]) paper-card.exhibit-news-item { width: 92vw; height: auto; margin-left: 0; margin-right: 0;}
@@ -82,44 +77,49 @@
 
         /*CUSTOM STYLES HANDLED THROUGH DRUPAL*/
         /* header background color */
-        .exhibit-header { background-color: teal; }
+        .exhibit-header { background-color: #003479; }
         /* header font colors */
-        .exhibit-welcome, .exhibit-welcome ::slotted(h1) { color: ivory !important; }
+        .exhibit-welcome, .exhibit-welcome ::slotted(h1) { color: #C3D940 !important; }
         /* 'Gallery Info' section background color */
-        .exhibit-gallery-info { background-color: var(--uvalib-grey-600); }
+        .exhibit-gallery-info { background-color: #9F3515; }
         .exhibit-gallery-info h2 { color: var(--uvalib-white); }
         /* 'In the news' background color */
-        .exhibit-news { background-color: var(--uvalib-grey-300); }
+        .exhibit-news { background-color: #CACAC8; }
         /* 'In the news' copy color */
-        .exhibit-news-item { color: var(--uvalib-grey-600); }
+        .exhibit-news-item { color: #747679; }
         /* 'In the news' article source color */
-        .exhibit-card-news-source { color: var(--uvalib-main-rotunda-orange); }
+        .exhibit-card-news-source { color: #C05017; }
         /* Pre-footer background color */
-        .exhibit-pre-footer { background-color: #613D0C; }
+        .exhibit-pre-footer { background-color: #00673E; }
 
-        /* :host {
-          font-family: 'Alegreya', serif;
-        } */
-        /* ::slotted(*) { */
+        :host {
+          font-family: 'Open Sans', sans-serif;
+        }
+        ::slotted(*) {
           /* cusotom font */
-          /* font-family: 'Alegreya', serif;
-        } */
+          font-family: 'Open Sans', sans-serif;
+          /* color: red !important; */
+        }
 
       </style>
     </custom-style>
 
     <div class="exhibit-header shady">
-      <div class="exhibit-main-image"><slot name="main-image"></slot></div>
-      <div class="exhibit-welcome">
-        <div class="vertical layout justified">
-          <span class="header-label">exhibition</span>
-          <slot class="header-title" name="header-title" style="margin:0"></slot>
-          <slot class="header-supporting-text" name="header-supporting-text"></slot>
-          <slot class="exhibit-date-range" name="date-range"></slot>
-          <slot class="exhibit-location" name="location"></slot>
-          <div class="exhibit-button-group">
-            <paper-button id="exhibitOverviewButton" raised on-tap="_openCollapse" data-collapseid="exhibitOverview">Overview</paper-button>
-            <paper-button id="exhibitBookTourButton" raised on-tap="_openCollapse" data-collapseid="exhibitBookTour">Book a Tour</paper-button>
+      <div class="layout horizontal wrap">
+        <div class="exhibit-main-image"><slot name="main-image"></slot></div>
+        <div class="exhibit-welcome flex">
+          <div class="vertical layout justified">
+            <span class="header-label">exhibition</span>
+            <slot class="header-title" name="header-title" style="margin:0"></slot>
+            <slot class="header-supporting-text" name="header-supporting-text"></slot>
+            <div class="exhibit-date-range">
+              <span>[[_dayMonthYear(startDate)]]&nbsp;&ndash;&nbsp;[[_dayMonthYear(endDate)]]</span>
+            </div>
+            <slot class="exhibit-location" name="location"></slot>
+            <div class="exhibit-button-group">
+              <paper-button id="exhibitOverviewButton" raised on-tap="_openCollapse" data-collapseid="exhibitOverview">Overview</paper-button>
+              <paper-button id="exhibitBookTourButton" raised on-tap="_openCollapse" data-collapseid="exhibitBookTour">Book a Tour</paper-button>
+            </div>
           </div>
         </div>
       </div>
@@ -246,7 +246,9 @@
       static get is() { return 'uvalib-majorexhibitpage'; }
       static get properties() {
         return Object.assign(super.properties, {
-          exhibitSlug: String
+          exhibitSlug: String,
+          startDate: String,
+          endDate: String
         });
       }
       //Concat the this elements template with the parents
@@ -272,6 +274,9 @@
       _mkImagesFeedURL(){
         if (this.exhibitSlug)
           return "https://uvalib-api.firebaseio.com/mediaobjects.json?orderBy=%22association%22&startAt=%22"+this.exhibitSlug+"%22&endAt=%22"+this.exhibitSlug+"%22"
+      }
+      _dayMonthYear(dtString) {
+        return (dtString) ? moment.tz(dtString,'America/New_York').format("LL") : '';
       }
     }
 
