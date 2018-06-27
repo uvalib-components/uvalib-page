@@ -54,6 +54,7 @@
         .exhibit-card-news-source { padding-bottom: calc(var(--uvalib-spacing-unit)/3); text-transform: capitalize; }
         .exhibit-card-news-title { padding-bottom: calc(var(--uvalib-spacing-unit)/3); font-size: 24px; font-weight: 400; text-transform: capitalize; }
         .exhibit-card-news-copy {}
+        .exhibit-card-news-link { padding-top: calc(var(--uvalib-spacing-unit)*2); padding-bottom: calc(var(--uvalib-spacing-unit)/3); text-transform: uppercase;}
 
         .exhibit-pre-footer { padding-top: calc(var(--uvalib-spacing-unit)*1.25); padding-bottom: calc(var(--uvalib-spacing-unit)*1.25); text-align: center; margin-bottom: -64px; }
         .exhibit-pre-footer a:first-child { margin-right: calc(var(--uvalib-spacing-unit)*2.5);}
@@ -92,13 +93,14 @@
         /* Pre-footer background color */
         .exhibit-pre-footer { background-color: #FF6418; }
 
-        :host {
-          font-family: 'Open Sans', sans-serif;
-        }
-        ::slotted(*) {
-          /* cusotom font */
-          font-family: 'Open Sans', sans-serif;
+        :host, iron-collapse h2, span, h2, paper-button, a  {
+          font-family: 'Open Sans', sans-serif !important;
           /* color: red !important; */
+        }
+        ::slotted(*), ::slotted(li) {
+          /* cusotom font */
+          font-family: 'Open Sans', sans-serif !important;
+          /* color: lime !important; */
         }
 
       </style>
@@ -118,20 +120,11 @@
             <slot class="exhibit-location" name="location"></slot>
             <div class="exhibit-button-group">
               <paper-button id="exhibitOverviewButton" raised on-tap="_openCollapse" data-collapseid="exhibitOverview">Overview</paper-button>
-              <paper-button id="exhibitBookTourButton" raised on-tap="_openCollapse" data-collapseid="exhibitBookTour">Book a Tour</paper-button>
             </div>
           </div>
         </div>
       </div>
     </div>
-
-    <iron-collapse id="exhibitBookTour">
-      <div class="exhibit-book-tour">
-        <paper-button on-tap="_closeCollapse" data-collapseid="exhibitBookTour" class="exhibit-collapse-link">close x</paper-button>
-        <slot name="book-tour-language"></slot>
-        <uvalib-springshare-form formId="form_37bdb6a9a88c69815261ca3836bbec9a"></uvalib-springshare-form>
-      </div>
-    </iron-collapse>
 
     <iron-collapse id="exhibitOverview">
       <div class="exhibit-overview">
@@ -153,9 +146,9 @@
         </paper-card>
         <paper-card class="exhibit-gallery-item">
           <div class="gallery-container vertical layout justified">
-            <div class="exhibit-card-title">Bring your group on a tour</div>
-            <div class="exhibit-card-content">Schedule a private tour for your group or class. Private tours can be tailored based on your group’s needs.</div>
-            <div class="exhibit-card-link"><a>book a tour</a></div>
+            <div class="exhibit-card-title">Events</div>
+            <div class="exhibit-card-content"><b>Join Lifetime Learning</b> in celebrating the University of Virginia’s Bicentennial with an <a>immersive, day-long experience on the history of UVA in 100 Objects</a>.</div>
+            <div class="exhibit-card-link"><a>view all library events</a></div>
           </div>
         </paper-card>
         <paper-card class="exhibit-gallery-item">
@@ -167,63 +160,71 @@
             <uvalib-imageviewer id="imageViewer" items$="[[_ivItems]]" image-prop="image.url" thumb-prop="image.url" html-prop="body" firebase-array></uvalib-imageviewer>
           </div>
         </paper-card>
+
         <paper-card class="exhibit-gallery-item">
           <div class="gallery-container vertical layout justified">
-            <div class="exhibit-card-title">Events</div>
-            <div class="exhibit-card-content"><b>Join Lifetime Learning</b> in celebrating the University of Virginia’s Bicentennial with an <a>immersive, day-long experience on the history of UVA in 100 Objects</a>.</div>
-            <div class="exhibit-card-link"><a>view all library events</a></div>
+            <div class="exhibit-card-title">Bring your group on a tour</div>
+            <div class="exhibit-card-content">Schedule a private tour for your group or class. Private tours can be tailored based on your group’s needs.</div>
+            <div class="exhibit-card-link"><a id="exhibitBookTourButton" on-tap="_openCollapse" data-collapseid="exhibitBookTour">Book a Tour</a></div>
+
           </div>
         </paper-card>
       </div>
     </div>
+
+    <iron-collapse id="exhibitBookTour">
+      <div class="exhibit-book-tour">
+        <paper-button on-tap="_closeCollapse" data-collapseid="exhibitBookTour" class="exhibit-collapse-link">close x</paper-button>
+        <slot name="book-tour-language"></slot>
+        <uvalib-springshare-form formId="form_37bdb6a9a88c69815261ca3836bbec9a"></uvalib-springshare-form>
+      </div>
+    </iron-collapse>
+
     <div class="exhibit-news shady">
       <h2>In the news</h2>
       <div>
-        <a><paper-card class="exhibit-news-item">
+        <paper-card class="exhibit-news-item">
           <div class="exhibit-card-news-source">Source</div>
           <div class="exhibit-card-news-title">Title</div>
           <div class="exhibit-card-news-copy">Sample copy</div>
-        </paper-card></a>
-        <a><paper-card class="exhibit-news-item">
+          <div class="exhibit-card-news-link"><a href="">Read More</a></div>
+        </paper-card>
+        <paper-card class="exhibit-news-item">
           <div class="exhibit-card-news-source">Source</div>
           <div class="exhibit-card-news-title">Title</div>
           <div class="exhibit-card-news-copy">Sample copy</div>
-        </paper-card></a>
-        <a><paper-card class="exhibit-news-item">
+          <div class="exhibit-card-news-link"><a href="">Read More</a></div>
+        </paper-card>
+        <paper-card class="exhibit-news-item">
           <div class="exhibit-card-news-source">Source</div>
           <div class="exhibit-card-news-title">Title</div>
           <div class="exhibit-card-news-copy">Sample copy</div>
-        </paper-card></a>
-        <a><paper-card class="exhibit-news-item">
+          <div class="exhibit-card-news-link"><a href="">Read More</a></div>
+        </paper-card>
+        <paper-card class="exhibit-news-item">
           <div class="exhibit-card-news-source">Source</div>
           <div class="exhibit-card-news-title">Title</div>
           <div class="exhibit-card-news-copy">Sample copy</div>
-        </paper-card></a>
-        <a><paper-card class="exhibit-news-item">
+          <div class="exhibit-card-news-link"><a href="">Read More</a></div>
+        </paper-card>
+        <paper-card class="exhibit-news-item">
           <div class="exhibit-card-news-source">Source</div>
           <div class="exhibit-card-news-title">Title</div>
           <div class="exhibit-card-news-copy">Sample copy</div>
-        </paper-card></a>
-        <a><paper-card class="exhibit-news-item">
+          <div class="exhibit-card-news-link"><a href="">Read More</a></div>
+        </paper-card>
+        <paper-card class="exhibit-news-item">
           <div class="exhibit-card-news-source">Source</div>
           <div class="exhibit-card-news-title">Title</div>
           <div class="exhibit-card-news-copy">Sample copy</div>
-        </paper-card></a>
-        <a><paper-card class="exhibit-news-item">
+          <div class="exhibit-card-news-link"><a href="">Read More</a></div>
+        </paper-card>
+        <paper-card class="exhibit-news-item">
           <div class="exhibit-card-news-source">Source</div>
           <div class="exhibit-card-news-title">Title</div>
           <div class="exhibit-card-news-copy">Sample copy</div>
-        </paper-card></a>
-        <a><paper-card class="exhibit-news-item">
-          <div class="exhibit-card-news-source">Source</div>
-          <div class="exhibit-card-news-title">Title</div>
-          <div class="exhibit-card-news-copy">Sample copy</div>
-        </paper-card></a>
-        <a><paper-card class="exhibit-news-item">
-          <div class="exhibit-card-news-source">Source</div>
-          <div class="exhibit-card-news-title">Title</div>
-          <div class="exhibit-card-news-copy">Sample copy</div>
-        </paper-card></a>
+          <div class="exhibit-card-news-link"><a href="">Read More</a></div>
+        </paper-card>
       </div>
     </div>
     <div class="exhibit-pre-footer shady">
