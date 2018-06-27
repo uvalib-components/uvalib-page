@@ -23,7 +23,7 @@
 
         paper-button {
           background: white !important;
-          color: var(--color-text-blue)
+          color: var(--color-text-blue);
         }
 
         .exhibit-header { margin-top: -1px; height: 520px; overflow-y: hidden; }
@@ -45,7 +45,7 @@
         .book-tour-language ::slotted(h2), .exhibit-overview h2:first-of-type, .exhibit-gallery-info h2, .exhibit-news h2 { text-align: center; clear: both; }
         .exhibit-gallery-item, .exhibit-news-item { padding: var(--uvalib-spacing-unit); width: 540px; border-radius: 5px; }
         .exhibit-gallery-item { padding-top: 20px;  height: 175px; }
-        .exhibit-gallery-item .fred { height: 100%; }
+        .exhibit-gallery-item .gallery-container { height: 100%; }
         .exhibit-card-title { flex-grow: 0; font-size: 24px; font-weight: 600; text-transform: none; padding-bottom: calc(var(--uvalib-spacing-unit)/3);}
         .exhibit-card-content { flex-grow: 1; line-height: 1.5;}
         .exhibit-card-link { margin-top: 20px; text-transform: uppercase;}
@@ -81,8 +81,8 @@
         /* header font colors */
         .exhibit-welcome, .exhibit-welcome ::slotted(h1) { color: #00234B !important; }
         /* 'Gallery Info' section background color */
-        .exhibit-gallery-info { background-color: #9F3515; }
-        .exhibit-gallery-info h2 { color: var(--uvalib-white); }
+        .exhibit-gallery-info { background-color: #C3D940; }
+        /* .exhibit-gallery-info h2 { color: var(--uvalib-main-black); } */
         /* 'In the news' background color */
         .exhibit-news { background-color: #CACAC8; }
         /* 'In the news' copy color */
@@ -90,7 +90,7 @@
         /* 'In the news' article source color */
         .exhibit-card-news-source { color: #C05017; }
         /* Pre-footer background color */
-        .exhibit-pre-footer { background-color: #00673E; }
+        .exhibit-pre-footer { background-color: #FF6418; }
 
         :host {
           font-family: 'Open Sans', sans-serif;
@@ -145,21 +145,21 @@
       <h2>Gallery info</h2>
       <div>
         <paper-card class="exhibit-gallery-item">
-          <div class="fred vertical layout justified">
+          <div class="gallery-container vertical layout justified">
             <div class="exhibit-card-title">Harrison-Small Hours</div>
             <div class="exhibit-card-content">This is the content. It is awesome. Don't you want to read this awesome content?</div>
             <div class="exhibit-card-link"><a>directions</a></div>
           </div>
         </paper-card>
         <paper-card class="exhibit-gallery-item">
-          <div class="fred vertical layout justified">
+          <div class="gallery-container vertical layout justified">
             <div class="exhibit-card-title">Bring your group on a tour</div>
             <div class="exhibit-card-content">Schedule a private tour for your group or class. Private tours can be tailored based on your group’s needs.</div>
             <div class="exhibit-card-link"><a>book a tour</a></div>
           </div>
         </paper-card>
         <paper-card class="exhibit-gallery-item">
-          <div class="fred vertical layout justified">
+          <div class="gallery-container vertical layout justified">
             <div class="exhibit-card-title">Image gallery</div>
             <div class="exhibit-card-content">Browse through selected items on view in the exhibition.</div>
             <div class="exhibit-card-link"><a on-tap="_openImageViewer">view images</a></div>
@@ -168,7 +168,7 @@
           </div>
         </paper-card>
         <paper-card class="exhibit-gallery-item">
-          <div class="fred vertical layout justified">
+          <div class="gallery-container vertical layout justified">
             <div class="exhibit-card-title">Events</div>
             <div class="exhibit-card-content"><b>Join Lifetime Learning</b> in celebrating the University of Virginia’s Bicentennial with an <a>immersive, day-long experience on the history of UVA in 100 Objects</a>.</div>
             <div class="exhibit-card-link"><a>view all library events</a></div>
