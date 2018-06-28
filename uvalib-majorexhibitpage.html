@@ -42,7 +42,7 @@
         .exhibit-overview { padding: var(--uvalib-spacing-unit); }
         .exhibit-collapse-link { float: right; text-transform: uppercase; }
         .exhibit-gallery-info, .exhibit-news { padding-top: 20px; padding-bottom: 20px; }
-        .book-tour-language ::slotted(h2), .exhibit-overview h2:first-of-type, .exhibit-gallery-info h2, .exhibit-news h2 { text-align: center; clear: both; }
+        .exhibit-gallery-info h2, .exhibit-overview h2.content-title, .exhibit-book-tour h2.content-title, .exhibit-news h2 { text-align: center; clear: both; }
         .exhibit-gallery-item, .exhibit-news-item { padding: var(--uvalib-spacing-unit); width: 540px; border-radius: 5px; }
         .exhibit-gallery-item { padding-top: 20px;  height: 175px; }
         .exhibit-gallery-item .gallery-container { height: 100%; }
@@ -93,14 +93,12 @@
         /* Pre-footer background color */
         .exhibit-pre-footer { background-color: #FF6418; }
 
-        :host, iron-collapse h2, span, h2, paper-button, a  {
+        :host, a, h2, h3, ul, span, iron-collapse h2, paper-button, paper-card {
           font-family: 'Open Sans', sans-serif !important;
-          /* color: red !important; */
         }
-        ::slotted(*), ::slotted(li) {
+        ::slotted(*) {
           /* cusotom font */
           font-family: 'Open Sans', sans-serif !important;
-          /* color: lime !important; */
         }
 
       </style>
@@ -129,8 +127,19 @@
     <iron-collapse id="exhibitOverview">
       <div class="exhibit-overview">
         <paper-button on-tap="_closeCollapse" data-collapseid="exhibitOverview" class="exhibit-collapse-link">close x</paper-button>
-        <h2>Overview</h2>
-        <slot name="overview"></slot>
+        <h2 class="content-title">Overview</h2>
+        <div>
+          <h2>The Exhibition</h2>
+          <slot name="overview"></slot>
+          <h3>Visitor Policy</h3>
+          <p>To enhance the experience of all guests and to protect our collections on display, please note the following policies:&nbsp;</p>
+          <ul>
+          	<li>No food or drinks allowed in the Main Gallery, the Flowerdew Hundred Gallery, or the Declaring Independence Gallery&nbsp;</li>
+          	<li>Photography is permitted for personal, noncommercial use only. Flash photography, tripods, and other photographic equipment, including selfie-sticks, are not permitted in any exhibition gallery.</li>
+          	<li>Low light levels in the exhibition galleries protect the unique materials on display from fading and discoloration. Light damage is both cumulative and permanent, and we strive to balance an enjoyable experience for our visitors with conditions that allow us to preserve our collections for generations.</li>
+          </ul>
+          <p>Please note: large print versions of exhibition text are available in each gallery. We appreciate your participation in the care of our collections and hope you enjoy your visit.</p>
+        </div>
       </div>
     </iron-collapse>
 
@@ -175,6 +184,8 @@
     <iron-collapse id="exhibitBookTour">
       <div class="exhibit-book-tour">
         <paper-button on-tap="_closeCollapse" data-collapseid="exhibitBookTour" class="exhibit-collapse-link">close x</paper-button>
+        <h2 class="content-title">Book a tour</h2>
+        <p>Please complete the form below to request a guided tour. To request a UVA class tour, please submit a <a href="http://small.library.virginia.edu/services/instruction/" aria-label="use our class tour request form to submit a U V A class tour">class tour</a> request.</p>
         <slot name="book-tour-language"></slot>
         <uvalib-springshare-form formId="form_37bdb6a9a88c69815261ca3836bbec9a"></uvalib-springshare-form>
       </div>
@@ -229,7 +240,7 @@
     </div>
     <div class="exhibit-pre-footer shady">
       <a href="#"><paper-button raised>Download Press Kit</paper-button></a>
-      <a href="#"><paper-button raised>Contact Exhibit Peeps</paper-button></a>
+      <paper-button raised><uvalib-liame id="liame" rid="n8rah" subject="Question regarding the current exhibition" overwrite text="Contact Exhibit Curator"></uvalib-liame></paper-button>
     </div>
 
   </template>
