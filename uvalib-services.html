@@ -153,7 +153,7 @@
                 <div class="title service-title" hidden$="[[item.siteLink]]">[[item.title]]</div>
                 <div class="title service-title" hidden$="[[!item.siteLink]]"><a href="[[item.siteLink]]">[[item.title]]</a></div>
                 <div class="description service-description" hidden$="[[!item.body]]" inner-h-t-m-l="[[item.body]]"></div>
-                <span hidden$="[[!item.audience]]" staff-text$="[[item.audience]]">staff only</span>
+                <span hidden$="[[!item.audience]]" staff-text$="[[item.audience]]">staff info</span>
               </div>
             </template>
           </vaadin-grid-column>
@@ -210,7 +210,7 @@
                 <div class="phone" hidden$="[[!item.phoneNumber]]"><a href="tel:[[item.phoneNumber]]">[[item.phoneNumber]]</a></div>
                 <div class="form" hidden$="[[!item.formLink]]"><a href="[[item.formLink]]">Contact form</a></div>
               </div>
-              <span hidden$="[[!item.audience]]" staff-text$="[[item.audience]]">staff only</span>
+              <span hidden$="[[!item.audience]]" staff-text$="[[item.audience]]">staff info</span>
             </div>
           </template>
         </iron-list>
