@@ -9,7 +9,7 @@
 <link rel="import" href="../moment/moment.js">
 
 <!-- EXHIBITION FONT SELECTED from Drupal -->
-<link href="https://fonts.googleapis.com/css?family=Open+Sans:400,800" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css?family=Open+Sans:400,700" rel="stylesheet">
 <!-- END -->
 
 <dom-module id="uvalib-majorexhibitpage">
@@ -152,7 +152,7 @@
             <div class="exhibit-card-link"><a href="/map">directions</a></div>
           </div>
         </paper-card>
-        <paper-card class="exhibit-gallery-item">
+        <paper-card class="exhibit-gallery-item" hidden>
           <div class="gallery-container vertical layout justified">
             <div class="exhibit-card-title">Events</div>
             <div class="exhibit-card-content"><b>Join Lifetime Learning</b> in celebrating the University of Virginia’s Bicentennial with an <a>immersive, day-long experience on the history of UVA in 100 Objects</a>.</div>
@@ -238,8 +238,8 @@
       </div>
     </div>
     <div class="exhibit-pre-footer shady">
-      <a href="#"><paper-button raised>Download Press Kit</paper-button></a>
-      <paper-button raised><uvalib-liame id="liame" rid="n8rah" subject="Question regarding the current exhibition" overwrite text="Contact Exhibit Curator"></uvalib-liame></paper-button>
+      <a href="#" hidden><paper-button raised>Download Press Kit</paper-button></a>
+      <paper-button raised><uvalib-liame id="liame" rid="n8rah" subject="Question regarding the current exhibition" overwrite text="Contact Exhibit Coordinator"></uvalib-liame></paper-button>
     </div>
 
   </template>
