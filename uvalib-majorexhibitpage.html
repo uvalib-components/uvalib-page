@@ -7,6 +7,7 @@
 <link rel="import" href="../uvalib-imageviewer/uvalib-imageviewer.html">
 <link rel="import" href="../uvalib-springshare-form/uvalib-springshare-form.html">
 <link rel="import" href="../moment/moment.js">
+<link rel="import" href="../uvalib-news/uvalib-news.html">
 
 <!-- EXHIBITION FONT SELECTED from Drupal -->
 <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,700" rel="stylesheet">
@@ -42,18 +43,27 @@
         .exhibit-collapse-link { float: right; text-transform: uppercase; }
         .exhibit-gallery-info, .exhibit-news { padding-top: 20px; padding-bottom: 20px; }
         .exhibit-gallery-info h2, .exhibit-overview h2.content-title, .exhibit-book-tour h2.content-title, .exhibit-news h2 { text-align: center; clear: both; }
-        .exhibit-gallery-item, .exhibit-news-item { padding: var(--uvalib-spacing-unit); width: 540px; border-radius: 5px; }
+        .exhibit-gallery-item { padding: var(--uvalib-spacing-unit); width: 540px; border-radius: 5px; }
         .exhibit-gallery-item { padding-top: 20px;  height: 175px; }
         .exhibit-gallery-item .gallery-container { height: 100%; }
         .exhibit-card-title { flex-grow: 0; font-size: 24px; font-weight: 600; text-transform: none; padding-bottom: calc(var(--uvalib-spacing-unit)/3);}
         .exhibit-card-content { flex-grow: 1; line-height: 1.5;}
         .exhibit-card-link { margin-top: 20px; text-transform: uppercase;}
 
-        .exhibit-news-item { height: 150px; }
-        .exhibit-card-news-source { padding-bottom: calc(var(--uvalib-spacing-unit)/3); text-transform: capitalize; }
-        .exhibit-card-news-title { padding-bottom: calc(var(--uvalib-spacing-unit)/3); font-size: 24px; font-weight: 400; text-transform: capitalize; }
-        .exhibit-card-news-copy {}
-        .exhibit-card-news-link { padding-top: calc(var(--uvalib-spacing-unit)*2); padding-bottom: calc(var(--uvalib-spacing-unit)/3); text-transform: uppercase;}
+        /* uncomment to override uvalib-news default style
+        uvalib-news { --uvalib-news-item: {
+                          padding: var(--uvalib-spacing-unit);
+                          width: 540px;
+                          border-radius: 5px;
+                          height: 150px; };
+                      --uvalib-news-source: {
+                          padding-bottom: calc(var(--uvalib-spacing-unit)/3);
+                          text-transform: capitalize;};
+                      --uvalib-news-title: {};
+                      --uvalib-news-copy: {};
+                      --uvalib-news-link: {};
+                    }
+        */
 
         .exhibit-pre-footer { padding-top: calc(var(--uvalib-spacing-unit)*1.25); padding-bottom: calc(var(--uvalib-spacing-unit)*1.25); text-align: center; margin-top: -1px; margin-bottom: -64px; }
         .exhibit-pre-footer a:first-child { margin-right: calc(var(--uvalib-spacing-unit)*2.5);}
@@ -62,7 +72,10 @@
         :host([medium-screen]) .exhibit-header  { margin-top: -5px; height: 100%; padding-left: 985px;  }
         :host([medium-screen]) .exhibit-main-image ::slotted(*) { --iron-image-width: 100vw; --iron-image-height: calc(100vw)/2; }
         :host([medium-screen]) .exhibit-welcome { float: left; padding-bottom: 32px; }
-        :host([medium-screen]) .exhibit-gallery-item, :host([medium-screen]) paper-card.exhibit-news-item { width: 45%; height: 200px; }
+        :host([medium-screen]) .exhibit-gallery-item { width: 45%; height: 200px; }
+        uvalib-news {
+          --uvalib-news-item: { width: 45%; height: 200px; }
+        }
         :host([medium-screen]) .exhibit-pre-footer { margin-bottom: -65px;}
 
         /*SMALL BREAKPOINT*/
@@ -70,7 +83,10 @@
         :host([small-screen]) .exhibit-main-image ::slotted(*)  { --iron-image-width: 100vw; }
         :host([small-screen]) .exhibit-welcome { float: left; padding-bottom: 32px; width: 83vw; }
         :host([small-screen]) .exhibit-gallery-info h2, :host([small-screen]) .exhibit-news h2 { width: 92vw; }
-        :host([small-screen]) .exhibit-gallery-item, :host([small-screen]) paper-card.exhibit-news-item { width: 92vw; height: auto; margin-left: 0; margin-right: 0;}
+        :host([small-screen]) .exhibit-gallery-item { width: 92vw; height: auto; margin-left: 0; margin-right: 0;}
+        uvalib-news {
+          --uvalib-news-item: { width: 92vw; height: auto; margin-left: 0; margin-right: 0;};
+        }
         :host([small-screen]) .exhibit-pre-footer { margin-bottom: 0px; width: 92vw; padding-bottom: 0; }
         :host([small-screen]) .exhibit-pre-footer paper-button { margin-bottom: var(--uvalib-spacing-unit); }
 
@@ -83,12 +99,18 @@
         /* 'Gallery Info' section background color */
         .exhibit-gallery-info { background-color: #2AOC53; }
         /* .exhibit-gallery-info h2 { color: var(--uvalib-main-black); } */
+
+
+
         /* 'In the news' background color */
         .exhibit-news { background-color: #AFAFAF; }
         /* 'In the news' copy color */
-        .exhibit-news-item { color: #747679; }
-        /* 'In the news' article source color */
-        .exhibit-card-news-source { color: #9F3515; }
+        uvalib-news {
+          color: #747679;
+          /* 'In the news' article source color */
+          --uvalib-news-item-source-color: #9F3515;
+        }
+
         /* Pre-footer background color */
         .exhibit-pre-footer { background-color: #9F3515; }
 
@@ -192,6 +214,8 @@
 
     <div class="exhibit-news shady">
       <h2>In the news</h2>
+      <uvalib-news association="[[exhibitSlug]]"></uvalib-news>
+<!--
       <div>
         <paper-card class="exhibit-news-item">
           <div class="exhibit-card-news-source">Source</div>
@@ -236,6 +260,7 @@
           <div class="exhibit-card-news-link"><a href="">Read More</a></div>
         </paper-card>
       </div>
+    -->
     </div>
     <div class="exhibit-pre-footer shady">
       <a href="#" hidden><paper-button raised>Download Press Kit</paper-button></a>
