@@ -73,7 +73,7 @@
         :host([medium-screen]) .exhibit-main-image ::slotted(*) { --iron-image-width: 100vw; --iron-image-height: calc(100vw)/2; }
         :host([medium-screen]) .exhibit-welcome { float: left; padding-bottom: 32px; }
         :host([medium-screen]) .exhibit-gallery-item { width: 45%; height: 200px; }
-        uvalib-news {
+        :host([medium-screen]) uvalib-news {
           --uvalib-news-item: { width: 45%; height: 200px; }
         }
         :host([medium-screen]) .exhibit-pre-footer { margin-bottom: -65px;}
@@ -84,7 +84,7 @@
         :host([small-screen]) .exhibit-welcome { float: left; padding-bottom: 32px; width: 83vw; }
         :host([small-screen]) .exhibit-gallery-info h2, :host([small-screen]) .exhibit-news h2 { width: 92vw; }
         :host([small-screen]) .exhibit-gallery-item { width: 92vw; height: auto; margin-left: 0; margin-right: 0;}
-        uvalib-news {
+        :host([small-screen]) uvalib-news {
           --uvalib-news-item: { width: 92vw; height: auto; margin-left: 0; margin-right: 0;};
         }
         :host([small-screen]) .exhibit-pre-footer { margin-bottom: 0px; width: 92vw; padding-bottom: 0; }
@@ -215,52 +215,6 @@
     <div class="exhibit-news shady">
       <h2>In the news</h2>
       <uvalib-news association="[[exhibitSlug]]"></uvalib-news>
-<!--
-      <div>
-        <paper-card class="exhibit-news-item">
-          <div class="exhibit-card-news-source">Source</div>
-          <div class="exhibit-card-news-title">Title</div>
-          <div class="exhibit-card-news-copy">Sample copy</div>
-          <div class="exhibit-card-news-link"><a href="">Read More</a></div>
-        </paper-card>
-        <paper-card class="exhibit-news-item">
-          <div class="exhibit-card-news-source">Source</div>
-          <div class="exhibit-card-news-title">Title</div>
-          <div class="exhibit-card-news-copy">Sample copy</div>
-          <div class="exhibit-card-news-link"><a href="">Read More</a></div>
-        </paper-card>
-        <paper-card class="exhibit-news-item">
-          <div class="exhibit-card-news-source">Source</div>
-          <div class="exhibit-card-news-title">Title</div>
-          <div class="exhibit-card-news-copy">Sample copy</div>
-          <div class="exhibit-card-news-link"><a href="">Read More</a></div>
-        </paper-card>
-        <paper-card class="exhibit-news-item">
-          <div class="exhibit-card-news-source">Source</div>
-          <div class="exhibit-card-news-title">Title</div>
-          <div class="exhibit-card-news-copy">Sample copy</div>
-          <div class="exhibit-card-news-link"><a href="">Read More</a></div>
-        </paper-card>
-        <paper-card class="exhibit-news-item">
-          <div class="exhibit-card-news-source">Source</div>
-          <div class="exhibit-card-news-title">Title</div>
-          <div class="exhibit-card-news-copy">Sample copy</div>
-          <div class="exhibit-card-news-link"><a href="">Read More</a></div>
-        </paper-card>
-        <paper-card class="exhibit-news-item">
-          <div class="exhibit-card-news-source">Source</div>
-          <div class="exhibit-card-news-title">Title</div>
-          <div class="exhibit-card-news-copy">Sample copy</div>
-          <div class="exhibit-card-news-link"><a href="">Read More</a></div>
-        </paper-card>
-        <paper-card class="exhibit-news-item">
-          <div class="exhibit-card-news-source">Source</div>
-          <div class="exhibit-card-news-title">Title</div>
-          <div class="exhibit-card-news-copy">Sample copy</div>
-          <div class="exhibit-card-news-link"><a href="">Read More</a></div>
-        </paper-card>
-      </div>
-    -->
     </div>
     <div class="exhibit-pre-footer shady">
       <a href="#" hidden><paper-button raised>Download Press Kit</paper-button></a>
