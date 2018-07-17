@@ -1,0 +1,40 @@
+<link rel="import" href="../uvalib-theme/uvalib-ui-element.html">
+<link rel="import" href="../uvalib-theme/uvalib-theme.html">
+
+<dom-module id="uvalib-template-rmc">
+  <template>
+    <custom-style>
+      <style include="uvalib-theme iron-flex-factors">
+        :host {
+          display: block;
+        }
+        [hidden] {
+          display: none;
+        }
+      </style>
+    </custom-style>
+    <slot name="slot-header"></slot>
+  </template>
+
+  <script>
+    /**
+     * `uvalib-template-rmc`
+     * UVA Library rmc template component
+     *
+     * @customElement
+     * @polymer
+     * @demo demo/rmc.html
+     */
+     class UvalibTemplateRMC extends UvalibUiElement {
+       static get is() { return 'uvalib-template-rmc'; }
+       //Concat the this elements template with the parents
+       static get template() {
+         var parentTemplate = UvalibUiElement.template.cloneNode(true);
+         var childTemplate = Polymer.DomModule.import('uvalib-template-rmc', 'template');
+         parentTemplate.content.insertBefore(childTemplate.content,null);
+         return parentTemplate;
+       }
+     }
+     window.customElements.define(UvalibTemplateRMC.is, UvalibTemplateRMC);
+  </script>
+</dom-module>

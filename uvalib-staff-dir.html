@@ -41,6 +41,7 @@
       <uva-library path="people" id="people" last-response="{{_people}}"></uva-library>
       <uva-library path="teams" id="teams" last-response="{{_teams}}"></uva-library>
 
+<template is="dom-if" if="[[!smallScreen]]" restamp>
       <vaadin-grid height-by-rows="[[largeScreen]]" theme="no-border row-stripes wrap-cell-content" aria-label="Staff directory listing" items="[[people]]">
         <vaadin-grid-column width="20%">
           <template class="header"><vaadin-grid-sorter direction="asc" path="fullName"><div class="title-text">Name</div></vaadin-grid-sorter></template>
@@ -71,6 +72,11 @@
         </vaadin-grid-column>
 
       </vaadin-grid>
+</template>
+<template is="dom-if" if="[[smallScreen]]" restamp>
+
+</template>
+
     </div>
   </template>
 
