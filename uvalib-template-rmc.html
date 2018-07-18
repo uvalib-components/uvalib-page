@@ -7,13 +7,25 @@
       <style include="uvalib-theme iron-flex-factors">
         :host {
           display: block;
+          --uvalib-pc-background-color: #F1F1EF;
+          --uvalib-pc-border: 2px solid #DADADA;
+          --uvalib-pc-border-bottom: 12px solid #DADADA;
+          --uvalib-pc-border-radius: 10px;
+          --uvalib-pc-max-width: 1000px;
+          --uvalib-pc-padding: var(--uvalib-spacing-unit);
+          --uvalib-pc-h2-margin-top: calc(var(--uvalib-spacing-unit)/2);
         }
+
         [hidden] {
           display: none;
         }
+        ::slotted(*) {
+        }
+
       </style>
     </custom-style>
     <slot name="slot-header"></slot>
+    <slot name="slot-area-bucket"></slot>
   </template>
 
   <script>
