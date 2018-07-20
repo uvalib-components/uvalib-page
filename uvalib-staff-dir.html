@@ -1,5 +1,6 @@
 <link rel="import" href="../uvalib-theme/uvalib-ui-element.html">
 <link rel="import" href="../paper-input/paper-input.html">
+<link rel="import" href="../paper-card/paper-card.html">
 <link rel="import" href="../uvalib-theme/uvalib-icons.html">
 <link rel="import" href="../uva-models/uva-library.html">
 <link rel="import" href="../marked-element/marked-element.html">
@@ -41,41 +42,55 @@
       <uva-library path="people" id="people" last-response="{{_people}}"></uva-library>
       <uva-library path="teams" id="teams" last-response="{{_teams}}"></uva-library>
 
-<template is="dom-if" if="[[!smallScreen]]" restamp>
-      <vaadin-grid height-by-rows="[[largeScreen]]" theme="no-border row-stripes wrap-cell-content" aria-label="Staff directory listing" items="[[people]]">
-        <vaadin-grid-column width="20%">
-          <template class="header"><vaadin-grid-sorter direction="asc" path="fullName"><div class="title-text">Name</div></vaadin-grid-sorter></template>
-          <template><strong><a href="/staff/[[item.computingId]]">[[_getName(item)]]</p></strong></template>
-        </vaadin-grid-column>
-        <vaadin-grid-column width="20%">
-          <template class="header"><div class="title-text">Title</div></template>
-          <template>[[item.jobTitle]]</template>
-        </vaadin-grid-column>
-        <vaadin-grid-column width="20%">
-          <template class="header"><div class="team-text">Team</div></template>
-          <template>
-            <template is="dom-repeat" items="[[item.teams]]">
-              <a href="/teams/[[item]]">[[_getTeamName(item)]]</a><br />
-            </template>
-          </template>
-        </vaadin-grid-column>
-        <vaadin-grid-column width="20%">
-          <template class="header"><div class="team-text">Contact</div></template>
-          <template>
+      <template is="dom-if" if="[[!smallScreen]]" restamp>
+          <vaadin-grid height-by-rows="[[largeScreen]]" theme="no-border row-stripes wrap-cell-content" aria-label="Staff directory listing" items="[[people]]">
+            <vaadin-grid-column width="20%">
+              <template class="header"><vaadin-grid-sorter direction="asc" path="fullName"><div class="title-text">Name</div></vaadin-grid-sorter></template>
+              <template><strong><a href="/staff/[[item.computingId]]">[[_getName(item)]]</p></strong></template>
+            </vaadin-grid-column>
+            <vaadin-grid-column width="20%">
+              <template class="header"><div class="title-text">Title</div></template>
+              <template>[[item.jobTitle]]</template>
+            </vaadin-grid-column>
+            <vaadin-grid-column width="20%">
+              <template class="header"><div class="team-text">Team</div></template>
+              <template>
+                <template is="dom-repeat" items="[[item.teams]]">
+                  <a href="/teams/[[item]]">[[_getTeamName(item)]]</a><br />
+                </template>
+              </template>
+            </vaadin-grid-column>
+            <vaadin-grid-column width="20%">
+              <template class="header"><div class="team-text">Contact</div></template>
+              <template>
+                <div class="email"><a href="mailto:[[_getEmail(item)]]">[[_getEmail(item)]]</a></div>
+                <div class="phone" hidden$="[[!item.phone]]"><a href="tel:[[item.phone]]">[[item.phone]]</a></div>
+              </template>
+            </vaadin-grid-column>
+            <vaadin-grid-column width="20%">
+              <template class="header"><div class="team-text">Library</div></template>
+              <template><a href="/hours#[[_getLibrarySlug(item.library)]]">[[_getLibraryName(item.library)]]</a></template>
+            </vaadin-grid-column>
+
+          </vaadin-grid>
+      </template>
+      <template is="dom-if" if="[[smallScreen]]" restamp>
+        <template is="dom-repeat" items="[[people]]">
+          <paper-card heading="[[_getName(item)]]">
+            <h2>[[item.jobTitle]]</h2>
+            <div class="teams" hidden$="[[!item.teams]]">
+              <template is="dom-repeat" items="[[item.teams]]">
+                <a href="/teams/[[item]]">[[_getTeamName(item)]]</a><br />
+              </template>
+            </div>
             <div class="email"><a href="mailto:[[_getEmail(item)]]">[[_getEmail(item)]]</a></div>
             <div class="phone" hidden$="[[!item.phone]]"><a href="tel:[[item.phone]]">[[item.phone]]</a></div>
-          </template>
-        </vaadin-grid-column>
-        <vaadin-grid-column width="20%">
-          <template class="header"><div class="team-text">Library</div></template>
-          <template>[[_getLibrary(item.library)]]</template>
-        </vaadin-grid-column>
-
-      </vaadin-grid>
-</template>
-<template is="dom-if" if="[[smallScreen]]" restamp>
-
-</template>
+            <div class="library">
+              <a href="/hours#[[_getLibrarySlug(item.library)]]">[[_getLibraryName(item.library)]]</a>
+            </div>
+          </paper-card>
+        </template>
+      </template>
 
     </div>
   </template>
@@ -135,21 +150,25 @@
             person.displayName:
             person.fullName;
       }
-      _getLibrary(uuid){
+      _getLibrarySlug(uuid){
+        if (! this._libSlugs ) this._libSlugs = {}
+        return this._getListValue(this._libraries,this._libSlugs,uuid,'slug');
+      }
+      _getLibraryName(uuid){
         if (! this._libNames ) this._libNames = {}
-        return this._getListName(this._libraries,this._libNames,uuid);
+        return this._getListValue(this._libraries,this._libNames,uuid,'title');
       }
       _getTeamName(uuid){
         if (! this._teamNames ) this._teamNames = {}
-        return this._getListName(this._teams,this._teamNames,uuid);
+        return this._getListValue(this._teams,this._teamNames,uuid,'title');
       }
-      _getListName(list,buffer,uuid){
+      _getListValue(list,buffer,uuid,prop){
         if (list && uuid) {
           if (buffer[uuid]) return buffer[uuid];
           var item = list.find( item => item.uuid === uuid);
           if (item) {
-            buffer[uuid] = item.title;
-            return item.title;
+            buffer[uuid] = item[prop];
+            return item[prop];
           }
         }
       }
