@@ -25,11 +25,18 @@
           background: white !important;
           color: var(--color-text-blue);
         }
+        .exhibit-header { margin-top: -1px; min-height: 520px; }
 
-        .exhibit-header { margin-top: -1px; height: 520px; overflow-y: hidden; }
         /* .exhibit-main-image { } */
-        .exhibit-main-image ::slotted(*) { margin: 0; --iron-image-width: auto; }
-        .exhibit-welcome { width: auto; padding: 0 30px; line-height: 1.5; }
+        .exhibit-main-image ::slotted(*) { margin: 16px 0; --iron-image-width: auto; }
+        .exhibit-welcome {
+          width: auto;
+          padding-left: 30px;
+          padding-right: 30px;
+          padding-top: 0px;
+          padding-bottom: 15px;
+          line-height: 1.5;
+        }
         .exhibit-welcome .header-label { font-size: 16px; font-weight: 300; text-transform: uppercase; margin-top: calc(var(--uvalib-spacing-unit)*1.5); }
         .exhibit-welcome .header-title::slotted(h1) { line-height: 1.25 !important; font-size: 36px !important; margin-top: calc(var(--uvalib-spacing-unit)*1.25) !important; margin-bottom: calc(var(--uvalib-spacing-unit)/2) !important; padding-top: 0 !important; }
         .exhibit-welcome .header-supporting-text::slotted(p) { margin: 0 0 var(--uvalib-spacing-unit) 0; font-size: 21px; }
