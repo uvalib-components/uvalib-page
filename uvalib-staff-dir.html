@@ -55,7 +55,7 @@
           <template class="header"><div class="team-text">Team</div></template>
           <template>
             <template is="dom-repeat" items="[[item.teams]]">
-              [[_getTeamName(item)]]<br />
+              <a href="/teams/[[item]]">[[_getTeamName(item)]]</a><br />
             </template>
           </template>
         </vaadin-grid-column>
