@@ -8,9 +8,12 @@
         :host {
           display: block;
           --uvalib-pc-background-color: #F1F1EF;
-          --uvalib-pc-border: 2px solid #DADADA;
+          --uvalib-pc-border-top: ;
           --uvalib-pc-border-bottom: 12px solid #DADADA;
+          --uvalib-pc-border-left: ;
+          --uvalib-pc-border-right: ;
           --uvalib-pc-border-radius: 10px;
+
           --uvalib-pc-max-width: 350px;
           --uvalib-pc-padding: var(--uvalib-spacing-unit);
           --uvalib-pc-h2-margin-top: calc(var(--uvalib-spacing-unit)/2);
@@ -19,13 +22,17 @@
         [hidden] {
           display: none;
         }
-        ::slotted(*) {
+        #intro-content ::slotted(*) {
+          /* text-transform: uppercase !important; */
         }
 
       </style>
     </custom-style>
     <slot name="slot-header"></slot>
-    <slot name="slot-area-bucket"></slot>
+    <div id="intro-content"><slot name="slot-action-buckets"></slot></div>
+    <div id="main-content"><slot name="slot-main-bucket"></slot></div>
+    <div id="aux-content"><slot name="slot-aux-bucket"></slot></div>
+
   </template>
 
   <script>
@@ -50,4 +57,3 @@
      window.customElements.define(UvalibTemplateRMC.is, UvalibTemplateRMC);
   </script>
 </dom-module>
-       
