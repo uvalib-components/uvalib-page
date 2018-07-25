@@ -7,23 +7,32 @@
       <style include="uvalib-theme iron-flex-factors">
         :host {
           display: block;
-          --uvalib-pc-background-color: #F1F1EF;
+          /* --uvalib-pc-background-color: #F1F1EF;
           --uvalib-pc-border-top: ;
           --uvalib-pc-border-bottom: 12px solid #DADADA;
           --uvalib-pc-border-left: ;
           --uvalib-pc-border-right: ;
-          --uvalib-pc-border-radius: 10px;
+          --uvalib-pc-border-radius: 10px; */
 
-          --uvalib-pc-max-width: 350px;
-          --uvalib-pc-padding: var(--uvalib-spacing-unit);
+          /* --uvalib-pc-max-width: 350px;
+          --uvalib-pc-padding: var(--uvalib-spacing-unit); */
           --uvalib-pc-h2-margin-top: calc(var(--uvalib-spacing-unit)/2);
         }
 
         [hidden] {
           display: none;
         }
+        ::slotted(*) {
+          margin-bottom: 75px;
+        }
         #intro-content ::slotted(*) {
-          /* text-transform: uppercase !important; */
+          margin-bottom: 75px;
+        }
+        #main-content ::slotted(*) {
+          margin-bottom: 75px;
+        }
+        #aux-content ::slotted(*) {
+          margin-bottom: 75px;
         }
 
       </style>
