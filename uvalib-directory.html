@@ -1,10 +1,38 @@
 <link rel="import" href="../uvalib-theme/uvalib-ui-element.html">
+<link rel="import" href="../uva-models/uva-library.html">
+<link rel="import" href="../uvalib-theme/uvalib-theme.html">
 
 <dom-module id="uvalib-directory">
   <link rel="lazy-import" group="uvalib-directory-table" href="../vaadin-grid/vaadin-grid.html">
   <link rel="lazy-import" group="uvalib-directory-table" href="../vaadin-grid/vaadin-grid-sorter.html">
 
+  <template>
+    <custom-style>
+      <style include="uvalib-theme">
+        :host {
+          display: block;
+        }
+        [hidden] {
+          display: none;
+        }
+        #controls {
+          padding-bottom: 20px;
+        }
+        vaadin-grid {
+          --vaadin-grid-body-cell: { border: 1px solid green; };
+          --vaadin-grid-cell-content: { border: 1px solid blue; };
+        }
+      </style>
+    </custom-style>
+    <uva-library last-response="{{_libraries}}"></uva-library>
+    <uva-library path="people" last-response="{{_people}}"></uva-library>
+    <uva-library path="teams" last-response="{{_teams}}"></uva-library>
+    <uva-library path="services" last-response="{{_services}}"></uva-library>
+  </template>
+
   <script>
+    let uvalibDirectoryTemplate;
+
     /**
      * `uvalib-directory`
      * UVA Library directory conponent
@@ -18,16 +46,107 @@
       static get properties() {
         return Object.assign(super.properties,
             {
-              _table: {
+              _query: {
+                type:String,
+                observer: "_filterRows"
+              },
+              _libraries: {
+                type: Array,
+                notify: true,
+                observer: "_librariesChanged"
+              },
+              _people: {
+                type: Array,
+                notify: true,
+                observer: "_peopleChanged"
+              },
+              _teams: {
+                type: Array,
+                notify: true,
+                observer: "_teamsChanged"
+              },
+              _services: {
+                type:Array,
+                notify: true,
+                observer: "_servicesChanged"
+              },
+/*
+              _staffmember: {
                 type: Boolean,
                 value: false,
-                observer: "_importTable"
+                observer: "_staffmemberChange"
+              },
+              _staffView: {
+                type: Boolean,
+                value: false,
+                notify: true,
+                observer: "_mkServices"
+              },
+              _libraries: {
+                type: Array,
+                notify: true,
+              },
+              _people: {
+                type: Array,
+                notify: true
+              },
+              _teams: {
+                type: Array,
+                notify: true
+              },
+              _services: {
+                type:Array,
+                notify: true,
+                observer: "_mkServices"
+              },
+              _data: {
+                type: Array,
+                value: function(){ return []; },
+                notify: true
+              },
+              _sortDir: {
+                type: String,
+                value: "desc",
+                observer: "_sortChange"
               }
-            })
+*/
+            });
       }
-      _importTable(){
-        if (this._table)
-        this.importLazyGroup('uvalib-directory-table')
+      static get template() {
+        if (!uvalibDirectoryTemplate) {
+            // Retrieve this element's dom-module template
+            uvalibDirectoryTemplate = Polymer.DomModule.import(this.is, 'template');
+
+            // Clone the contents of the superclass template
+            let superTemplateContents = document.importNode(UvalibUiElement.template.content, true);
+
+            // Insert the superclass contents
+            uvalibDirectoryTemplate.content.insertBefore(superTemplateContents,null);
+        }
+        return uvalibDirectoryTemplate;
+      }
+
+      _librariesChanged(){}
+      _peopleChanged(){}
+      _teamsChanged(){}
+      _servicesChanged(){}
+
+      _filterRows(){}
+      _screenChanged(){
+        // load vaadin grid for larger than small screens
+        if (!this.smallScreen)
+          this.importLazyGroup('uvalib-directory-table')
+      }
+      ready(){
+        super.ready();
+        // the lazy import library only looks as far as the local dom for lazy-imports
+        // copy this elements imports into the element that is extending this
+        var query = 'link[rel=\'lazy-import\'][href]:not([href=\'\'])';
+        var links = Polymer.DomModule.import('uvalib-directory').querySelectorAll(query);
+        var container = Polymer.DomModule.import(this.localName)
+        for (var i = 0; i < links.length; i++) {
+          container.appendChild(links[i])
+        }
       }
     }
 
