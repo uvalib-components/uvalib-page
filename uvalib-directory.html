@@ -1,0 +1,36 @@
+<link rel="import" href="../uvalib-theme/uvalib-ui-element.html">
+
+<dom-module id="uvalib-directory">
+  <link rel="lazy-import" group="uvalib-directory-table" href="../vaadin-grid/vaadin-grid.html">
+  <link rel="lazy-import" group="uvalib-directory-table" href="../vaadin-grid/vaadin-grid-sorter.html">
+
+  <script>
+    /**
+     * `uvalib-directory`
+     * UVA Library directory conponent
+     *
+     * @customElement
+     * @polymer
+     * @demo demo/directory.html
+     */
+    class UvalibDirectory extends UvalibUiElement {
+      static get is() { return 'uvalib-directory'; }
+      static get properties() {
+        return Object.assign(super.properties,
+            {
+              _table: {
+                type: Boolean,
+                value: false,
+                observer: "_importTable"
+              }
+            })
+      }
+      _importTable(){
+        if (this._table)
+        this.importLazyGroup('uvalib-directory-table')
+      }
+    }
+
+    window.customElements.define(UvalibDirectory.is, UvalibDirectory);
+  </script>
+</dom-module>
