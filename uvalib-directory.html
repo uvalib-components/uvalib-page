@@ -5,6 +5,7 @@
 <dom-module id="uvalib-directory">
   <link rel="lazy-import" group="uvalib-directory-table" href="../vaadin-grid/vaadin-grid.html">
   <link rel="lazy-import" group="uvalib-directory-table" href="../vaadin-grid/vaadin-grid-sorter.html">
+  <link rel="lazy-import" group="uvalib-directory-list" href="../iron-list/iron-list.html">
 
   <template>
     <custom-style>
@@ -135,7 +136,9 @@
       _screenChanged(){
         // load vaadin grid for larger than small screens
         if (!this.smallScreen)
-          this.importLazyGroup('uvalib-directory-table')
+          this.importLazyGroup('uvalib-directory-table');
+        else
+          this.importLazyGroup('uvalib-directory-list');
       }
       ready(){
         super.ready();
