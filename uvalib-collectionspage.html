@@ -53,6 +53,8 @@
   </template>
 
   <script>
+    let uvalibCollectionspageTemplate;
+
     /**
      * `uvalib-collectionspage`
      * UVA Library collections page layout component
@@ -68,12 +70,18 @@
           _exhibits: Array
         });
       }
-      //Concat the this elements template with the parents
       static get template() {
-        var parentTemplate = UvalibUiElement.template.cloneNode(true);
-        var childTemplate = Polymer.DomModule.import('uvalib-collectionspage', 'template');
-        parentTemplate.content.insertBefore(childTemplate.content,null);
-        return parentTemplate;
+        if (!uvalibCollectionspageTemplate) {
+            // Retrieve this element's dom-module template
+            uvalibCollectionspageTemplate = Polymer.DomModule.import(this.is, 'template');
+
+            // Clone the contents of the superclass template
+            let superTemplateContents = document.importNode(UvalibUiElement.template.content, true);
+
+            // Insert the superclass contents
+            uvalibCollectionspageTemplate.content.insertBefore(superTemplateContents,null);
+        }
+        return uvalibCollectionspageTemplate;
       }
     }
 
