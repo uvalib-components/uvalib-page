@@ -1,13 +1,9 @@
 <link rel="import" href="uvalib-directory.html">
-<link rel="import" href="../paper-input/paper-input.html">
 <link rel="import" href="../uvalib-theme/uvalib-icons.html">
 <link rel="import" href="../marked-element/marked-element.html">
 <link rel="import" href="../uva-helper-libs/polyfills/string.includes.html">
 <link rel="import" href="../uva-helper-libs/polyfills/array.find.html">
-<link rel="import" href="../paper-toggle-button/paper-toggle-button.html">
-<link rel="import" href="../paper-button/paper-button.html" >
-<link rel="import" href="../app-storage/app-localstorage/app-localstorage-document.html" />
-<link rel="import" href="../uvalib-account/uvalib-account-user.html">
+
 
 <dom-module id="uvalib-services">
   <template>
@@ -96,28 +92,8 @@
       </style>
     </custom-style>
 
-    <uvalib-account-user id="accountuser" signed-in="{{_signedIn}}" lib-staff="{{_staffmember}}"></uvalib-account-user>
-    <app-localstorage-document key="uvalib-staff-view" data="{{_staffView}}"></app-localstorage-document>
-
-
       <template is="dom-if" if="[[!smallScreen]]" restamp>
-        <div id="controls">
 
-          <div id="login-buttons">
-            <paper-button on-tap="_signIn" hidden$="[[_signedIn]]" raised>Staff Login</paper-button>
-            <paper-button on-tap="_signOut" hidden$="[[!_signedIn]]" raised>Sign Out</paper-button>
-          </div>
-
-          <paper-input label="Search the directory" value="{{_query}}">
-            <div slot="prefix">
-              <span class="uvalib-icon-search uva-padding-right"></span>
-            </div>
-          </paper-input>
-          <paper-toggle-button id="staffSelect" checked="{{_staffView}}" hidden$="[[!_staffmember]]" class="orange">
-            <template is="dom-if" if="[[_staffView]]"><span class"staff-text">Staff View</span></template>
-            <template is="dom-if" if="[[!_staffView]]">Public View</template>
-          </paper-toggle-button>
-        </div>
         <vaadin-grid height-by-rows="[[largeScreen]]" theme="no-border row-stripes wrap-cell-content" aria-label="Service directory listing" items="[[_data]]">
           <vaadin-grid-column width="45%">
             <template class="header"><vaadin-grid-sorter direction="asc" path="title"><div class="title-text">Service</div></vaadin-grid-sorter></template>
@@ -150,23 +126,6 @@
 
       </template>
       <template is="dom-if" if="[[smallScreen]]" restamp>
-        <div id="controls">
-          <div id="login-buttons">
-            <paper-button on-tap="_signIn" hidden$="[[_signedIn]]" raised>Staff Login</paper-button>
-            <paper-button on-tap="_signOut" hidden$="[[!_signedIn]]" raised>Sign Out</paper-button>
-          </div>
-          <paper-toggle-button id="staffSelect" checked="{{_staffView}}" hidden$="[[!_staffmember]]" class="orange">
-            <template is="dom-if" if="[[_staffView]]"><span class"staff-text">Staff View</span></template>
-            <template is="dom-if" if="[[!_staffView]]">Public View</template>
-          </paper-toggle-button>
-          <div class="uva-margin-top">
-            <paper-input label="Search the directory" value="{{_query}}">
-              <div slot="prefix">
-                <span class="uvalib-icon-search uva-padding-right"></span>
-              </div>
-            </paper-input>
-          </div>
-        </div>
         <iron-list items="[[_data]]" scroll-target="document" scroll-offset="200">
           <template>
             <div id="mobileDirectory" even$="[[_isEven(index)]]" staff$="[[item.audience]]">
@@ -207,16 +166,9 @@
       static get properties() {
         return Object.assign(super.properties,
             {
-              _staffmember: {
+              staffView: {
                 type: Boolean,
-                value: false,
-                observer: "_staffmemberChange"
-              },
-              _staffView: {
-                type: Boolean,
-                value: false,
-                notify: true,
-                observer: "_filterRows"
+                value: true
               },
               _data: {
                 type: Array,
@@ -227,6 +179,10 @@
                 type: String,
                 value: "desc",
                 observer: "_sortChange"
+              },
+              searchPlaceholder: {
+                type: String,
+                value: "Search for staff"
               }
             });
       }
@@ -240,9 +196,6 @@
             uvalibServicesTemplate.content.insertBefore(superTemplateContents,null);
         }
         return uvalibServicesTemplate;
-      }
-      _staffmemberChange() {
-        if (this._staffmember) this._staffView = true;
       }
       _signIn() {
         this.shadowRoot.getElementById('accountuser').signInWithNetbadge();

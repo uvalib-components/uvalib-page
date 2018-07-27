@@ -1,21 +1,11 @@
 <link rel="import" href="uvalib-directory.html">
-<link rel="import" href="../paper-input/paper-input.html">
 <link rel="import" href="../paper-card/paper-card.html">
 <link rel="import" href="../uvalib-theme/uvalib-icons.html">
-<link rel="import" href="../marked-element/marked-element.html">
 <link rel="import" href="../uva-helper-libs/polyfills/string.includes.html">
 <link rel="import" href="../uva-helper-libs/polyfills/array.find.html">
 
 <dom-module id="uvalib-staff-dir">
   <template>
-
-      <div id="controls">
-        <paper-input label="Search" value="{{_query}}">
-          <div slot="prefix">
-            <span class="uvalib-icon-search uva-padding-right"></span>
-          </div>
-        </paper-input>
-      </div>
 
       <template is="dom-if" if="[[!smallScreen]]" restamp>
           <vaadin-grid height-by-rows="[[largeScreen]]" theme="no-border row-stripes wrap-cell-content" aria-label="Staff directory listing" items="[[people]]">
