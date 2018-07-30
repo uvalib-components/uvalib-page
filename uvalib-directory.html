@@ -28,6 +28,57 @@
           --vaadin-grid-body-cell: { border: 1px solid green; };
           --vaadin-grid-cell-content: { border: 1px solid blue; };
         }
+        .title-text {
+          font-size: var(--uvalib-main-font-size-unit);
+          font-weight: 700;
+        }
+        paper-toggle-button.orange {
+          --paper-toggle-button-checked-bar-color:  var(--uvalib-main-rotunda-orange);
+          --paper-toggle-button-checked-button-color:  var(--uvalib-main-rotunda-orange);
+          --paper-toggle-button-checked-ink-color: var(--uvalib-main-rotunda-orange);
+        }
+        /* Adds Border and Text for Staff-only items */
+        [staff] {
+          border-left: calc(var(--uvalib-spacing-unit)/2) solid var(--uvalib-main-rotunda-orange);
+          padding-left: var(--uvalib-spacing-unit);
+          margin-left: calc(var(--uvalib-spacing-unit)*-1);
+        }
+        span[staff-text] {
+          @apply --h4;
+          font-size: var(--uvalib-main-font-size-unit);
+          color: var(--uvalib-main-jefferson-blue);
+          margin-top: calc(var(--uvalib-spacing-unit)/1.6);
+          display: inline-block;
+          text-transform: uppercase;
+          font-style: italic;
+        }
+        .mobileDirectory .title-text:first-of-type {
+          display:none;
+        }
+        .mobileDirectory {
+          margin-left: calc(var(--uvalib-spacing-unit)*-1);
+          margin-right: calc(var(--uvalib-spacing-unit)*-1);
+          padding-bottom: var(--uvalib-spacing-unit);
+          padding-left: calc(var(--uvalib-spacing-unit)*2);
+          padding-right: calc(var(--uvalib-spacing-unit)*2);
+        }
+        .mobileDirectory .title-text {
+          margin-top: var(--uvalib-spacing-unit);
+        }
+        .mobileDirectory ul {
+          margin-top: 0;
+          margin-bottom: 0;
+        }
+        .mobileDirectory:nth-child(odd) {
+            background-color: var(--color-light-gray);
+        }
+        #login-buttons {
+          float: right;
+        }
+        /*MOBILE*/
+        iron-list {
+          width: 100%;
+        }
       </style>
     </custom-style>
 
@@ -40,6 +91,7 @@
     <uva-library path="teams" last-response="{{_teams}}"></uva-library>
     <uva-library path="services" last-response="{{_services}}"></uva-library>
 
+    <!-- Control section -->
     <div id="controls">
         <template is="dom-if" if="[[staffView]]" restamp>
           <div id="login-buttons">
@@ -76,6 +128,46 @@
           </div>
         </template>
     </div>
+
+    <!-- Vaadin grid table for larger screens -->
+    <template is="dom-if" if="[[!smallScreen]]" restamp>
+
+      <vaadin-grid height-by-rows="[[largeScreen]]" theme="no-border row-stripes wrap-cell-content" aria-label="Service directory listing" items="[[_data]]">
+        <template is="dom-repeat" items="[[columns]]" as="col">
+          <vaadin-grid-column width="[[col.width]]">
+            <template class="header">
+              <template is="dom-if" if="[[col.sortable]]">
+                <vaadin-grid-sorter direction="[[col.sortable.dir]]" path="[[col.sortable.path]]">
+                  <div class="title-text">[[col.title]]</div>
+                </vaadin-grid-sorter>
+              </template>
+              <template is="dom-if" if="[[!col.sortable]]">
+                <div class="title-text">[[col.title]]</div>
+              </template>
+            </template>
+            <template>
+              <div staff$="[[item.audience]]" inner-h-t-m-l="[[_mkCell(col,item)]]"></div>
+            </template>
+          </vaadin-grid-column>
+        </template>
+
+      </vaadin-grid>
+
+    </template>
+    <template is="dom-if" if="[[smallScreen]]" restamp>
+      <iron-list items="[[_data]]" scroll-target="document" scroll-offset="200">
+        <template>
+          <div class="mobileDirectory" even$="[[_isEven(index)]]" staff$="[[item.audience]]">
+            <template is="dom-repeat" items="[[columns]]" as="col">
+              <template is="dom-if" if="[[_isNull(col,item)]]">
+                <div class="title-text">[[col.title]]</div>
+                <div class="service" inner-h-t-m-l="[[_mkCell(col,item)]]"></div>
+              </template>
+            </template>
+          </div>
+        </template>
+      </iron-list>
+    </template>
 
   </template>
 
@@ -141,6 +233,11 @@
               searchPlaceholder: {
                 type: String,
                 value: "Search the directory"
+              },
+              _data: {
+                type: Array,
+                value: function(){ return []; },
+                notify: true
               }
             });
       }
@@ -156,6 +253,17 @@
             uvalibDirectoryTemplate.content.insertBefore(superTemplateContents, null);
         }
         return uvalibDirectoryTemplate;
+      }
+
+      _mkCell(col,item) {
+        if (item && col.mkCell)
+          return col.mkCell(item,this);
+      }
+      _isNull(col,item){
+        if (!item) return false;
+        else if (col.isNull)
+          return col.isNull(item,this);
+        else return true;
       }
 
       _librariesChanged(){}
@@ -191,6 +299,68 @@
         }
         this._init = true;
         this._staffViewChanged();
+      }
+      _signIn() {
+        this.shadowRoot.getElementById('accountuser').signInWithNetbadge();
+      }
+      _signOut() {
+        this.shadowRoot.getElementById('accountuser').signOut();
+        this._staffView = false;
+      }
+      _getLibrarySlug(uuid){
+        if (! this._libSlugs ) this._libSlugs = {}
+        return this._getListValue(this._libraries,this._libSlugs,uuid,'slug');
+      }
+      _getLibraryName(uuid){
+        if (! this._libNames ) this._libNames = {}
+        return this._getListValue(this._libraries,this._libNames,uuid,'title');
+      }
+      _getTeamName(uuid){
+        if (! this._teamNames ) this._teamNames = {}
+        return this._getListValue(this._teams,this._teamNames,uuid,'title');
+      }
+      _getListValue(list,buffer,uuid,prop){
+        if (list && uuid) {
+          if (buffer[uuid]) return buffer[uuid];
+          var item = list.find( item => item.uuid === uuid);
+          if (item) {
+            buffer[uuid] = item[prop];
+            return item[prop];
+          }
+        }
+      }
+      _getPersonName(uuid){
+        if (this._people && uuid) {
+          var person = this._people.find( person => person.uuid === uuid);
+          if (person) return person.displayName;
+        }
+      }
+      _getPersonID(uuid){
+        if (this._people && uuid) {
+          var person = this._people.find( person => person.uuid === uuid);
+          if (person) return person.computingId;
+        }
+      }
+      _getTeamName(uuid){
+        if (this._teams && uuid) {
+          var team = this._teams.find( team => team.uuid === uuid);
+          if (team) return team.title;
+        }
+      }
+      _isEven(n) {
+        n = Number(n);
+        return n === 0 || !!(n && !(n%2));
+      }
+      _getLibs(libs){
+        if (!libs) {
+          return [];
+        } else {
+          libs = Array.isArray(libs)?libs:[libs];
+          return libs.map(function(lib){
+            lib.title = this._getLibraryName(lib.uuid);
+            return lib;
+          }.bind(this));
+        }
       }
     }
 

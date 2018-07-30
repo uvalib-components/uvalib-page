@@ -1,6 +1,5 @@
 <link rel="import" href="uvalib-directory.html">
 <link rel="import" href="../uvalib-theme/uvalib-icons.html">
-<link rel="import" href="../marked-element/marked-element.html">
 <link rel="import" href="../uva-helper-libs/polyfills/string.includes.html">
 <link rel="import" href="../uva-helper-libs/polyfills/array.find.html">
 
@@ -9,11 +8,6 @@
   <template>
     <custom-style>
       <style include="uvalib-theme">
-
-        .title-text {
-          font-size: var(--uvalib-main-font-size-unit);
-          font-weight: 700;
-        }
         .service-title {
           font-size: var(--uvalib-main-font-size-unit);
           font-weight: 700;
@@ -30,124 +24,15 @@
           line-height: calc(var(--uvalib-spacing-unit)*1.1);
           padding-bottom: var(--uvalib-spacing-unit);
         }
-
-        paper-toggle-button.orange {
-          --paper-toggle-button-checked-bar-color:  var(--uvalib-main-rotunda-orange);
-          --paper-toggle-button-checked-button-color:  var(--uvalib-main-rotunda-orange);
-          --paper-toggle-button-checked-ink-color: var(--uvalib-main-rotunda-orange);
-        }
-
-        /* Adds Border and Text for Staff-only items */
-        [staff] {
-          border-left: calc(var(--uvalib-spacing-unit)/2) solid var(--uvalib-main-rotunda-orange);
-          padding-left: var(--uvalib-spacing-unit);
-          margin-left: calc(var(--uvalib-spacing-unit)*-1);
-        }
-        span[staff-text] {
-          @apply --h4;
-          font-size: var(--uvalib-main-font-size-unit);
-          color: var(--uvalib-main-jefferson-blue);
-          margin-top: calc(var(--uvalib-spacing-unit)/1.6);
-          display: inline-block;
-          text-transform: uppercase;
-          font-style: italic;
-        }
-
-        /*MOBILE*/
-        iron-list {
-          width: 100%;
-        }
-
-        #mobileDirectory {
-          margin-left: calc(var(--uvalib-spacing-unit)*-1);
-          margin-right: calc(var(--uvalib-spacing-unit)*-1);
-          padding-bottom: var(--uvalib-spacing-unit);
-          padding-left: calc(var(--uvalib-spacing-unit)*2);
-          padding-right: calc(var(--uvalib-spacing-unit)*2);
-        }
-
-        #mobileDirectory .service-title {
+        .mobileDirectory .service-title {
           font-size: calc(var(--uvalib-main-font-size-unit)*1.2);
         }
-
-        #mobileDirectory .title-text {
-          margin-top: var(--uvalib-spacing-unit);
-        }
-        #mobileDirectory ul {
-          margin-top: 0;
-          margin-bottom: 0;
-        }
-
-        #mobileDirectory .services-location li {
+        .mobileDirectory .services-location li {
           padding-bottom: calc(var(--uvalib-spacing-unit)/2);
-        }
-
-        #mobileDirectory:nth-child(odd) {
-            background-color: var(--color-light-gray);
-        }
-
-        #login-buttons {
-          float: right;
         }
       </style>
     </custom-style>
 
-      <template is="dom-if" if="[[!smallScreen]]" restamp>
-
-        <vaadin-grid height-by-rows="[[largeScreen]]" theme="no-border row-stripes wrap-cell-content" aria-label="Service directory listing" items="[[_data]]">
-          <vaadin-grid-column width="45%">
-            <template class="header"><vaadin-grid-sorter direction="asc" path="title"><div class="title-text">Service</div></vaadin-grid-sorter></template>
-            <template>
-              <div staff$="[[item.audience]]">
-                <div class="title service-title" hidden$="[[item.siteLink]]">[[item.title]]</div>
-                <div class="title service-title" hidden$="[[!item.siteLink]]"><a href="[[item.siteLink]]">[[item.title]]</a></div>
-                <div class="description service-description" hidden$="[[!item.body]]" inner-h-t-m-l="[[item.body]]"></div>
-                <span hidden$="[[!item.audience]]" staff-text$="[[item.audience]]">staff info</span>
-              </div>
-            </template>
-          </vaadin-grid-column>
-          <vaadin-grid-column width="30%">
-            <template class="header"><div class="title-text">Location</div></template>
-            <template><div class="location" inner-h-t-m-l="[[_getLibs(item.library)]]"></div></template>
-          </vaadin-grid-column>
-          <vaadin-grid-column width="25%">
-            <template class="header"><div class="title-text">Contact</div></template>
-            <template>
-              <div class="email" hidden$="[[!item.emailAddress]]"><a href="mailto:[[item.emailAddress]]">[[item.emailAddress]]</a></div>
-              <div class="phone" hidden$="[[!item.phoneNumber]]"><a href="tel:[[item.phoneNumber]]">[[item.phoneNumber]]</a></div>
-              <div class="form" hidden$="[[!item.formLink]]"><a href="[[item.formLink]]">Contact form</a></div>
-              <div hidden$="[[!_staffView]]">
-                  <div class="owner-person" hidden$="[[!item.owner]]">Owner: [[_getPersonName(item.owner,_people)]]</div>
-                  <div class="owner-person" hidden$="[[!item.team]]">Team Owner: [[_getTeamName(item.team,_teams)]]</div>
-              </div>
-            </template>
-          </vaadin-grid-column>
-        </vaadin-grid>
-
-      </template>
-      <template is="dom-if" if="[[smallScreen]]" restamp>
-        <iron-list items="[[_data]]" scroll-target="document" scroll-offset="200">
-          <template>
-            <div id="mobileDirectory" even$="[[_isEven(index)]]" staff$="[[item.audience]]">
-              <div class="title service-title" hidden$="[[item.siteLink]]">[[item.title]]</div>
-              <div class="title service-title" hidden$="[[!item.siteLink]]"><a href="[[item.siteLink]]">[[item.title]]</a></div>
-              <div class="description service-description" hidden$="[[!item.body]]" inner-h-t-m-l="[[item.body]]"></div>
-              <div hidden$="[[!_getLibs(item.library,smallScreen)]]">
-                <div class="title-text">Location</div>
-                <div class="location" inner-h-t-m-l="[[_getLibs(item.library)]]"></div>
-              </div>
-              <div hidden$=[[!_mobileContact(item.emailAddress,item.phoneNumber,item.formLink)]]>
-                <div class="title-text">Contact</div>
-                <div class="email" hidden$="[[!item.emailAddress]]"><a href="mailto:[[item.emailAddress]]">[[item.emailAddress]]</a></div>
-                <div class="phone" hidden$="[[!item.phoneNumber]]"><a href="tel:[[item.phoneNumber]]">[[item.phoneNumber]]</a></div>
-                <div class="form" hidden$="[[!item.formLink]]"><a href="[[item.formLink]]">Contact form</a></div>
-              </div>
-              <span hidden$="[[!item.audience]]" staff-text$="[[item.audience]]">staff info</span>
-            </div>
-          </template>
-        </iron-list>
-      </template>
-    </div>
   </template>
 
   <script>
@@ -170,19 +55,77 @@
                 type: Boolean,
                 value: true
               },
-              _data: {
-                type: Array,
-                value: function(){ return []; },
-                notify: true
-              },
-              _sortDir: {
-                type: String,
-                value: "desc",
-                observer: "_sortChange"
-              },
               searchPlaceholder: {
                 type: String,
                 value: "Search for staff"
+              },
+              columns: {
+                type: Array,
+                value: [
+                  {
+                    title:"Service",
+                    sortable:{dir:'asc',path:'title'},
+                    width:"45%",
+                    mkCell:function(item){
+                      var hideTitle = (item.siteLink)?"hidden":"",
+                          hideLink = (item.siteLink)?"":"hidden",
+                          hideBody = (item.body)?"":"hidden",
+                          hideAudience = (item.audience)?"":"hidden",
+                          staffText = (item.audience)?"staff-text":"";
+                      return `
+                        <div class="title service-title" ${hideTitle}>${item.title}</div>
+                        <div class="title service-title" ${hideLink}><a href="${item.siteLink}">${item.title}</a></div>
+                        <div class="description service-description" ${hideBody}>${item.body}</div>
+                        <span ${hideAudience} ${staffText}>staff info</span>
+                      `;
+                    }
+                  },
+                  {
+                    title:"Location",
+                    width:"30%",
+                    isNull:function(item,that){
+                      return !!(item.library);
+                    },
+                    mkCell:function(item,that){
+                      if (that._getLibs) {
+                        var libraries = that._getLibs(item.library);
+                        if (libraries.length > 0) {
+                          var libs = '<div class="services-location">';
+                          libraries.forEach(lib=>libs+=`<a href="/hours#${that._getLibrarySlug(lib.uuid)}">${lib.title}</a><br />`);
+                          libs+='</div>';
+                          return libs;
+                        } else {
+                          return "";
+                        }
+                      }
+                    }
+                  },
+                  {
+                    title:"Contact",
+                    width:"35%",
+                    isNull:function(item,that){
+                      return (item.emailAddress || item.phoneNumber || item.fromLink || (that._staffView && (item.owner || item.team)));
+                    },
+                    mkCell:function(item,that){
+                      var cell = "";
+                      if (item.emailAddress)
+                        cell += `<div class="email"><a href="mailto:${item.emailAddress}">${item.emailAddress}</a></div>`;
+                      if (item.phoneNumber)
+                        cell +=`<div class="phone"><a href="tel:${item.phoneNumber}">${item.phoneNumber}</a></div>`;
+                      if (item.formLink)
+                        cell +=`<div class="form"><a href="${item.formLink}">Contact form</a></div>`;
+                      if (that._staffView) {
+                        cell +="<div>";
+                          if (item.owner)
+                            cell+=`<div class="owner-person">Owner: <a href="/staff/${that._getPersonID(item.owner,that._people)}">${that._getPersonName(item.owner,that._people)}</a></div>`;
+                          if (item.team)
+                            cell+=`<div class="owner-person">Team Owner: <a href="/teams/${item.team}">${that._getTeamName(item.team,that._teams)}</a></div>`;
+                        cell +="</div>";
+                      }
+                      return cell;
+                    }
+                  }
+                ]
               }
             });
       }
@@ -197,13 +140,7 @@
         }
         return uvalibServicesTemplate;
       }
-      _signIn() {
-        this.shadowRoot.getElementById('accountuser').signInWithNetbadge();
-      }
-      _signOut() {
-        this.shadowRoot.getElementById('accountuser').signOut();
-        this._staffView = false;
-      }
+
 
       _servicesChanged(){this._filterRows();}
       _filterRows() {
@@ -215,7 +152,6 @@
           setTimeout(function(){this._filterRows()}.bind(this),500);
         }
       }
-
       _filterData(data){
         if (this._query) {
           data = data.filter( this._filter(this._query) );
@@ -232,8 +168,7 @@
         }
       }
       _sortData(data){
-        var dir = this._sortDir;
-//        console.log(dir);
+        var dir = "desc";
         if(data) {
           data.sort(function(a,b){
             if (dir === "desc") {
@@ -245,23 +180,6 @@
           this.set('_data', data );
         }
       }
-      _getLibs(libs){
-        if (!libs) {
-          return (this.smallScreen)? "":"&mdash;";
-        } else {
-//          if (!this._libs && this.$.libs) {
-//            this._libs = this.$.libs.getHash('id',['title']);
-//          }
-          if (!this._libs && this.shadowRoot.querySelector('uva-library')) {
-            this._libs = this.shadowRoot.querySelector('uva-library').getHash('id',['title']);
-          }
-          if (Object.keys(this._libs).length > 0) {
-            libs = Array.isArray(libs)?libs:[libs];
-            return '<ul class="services-location"><li>'+libs.map(function(a){return (this._libs[a.id])? this._libs[a.id].title: null;}.bind(this)).sort().join('</li><li>')+'</li></ul>';
-          }
-          return "";
-        }
-      }
       _filter(query){
         if (!query) {
           return null;
@@ -269,26 +187,12 @@
           query = query.toLowerCase().trim().replace(/ +(?= )/g,'');
           return function(s) {
             var title = s.title.toLowerCase();
-            var loc = this._getLibs(s.library).toLowerCase();
+            if (s.library)
+              var loc = this._getLibs(s.library).reduce((a,b)=>a+" "+b.title,"").toLowerCase();
+            else var loc = "";
             return (title.indexOf(query) != -1 || loc.indexOf(query) != -1);
           }.bind(this);
         }
-      }
-      _getPersonName(uuid){
-        if (this._people && uuid) {
-          var person = this._people.find( person => person.uuid === uuid);
-          if (person) return person.displayName;
-        }
-      }
-      _getTeamName(uuid){
-        if (this._teams && uuid) {
-          var team = this._teams.find( team => team.uuid === uuid);
-          if (team) return team.title;
-        }
-      }
-      _isEven(n) {
-        n = Number(n);
-        return n === 0 || !!(n && !(n%2));
       }
       _mobileContact(emailAddress,phoneNumber,formLink) {
         return emailAddress || phoneNumber || formLink;
