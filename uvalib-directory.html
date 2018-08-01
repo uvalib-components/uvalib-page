@@ -92,42 +92,44 @@
     <uva-library path="services" last-response="{{_services}}"></uva-library>
 
     <!-- Control section -->
-    <div id="controls">
-        <template is="dom-if" if="[[staffView]]" restamp>
-          <div id="login-buttons">
-            <paper-button on-tap="_signIn" hidden$="[[_signedIn]]" raised>Staff Login</paper-button>
-            <paper-button on-tap="_signOut" hidden$="[[!_signedIn]]" raised>Sign Out</paper-button>
-          </div>
-        </template>
-        <template is="dom-if" if="[[!smallScreen]]" restamp>
-          <paper-input label="[[searchPlaceholder]]" value="{{_query}}">
-            <div slot="prefix">
-              <span class="uvalib-icon-search uva-padding-right"></span>
+    <template is="dom-if" if="[[_controls]]">
+      <div id="controls">
+          <template is="dom-if" if="[[staffView]]" restamp>
+            <div id="login-buttons">
+              <paper-button on-tap="_signIn" hidden$="[[_signedIn]]" raised>Staff Login</paper-button>
+              <paper-button on-tap="_signOut" hidden$="[[!_signedIn]]" raised>Sign Out</paper-button>
             </div>
-          </paper-input>
-          <template is="dom-if" if="[[staffView]]" restamp>
-            <paper-toggle-button id="staffSelect" checked="{{_staffView}}" hidden$="[[!_staffmember]]" class="orange">
-              <template is="dom-if" if="[[_staffView]]"><span class"staff-text">Staff View</span></template>
-              <template is="dom-if" if="[[!_staffView]]">Public View</template>
-            </paper-toggle-button>
           </template>
-        </template>
-        <template is="dom-if" if="[[smallScreen]]" restamp>
-          <template is="dom-if" if="[[staffView]]" restamp>
-            <paper-toggle-button id="staffSelect" checked="{{_staffView}}" hidden$="[[!_staffmember]]" class="orange">
-              <template is="dom-if" if="[[_staffView]]"><span class"staff-text">Staff View</span></template>
-              <template is="dom-if" if="[[!_staffView]]">Public View</template>
-            </paper-toggle-button>
-          </template>
-          <div class="uva-margin-top">
-            <paper-input label="Search the directory" value="{{_query}}">
+          <template is="dom-if" if="[[!smallScreen]]" restamp>
+            <paper-input label="[[searchPlaceholder]]" value="{{_query}}">
               <div slot="prefix">
                 <span class="uvalib-icon-search uva-padding-right"></span>
               </div>
             </paper-input>
-          </div>
-        </template>
-    </div>
+            <template is="dom-if" if="[[staffView]]" restamp>
+              <paper-toggle-button id="staffSelect" checked="{{_staffView}}" hidden$="[[!_staffmember]]" class="orange">
+                <template is="dom-if" if="[[_staffView]]"><span class"staff-text">Staff View</span></template>
+                <template is="dom-if" if="[[!_staffView]]">Public View</template>
+              </paper-toggle-button>
+            </template>
+          </template>
+          <template is="dom-if" if="[[smallScreen]]" restamp>
+            <template is="dom-if" if="[[staffView]]" restamp>
+              <paper-toggle-button id="staffSelect" checked="{{_staffView}}" hidden$="[[!_staffmember]]" class="orange">
+                <template is="dom-if" if="[[_staffView]]"><span class"staff-text">Staff View</span></template>
+                <template is="dom-if" if="[[!_staffView]]">Public View</template>
+              </paper-toggle-button>
+            </template>
+            <div class="uva-margin-top">
+              <paper-input label="Search the directory" value="{{_query}}">
+                <div slot="prefix">
+                  <span class="uvalib-icon-search uva-padding-right"></span>
+                </div>
+              </paper-input>
+            </div>
+          </template>
+      </div>
+    </template>
 
     <!-- Vaadin grid table for larger screens -->
     <template is="dom-if" if="[[!smallScreen]]" restamp>
@@ -187,10 +189,15 @@
       static get properties() {
         return Object.assign(super.properties,
             {
+              _controls: {
+                type: Boolean,
+                value: true
+              },
               _init: Boolean,
               _query: {
                 type:String,
-                observer: "_filterRows"
+                observer: "_refresh"
+//                observer: "_filterRows"
               },
               _libraries: {
                 type: Array,
@@ -228,7 +235,8 @@
                 type: Boolean,
                 value: false,
                 notify: true,
-                observer: "_filterRows"
+                observer: "_refresh"
+//                observer: "_filterRows"
               },
               searchPlaceholder: {
                 type: String,
@@ -283,7 +291,6 @@
         if (this._staffmember) this._staffView = true;
       }
 
-      _filterRows(){}
       _screenChanged(){
         // load vaadin grid for larger than small screens
         if (!this.smallScreen)
@@ -345,12 +352,12 @@
           if (person) return person.computingId;
         }
       }
-      _getTeamName(uuid){
-        if (this._teams && uuid) {
-          var team = this._teams.find( team => team.uuid === uuid);
-          if (team) return team.title;
-        }
-      }
+//      _getTeamName(uuid){
+//        if (this._teams && uuid) {
+//          var team = this._teams.find( team => team.uuid === uuid);
+//          if (team) return team.title;
+//        }
+//      }
       _isEven(n) {
         n = Number(n);
         return n === 0 || !!(n && !(n%2));
@@ -371,9 +378,13 @@
         return this._libraries && this._libraries.length > 0 && this._services && this._services.length > 0 && this._teams && this._people;
       }
 
+      _refresh(){
+        if (this._rows) this._filterRows(this._rows);
+      }
       _filterRows(rows) {
+        this._rows = rows;
         //clone the pristine services listing so that we can come back from filters w/o reloading
-        if (this._isDataReady()){
+        if (this._isDataReady() && rows){
           var data = JSON.parse(JSON.stringify(rows));
           this._sortData(this._filterData(data));
         } else {
@@ -382,8 +393,9 @@
       }
 
       _filterData(data){
-        if (this._query) {
-          data = data.filter( this._filter(this._query) );
+        var filter = this._filter(this._query);
+        if (filter) {
+          data = data.filter( filter );
         }
         if (!this._staffView) {
           if (data.filter)

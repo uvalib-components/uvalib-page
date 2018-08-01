@@ -11,52 +11,17 @@
       <template is="dom-if" if="[[!smallScreen]]" restamp>
           <vaadin-grid height-by-rows="[[largeScreen]]" theme="no-border row-stripes wrap-cell-content" aria-label="Staff directory listing" items="[[people]]">
             <vaadin-grid-column width="20%">
-              <template class="header"><vaadin-grid-sorter direction="asc" path="fullName"><div class="title-text">Name</div></vaadin-grid-sorter></template>
-              <template><strong><a href="/staff/[[item.computingId]]">[[_getName(item)]]</p></strong></template>
-            </vaadin-grid-column>
-            <vaadin-grid-column width="20%">
-              <template class="header"><div class="title-text">Title</div></template>
-              <template>[[item.jobTitle]]</template>
-            </vaadin-grid-column>
-            <vaadin-grid-column width="20%">
-              <template class="header"><div class="team-text">Team</div></template>
-              <template>
-                <template is="dom-repeat" items="[[item.teams]]">
-                  <a href="/teams/[[item]]">[[_getTeamName(item)]]</a><br />
-                </template>
-              </template>
-            </vaadin-grid-column>
-            <vaadin-grid-column width="20%">
               <template class="header"><div class="team-text">Contact</div></template>
               <template>
                 <div class="email"><a href="mailto:[[_getEmail(item)]]">[[_getEmail(item)]]</a></div>
                 <div class="phone" hidden$="[[!item.phone]]"><a href="tel:[[item.phone]]">[[item.phone]]</a></div>
               </template>
             </vaadin-grid-column>
-            <vaadin-grid-column width="20%">
-              <template class="header"><div class="team-text">Library</div></template>
-              <template><a href="/hours#[[_getLibrarySlug(item.library)]]">[[_getLibraryName(item.library)]]</a></template>
-            </vaadin-grid-column>
+
 
           </vaadin-grid>
       </template>
-      <template is="dom-if" if="[[smallScreen]]" restamp>
-        <template is="dom-repeat" items="[[_filterSort(people,_query)]]">
-          <paper-card heading="[[_getName(item)]]">
-            <h2>[[item.jobTitle]]</h2>
-            <div class="teams" hidden$="[[!item.teams]]">
-              <template is="dom-repeat" items="[[item.teams]]">
-                <a href="/teams/[[item]]">[[_getTeamName(item)]]</a><br />
-              </template>
-            </div>
-            <div class="email"><a href="mailto:[[_getEmail(item)]]">[[_getEmail(item)]]</a></div>
-            <div class="phone" hidden$="[[!item.phone]]"><a href="tel:[[item.phone]]">[[item.phone]]</a></div>
-            <div class="library">
-              <a href="/hours#[[_getLibrarySlug(item.library)]]">[[_getLibraryName(item.library)]]</a>
-            </div>
-          </paper-card>
-        </template>
-      </template>
+
 -->
   </template>
 
@@ -69,18 +34,26 @@
      *
      * @customElement
      * @polymer
-     * @demo demo/index.html
+     * @demo demo/staff-dir.html
+     * @demo demo/team-staff.html
      */
     class UvalibStaffDir extends UvalibDirectory {
       static get is() { return 'uvalib-staff-dir'; }
       static get properties() {
         return Object.assign(super.properties,
             {
-              _data: {
-                type: Array,
-                value: function(){ return []; },
-                notify: true
+              team: {
+                type: String,
+                value: null
               },
+              _controls: {
+                type: Boolean,
+                computed: '_showControls(team)'
+              },
+              columns: {
+                type: Array,
+                computed: "_makeColumns(team)"
+              }
             });
       }
       static get template() {
@@ -94,87 +67,135 @@
         }
         return uvalibStaffDirTemplate;
       }
-      _peopleChanged(){this._filterRows();}
-      _filterRows() {
-        //clone the pristine people listing so that we can come back from filters w/o reloading
-        //ensure that people, teams, and libraries are loaded
-        if (this._libraries && this._libraries.length > 0 && this._teams && this._people){
-          var data = JSON.parse(JSON.stringify(this._people));
-          this._sortData(this._filterData(data));
-        } else {
-          setTimeout(function(){this._filterRows()}.bind(this),500);
-        }
-      }
 
-/*
-      _sortData(data){
-        var dir = this._sortDir;
-        if(data) {
-          data.sort(function(a,b){
-            if (dir === "desc") {
-              return a.title.toLowerCase().localeCompare(b.title.toLowerCase());
-            } else {
-              return b.title.toLowerCase().localeCompare(a.title.toLowerCase());
+      _makeColumns(team){
+        var cols = [];
+        cols.push(
+          {
+            title:"Name",
+            sortable:{dir:'asc',path:'lastName'},
+            width:"20%",
+            mkCell:function(item,that){
+              return `<a href="/staff/${item.computingId}">${that._getName(item)}</p>`;
             }
           });
-          this.set('_data', data );
-        }
+        cols.push(
+          {
+            title:"Title",
+            width:"20%",
+            mkCell:function(item){
+              return item.jobTitle? item.jobTitle:"";
+            }
+          });
+        if (!team) cols.push(
+          {
+            title:"Team",
+            width:"20%",
+            mkCell:function(item,that){
+              return item.teams? item.teams.reduce((a,team)=>`<a href="/teams/${team}">${that._getTeamName(team)}</a><br />`,""):"";
+            }
+          });
+        cols.push(
+          {
+            title:"Contact",
+            width:"20%",
+            mkCell:function(item,that){
+              var tmp=`<div class="email"><a href="mailto:${that._getEmail(item)}">${that._getEmail(item)}</a></div>`;
+              tmp+= item.phone? `<div class="phone"><a href="tel:${item.phone}">${item.phone}</a></div>`:"";
+              return tmp;
+            }
+          });
+        cols.push(
+          {
+            title:"Library",
+            width:"20%",
+            mkCell:function(item,that){
+              return item.library?
+                `<a href="/hours#${that._getLibrarySlug(item.library)}">${that._getLibraryName(item.library)}</a>`:
+                "";
+            }
+          });
+        return cols;
       }
-      _filterSort(pep,query){
-        if (pep) {
+
+      _peopleChanged(){
+        this._filterRows(this._makePeople(this._libraries,this._people,this._teams));
+      }
+
+      _sortData(pep){
+        if(pep) {
           var tmp = pep.sort(function(a,b){
             var alast = (a.lastName)? a.lastName:a.fullName;
             var blast = (b.lastName)? b.lastName:b.fullName;
             return (alast.toLowerCase() < blast.toLowerCase());
           });
-          return tmp;
+          this.set('_data', tmp );
         }
       }
-      _getEmail(person){
-        return (person.email)?
-          person.email:
-          person.computingId+"@virginia.edu"
+
+      _filter(query){
+        if (query) {
+          query = query.toLowerCase().trim().replace(/ +(?= )/g,'');
+          return function(s) {
+            var name = (s.lastName)? s.lastName:s.fullName;
+            var searchString = s.displayName + " " + name;
+            return (searchString.toLowerCase().indexOf(query) != -1);
+          }.bind(this);
+        } else if (this.team) {
+          return function(p){
+            return p.teams && p.teams.indexOf(this.team) > -1;
+          }.bind(this);
+        } else {
+          return null;
+        }
       }
+
+      _makePeople(_libraries,_people,_teams){
+        if (_libraries && _people && _teams) {
+          if (!this._cachedPeople) {
+            if (_libraries && _people && _teams) {
+              var people = {};
+              _people.forEach(p=>{
+                if (p.computingId) {
+                  people[p.computingId] = p;
+                }
+              });
+              // assign teams to people
+              _teams.forEach(t=>{
+                if (t.groupMembers)
+                  t.groupMembers.forEach(p=>{
+                    if (people[p]) {
+                      if (!people[p]['teams']) people[p]['teams'] = [t.uuid];
+                      else people[p]['teams'].push(t.uuid);
+                    }
+                  });
+              });
+              this._cachedPeople = Object.values(people);
+              return this._cachedPeople;
+            }
+            return null;
+          } else {
+            return this._cachedPeople;
+          }
+        }
+      }
+
       _getName(person){
           if (person) return (person.displayName)?
             person.displayName:
             person.fullName;
       }
-      _makePeople(_libraries,_people,_teams,_query){
-        if (!this._cachedPeople) {
-          if (_libraries && _people && _teams) {
-            var people = {};
-            _people.forEach(p=>{
-              if (p.computingId) {
-                people[p.computingId] = p;
-              }
-            });
-            // assign teams to people
-            _teams.forEach(t=>{
-              if (t.groupMembers)
-                t.groupMembers.forEach(p=>{
-                  if (people[p]) {
-                    if (!people[p]['teams']) people[p]['teams'] = [t.uuid];
-                    else people[p]['teams'].push(t.uuid);
-                  }
-                });
-            });
-            this._cachedPeople = Object.values(people);
-            return this._cachedPeople;
-          }
-          return null;
-        } else {
-          return this._cachedPeople;
-        }
-      }
-      _filter(_query,_list) {
-        if (_query) {
 
-        } else {
-          return _query;
-        }
+      _getEmail(person){
+        return (person.email)?
+          person.email:
+          person.computingId+"@virginia.edu"
       }
-*/
+
+      /* Don't show search if team is specified */
+      _showControls(team){
+        return !(team);
+      }
     }
 
     window.customElements.define(UvalibStaffDir.is, UvalibStaffDir);
