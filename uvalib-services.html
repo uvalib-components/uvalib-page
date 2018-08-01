@@ -66,6 +66,7 @@
                     title:"Service",
                     sortable:{dir:'asc',path:'title'},
                     width:"45%",
+                    highlight: true,
                     mkCell:function(item){
                       var hideTitle = (item.siteLink)?"hidden":"",
                           hideLink = (item.siteLink)?"":"hidden",
@@ -141,31 +142,11 @@
         return uvalibServicesTemplate;
       }
 
-
-      _servicesChanged(){this._filterRows();}
-      _filterRows() {
-        //clone the pristine services listing so that we can come back from filters w/o reloading
-        if (this._libraries && this._libraries.length > 0 && this._services){
-          var data = JSON.parse(JSON.stringify(this._services));
-          this._sortData(this._filterData(data));
-        } else {
-          setTimeout(function(){this._filterRows()}.bind(this),500);
-        }
-      }
-      _filterData(data){
-        if (this._query) {
-          data = data.filter( this._filter(this._query) );
-        }
-        if (!this._staffView) {
-          return data.filter( (s)=>(!s.audience || s.audience != "staff") );
-        } else {
-          return data;
-        }
-      }
+      _servicesChanged(){this._filterRows(this._services);}
 
       _sortData(data){
         var dir = "desc";
-        if(data) {
+        if(data && data.sort) {
           data.sort(function(a,b){
             if (dir === "desc") {
               return a.title.toLowerCase().localeCompare(b.title.toLowerCase());
@@ -176,6 +157,7 @@
           this.set('_data', data );
         }
       }
+
       _filter(query){
         if (!query) {
           return null;
