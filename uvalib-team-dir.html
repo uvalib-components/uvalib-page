@@ -6,7 +6,7 @@
   </template>
 
   <script>
-    let uvalibStaffDirTemplate;
+    let uvalibTeamDirTemplate;
 
     /**
      * `uvalib-team-dir`
@@ -22,7 +22,7 @@
       static get properties() {
         return Object.assign(super.properties,
             {
-              team: {
+              area: {
                 type: String,
                 value: null
               },
@@ -30,84 +30,67 @@
                 type: Boolean,
                 computed: '_showControls(team)'
               },
+              searchPlaceholder: {
+                type: String,
+                value: "Search for Library Teams"
+              },
               columns: {
                 type: Array,
-                computed: "_makeColumns(team)"
+                computed: "_makeColumns(area)"
               }
             });
       }
       static get template() {
-        if (!uvalibStaffDirTemplate) {
+        if (!uvalibTeamDirTemplate) {
             // Retrieve this element's dom-module template
-            uvalibStaffDirTemplate = Polymer.DomModule.import(this.is, 'template');
+            uvalibTeamDirTemplate = Polymer.DomModule.import(this.is, 'template');
             // Clone the contents of the superclass template
             let superTemplateContents = UvalibDirectory.template.content.cloneNode(true);
             // Insert the superclass contents
-            uvalibStaffDirTemplate.content.insertBefore(superTemplateContents,null);
+            uvalibTeamDirTemplate.content.insertBefore(superTemplateContents,null);
         }
-        return uvalibStaffDirTemplate;
+        return uvalibTeamDirTemplate;
       }
 
-      _makeColumns(team){
+      _makeColumns(area){
         var cols = [];
         cols.push(
           {
-            title:"Name",
-            sortable:{dir:'asc',path:'lastName'},
+            title:"Team Title",
+            sortable:{dir:'asc',path:'title'},
             width:"20%",
             mkCell:function(item,that){
-              return `<a href="/staff/${item.computingId}">${that._getName(item)}</p>`;
+              return `<a href="/teams/${item.uuid}">${that._getTeamName(item.uuid)}</p>`;
+            }
+          });
+        if (!area) cols.push(
+          {
+            title:"Area",
+            width:"20%",
+//            sortable:{path:''},
+            mkCell:function(item,that){
+              return item.area? `<a href="/areas/${item.area}">${that._getAreaName(item.area)}</p>`:"";
             }
           });
         cols.push(
           {
-            title:"Title",
-            width:"20%",
-            mkCell:function(item){
-              return item.jobTitle? item.jobTitle:"";
-            }
-          });
-        if (!team) cols.push(
-          {
-            title:"Team",
+            title:"Lead",
             width:"20%",
             mkCell:function(item,that){
-              return item.teams? item.teams.reduce((a,team)=>`<a href="/teams/${team}">${that._getTeamName(team)}</a><br />`,""):"";
-            }
-          });
-        cols.push(
-          {
-            title:"Contact",
-            width:"20%",
-            mkCell:function(item,that){
-              var tmp=`<div class="email"><a href="mailto:${that._getEmail(item)}">${that._getEmail(item)}</a></div>`;
-              tmp+= item.phone? `<div class="phone"><a href="tel:${item.phone}">${item.phone}</a></div>`:"";
-              return tmp;
-            }
-          });
-        cols.push(
-          {
-            title:"Library",
-            width:"20%",
-            mkCell:function(item,that){
-              return item.library?
-                `<a href="/hours#${that._getLibrarySlug(item.library)}">${that._getLibraryName(item.library)}</a>`:
-                "";
+              return item.manager? `<a href="/staff/${that._getPersonID(item.manager)}">${that._getPersonName(item.manager)}</a>`:"";
             }
           });
         return cols;
       }
 
-      _peopleChanged(){
-        this._filterRows(this._makePeople(this._libraries,this._people,this._teams));
+      _teamsChanged(){
+        this._filterRows(this._teams);
       }
 
-      _sortData(pep){
-        if(pep) {
-          var tmp = pep.sort(function(a,b){
-            var alast = (a.lastName)? a.lastName:a.fullName;
-            var blast = (b.lastName)? b.lastName:b.fullName;
-            return (alast.toLowerCase() < blast.toLowerCase());
+      _sortData(teams){
+        if(teams) {
+          var tmp = teams.sort(function(a,b){
+            return (a.title.toLowerCase() < b.title.toLowerCase());
           });
           this.set('_data', tmp );
         }
@@ -117,23 +100,21 @@
         if (query) {
           query = query.toLowerCase().trim().replace(/ +(?= )/g,'');
           return function(s) {
-            var name = (s.lastName)? s.lastName:s.fullName;
-            var searchString = s.displayName + " " + name;
-            return (searchString.toLowerCase().indexOf(query) != -1);
+            return (s.title.toLowerCase().indexOf(query) != -1);
           }.bind(this);
-        } else if (this.team) {
-          return function(p){
-            return p.teams && p.teams.indexOf(this.team) > -1;
+        } else if (this.area) {
+          return function(t){
+            return t.area === this.area;
           }.bind(this);
         } else {
           return null;
         }
       }
 
-      _makePeople(_libraries,_people,_teams){
-        if (_libraries && _people && _teams) {
+      _makeTeams(_libraries,_people,_teams,_areas){
+        if (_libraries && _people && _teams && _areas) {
           if (!this._cachedPeople) {
-            if (_libraries && _people && _teams) {
+            if (_libraries && _people && _teams && _areas) {
               var people = {};
               _people.forEach(p=>{
                 if (p.computingId) {

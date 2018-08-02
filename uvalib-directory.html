@@ -89,6 +89,7 @@
     <uva-library last-response="{{_libraries}}"></uva-library>
     <uva-library path="people" last-response="{{_people}}"></uva-library>
     <uva-library path="teams" last-response="{{_teams}}"></uva-library>
+    <uva-library path="areas" last-response="{{_areas}}"></uva-library>
     <uva-library path="services" last-response="{{_services}}"></uva-library>
 
     <!-- Control section -->
@@ -215,6 +216,11 @@
                 notify: true,
                 observer: "_teamsChanged"
               },
+              _areas: {
+                type: Array,
+                notify: true,
+                observer: "_areasChanged"
+              },
               _services: {
                 type:Array,
                 notify: true,
@@ -279,6 +285,7 @@
       _librariesChanged(){}
       _peopleChanged(){}
       _teamsChanged(){}
+      _areasChanged(){}
       _servicesChanged(){}
 
       _staffViewChanged(){
@@ -327,6 +334,10 @@
       _getTeamName(uuid){
         if (! this._teamNames ) this._teamNames = {}
         return this._getListValue(this._teams,this._teamNames,uuid,'title');
+      }
+      _getAreaName(uuid){
+        if (! this._areaNames ) this._areaNames = {}
+        return this._getListValue(this._areas,this._areaNames,uuid,'title');
       }
       _getListValue(list,buffer,uuid,prop){
         if (list && uuid) {
