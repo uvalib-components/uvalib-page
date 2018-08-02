@@ -5,8 +5,8 @@
 <link rel="import" href="../iron-flex-layout/iron-flex-layout.html"><!-- 7/27 -->
 <link rel="import" href="../iron-flex-layout/iron-flex-layout-classes.html">
 <link rel="import" href="../uvalib-banner/uvalib-image-header.html">
+<link rel="import" href="../uvalib-page/uvalib-staff-dir.html">
 
-<link rel="import" href="../uva-models/uva-library.html">
 
 <dom-module id="uvalib-template-rmc">
   <template>
@@ -83,17 +83,27 @@
             margin-top: calc(var(--uvalib-spacing-unit)/2);
           } */
 
+        /* .bottom-section {} */
 
-
-        .bottom-section {
-
+        #location-map {
+          width: 300px;
+          height: 300px;
+        }
+        .faux-table {
+          padding: calc(var(--uvalib-spacing-unit)*2);
+          text-align: left;
+          margin-top: 0;
+        }
+        .faux-table h3 {
+          padding: 0;
+          margin: 0;
         }
 
       </style>
     </custom-style>
       <uvalib-image-header src="https://static.lib.virginia.edu/files/temp-images/NCSU_FPO_ONLY-22.jpg" alt="">
           <h1 slot="header-title">Robertson Media Center</h1>
-          <p slot="header-description">The RMC is here to help bring your ideas to life, find inspiration, technical prowess, and that final touch to make a project sing. Whether you're innovating in this reality or a virtual one, RMC's skilled staff and easy-to-use tutorials can connect you to something great!</p>
+          <p slot="header-description">Whether you’re exploring and creating in this reality or a virtual one, RMC’s skilled staff and easy-to-use tutorials can connect you to something great!</p>
         </uvalib-image-header>
       <div class="mid-section layout horizontal wrap justified">
         <paper-card class="flex-2" heading="Spaces" image="https://static.lib.virginia.edu/files/temp-images/NCSU_FPO_ONLY-02.jpg" alt="FPO text">
@@ -109,7 +119,7 @@
 
         <paper-card class="flex-2" heading="Equipment" image="https://static.lib.virginia.edu/files/temp-images/NCSU_FPO_ONLY-21.png" alt="FPO text">
           <div class="card-content">
-            <p>There's nothing like having the right tools for a job, and RMC loans a wide range of equipment to help you realize your vision. 3-D printers, cameras, sound equipment, [something not A/V], and more, you&apos;ll find just what you need to get the job done.</p>
+            <p>There’s nothing like having the right tools for a job, and RMC loans a wide range of equipment to help you realize your vision. 3-D printers, cameras, sound equipment, virtual reality technology, and more&mdash;you’ll find just what you need to get the job done.</p>
           </div>
           <div class="card-actions">
             <a tabindex="-1" href="/rmc/equipment">
@@ -120,7 +130,7 @@
 
         <paper-card class="flex-2" heading="Learning" image="https://static.lib.virginia.edu/files/temp-images/NCSU_FPO_ONLY-06.jpg" alt="FPO text">
           <div class="card-content">
-            <p>RMC offers tools that integrate creative projects directly into the learning process. One-on-one specialty consultations, equipment tutorials, and classroom instruction assistance means you&apos;ll be ready when it counts!</p>
+            <p>Whether you’re a beginning or an advanced user of RMC’s equipment and spaces, one-on-one consultations, equipment tutorials, and classroom instruction assistance means you’ll be ready when it counts!</p>
           </div>
           <div class="card-actions">
             <a tabindex="-1" href="/rmc/learning">
@@ -160,17 +170,50 @@
             <p>RMC holds production studios, a makerspace, a media lab, and virtual reality spaces. Reservable studio spaces and computer stations are available for media project work. A wide variety of audio/video equipment and accessories are available at the RMC Desk for checkout to the University community on a first-come, first-serve basis. Additionally, there are sophisticated video cameras, light kits, and associated filmmaking gear available for class assignment use. A training process and a reservation system are in place for this “high-end” equipment. Consultants at the RMC desk are available to assist with media and equipment questions, and can provide referrals to librarians and media professionals available for training, consultations, and project planning.</p>
           </div>
         </div>
+
+        <div class="header-wrapper">
+          <div class="header-wrapper-bg">
+            <h2>Where we are</h2>
+          </div>
+        </div>
+        <div id="location-hours-container" class="layout horizontal center-justified">
+          <paper-card class="layout horizontal wrap" style="width: 600px;">
+            <iron-image id="location-map" src="https://static.lib.virginia.edu/files/temp-images/rmc-map-2.png" sizing="contain" alt="FPO"></iron-image>
+            <div class="faux-table layout vertical justified" style="width: 190px;">
+              <div>
+                <h3>Hours</h3>
+                <hr>
+                Mon-Th:&nbsp;&nbsp;&nbsp;9 a.m.&nbsp;&mdash;&nbsp;7 p.m.</br>
+                Friday:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;9 a.m.&nbsp;&mdash;&nbsp;5 p.m.</br>
+                Saturday:&nbsp;1 p.m.&nbsp;&mdash;&nbsp;5 p.m.
+              </div>
+              <a href=""><paper-button raised>See all hours</paper-button></a>
+            </div>
+          </paper-card>
+        </div>
+
       </div>
       <div class="bottom-section">
+
         <div class="header-wrapper">
           <div class="header-wrapper-bg">
             <h2>Who we are</h2>
           </div>
         </div>
         <div>
-          <p>Pull in RMC photo, name, title, email</p>
+          <uvalib-staff-dir show-columns="photo,name,title,contact" team="0e8d92d8-b98d-41c8-9336-05a2a8dc09a6"></uvalib-staff-dir>
+        </div>
+
+        <div class="header-wrapper">
+          <div class="header-wrapper-bg">
+            <h2>What we're about</h2>
+          </div>
+        </div>
+        <div>
+          <p>about content</p>
         </div>
       </div>
+    </div>
   </template>
 
   <script>
