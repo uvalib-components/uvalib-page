@@ -1,7 +1,6 @@
 <link rel="import" href="uvalib-directory.html">
-<link rel="import" href="../iron-image/iron-image.html">
 
-<dom-module id="uvalib-staff-dir">
+<dom-module id="uvalib-team-dir">
   <template>
 
   </template>
@@ -10,7 +9,7 @@
     let uvalibStaffDirTemplate;
 
     /**
-     * `uvalib-staff-dir`
+     * `uvalib-team-dir`
      * UVA Library page layout component
      *
      * @customElement
@@ -18,8 +17,8 @@
      * @demo demo/staff-dir.html
      * @demo demo/team-staff.html
      */
-    class UvalibStaffDir extends UvalibDirectory {
-      static get is() { return 'uvalib-staff-dir'; }
+    class UvalibTeamDir extends UvalibDirectory {
+      static get is() { return 'uvalib-team-dir'; }
       static get properties() {
         return Object.assign(super.properties,
             {
@@ -34,10 +33,6 @@
               columns: {
                 type: Array,
                 computed: "_makeColumns(team)"
-              },
-              showColumns: {
-                type:String,
-                value: "name,title,contact,library"
               }
             });
       }
@@ -55,61 +50,51 @@
 
       _makeColumns(team){
         var cols = [];
-        if (this.showColumns.indexOf("photo") > -1)
-          cols.push(
-            {
-              width: "120px",
-              flexGrow: 0,
-              mkCell: function(item,that){
-                return (item.field_image)?
-                  `<iron-image alt="Image of ${item.displayName}" style="width:90px; height:90px;" sizing="cover" position="top" fade class="round" src="${item.field_image.url.replace('https://drupal.lib.virginia.edu/sites/default','https://www.library.virginia.edu')}"></iron-image>`:"";
-              }
-            });
-        if (this.showColumns.indexOf("name") > -1)
-          cols.push(
-            {
-              title:"Name",
-              sortable:{dir:'asc',path:'lastName'},
-              mkCell:function(item,that){
-                return `<a href="/staff/${item.computingId}">${that._getName(item)}</p>`;
-              }
-            });
-        if (this.showColumns.indexOf("title") > -1)
-          cols.push(
-            {
-              title:"Title",
-              mkCell:function(item){
-                return item.jobTitle? item.jobTitle:"";
-              }
-            });
-        if (this.showColumns.indexOf("team") > -1 && !team)
-          cols.push(
-            {
-              title:"Team",
-              mkCell:function(item,that){
-                return item.teams? item.teams.reduce((a,team)=>`<a href="/teams/${team}">${that._getTeamName(team)}</a><br />`,""):"";
-              }
-            });
-        if (this.showColumns.indexOf("contact") > -1)
-          cols.push(
-            {
-              title:"Contact",
-              mkCell:function(item,that){
-                var tmp=`<div class="email"><a href="mailto:${that._getEmail(item)}">${that._getEmail(item)}</a></div>`;
-                tmp+= item.phone? `<div class="phone"><a href="tel:${item.phone}">${item.phone}</a></div>`:"";
-                return tmp;
-              }
-            });
-        if (this.showColumns.indexOf("library") > -1)
-          cols.push(
-            {
-              title:"Library",
-              mkCell:function(item,that){
-                return item.library?
-                  `<a href="/hours#${that._getLibrarySlug(item.library)}">${that._getLibraryName(item.library)}</a>`:
-                  "";
-              }
-            });
+        cols.push(
+          {
+            title:"Name",
+            sortable:{dir:'asc',path:'lastName'},
+            width:"20%",
+            mkCell:function(item,that){
+              return `<a href="/staff/${item.computingId}">${that._getName(item)}</p>`;
+            }
+          });
+        cols.push(
+          {
+            title:"Title",
+            width:"20%",
+            mkCell:function(item){
+              return item.jobTitle? item.jobTitle:"";
+            }
+          });
+        if (!team) cols.push(
+          {
+            title:"Team",
+            width:"20%",
+            mkCell:function(item,that){
+              return item.teams? item.teams.reduce((a,team)=>`<a href="/teams/${team}">${that._getTeamName(team)}</a><br />`,""):"";
+            }
+          });
+        cols.push(
+          {
+            title:"Contact",
+            width:"20%",
+            mkCell:function(item,that){
+              var tmp=`<div class="email"><a href="mailto:${that._getEmail(item)}">${that._getEmail(item)}</a></div>`;
+              tmp+= item.phone? `<div class="phone"><a href="tel:${item.phone}">${item.phone}</a></div>`:"";
+              return tmp;
+            }
+          });
+        cols.push(
+          {
+            title:"Library",
+            width:"20%",
+            mkCell:function(item,that){
+              return item.library?
+                `<a href="/hours#${that._getLibrarySlug(item.library)}">${that._getLibraryName(item.library)}</a>`:
+                "";
+            }
+          });
         return cols;
       }
 
@@ -193,6 +178,6 @@
       }
     }
 
-    window.customElements.define(UvalibStaffDir.is, UvalibStaffDir);
+    window.customElements.define(UvalibTeamDir.is, UvalibTeamDir);
   </script>
 </dom-module>

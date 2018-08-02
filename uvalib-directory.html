@@ -136,15 +136,17 @@
 
       <vaadin-grid height-by-rows="[[largeScreen]]" theme="no-border row-stripes wrap-cell-content" aria-label="Service directory listing" items="[[_data]]">
         <template is="dom-repeat" items="[[columns]]" as="col">
-          <vaadin-grid-column width="[[col.width]]">
-            <template class="header">
-              <template is="dom-if" if="[[col.sortable]]">
-                <vaadin-grid-sorter direction="[[col.sortable.dir]]" path="[[col.sortable.path]]">
+          <vaadin-grid-column width="[[col.width]]" flex-grow="[[col.flexGrow]]">
+            <template is="dom-if" if="dom-if" if="[[col.title]]">
+              <template class="header">
+                <template is="dom-if" if="[[col.sortable]]">
+                  <vaadin-grid-sorter direction="[[col.sortable.dir]]" path="[[col.sortable.path]]">
+                    <div class="title-text">[[col.title]]</div>
+                  </vaadin-grid-sorter>
+                </template>
+                <template is="dom-if" if="[[!col.sortable]]">
                   <div class="title-text">[[col.title]]</div>
-                </vaadin-grid-sorter>
-              </template>
-              <template is="dom-if" if="[[!col.sortable]]">
-                <div class="title-text">[[col.title]]</div>
+                </template>
               </template>
             </template>
             <template>
@@ -197,7 +199,6 @@
               _query: {
                 type:String,
                 observer: "_refresh"
-//                observer: "_filterRows"
               },
               _libraries: {
                 type: Array,
@@ -236,7 +237,6 @@
                 value: false,
                 notify: true,
                 observer: "_refresh"
-//                observer: "_filterRows"
               },
               searchPlaceholder: {
                 type: String,
@@ -253,10 +253,8 @@
         if (!uvalibDirectoryTemplate) {
             // Retrieve this element's dom-module template
             uvalibDirectoryTemplate = Polymer.DomModule.import(this.is, 'template');
-
             // Clone the contents of the superclass template
             let superTemplateContents = UvalibUiElement.template.content.cloneNode(true);
-
             // Insert the superclass contents
             uvalibDirectoryTemplate.content.insertBefore(superTemplateContents, null);
         }
@@ -352,12 +350,6 @@
           if (person) return person.computingId;
         }
       }
-//      _getTeamName(uuid){
-//        if (this._teams && uuid) {
-//          var team = this._teams.find( team => team.uuid === uuid);
-//          if (team) return team.title;
-//        }
-//      }
       _isEven(n) {
         n = Number(n);
         return n === 0 || !!(n && !(n%2));
