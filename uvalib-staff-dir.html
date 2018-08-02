@@ -3,7 +3,14 @@
 
 <dom-module id="uvalib-staff-dir">
   <template>
-
+    <custom-style>
+      <style include="uvalib-theme">
+        iron-image {
+          width:90px !important;
+          height:90px !important;
+        }
+      </style>
+    </custom-style>
   </template>
 
   <script>
@@ -62,7 +69,7 @@
               flexGrow: 0,
               mkCell: function(item,that){
                 return (item.field_image)?
-                  `<iron-image alt="Image of ${item.displayName}" style="width:90px; height:90px;" sizing="cover" position="top" fade class="round" src="${item.field_image.url.replace('https://drupal.lib.virginia.edu/sites/default','https://www.library.virginia.edu')}"></iron-image>`:"";
+                  `<iron-image alt="Image of ${item.displayName}" sizing="cover" position="top" fade class="round" src="${item.field_image.url.replace('https://drupal.lib.virginia.edu/sites/default','https://www.library.virginia.edu')}"></iron-image>`:"";
               }
             });
         if (this.showColumns.indexOf("name") > -1)
