@@ -79,6 +79,7 @@
         if (this.showColumns.indexOf("name") > -1)
           cols.push(
             {
+              width: "20%",
               title:"Name",
               sortable:{dir:'asc',path:'lastName'},
               mkCell:function(item,that){
@@ -88,6 +89,7 @@
         if (this.showColumns.indexOf("title") > -1)
           cols.push(
             {
+              width: "20%",
               title:"Title",
               mkCell:function(item){
                 return item.jobTitle? item.jobTitle:"";
@@ -96,6 +98,7 @@
         if (this.showColumns.indexOf("team") > -1 && !team)
           cols.push(
             {
+              width: "20%",
               title:"Team",
               mkCell:function(item,that){
                 return item.teams? item.teams.reduce((a,team)=>`<a href="/teams/${team}">${that._getTeamName(team)}</a><br />`,""):"";
@@ -104,6 +107,7 @@
         if (this.showColumns.indexOf("contact") > -1)
           cols.push(
             {
+              width: "20%",
               title:"Contact",
               mkCell:function(item,that){
                 var tmp=`<div class="email"><a href="mailto:${that._getEmail(item)}">${that._getEmail(item)}</a></div>`;
@@ -114,6 +118,7 @@
         if (this.showColumns.indexOf("library") > -1)
           cols.push(
             {
+              width: "20%",
               title:"Library",
               mkCell:function(item,that){
                 return item.library?
