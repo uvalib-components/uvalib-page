@@ -12,28 +12,17 @@
   <template>
     <custom-style>
       <style include="uvalib-theme iron-flex iron-flex-alignment iron-flex-factors uvalib-card-style">
-        :host {
-          display: block;
-        }
+        :host { display: block; }
 
-        [hidden] {
-          display: none;
-        }
-        .mid-section, .main-section, .bottom-section {
-          margin: 75px 0
-        }
-        .mid-section {
+        [hidden] { display: none; }
 
-        }
-        .main-section p {
-          padding-left: calc(var(--uvalib-spacing-unit)*2);
-          padding-right: calc(var(--uvalib-spacing-unit)*2);
+        .mid-section, .main-section, .bottom-section { margin: 75px 0; }
 
-        }
-        .main-section h3 {
-          text-transform: uppercase !important;
-        }
+        /* .mid-section {        } */
+        .main-section p { padding-left: calc(var(--uvalib-spacing-unit)*2); padding-right: calc(var(--uvalib-spacing-unit)*2); }
+        .main-section h3 { text-transform: uppercase !important; }
 
+/*Code taken from UVA main - need to clean up and standardize*/
         .header-wrapper {
             background: url(https://static.lib.virginia.edu/files/hp-grayhorizline.png) repeat-x center center;
             background-size: 5px auto;
@@ -82,22 +71,17 @@
         /* .header-wrapper .header-wrapper-bg h3 {
             margin-top: calc(var(--uvalib-spacing-unit)/2);
           } */
+/*END*/
+        /* .bottom-section { } */
 
-        /* .bottom-section {} */
+        #location-map { width: 300px; height: 300px; }
 
-        #location-map {
-          width: 300px;
-          height: 300px;
-        }
         .faux-table {
           padding: calc(var(--uvalib-spacing-unit)*2);
           text-align: left;
           margin-top: 0;
         }
-        .faux-table h3 {
-          padding: 0;
-          margin: 0;
-        }
+        .faux-table h3 { padding: 0; margin: 0; }
 
       </style>
     </custom-style>
