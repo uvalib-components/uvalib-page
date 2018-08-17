@@ -165,7 +165,7 @@
       <div class="layout vertical">
         <template is="dom-repeat" items="[[_libraries]]" as="library" on-rendered-item-count-changed="_handleAnchor">
           <template is="dom-if" if="[[library.libcalID]]">
-            <paper-card id$="[[library.slug]]" heading="[[library.title]]" on-tap="_cardTap">
+            <paper-card id$="[[library.slug]]-hours" heading="[[library.title]]" on-tap="_cardTap">
                 <div class="card-content">
                   <div class="current-times" closed$="[[_isClosed(library.libcalID,_times,_refresh)]]">[[_getRange(library.libcalID,_times,_refresh)]]</div>
                   <div class="extended-info">
