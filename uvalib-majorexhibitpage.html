@@ -23,8 +23,12 @@
 
         paper-button {
           background: white !important;
-          color: var(--color-text-blue);
+          /* color: var(--color-text-blue); */
         }
+        paper-button span:hover {
+          text-decoration: underline;
+        }
+
         .exhibit-header { margin-top: -1px; min-height: 520px; }
 
         /* .exhibit-main-image { } */
@@ -51,7 +55,7 @@
         .exhibit-gallery-info, .exhibit-news { padding-top: 20px; padding-bottom: 20px; }
         .exhibit-gallery-info h2, .exhibit-overview h2.content-title, .exhibit-book-tour h2.content-title, .exhibit-news h2 { text-align: center; clear: both; }
         .exhibit-gallery-item { padding: var(--uvalib-spacing-unit); width: 540px; border-radius: 5px; }
-        .exhibit-gallery-item { padding-top: 20px;  height: 175px; }
+        .exhibit-gallery-item { padding-top: 20px;  height: 200px; }
         .exhibit-gallery-item .gallery-container { height: 100%; }
         .exhibit-card-title { flex-grow: 0; font-size: 24px; font-weight: 600; text-transform: none; padding-bottom: calc(var(--uvalib-spacing-unit)/3);}
         .exhibit-card-content { flex-grow: 1; line-height: 1.5;}
@@ -128,6 +132,9 @@
           /* cusotom font */
           font-family: 'Open Sans', sans-serif !important;
         }
+        :host {
+          --uvalib-liame-link: { font-family: 'Open Sans', sans-serif !important; };
+        }
 
       </style>
     </custom-style>
@@ -145,7 +152,7 @@
             </div>
             <slot class="exhibit-location" name="location"></slot>
             <div class="exhibit-button-group">
-              <paper-button id="exhibitOverviewButton" raised on-tap="_openCollapse" data-collapseid="exhibitOverview">Overview</paper-button>
+              <paper-button id="exhibitOverviewButton" raised on-tap="_openCollapse" data-collapseid="exhibitOverview"><span>Overview</span></paper-button>
             </div>
           </div>
         </div>
@@ -182,21 +189,21 @@
               Friday:       9 a.m. - 5 p.m.<br />
               Saturday:  1 p.m. - 5 p.m.<br  />
             </div>
-            <div class="exhibit-card-link"><a href="/map">directions</a></div>
+            <div class="exhibit-card-link"><a href="/map"><paper-button raised><span>directions</span></paper-button></a></div>
           </div>
         </paper-card>
         <paper-card class="exhibit-gallery-item">
           <div class="gallery-container vertical layout justified">
             <div class="exhibit-card-title">Events</div>
-            <div class="exhibit-card-content"><b>Join Lifetime Learning</b> in celebrating the University of Virginia’s Bicentennial with an <a>immersive, day-long experience on the history of UVA in 100 Objects</a>.</div>
-            <div class="exhibit-card-link"><a href="https://cal.lib.virginia.edu/calendar/events/?cid=4299&t=d&d=0000-00-00&cal=4299">view all library events</a></div>
+            <div class="exhibit-card-content">Next up: (No exhibition events currently scheduled.)</div>
+            <div class="exhibit-card-link"><a href="https://cal.lib.virginia.edu/calendar/events/"><paper-button raised><span>view all library events</span></paper-button></a></div>
           </div>
         </paper-card>
         <paper-card class="exhibit-gallery-item">
           <div class="gallery-container vertical layout justified">
             <div class="exhibit-card-title">Image gallery</div>
             <div class="exhibit-card-content">Browse through selected items on view in the exhibition.</div>
-            <div class="exhibit-card-link"><a on-tap="_openImageViewer">view images</a></div>
+            <div class="exhibit-card-link"><a on-tap="_openImageViewer"><paper-button raised><span>view images</span></paper-button></a></div>
             <iron-ajax auto id="ajax" last-response="{{_ivItems}}" url="[[_mkImagesFeedURL(exhibitSlug)]]" handle-as="json"></iron-ajax>
             <uvalib-imageviewer id="imageViewer" items$="[[_ivItems]]" image-prop="image.url" thumb-prop="image.url" html-prop="body" firebase-array></uvalib-imageviewer>
           </div>
@@ -206,7 +213,7 @@
           <div class="gallery-container vertical layout justified">
             <div class="exhibit-card-title">Bring your group on a tour</div>
             <div class="exhibit-card-content">Schedule a private tour for your group or class. Private tours can be tailored based on your group’s needs.</div>
-            <div class="exhibit-card-link"><a id="exhibitBookTourButton" on-tap="_openCollapse" data-collapseid="exhibitBookTour">Book a Tour</a></div>
+            <div class="exhibit-card-link"><a id="exhibitBookTourButton" on-tap="_openCollapse" data-collapseid="exhibitBookTour"><paper-button raised><span>Book a Tour</span></paper-button></a></div>
 
           </div>
         </paper-card>
@@ -228,8 +235,8 @@
       <uvalib-news association="[[exhibitSlug]]"></uvalib-news>
     </div>
     <div class="exhibit-pre-footer shady">
-      <a href="https://virginia.box.com/s/rqklvioqw52nrw8957na1wb5z87gwba6" target="_blank"><paper-button raised>Download Press Kit</paper-button></a>
-      <paper-button raised><uvalib-liame id="liame" rid="n8rah" subject="Question regarding the current exhibition" overwrite text="Contact Exhibit Coordinator"></uvalib-liame></paper-button>
+      <a href="https://virginia.box.com/s/rqklvioqw52nrw8957na1wb5z87gwba6" target="_blank"><paper-button raised><span>Download Press Kit</span></paper-button></a>
+      <paper-button raised><span><uvalib-liame id="liame" rid="n8rah" subject="Question regarding the current exhibition">Contact Exhibit Coordinator</uvalib-liame></paper-button>
     </div>
 
   </template>
