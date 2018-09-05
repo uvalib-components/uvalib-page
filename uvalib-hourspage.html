@@ -177,10 +177,10 @@
                     <div class="days">
                       <template is="dom-repeat" items="[[_days]]" as="day">
                         <div class="date-row layout horizontal around-justified">
-                          <div class="date">
+                          <div class="date flex">
                             [[day.title]] [[day.date]]
                           </div>
-                          <div class="hours">
+                          <div class="hours flex">
                             [[_getOpenRange(library.libcalID,day.id,_times)]]
                           </div>
                         </div>
