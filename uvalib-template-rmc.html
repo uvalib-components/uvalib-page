@@ -6,7 +6,10 @@
 <link rel="import" href="../iron-flex-layout/iron-flex-layout-classes.html">
 <link rel="import" href="../uvalib-banner/uvalib-image-header.html">
 <link rel="import" href="../uvalib-directory/uvalib-staff.html">
+<link rel="import" href="../iron-image/iron-image.html">
 
+<!-- Need to update for RMC -->
+<link rel="lazy-import" group="uvalib-homepage" href="../uvalib-events-ui/uvalib-events-ui.html">
 
 <dom-module id="uvalib-template-rmc">
   <template>
@@ -24,14 +27,19 @@
 
         /* .bottom-section { } */
 
-        #location-map { width: 300px; height: 300px; }
+        #location-map {
+          width: 300px;
+          height: 300px;
+          /* margin-left: calc(var(--uvalib-spacing-unit)*-1.5);  */
+        }
 
         .faux-table {
-          padding: calc(var(--uvalib-spacing-unit)*2);
+          margin-top: calc(var(--uvalib-spacing-unit)*2);
+          margin-bottom: calc(var(--uvalib-spacing-unit)*2);
+          /* margin-left: calc(var(--uvalib-spacing-unit)*2); */
           text-align: left;
-          margin-top: 0;
         }
-        .faux-table h3 { padding: 0; margin: 0; }
+        .faux-table h3 { padding: 0; margin: 0; text-transform: none !important; }
 
       </style>
     </custom-style>
@@ -107,6 +115,49 @@
 
         <div class="header-wrapper">
           <div class="header-wrapper-bg">
+            <h2>Events &amp; Location (FPO)</h2>
+          </div>
+        </div>
+        <div class="layout horizontal around-justified wrap">
+          <div class="flex-2">
+            <paper-card id="events" heading="Upcoming Events" style="max-width:100%">
+              <div class="card-content">
+                <uvalib-events-ui max-num-events-shown="3"></uvalib-events-ui>
+                <p><b>Library Receives IMLS Planning Grant to Support Charlottesville-Area Equity Atlas in University Collaboration with Community</b></p>
+                <p>The University of Virginia Library is embarking on a new effort to collaborate with the larger Charlottesville community and a University Equity Initiative to imagine and co-create a Charlottesvill…</p>
+<br>
+                <p><b>Adventures in Conservation: Our 2018 Summer Conservation Intern</b></p>
+                <p>Sara Belasco spent four weeks in the Library’s conservation lab gaining new skills and learning about how conservation fits into the larger library program.  We asked her to share a few words…</p>
+<br>
+                <p><b>Massive Alderman inventory project eases discovery of Library collections<b></p>
+                <p>Summer at the Library is always filled with a rich array of happenings, large and small. We’ve hosted high school interns, gotten a peek at the Library’s future, launched an open access publishing …</p>
+              </div>
+              <div class="card-actions">
+               <a tabindex="-1" href="http://cal.lib.virginia.edu/calendar/events">
+                 <paper-button>View All Events</paper-button>
+               </a>
+              </div>
+            </paper-card>
+          </div>
+          <div class="flex-2">
+            <paper-card class="layout horizontal start-justified wrap">
+              <iron-image class="flex-3" id="location-map" src="https://static.lib.virginia.edu/files/temp-images/rmc-map-3.jpg" sizing="contain" alt="FPO"></iron-image>
+              <div class="faux-table layout vertical justified flex-2">
+                <div>
+                  <h3>Hours</h3>
+                  <hr>
+                  Mon-Th:&nbsp;&nbsp;&nbsp;9 a.m.&nbsp;&mdash;&nbsp;7 p.m.<br />
+                  Friday:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;9 a.m.&nbsp;&mdash;&nbsp;5 p.m.<br />
+                  Saturday:&nbsp;1 p.m.&nbsp;&mdash;&nbsp;5 p.m.
+                </div>
+                <a href="https://www.library.virginia.edu/hours"><paper-button raised>See all hours</paper-button></a>
+              </div>
+            </paper-card>
+          </div>
+        </div>
+
+        <!-- <div class="header-wrapper">
+          <div class="header-wrapper-bg">
             <h2>Where we are</h2>
           </div>
         </div>
@@ -124,7 +175,7 @@
               <a href="https://www.library.virginia.edu/hours"><paper-button raised>See all hours</paper-button></a>
             </div>
           </paper-card>
-        </div>
+        </div> -->
 
       </div>
       <div class="bottom-section">
