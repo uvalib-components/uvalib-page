@@ -7,9 +7,7 @@
 <link rel="import" href="../uvalib-banner/uvalib-image-header.html">
 <link rel="import" href="../uvalib-directory/uvalib-staff.html">
 <link rel="import" href="../iron-image/iron-image.html">
-
-<!-- Need to update for RMC -->
-<link rel="lazy-import" group="uvalib-homepage" href="../uvalib-events-ui/uvalib-events-ui.html">
+<link rel="import" href="../uvalib-events-ui/uvalib-events-ui.html">
 
 <dom-module id="uvalib-template-rmc">
   <template>
@@ -28,18 +26,17 @@
         /* .bottom-section { } */
 
         #location-map {
-          width: 300px;
+          width: 100% /*300px*/;
           height: 300px;
           /* margin-left: calc(var(--uvalib-spacing-unit)*-1.5);  */
         }
 
-        .faux-table {
+        /* .faux-table {
           margin-top: calc(var(--uvalib-spacing-unit)*2);
           margin-bottom: calc(var(--uvalib-spacing-unit)*2);
-          /* margin-left: calc(var(--uvalib-spacing-unit)*2); */
           text-align: left;
         }
-        .faux-table h3 { padding: 0; margin: 0; text-transform: none !important; }
+        .faux-table h3 { padding: 0; margin: 0; text-transform: none !important; } */
 
       </style>
     </custom-style>
@@ -95,9 +92,7 @@
             <p>Students are front and center in the planning and running of the RMC. A student advisory group provides input on planning and operations, and a dedicated corps of student staffers provides the bulk of the support for daily operations. Students assist, train, troubleshoot, and fix. Our student staff are also some of our most accomplished makers, leading the way with their experimental approaches to creating new work.</p>
             <p>All students are welcome in this space, no matter their level of knowledge or expertise. Staff are committed to meeting students at their own level and helping them to develop the skills that allow for self-expression in a variety of media.</p>
           </div>
-          <div class="flex-2">
-            <img src="https://static.lib.virginia.edu/files/temp-images/NCSU_FPO_ONLY-10.jpg" style="width:100%;" alt="FPO" />
-          </div>
+          <iron-image class="flex-2" sizing="cover" src="https://static.lib.virginia.edu/files/temp-images/NCSU_FPO_ONLY-10.jpg" style="max-width:100%;" alt="FPO"></iron-image>
         </div>
         <div class="header-wrapper">
           <div class="header-wrapper-bg">
@@ -105,9 +100,7 @@
           </div>
         </div>
         <div class="layout horizontal wrap">
-          <div class="flex-2">
-            <img src="https://static.lib.virginia.edu/files/temp-images/NCSU_FPO_ONLY-13.jpg" style="width:100%;" alt="FPO" />
-          </div>
+          <iron-image class="flex-2" sizing="cover" src="https://static.lib.virginia.edu/files/temp-images/NCSU_FPO_ONLY-13.jpg" style="max-width:100%;" alt="FPO"></iron-image>
           <div class="flex-3">
             <p>RMC holds production studios, a makerspace, a media lab, and virtual reality spaces. Reservable studio spaces and computer stations are available for media project work. A wide variety of audio/video equipment and accessories are available at the RMC Desk for checkout to the University community on a first-come, first-serve basis. Additionally, there are sophisticated video cameras, light kits, and associated filmmaking gear available for class assignment use. A training process and a reservation system are in place for this “high-end” equipment. Consultants at the RMC desk are available to assist with media and equipment questions, and can provide referrals to librarians and media professionals available for training, consultations, and project planning.</p>
           </div>
@@ -120,17 +113,9 @@
         </div>
         <div class="layout horizontal around-justified wrap">
           <div class="flex-2">
-            <paper-card id="events" heading="Upcoming Events" style="max-width:100%">
+            <paper-card id="events" heading="Upcoming Events (FPO)" style="width: 90%;">
               <div class="card-content">
-                <uvalib-events-ui max-num-events-shown="3"></uvalib-events-ui>
-                <p><b>Library Receives IMLS Planning Grant to Support Charlottesville-Area Equity Atlas in University Collaboration with Community</b></p>
-                <p>The University of Virginia Library is embarking on a new effort to collaborate with the larger Charlottesville community and a University Equity Initiative to imagine and co-create a Charlottesvill…</p>
-<br>
-                <p><b>Adventures in Conservation: Our 2018 Summer Conservation Intern</b></p>
-                <p>Sara Belasco spent four weeks in the Library’s conservation lab gaining new skills and learning about how conservation fits into the larger library program.  We asked her to share a few words…</p>
-<br>
-                <p><b>Massive Alderman inventory project eases discovery of Library collections<b></p>
-                <p>Summer at the Library is always filled with a rich array of happenings, large and small. We’ve hosted high school interns, gotten a peek at the Library’s future, launched an open access publishing …</p>
+                <uvalib-events-ui cal-id="4299" class="long" max-num-events-shown="4"></uvalib-events-ui>
               </div>
               <div class="card-actions">
                <a tabindex="-1" href="http://cal.lib.virginia.edu/calendar/events">
@@ -140,43 +125,21 @@
             </paper-card>
           </div>
           <div class="flex-2">
-            <paper-card class="layout horizontal start-justified wrap">
-              <iron-image class="flex-3" id="location-map" src="https://static.lib.virginia.edu/files/temp-images/rmc-map-3.jpg" sizing="contain" alt="FPO"></iron-image>
-              <div class="faux-table layout vertical justified flex-2">
-                <div>
-                  <h3>Hours</h3>
-                  <hr>
-                  Mon-Th:&nbsp;&nbsp;&nbsp;9 a.m.&nbsp;&mdash;&nbsp;7 p.m.<br />
-                  Friday:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;9 a.m.&nbsp;&mdash;&nbsp;5 p.m.<br />
-                  Saturday:&nbsp;1 p.m.&nbsp;&mdash;&nbsp;5 p.m.
-                </div>
-                <a href="https://www.library.virginia.edu/hours"><paper-button raised>See all hours</paper-button></a>
+            <paper-card id="map_hours" heading="Location &amp; Hours" style="width: 90%;">
+              <div class="card-content layout horizontal center-center wrap">
+                <iron-image id="location-map" src="https://static.lib.virginia.edu/files/temp-images/rmc-map-3.jpg" sizing="contain" alt="FPO"></iron-image>
+                <p><b>Mon-Th:&nbsp;&nbsp;&nbsp;9 a.m.&nbsp;&mdash;&nbsp;7 p.m.<br />
+                Friday:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;9 a.m.&nbsp;&mdash;&nbsp;5 p.m.<br />
+                Saturday:&nbsp;1 p.m.&nbsp;&mdash;&nbsp;5 p.m.</b></p>
+              </div>
+              <div class="card-actions">
+               <a tabindex="-1" href="https://www.library.virginia.edu/hours">
+                 <paper-button>See All Hours</paper-button>
+               </a>
               </div>
             </paper-card>
           </div>
         </div>
-
-        <!-- <div class="header-wrapper">
-          <div class="header-wrapper-bg">
-            <h2>Where we are</h2>
-          </div>
-        </div>
-        <div id="location-hours-container" class="layout horizontal center-justified">
-          <paper-card class="layout horizontal wrap" style="width: 600px;">
-            <iron-image id="location-map" src="https://static.lib.virginia.edu/files/temp-images/rmc-map-3.png" sizing="contain" alt="FPO"></iron-image>
-            <div class="faux-table layout vertical justified" style="width: 190px;">
-              <div>
-                <h3>Hours</h3>
-                <hr>
-                Mon-Th:&nbsp;&nbsp;&nbsp;9 a.m.&nbsp;&mdash;&nbsp;7 p.m.<br />
-                Friday:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;9 a.m.&nbsp;&mdash;&nbsp;5 p.m.<br />
-                Saturday:&nbsp;1 p.m.&nbsp;&mdash;&nbsp;5 p.m.
-              </div>
-              <a href="https://www.library.virginia.edu/hours"><paper-button raised>See all hours</paper-button></a>
-            </div>
-          </paper-card>
-        </div> -->
-
       </div>
       <div class="bottom-section">
 
