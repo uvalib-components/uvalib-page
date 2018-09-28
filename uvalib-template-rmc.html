@@ -19,24 +19,23 @@
 
         .mid-section, .main-section, .bottom-section { margin: 75px 0; }
 
-        /* .mid-section {        } */
         .main-section p { padding-left: calc(var(--uvalib-spacing-unit)*2); padding-right: calc(var(--uvalib-spacing-unit)*2); }
         .main-section h3 { text-transform: uppercase !important; }
 
-        /* .bottom-section { } */
-
         #location-map {
-          width: 100% /*300px*/;
+          width: 100%;
           height: 300px;
-          /* margin-left: calc(var(--uvalib-spacing-unit)*-1.5);  */
+        }
+        .grid-container {
+          display: grid;
+          grid-template-columns: 1fr;
         }
 
-        /* .faux-table {
-          margin-top: calc(var(--uvalib-spacing-unit)*2);
-          margin-bottom: calc(var(--uvalib-spacing-unit)*2);
-          text-align: left;
+        :host([large-screen]) .grid-container {
+          display: grid;
+          grid-template-columns: 2fr 1fr;
         }
-        .faux-table h3 { padding: 0; margin: 0; text-transform: none !important; } */
+        :host([large-screen]) .grid-copy { order: -1; }
 
       </style>
     </custom-style>
@@ -80,29 +79,33 @@
       </div>
 
       <div class="main-section">
-        <!-- <iron-image src="https://static.lib.virginia.edu/files/temp-images/NCSU_FPO_ONLY-08.jpg" sizing="cover" style="height: 200px; width: 100%;" alt=""></iron-image> -->
         <div class="header-wrapper">
           <div class="header-wrapper-bg">
             <h2>Mission</h2>
           </div>
         </div>
-        <div class="layout horizontal wrap">
-          <div class="flex-3">
+        <div class="grid-container">
+          <div class="grid-copy">
             <p>The RMC is all about creativity. Located on the third floor of Clemons Library, the RMC fosters innovations in learning and creation by providing space, equipment, and expertise to support audiovisual production, 3D data processing, 3D fabrication, and virtual and augmented reality. Staff offer individual consultations and group training to help students with their projects and assist faculty in the design of innovative assignments.</p>
             <p>Students are front and center in the planning and running of the RMC. A student advisory group provides input on planning and operations, and a dedicated corps of student staffers provides the bulk of the support for daily operations. Students assist, train, troubleshoot, and fix. Our student staff are also some of our most accomplished makers, leading the way with their experimental approaches to creating new work.</p>
             <p>All students are welcome in this space, no matter their level of knowledge or expertise. Staff are committed to meeting students at their own level and helping them to develop the skills that allow for self-expression in a variety of media.</p>
           </div>
-          <iron-image class="flex-2" sizing="cover" src="https://static.lib.virginia.edu/files/temp-images/NCSU_FPO_ONLY-10.jpg" style="max-width:100%;" alt="FPO"></iron-image>
+          <div class="grid-img">
+            <img class="img-responsive" src="https://static.lib.virginia.edu/files/temp-images/NCSU_FPO_ONLY-10.jpg" alt="FPO"/>
+          </div>
+          <!-- <iron-image class="flex-2" sizing="cover" src="https://static.lib.virginia.edu/files/temp-images/NCSU_FPO_ONLY-10.jpg" style="max-width:100%;" alt="FPO"></iron-image> -->
         </div>
         <div class="header-wrapper">
           <div class="header-wrapper-bg">
             <h3>Services and Access</h3>
           </div>
         </div>
-        <div class="layout horizontal wrap">
-          <iron-image class="flex-2" sizing="cover" src="https://static.lib.virginia.edu/files/temp-images/NCSU_FPO_ONLY-13.jpg" style="max-width:100%;" alt="FPO"></iron-image>
-          <div class="flex-3">
+        <div class="grid-container">
+          <div class="grid-copy">
             <p>RMC holds production studios, a makerspace, a media lab, and virtual reality spaces. Reservable studio spaces and computer stations are available for media project work. A wide variety of audio/video equipment and accessories are available at the RMC Desk for checkout to the University community on a first-come, first-serve basis. Additionally, there are sophisticated video cameras, light kits, and associated filmmaking gear available for class assignment use. A training process and a reservation system are in place for this “high-end” equipment. Consultants at the RMC desk are available to assist with media and equipment questions, and can provide referrals to librarians and media professionals available for training, consultations, and project planning.</p>
+          </div>
+          <div class="grid-img">
+            <img class="img-responsive" src="https://static.lib.virginia.edu/files/temp-images/NCSU_FPO_ONLY-13.jpg" alt="FPO" />
           </div>
         </div>
 
@@ -151,15 +154,6 @@
         <div>
           <uvalib-staff show-columns="photo,name,title,contact" team="0e8d92d8-b98d-41c8-9336-05a2a8dc09a6"></uvalib-staff>
         </div>
-
-        <!-- <div class="header-wrapper">
-          <div class="header-wrapper-bg">
-            <h2>What we're about</h2>
-          </div>
-        </div>
-        <div>
-          <p>about content</p>
-        </div> -->
       </div>
     </div>
   </template>
