@@ -1,0 +1,137 @@
+<link rel="import" href="../uvalib-theme/uvalib-ui-element.html">
+<link rel="import" href="../uvalib-theme/uvalib-theme.html">
+<link rel="import" href="../paper-button/paper-button.html"><!-- 7/27 -->
+<link rel="import" href="../paper-card/paper-card.html"><!-- 7/27 -->
+<link rel="import" href="../iron-flex-layout/iron-flex-layout.html"><!-- 7/27 -->
+<link rel="import" href="../iron-flex-layout/iron-flex-layout-classes.html">
+<link rel="import" href="../uvalib-banner/uvalib-image-header.html">
+<link rel="import" href="../uvalib-directory/uvalib-staff.html">
+<link rel="import" href="../iron-image/iron-image.html">
+<link rel="import" href="../uvalib-events-ui/uvalib-events-ui.html">
+<link rel="import" href="../uvalib-directory/uvalib-staff-card.html">
+
+<dom-module id="uvalib-reno">
+  <template>
+    <custom-style>
+      <style include="uvalib-theme iron-flex iron-flex-alignment iron-flex-factors uvalib-card-style">
+        :host { display: block; }
+
+        [hidden] { display: none; }
+
+        .mid-section, .main-section, .bottom-section { margin: 75px 0; }
+
+        .main-section p { padding-left: calc(var(--uvalib-spacing-unit)*2); padding-right: calc(var(--uvalib-spacing-unit)*2); }
+        .main-section h3 { text-transform: uppercase !important; }
+
+        #location-map {
+          width: 100%;
+          height: 300px;
+        }
+
+        .benefits li {
+          margin-bottom: calc(var(--uvalib-spacing-unit)*1.15);
+          font-size: calc(var(--uvalib-spacing-unit)*1.15);
+        }
+
+        .grid-container, .grid-container-half {
+          display: grid;
+          grid-template-columns: 1fr;
+        }
+
+        :host([large-screen]) .grid-container {
+          display: grid;
+          grid-template-columns: 2fr 1fr;
+        }
+        :host([large-screen]) .grid-container-half {
+          display: grid;
+          grid-template-columns: 2fr .25fr 2fr;
+        }
+        :host([large-screen]) .grid-copy { order: -1; }
+
+      </style>
+    </custom-style>
+      <uvalib-image-header src="https://static.lib.virginia.edu/files/renovation-images/ald-main-banner.jpg" alt="Artist's rendering of proposed new building facade.">
+        <h1 slot="header-title">Join us in shaping the future of Alderman Library</h1>
+        <p slot="header-description">Ut malesuada tempus est. Vivamus ultrices, lectus vel varius consectetur, erat lorem feugiat dui, sit amet eleifend felis eros eget sem. Aliquam convallis sodales diam.</p>
+      </uvalib-image-header>
+      <div class="grid-container">
+        <div class="grid-copy uva-margin-right">
+          <p class="bigFirstLetter">The renovation of Alderman marks the third chapter in the University’s history. The first chapter began when the Rotunda, UVA’s first Library, was constructed as the focus of Grounds—a notable departure from the practice of centering universities around religious buildings, which was customary at the time. The second chapter began with the building of Alderman Library, with shelving for a much larger collection of printed information.</p>
+          <p>Opened in 1938, Alderman Library became the flagship library of the state’s premier institution. Eighty years ago, it was state of the art, but it was built to serve a much smaller user population, at a time when libraries were used very differently and collections were much smaller. The design has limited flexibility to meet our evolving needs, and apart from the “New Stacks” addition of 1967, no large-scale renovation or re-imagining has been undertaken.</p>
+          <p>The renovation of Alderman provides an opportunity for us to bring the Library  up to current standards of safety, accessibility, and service. But more importantly, it is essential to restore Alderman to the position it enjoyed when it opened—a contemporary library with modern amenities suited to the needs of its users.</p>
+        </div>
+        <div class="grid-img uva-margin-top">
+          <img class="img-responsive" src="https://static.lib.virginia.edu/files/renovation-images/NewEast.jpg" alt="FPO"/>
+        </div>
+      </div>
+      <hr>
+      <div class="grid-container-half">
+        <div>
+          <img class="img-responsive" src="https://static.lib.virginia.edu/files/renovation-images/NewEast.jpg" alt="FPO"/>
+          <p>As the University of Virginia celebrates its bicentennial, Alderman Library is being renovated and re-imagined. This major capital project marks a new chapter in the history of the University, lays a strong foundation for continued growth and expansion, and creates the hub of the flexible library system that UVA needs as it enters its third century.</p>
+        </div>
+        <div></div>
+        <div class="uva-margin-left-right">
+          <h3 class="all-cap">Contact</h3>
+          <uvalib-staff-card computing-id="rlm4kf"></uvalib-staff-card>
+        </div>
+      </div>
+      <hr>
+      <div class="grid-container-half">
+        <img class="img-responsive" src="https://static.lib.virginia.edu/files/renovation-images/StudyCourt.jpg" alt="Artist's rendering of new study court area. Open courtyard with trees, tables and chairs. There is a glass ceiling."/>
+        <div></div>
+        <div class="uva-margin-left-right benefits">
+          <h3 class="all-cap">Benefits</h3>
+          <ul>
+            <li>Renewal of building systems with all new (much-needed) infrastructure</li>
+            <li>An updated and expanded south entrance and a new highly-accessible north entrance</li>
+            <li>Better utilization of space to improve wayfinding and offer a variety of environments for study, research, and social interaction</li>
+            <li>Restoration and optimization of historic Alderman characteristics such as the McGregor Room</li>
+            <li>A much-improved environment for students and faculty in the humanities and social sciences to work with extensive and growing print collections</li>
+            <li>Better facilities for the ongoing conservation and preservation of the print collections</li>
+            <li>Ample lighting to improve the interior and make optimal use of existing light wells</li>
+            <li>Adaptability to meet the broadest range of future needs</li>
+          </ul>
+        </div>
+      </div>
+      <uvalib-image-header src="https://static.lib.virginia.edu/files/renovation-images/field.jpg" alt="Artist rendering of proposed new building facade.">
+        <!-- <h1 slot="header-title">Join us in shaping the future of Alderman Library</h1>
+        <p slot="header-description">Whether you’re exploring and creating in this reality or a virtual one, RMC’s skilled staff and easy-to-use tutorials can connect you to something great!</p> -->
+      </uvalib-image-header>
+      <div class="grid-container-half">
+        <img class="img-responsive" src="https://static.lib.virginia.edu/files/renovation-images/Passage.jpg" alt="Artist's rendering of new study court area. Open courtyard with trees, tables and chairs. There is a glass ceiling."/>
+        <div></div>
+        <div class="uva-margin-left-right">
+          <p>Scholars throughout the University and beyond depend on Alderman Library for access to a wealth of collections, support for scholarship, and services for teaching and learning. Users of the library also come into the building for inperson access to the expertise of librarians, curators, technologists, and other specialized staff. These users have a right to expect a safe environment that meets their academic needs. A major renovation will accomplish that and much more, not only creating an accessible library that is welcoming to all but rebuilding and restoring a building that has become an iconic symbol of the intellectual experience at the University of Virginia.</p>
+          <p>In response to a dynamic learning ecosystem, the role of the Library is experiencing a transformation at UVA. The Alderman renovation is a key part of that transformation. Help us cement Alderman’s place as a hub of discovery and learning by making a gift. There are multiple opportunities to make both immediate-use and endowed gifts.</p>
+        </div>
+      </div>
+
+      <hr><hr>
+      
+
+    </div>
+  </template>
+
+  <script>
+    /**
+     * `uvalib-reno`
+     * UVA Library rmc template component
+     *
+     * @customElement
+     * @polymer
+     * @demo demo/reno.html
+     */
+     class UvalibTemplateRMC extends UvalibUiElement {
+       static get is() { return 'uvalib-reno'; }
+       //Concat the this elements template with the parents
+       static get template() {
+         var parentTemplate = UvalibUiElement.template.cloneNode(true);
+         var childTemplate = Polymer.DomModule.import('uvalib-reno', 'template');
+         parentTemplate.content.insertBefore(childTemplate.content,null);
+         return parentTemplate;
+       }
+     }
+     window.customElements.define(UvalibTemplateRMC.is, UvalibTemplateRMC);
+  </script>
+</dom-module>
