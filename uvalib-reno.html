@@ -42,10 +42,11 @@
           font-size: 18px;
         }
 
-        .grid-container-images {
-          margin: 0;
+        .fred {
           display: grid;
-          grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+          grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+          /* width: 100vw; */
+          grid-template-rows: 250px;
           overflow-y: hidden;
         }
 
@@ -72,7 +73,8 @@
 
         :host([large-screen]) .header-copy {
           display: grid;
-          grid-template-columns: 10% 4fr 10%;
+          /* grid-template-columns: 10% 4fr 10%;
+          text-align: center; */
         }
 
         :host([large-screen]) .grid-container-right {
@@ -114,7 +116,7 @@
         <div></div>
       </div>
 
-      <div class="grid-container-images">
+      <div class="fred">
         <img class="img-responsive" src="https://static.lib.virginia.edu/files/renovation-images/NewEast.jpg" alt="FPO" />
         <img class="img-responsive" src="https://static.lib.virginia.edu/files/renovation-images/main.jpg" alt="FPO" />
         <img class="img-responsive" src="https://static.lib.virginia.edu/files/renovation-images/Passage.jpg" alt="FPO" />
@@ -142,6 +144,7 @@
         </div>
       </div>
 
+
       <div class="grid-container">
         <div class="timeline layout vertical center center">
           <h2>Renovation Timeline</h2>
@@ -149,7 +152,15 @@
           <a href="#">View Timeline Details</a>
         </div>
       </div>
-
+      <div class="grid-container">
+        <google-youtube
+          video-id="e4HYEBbN9aQ"
+          fluid="1"
+          rel="0"
+          start="5"
+          autoplay="0">
+        </google-youtube>        
+      </div>
       <div class="grid-container">
         <paper-card heading="Internal Blog Feeds">
           <div class="card-content">
@@ -162,23 +173,8 @@
           </div>
         </paper-card>
 
-        <paper-card>
-          <div class="card-content">
-            <div>
-              <google-youtube
-                video-id="e4HYEBbN9aQ"
-                fluid="1"
-                rel="0"
-                start="5"
-                autoplay="0">
-              </google-youtube>
-            </div>
-          </div>
-        </paper-card>
-
         <paper-card heading="Your Alderman Story" image="https://static.lib.virginia.edu/files/renovation-images/ald-story.jpg" alt="FPO">
           <div class="card-content">
-            <h3>Photo of McGregor Room</h3>
             <p>If you’re a student, staff or faculty member, visiting scholar, or community user&mdash;current or former&mdash;we want to hear from you!</p>
           </div>
           <div class="card-actions">
@@ -189,7 +185,6 @@
         </paper-card>
         <paper-card heading="History" image="https://static.lib.virginia.edu/files/renovation-images/history.jpg" alt="FPO">
           <div class="card-content">
-            <h3>1938 Mem hall</h3>
             <p>Ut malesuada tempus est. Vivamus ultrices, lectus vel varius consectetur, erat lorem feugiat dui.</p>
           </div>
           <div class="card-actions">
