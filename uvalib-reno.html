@@ -101,7 +101,7 @@
       </style>
     </custom-style>
     <uvalib-image-header src="https://static.lib.virginia.edu/files/renovation-images/field.jpg" fred no-overlay position="top" alt="Artist's rendering of proposed new building facade.">
-      <h1 slot="header-title" class="all-cap" style="text-decoration: ">Help shape the future of the Library</h1>
+      <h1 slot="header-title" class="all-cap">Help shape the future of the Library</h1>
     </uvalib-image-header>
     <div class="grid-main">
       <div class="header-copy">
@@ -115,6 +115,10 @@
         </div>
         <div></div>
       </div>
+
+      <uvalib-image-header src="https://static.lib.virginia.edu/files/renovation-images/collage.jpg" no-overlay position="top" alt="Artist's rendering of proposed new building facade.">
+        <h1 slot="header-title" class="all-cap" style="text-shadow: 2px 2px var(--uvalib-text-dk-grey);">Test component<br>with one image</h1>
+      </uvalib-image-header>
 
       <div class="fred">
         <img class="img-responsive" src="https://static.lib.virginia.edu/files/renovation-images/NewEast.jpg" alt="FPO" />
@@ -159,19 +163,10 @@
           rel="0"
           start="5"
           autoplay="0">
-        </google-youtube>        
+        </google-youtube>
       </div>
       <div class="grid-container">
-        <paper-card heading="Internal Blog Feeds">
-          <div class="card-content">
-              <uvalib-blog-list limit="3" category="renovations"></uvalib-blog-list>
-          </div>
-          <div class="card-actions">
-            <a tabindex="-1" href="/renovation/history-of-the-project">
-              <paper-button>FPO - Read more</paper-button>
-            </a>
-          </div>
-        </paper-card>
+
 
         <paper-card heading="Your Alderman Story" image="https://static.lib.virginia.edu/files/renovation-images/ald-story.jpg" alt="FPO">
           <div class="card-content">
@@ -194,6 +189,17 @@
           </div>
         </paper-card>
 
+        <paper-card heading="Project Documentation" image="https://static.lib.virginia.edu/files/renovation-images/proj-doc.jpg" alt="FPO">
+          <div class="card-content">
+            <p>Ut malesuada tempus est. Vivamus ultrices, lectus vel varius consectetur, erat lorem feugiat dui.</p>
+          </div>
+          <div class="card-actions">
+            <a tabindex="-1" href="/renovation/project-planning-documents">
+              <paper-button>FPO</paper-button>
+            </a>
+          </div>
+        </paper-card>
+
         <paper-card heading="In the News" style="max-width:100%">
           <div class="card-content">
             <uvalib-news-list limit="3" association="renovation"></uvalib-news-list>
@@ -205,16 +211,18 @@
           </div>
         </paper-card>
 
-        <paper-card heading="Project Documentation" image="https://static.lib.virginia.edu/files/renovation-images/proj-doc.jpg" alt="FPO">
+        <paper-card heading="Internal Blog Feeds">
           <div class="card-content">
-            <p>Ut malesuada tempus est. Vivamus ultrices, lectus vel varius consectetur, erat lorem feugiat dui.</p>
+              <uvalib-blog-list limit="3" category="renovations"></uvalib-blog-list>
           </div>
           <div class="card-actions">
-            <a tabindex="-1" href="/renovation/project-planning-documents">
-              <paper-button>FPO</paper-button>
+            <a tabindex="-1" href="/renovation/history-of-the-project">
+              <paper-button>FPO - Read more</paper-button>
             </a>
           </div>
         </paper-card>
+
+
       </div>
 
       <div>
