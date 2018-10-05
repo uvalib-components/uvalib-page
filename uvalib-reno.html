@@ -27,26 +27,6 @@
           display: none;
         }
 
-        .mid-section,
-        .main-section,
-        .bottom-section {
-          margin: 75px 0;
-        }
-
-        .main-section p {
-          padding-left: calc(var(--uvalib-spacing-unit)*2);
-          padding-right: calc(var(--uvalib-spacing-unit)*2);
-        }
-
-        .main-section h3 {
-          text-transform: uppercase !important;
-        }
-
-        #location-map {
-          width: 100%;
-          height: 300px;
-        }
-
         .benefits li {
           margin-bottom: calc(var(--uvalib-spacing-unit)*1.15);
           font-size: calc(var(--uvalib-spacing-unit)*1.15);
@@ -102,7 +82,7 @@
       </div>
 
       <div class="grid-container-right">
-        <img class="img-responsive" src="https://static.lib.virginia.edu/files/renovation-images/NewEast.jpg" alt="FPO" />
+        <img class="img-responsive" src="https://static.lib.virginia.edu/files/renovation-images/main.jpg" alt="FPO" />
         <div>
           <h3 class="all-cap">Contact</h3>
           <p>To learn more about giving to the renovation, contact Robin Mitchell.</p>
@@ -111,7 +91,7 @@
       </div>
 
       <div class="grid-container">
-        <img class="img-responsive" src="https://static.lib.virginia.edu/files/renovation-images/StudyCourt.jpg" alt="Artist's rendering of new study court area. Open courtyard with trees, tables and chairs. There is a glass ceiling." />
+        <img class="img-responsive" style="height: 750px;" src="https://static.lib.virginia.edu/files/renovation-images/StudyCourt.jpg" alt="Artist's rendering of new study court area. Open courtyard with trees, tables and chairs. There is a glass ceiling." />
         <div class="uva-margin-left-right benefits">
           <h3 class="all-cap">Benefits</h3>
           <ul>
@@ -229,11 +209,6 @@
       static get is() {
         return 'uvalib-reno';
       }
-      // static get properties() {
-      //   return Object.assign(super.properties, {
-      //     background-image: String
-      //   });
-      // }
       //Concat the this elements template with the parents
       static get template() {
         var parentTemplate = UvalibUiElement.template.cloneNode(true);
