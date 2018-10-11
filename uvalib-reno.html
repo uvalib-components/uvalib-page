@@ -74,6 +74,9 @@
           border-top: 2px dotted var(--uvalib-secondary-medium-gray);
         }
 
+        /* :host([large-screen]) .video { width: 95%; } */
+
+        :host([large-screen]) .staff-bio { margin-bottom: 30px; }
 
         :host([large-screen]) .header-copy {
           display: grid;
@@ -131,13 +134,24 @@
         </ul>
       </div>
 
-      <div class="grid-container">
+      <div class="grid-container" style="grid-gap: 3rem;">
         <div>
-          <p>The role of the Library is experiencing a transformation at UVA, and the Alderman renovation is a key part of that change. Help us cement Alderman’s place as a hub of discovery and learning by making a gift. There are multiple
-            opportunities to make both immediate-use and endowed gifts.</p>
+          <div class="staff-bio">
+            <p>The role of the Library is experiencing a transformation at UVA, and the Alderman renovation is a key part of that change. Help us cement Alderman’s place as a hub of discovery and learning by making a gift. There are multiple
+              opportunities to make both immediate-use and endowed gifts.</p>
 
-          <p class="top-line">To learn more about giving to the renovation, contact Robin Mitchell.</p>
-          <uvalib-staff-card computing-id="rlm4kf"></uvalib-staff-card>
+            <p class="top-line">To learn more about giving to the renovation, contact Robin Mitchell.</p>
+            <uvalib-staff-card computing-id="rlm4kf"></uvalib-staff-card>
+          </div>
+          <div class="grid-container video">
+            <google-youtube
+              video-id="e4HYEBbN9aQ"
+              fluid="1"
+              rel="0"
+              start="5"
+              autoplay="0">
+            </google-youtube>
+          </div>
         </div>
         <div class="benefits">
           <h3 class="all-cap">Benefits</h3>
@@ -162,7 +176,7 @@
           <a href="#">View Timeline Details</a>
         </div>
       </div>
-      <div class="grid-container">
+      <!-- <div class="grid-container">
         <google-youtube
           video-id="e4HYEBbN9aQ"
           fluid="1"
@@ -170,7 +184,7 @@
           start="5"
           autoplay="0">
         </google-youtube>
-      </div>
+      </div> -->
       <div class="grid-container">
 
 
@@ -180,24 +194,24 @@
           </div>
           <div class="card-actions">
             <a tabindex="-1" href="/renovation/my-alderman-story">
-              <paper-button>FPO - Tell your story</paper-button>
+              <paper-button>Tell your story</paper-button>
             </a>
           </div>
         </paper-card>
-        <paper-card heading="History" image="https://static.lib.virginia.edu/files/renovation-images/history.jpg" alt="FPO">
+        <paper-card heading="A Rich Journey" image="https://static.lib.virginia.edu/files/renovation-images/history.jpg" alt="FPO">
           <div class="card-content">
-            <p>Ut malesuada tempus est. Vivamus ultrices, lectus vel varius consectetur, erat lorem feugiat dui.</p>
+            <p>The history of UVA can be divided into three chapters, each marked by the construction of a library.</p>
           </div>
           <div class="card-actions">
             <a tabindex="-1" href="/renovation/history-of-the-project">
-              <paper-button>FPO - Read the history</paper-button>
+              <paper-button>Read history</paper-button>
             </a>
           </div>
         </paper-card>
 
-        <paper-card heading="Project Documentation" image="https://static.lib.virginia.edu/files/renovation-images/proj-doc.jpg" alt="FPO">
+        <paper-card heading="Documentation" image="https://static.lib.virginia.edu/files/renovation-images/proj-doc.jpg" alt="FPO">
           <div class="card-content">
-            <p>Ut malesuada tempus est. Vivamus ultrices, lectus vel varius consectetur, erat lorem feugiat dui.</p>
+            <p>Design documents, planning studies, committee information, and beyond.</p>
           </div>
           <div class="card-actions">
             <a tabindex="-1" href="/renovation/project-planning-documents">
@@ -212,18 +226,18 @@
           </div>
           <div class="card-actions">
             <a tabindex="-1" href="http://news.library.virginia.edu">
-              <paper-button>More News</paper-button>
+              <paper-button>see more</paper-button>
             </a>
           </div>
         </paper-card>
 
-        <paper-card heading="Internal Blog Feeds">
+        <paper-card heading="Updates">
           <div class="card-content">
               <uvalib-blog-list limit="3" category="renovations"></uvalib-blog-list>
           </div>
           <div class="card-actions">
             <a tabindex="-1" href="/renovation/history-of-the-project">
-              <paper-button>FPO - Read more</paper-button>
+              <paper-button>view all</paper-button>
             </a>
           </div>
         </paper-card>
