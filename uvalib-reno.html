@@ -116,11 +116,10 @@
         <div></div>
       </div>
 
-      <uvalib-image-header src="https://static.lib.virginia.edu/files/renovation-images/collage.jpg" no-overlay position="top" alt="Artist's rendering of proposed new building facade.">
-        <h1 slot="header-title" class="all-cap" style="text-shadow: 2px 2px var(--uvalib-text-dk-grey);">Test component<br>with one image</h1>
-      </uvalib-image-header>
+      <!-- <uvalib-image-header hidden$="[[smallScreen]]" sizing="contain" src="https://static.lib.virginia.edu/files/renovation-images/collage.jpg" no-overlay position="top" alt="Artist's rendering of proposed new building facade."></uvalib-image-header> -->
+      <img class="img-responsive " hidden$="[[smallScreen]]" src="https://static.lib.virginia.edu/files/renovation-images/collage.jpg" alt="Artist's rendering of proposed new building facade." />
 
-      <div class="fred">
+      <div class="fred" hidden$="[[!smallScreen]]">
         <img class="img-responsive" src="https://static.lib.virginia.edu/files/renovation-images/NewEast.jpg" alt="FPO" />
         <img class="img-responsive" src="https://static.lib.virginia.edu/files/renovation-images/main.jpg" alt="FPO" />
         <img class="img-responsive" src="https://static.lib.virginia.edu/files/renovation-images/Passage.jpg" alt="FPO" />
@@ -222,7 +221,6 @@
           </div>
         </paper-card>
 
-
       </div>
 
       <div>
@@ -231,11 +229,11 @@
 
       <!-- <p>fred</p>
       <div class="paralax-container" background-image="https://static.lib.virginia.edu/files/renovation-images/ald-main-banner.jpg"></div>
-      <p>fred</p> -->
+      <p>fred</p>
 
       <app-box style="height: 250px;" effects="parallax-background">
         <img slot="background" src="https://static.lib.virginia.edu/files/renovation-images/ald-main-banner.jpg" style="width: 100%; height: 612px;">
-      </app-box>
+      </app-box> -->
     </div>
 
   </template>
