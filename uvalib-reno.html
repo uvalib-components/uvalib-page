@@ -21,6 +21,7 @@
       <style include="uvalib-theme iron-flex iron-flex-alignment iron-flex-factors uvalib-card-style">
         :host {
           display: block;
+          --uvalib-card-font-size: 18px;
         }
 
         [hidden] {
@@ -74,6 +75,19 @@
           border-top: 2px dotted var(--uvalib-secondary-medium-gray);
         }
 
+        /* .full-width {
+          position: relative;
+          display: block;
+        }
+        .full-width img {
+          pposition: absolute;
+          top:0;
+          bottom: 0;
+          height: var(--uvalib-image-header-height, 375px);
+          width: 100vw;
+          z-index: 1;
+        } */
+
         /* :host([large-screen]) .video { width: 95%; } */
 
         :host([large-screen]) .staff-bio { margin-bottom: 30px; }
@@ -124,7 +138,9 @@
       </div>
 
       <!-- <uvalib-image-header hidden$="[[smallScreen]]" sizing="contain" src="https://static.lib.virginia.edu/files/renovation-images/collage.jpg" no-overlay position="top" alt="Artist's rendering of proposed new building facade."></uvalib-image-header> -->
-      <img class="img-responsive " hidden$="[[smallScreen]]" src="https://static.lib.virginia.edu/files/renovation-images/collage.jpg" alt="Artist's rendering of proposed new building facade." />
+      <div class="full-width" hidden$="[[smallScreen]]">
+        <img class="img-responsive" src="https://static.lib.virginia.edu/files/renovation-images/collage.jpg" alt="Artist's rendering of proposed new building facade." />
+      </div>
 
       <div class="img-group" hidden$="[[!smallScreen]]">
         <ul>
@@ -173,21 +189,11 @@
         <div class="timeline layout vertical center center">
           <h2>Renovation Timeline</h2>
           <img class="img-responsive" alt="A timeline with milestones, described fully below" src="/files/inline-images/ConstructionTimeline-fall18-web_0.png" />
-          <a href="#">View Timeline Details</a>
+          <a href="/renovation/project-timeline">View Timeline Details</a>
         </div>
       </div>
-      <!-- <div class="grid-container">
-        <google-youtube
-          video-id="e4HYEBbN9aQ"
-          fluid="1"
-          rel="0"
-          start="5"
-          autoplay="0">
-        </google-youtube>
-      </div> -->
+
       <div class="grid-container">
-
-
         <paper-card heading="Your Alderman Story" image="https://static.lib.virginia.edu/files/renovation-images/ald-story.jpg" alt="FPO">
           <div class="card-content">
             <p>If you’re a student, staff or faculty member, visiting scholar, or community user&mdash;current or former&mdash;we want to hear from you!</p>
@@ -215,7 +221,7 @@
           </div>
           <div class="card-actions">
             <a tabindex="-1" href="/renovation/project-planning-documents">
-              <paper-button>FPO</paper-button>
+              <paper-button>Learn more</paper-button>
             </a>
           </div>
         </paper-card>
@@ -224,11 +230,11 @@
           <div class="card-content">
             <uvalib-news-list limit="3" association="renovation"></uvalib-news-list>
           </div>
-          <div class="card-actions">
+          <!-- <div class="card-actions">
             <a tabindex="-1" href="http://news.library.virginia.edu">
               <paper-button>see more</paper-button>
             </a>
-          </div>
+          </div> -->
         </paper-card>
 
         <paper-card heading="Updates">
@@ -236,7 +242,7 @@
               <uvalib-blog-list limit="3" category="renovations"></uvalib-blog-list>
           </div>
           <div class="card-actions">
-            <a tabindex="-1" href="/renovation/history-of-the-project">
+            <a tabindex="-1" href="http://news.library.virginia.edu">
               <paper-button>view all</paper-button>
             </a>
           </div>
