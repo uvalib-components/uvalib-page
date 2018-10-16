@@ -35,6 +35,7 @@
 
         .grid-main,
         .grid-container,
+        .grid-container.bio-block,
         .grid-container-right {
           display: grid;
           grid-gap: 4rem;
@@ -75,27 +76,10 @@
           border-top: 2px dotted var(--uvalib-secondary-medium-gray);
         }
 
-        /* .full-width {
-          position: relative;
-          display: block;
-        }
-        .full-width img {
-          pposition: absolute;
-          top:0;
-          bottom: 0;
-          height: var(--uvalib-image-header-height, 375px);
-          width: 100vw;
-          z-index: 1;
-        } */
-
-        /* :host([large-screen]) .video { width: 95%; } */
-
         :host([large-screen]) .staff-bio { margin-bottom: 30px; }
 
         :host([large-screen]) .header-copy {
           display: grid;
-          /* grid-template-columns: 10% 4fr 10%;
-          text-align: center; */
         }
 
         :host([large-screen]) .grid-container-right {
@@ -108,6 +92,10 @@
           display: grid;
           grid-template-columns: repeat(auto-fit, minmax(375px, 1fr));
           grid-gap: 1rem;
+        }
+
+        :host([large-screen]) .grid-container.bio-block {
+          grid-gap: 3rem;
         }
 
         :host([large-screen]) .grid-copy {
@@ -150,8 +138,8 @@
         </ul>
       </div>
 
-      <div class="grid-container" style="grid-gap: 3rem;">
-        <div>
+      <div class="grid-container bio-block">
+        <div class="grid-container">
           <div class="staff-bio">
             <p>The role of the Library is experiencing a transformation at UVA, and the Alderman renovation is a key part of that change. Help us cement Alderman’s place as a hub of discovery and learning by making a gift. There are multiple
               opportunities to make both immediate-use and endowed gifts.</p>
