@@ -176,6 +176,10 @@
          parentTemplate.content.insertBefore(childTemplate.content,null);
          return parentTemplate;
        }
+       connectedCallback() {
+         super.connectedCallback();
+         setTimeout( this._handleAnchor.bind(this), 2000);
+       }
      }
      window.customElements.define(UvalibTemplateRMC.is, UvalibTemplateRMC);
   </script>
