@@ -18,10 +18,7 @@
           display: none;
         }
         paper-card {
-          max-width: 20em;
-          --paper-card-header-image: {
-            max-height: 300px;
-          }
+          padding-bottom: var(--uvalib-spacing-unit);
         }
 
 
@@ -30,7 +27,7 @@
 
     <uva-library path="collections" items="{{_collections}}" sort-by="title" sort-order="desc"></uva-library>
 
-    <div class="shady layout horizontal wrap center-justified">
+    <div class="shady grid-container">
       <template is="dom-repeat" items="[[_collections]]" as="col">
         <paper-card heading$="[[col.title]]">
           <div class="card-content">
@@ -45,7 +42,6 @@
               </a>
             </div>
           </template>
-
         </paper-card>
       </template>
     </div>

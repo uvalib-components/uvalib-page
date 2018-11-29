@@ -23,7 +23,6 @@
           display: none;
         }
         paper-card {
-          max-width: 20em;
           --paper-card-header-image: {
             max-height: 300px;
           }
@@ -204,7 +203,7 @@
       <a href="http://libguides.law.virginia.edu/hours" tabindex="-1"><paper-button raised>Law Library</paper-button></a>
     </div>
 
-    <div class="shady layout horizontal wrap center-justified">
+    <div class="shady grid-container">
       <template is="dom-repeat" items="[[_libraries]]" as="lib" on-rendered-item-count-changed="_handleAnchor">
         <paper-card id$="[[lib.slug]]" heading$="[[lib.title]]" image$="[[whichImage(lib.mainImage.url)]]">
           <div class="card-content">
