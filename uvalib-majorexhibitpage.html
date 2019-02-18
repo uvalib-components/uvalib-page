@@ -129,12 +129,14 @@
         :host, a, h2, h3, ul, span, iron-collapse h2, paper-button, paper-card {
           font-family: 'Open Sans', sans-serif !important;  /*Holly - Custom Google Font link */
         }
-        ::slotted(*) {
-          /* cusotom font */
-          font-family: 'Open Sans', sans-serif !important;  /*Holly - Custom Google Font (prefer to only apply to ".header-title") link font-family: 'Abril Fatface', cursive; */
+
+        :host, ::slotted(*) {
+          --uvalib-liame-link: { font-family: var(--exhibit-font,'Open Sans'), var(--exhibit-font-fallback,sans-serif) !important; };  /*Holly - Custom Google Font link */
+          font-family: var(--exhibit-font,'Open Sans'), var(--exhibit-font-fallback,sans-serif) !important;
         }
-        :host {
-          --uvalib-liame-link: { font-family: 'Open Sans', sans-serif !important; };  /*Holly - Custom Google Font link */
+        .header-title::slotted(*) {
+          /* cusotom font */
+          font-family: var(--exhibit-headline-font,'Open Sans'), var(--exhibit-headline-font-fallback,sans-serif) !important;  /*Holly - Custom Google Font (prefer to only apply to ".header-title") link font-family: 'Abril Fatface', cursive; */
         }
 
       </style>
