@@ -126,11 +126,7 @@
         /* Pre-footer background color */
         .exhibit-pre-footer { background-color: var(--exhibit-pre-footer-back-color,#9F3515); }
 
-        :host, a, h2, h3, ul, span, iron-collapse h2, paper-button, paper-card {
-          font-family: 'Open Sans', sans-serif !important;  /*Holly - Custom Google Font link */
-        }
-
-        :host, ::slotted(*) {
+        :host, ::slotted(*), a, h2, h3, ul, span, iron-collapse h2, paper-button, paper-card {
           --uvalib-liame-link: { font-family: var(--exhibit-font,'Open Sans'), var(--exhibit-font-fallback,sans-serif) !important; };  /*Holly - Custom Google Font link */
           font-family: var(--exhibit-font,'Open Sans'), var(--exhibit-font-fallback,sans-serif) !important;
         }
