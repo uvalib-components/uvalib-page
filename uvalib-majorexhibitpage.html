@@ -30,10 +30,10 @@
           text-decoration: underline;
         }
 
-        .exhibit-header { margin-top: -1px; min-height: 520px; }
+        .exhibit-header { margin-top: -1px; margin-bottom: 0px; min-height: 520px; }
 
         /* .exhibit-main-image { } */
-        .exhibit-main-image ::slotted(*) { margin: 16px 0; --iron-image-width: auto; }
+        .exhibit-main-image ::slotted(*) { margin: 16px 0; --iron-image-width: 528px; }
         .exhibit-welcome {
           width: auto;
           padding-left: 30px;
@@ -53,7 +53,7 @@
 
         .exhibit-overview { padding: var(--uvalib-spacing-unit); }
         .exhibit-collapse-link { float: right; text-transform: uppercase; }
-        .exhibit-gallery-info, .exhibit-news { padding-top: 20px; padding-bottom: 20px; }
+        .exhibit-gallery-info, .exhibit-news { padding-top: 20px; padding-bottom: 20px; margin-top: 0px; margin-bottom: 0px; }
         .exhibit-gallery-info h2, .exhibit-overview h2.content-title, .exhibit-book-tour h2.content-title, .exhibit-news h2 { text-align: center; clear: both; }
         .exhibit-gallery-item { padding: var(--uvalib-spacing-unit); width: 540px; border-radius: 5px; }
         .exhibit-gallery-item { padding-top: 20px;  height: 200px; margin: calc(var(--uvalib-spacing-unit)/2); }
@@ -77,7 +77,7 @@
                     }
         */
 
-        .exhibit-pre-footer { padding-top: calc(var(--uvalib-spacing-unit)*1.25); padding-bottom: calc(var(--uvalib-spacing-unit)*1.25); text-align: center; margin-top: -1px; margin-bottom: -64px; }
+        .exhibit-pre-footer { padding-top: calc(var(--uvalib-spacing-unit)*1.25); padding-bottom: calc(var(--uvalib-spacing-unit)*1.25); text-align: center; margin-top: -1px; margin-bottom: -105px; }
         .exhibit-pre-footer a:first-child { margin-right: calc(var(--uvalib-spacing-unit)*2.5);}
 
         /*MEDIUM BREAKPOINT*/
@@ -231,10 +231,11 @@
       </div>
     </iron-collapse>
 
-    <div class="exhibit-news shady">
+    <div class="exhibit-news shady" hidden$="[[exhibitSlug]]">
       <h2>In the news</h2>
       <uvalib-news association="[[exhibitSlug]]"></uvalib-news>
     </div>
+
     <div class="exhibit-pre-footer shady">
       <a href="https://virginia.box.com/s/rqklvioqw52nrw8957na1wb5z87gwba6" target="_blank"><paper-button raised><span>Download Press Kit</span></paper-button></a>
       <paper-button raised><uvalib-liame id="liame" rid="n8rah" subject="Question regarding the current exhibition">Contact Exhibit Coordinator</uvalib-liame></paper-button>
