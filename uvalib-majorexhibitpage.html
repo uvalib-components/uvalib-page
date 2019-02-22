@@ -8,6 +8,7 @@
 <link rel="import" href="../uvalib-springshare-form/uvalib-springshare-form.html">
 <link rel="import" href="../moment/moment.js">
 <link rel="import" href="../uvalib-news/uvalib-news.html">
+<link rel="import" href="../uvalib-events-ui/uvalib-events-ui.html">
 
 <!-- EXHIBITION FONT SELECTED from Drupal HOLLY - Custom Google Font link -->
 <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,700" rel="stylesheet">
@@ -194,7 +195,12 @@
         <paper-card class="exhibit-gallery-item">
           <div class="gallery-container vertical layout justified">
             <div class="exhibit-card-title">Events</div>
-            <div class="exhibit-card-content">Next up: (No exhibition events currently scheduled.)</div>
+            <div class="exhibit-card-content">
+              <span hidden$="[[!eventCategoryId]]">Next up: (No exhibition events currently scheduled.)</span>
+              <template is="dom-if" if="[[eventCategoryId]]">
+                <uvalib-events-ui max-num-events-shown="1" cat-ids-filter="[[eventCategoryId]]"></uvalib-events-ui>
+              </template>
+            </uvalib-events-ui></div>
             <div class="exhibit-card-link"><a href="https://cal.lib.virginia.edu/calendar/events/">view all library events</a></div>
           </div>
         </paper-card>
@@ -256,7 +262,8 @@
         return Object.assign(super.properties, {
           exhibitSlug: String,
           startDate: String,
-          endDate: String
+          endDate: String,
+          eventCategoryId: String
         });
       }
       //Concat the this elements template with the parents
