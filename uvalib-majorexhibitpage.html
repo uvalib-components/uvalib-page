@@ -241,7 +241,9 @@
     </div>
 
     <div class="exhibit-pre-footer shady">
-      <a href="https://virginia.box.com/s/rqklvioqw52nrw8957na1wb5z87gwba6" target="_blank"><paper-button raised><span>Download Press Kit</span></paper-button></a>
+      <template is="dom-if" if="[[pressKit]]">
+        <a href="[[pressKit]]" target="_blank"><paper-button raised><span>Download Press Kit</span></paper-button></a>
+      </template>
       <paper-button raised><uvalib-liame id="liame" rid="n8rah" subject="Question regarding the current exhibition">Contact Exhibit Coordinator</uvalib-liame></paper-button>
     </div>
 
@@ -263,7 +265,8 @@
           exhibitSlug: String,
           startDate: String,
           endDate: String,
-          eventCategoryId: String
+          eventCategoryId: String,
+          pressKit: String
         });
       }
       //Concat the this elements template with the parents
