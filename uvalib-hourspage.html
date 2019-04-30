@@ -133,28 +133,28 @@
           <a href="/services/reserve-rooms/" tabindex="-1"><paper-button raised>Room Reservations</paper-button></a>
         </div>
 
-        <div class="table">
+        <div class="table" role="grid">
           <div class="colgroup">
             <div class="col"></div>
             <template is="dom-repeat" items="[[_days]]">
               <div class="col" shady$="[[item.today]]"></div>
             </template>
           </div>
-          <div class="tr first-row">
-            <div class="td">
+          <div class="tr first-row" role="row">
+            <div class="td" role="gridcell">
               <paper-button class="smallButton" raised disabled$="[[!page]]" on-tap="_setPageZero">Today</paper-button>
               <paper-button class="smallButton" raised hidden$="[[!page]]" on-tap="_pageDown">Previous</iron-icon></paper-button>
               <paper-button class="smallButton" raised on-tap="_pageUp">Next</iron-icon></paper-button>
             </div>
             <template is="dom-repeat" items="[[_days]]">
-              <div class="th">[[item.date]]<br />[[item.title]]</div>
+              <div class="th" role="columnheader">[[item.date]]<br />[[item.title]]</div>
             </template>
           </div>
           <template is="dom-repeat" items="[[_libraries]]" as="library">
-            <div class="tr" id$="[[library.slug]]-hours">
-              <div class="td"><a href="hours#[[library.slug]]">[[library.title]]</a></div>
+            <div class="tr" role="row" id$="[[library.slug]]-hours">
+              <div class="td" role="gridcell"><a href="hours#[[library.slug]]">[[library.title]]</a></div>
               <template is="dom-repeat" items="[[_days]]" as="day">
-                <div class="td">[[_getOpenRange(library.libcalID,day.id,_times)]]</div>
+                <div class="td" role="gridcell">[[_getOpenRange(library.libcalID,day.id,_times)]]</div>
               </template>
             </div>
           </template>
