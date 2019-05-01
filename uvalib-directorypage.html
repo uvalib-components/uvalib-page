@@ -12,7 +12,7 @@
         :host {
           display: block;
         }
-        [role='table'] [role='rowgroup'] [role='row']  {
+        .wrapper .row  {
           padding:10px;
           display: -ms-grid;
           display: grid;
@@ -23,7 +23,7 @@
         span {
           display: inline-block;
         }
-        [role='columnheader'] {
+        .columnheader {
           font-weight: bold;
         }
         [role='button'] {
@@ -32,7 +32,7 @@
         [stripe] {
           background-color: var(--uvalib-secondary-light-gray,#f2f2f2);
         }
-        .header[role='row'] {
+        .header .row {
           border-bottom: solid;
           margin-bottom: 10px;
         }
@@ -44,26 +44,26 @@
     <uva-library path="teams" last-response="{{_teams}}"></uva-library>
 <!--    <uva-library path="areas" last-response="{{_areas}}"></uva-library> -->
 
-    <div role="table" aria-label="University of Virginia Library Staff Directory" aria-rowcount$="[[peopleCount]]">
-      <div role="rowgroup">
-         <div class="header" role="row">
-           <span style="-ms-grid-column:1" role="columnheader" aria-sort$="[[_sortOrder(nameSortReverseOrder)]]"><a role="button" on-tap="_toggleOrder" href="">Name <iron-icon icon="[[_toggleIcon(nameSortReverseOrder)]]"></iron-icon></a></span>
-           <span style="-ms-grid-column:2" role="columnheader">Title</span>
-           <span style="-ms-grid-column:3" role="columnheader">Department</span>
-           <span style="-ms-grid-column:4" role="columnheader">Contact</span>
+    <div class="wrapper">
+      <div class="header" aria-hidden="true">
+         <div class="row">
+           <span style="-ms-grid-column:1" class="columnheader"><a role="button" on-tap="_toggleOrder" href="" aria-label="Toggle Sort of listed Library staff by last name">Name <iron-icon icon="[[_toggleIcon(nameSortReverseOrder)]]"></iron-icon></a></span>
+           <span style="-ms-grid-column:2" class="columnheader">Title</span>
+           <span style="-ms-grid-column:3" class="columnheader">Department</span>
+           <span style="-ms-grid-column:4" class="columnheader">Contact</span>
          </div>
        </div>
        <div role="rowgroup">
         <iron-list mutable-data items="[[_computePeople(_people,nameSortReverseOrder)]]" as="person" scroll-target="document" scroll-offset="200">
           <template>
-            <div class="row" role="row" id$="[[person.id]]" stripe$="[[_isOdd(index)]]">
-               <span style="-ms-grid-column:1" role="cell">[[person.displayName]]</span>
-               <span style="-ms-grid-column:2" role="cell">[[person.jobTitle]]</span>
-               <span style="-ms-grid-column:3" role="cell">[[_formatTeams(person.teams,_teams,_teamsHashed)]]</span>
-               <span style="-ms-grid-column:4" role="cell">
-                 <a href="tel:[[person.phone]]" hidden$="[[!person.phone]]">[[person.phone]]</a>
+            <div tabindex$="[[tabIndex]]" class="row" id$="[[person.id]]" stripe$="[[_isOdd(index)]]">
+               <span aria-label="Name" style="-ms-grid-column:1" class="cell">[[person.displayName]]</span>
+               <span aria-label="Title" style="-ms-grid-column:2" class="cell">[[person.jobTitle]]</span>
+               <span aria-label="Teams" style="-ms-grid-column:3" class="cell">[[_formatTeams(person.teams,_teams,_teamsHashed)]]</span>
+               <span aria-label="Contact" style="-ms-grid-column:4" class="cell">
+                 <a aria-label="phone" href="tel:[[person.phone]]" hidden$="[[!person.phone]]">[[person.phone]]</a>
                  <br hidden$="[[!_and(person.phone,person.email)]]" />
-                 <a href="">[[person.email]]</a>
+                 <a aria-label="email" href="" hidden$="[[!person.email]]">[[person.email]]</a>
                </span>
             </div>
           </template>
