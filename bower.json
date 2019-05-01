@@ -4,7 +4,8 @@
   "main": "uvalib-page.html",
   "dependencies": {
     "uvalib-elements": "uvalib-components/uvalib-elements#master",
-    "vaadin-grid": "vaadin/vaadin-grid#^5.0.4"
+    "vaadin-grid": "vaadin/vaadin-grid#^5.0.4",
+    "fuse.js": "fuse#^3.4.4"
   },
   "resolutions": {
     "polymer": "^v2.0.0",
