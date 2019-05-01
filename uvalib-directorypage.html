@@ -45,7 +45,7 @@
          </div>
        </div>
        <div role="rowgroup">
-        <iron-list mutable-data style="height:100vh" items="[[_computePeople(_people,nameSortReverseOrder)]]" as="person" scroll-target="document" scroll-offset="200">
+        <iron-list mutable-data items="[[_computePeople(_people,nameSortReverseOrder)]]" as="person" scroll-target="document" scroll-offset="200">
           <template>
             <div class="row" role="row" id$="[[person.id]]" stripe$="[[_isOdd(index)]]">
                <span role="cell">[[person.displayName]]</span>
