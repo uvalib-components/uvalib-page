@@ -12,16 +12,18 @@
         :host {
           display: block;
         }
-        .wrapper .row  {
-          padding:10px;
+        .wrapper .row {
+          padding: var(--uvalib-spacing-unit);
+        }
+        .wrapper:not([not-small]) .row .name {
+          font-size: calc(var(--uvalib-main-font-size-unit)*1.2);
+        }
+        .wrapper[not-small] .row  {
           display: -ms-grid;
           display: grid;
           -ms-grid-columns: 1fr 1fr 1fr 1fr;
           grid-template-columns: repeat(4, 1fr);
-          grid-gap: 10px;
-        }
-        span {
-          display: inline-block;
+          grid-gap: var(--uvalib-spacing-unit);
         }
         .columnheader {
           font-weight: bold;
@@ -34,7 +36,12 @@
         }
         .header .row {
           border-bottom: solid;
-          margin-bottom: 10px;
+          margin-bottom: var(--uvalib-spacing-unit);
+        }
+        .label {
+          font-size: var(--uvalib-main-font-size-unit);
+          font-weight: bold;
+          padding-top: calc(var(--uvalib-main-font-size-unit)*.5);
         }
       </style>
     </custom-style>
@@ -44,27 +51,36 @@
     <uva-library path="teams" last-response="{{_teams}}"></uva-library>
 <!--    <uva-library path="areas" last-response="{{_areas}}"></uva-library> -->
 
-    <div class="wrapper">
-      <div class="header" aria-hidden="true">
+    <div class="wrapper" not-small$="[[!smallScreen]]">
+      <div class="header" aria-hidden="true" hidden$="[[smallScreen]]">
          <div class="row">
-           <span style="-ms-grid-column:1" class="columnheader"><a role="button" on-tap="_toggleOrder" href="" aria-label="Toggle Sort of listed Library staff by last name">Name <iron-icon icon="[[_toggleIcon(nameSortReverseOrder)]]"></iron-icon></a></span>
-           <span style="-ms-grid-column:2" class="columnheader">Title</span>
-           <span style="-ms-grid-column:3" class="columnheader">Department</span>
-           <span style="-ms-grid-column:4" class="columnheader">Contact</span>
+           <div style="-ms-grid-column:1" class="columnheader"><a role="button" on-tap="_toggleOrder" href="" aria-label="Toggle Sort of listed Library staff by last name">Name <iron-icon icon="[[_toggleIcon(nameSortReverseOrder)]]"></iron-icon></a></div>
+           <div style="-ms-grid-column:2" class="columnheader">Title</div>
+           <div style="-ms-grid-column:3" class="columnheader">Department</div>
+           <div style="-ms-grid-column:4" class="columnheader">Contact</div>
          </div>
        </div>
        <div role="rowgroup">
         <iron-list mutable-data items="[[_computePeople(_people,nameSortReverseOrder)]]" as="person" scroll-target="document" scroll-offset="200">
           <template>
             <div tabindex$="[[tabIndex]]" class="row" id$="[[person.id]]" stripe$="[[_isOdd(index)]]">
-               <span aria-label="Name" style="-ms-grid-column:1" class="cell">[[person.displayName]]</span>
-               <span aria-label="Title" style="-ms-grid-column:2" class="cell">[[person.jobTitle]]</span>
-               <span aria-label="Teams" style="-ms-grid-column:3" class="cell">[[_formatTeams(person.teams,_teams,_teamsHashed)]]</span>
-               <span aria-label="Contact" style="-ms-grid-column:4" class="cell">
-                 <a aria-label="phone" href="tel:[[person.phone]]" hidden$="[[!person.phone]]">[[person.phone]]</a>
-                 <br hidden$="[[!_and(person.phone,person.email)]]" />
-                 <a aria-label="email" href="" hidden$="[[!person.email]]">[[person.email]]</a>
-               </span>
+              <div aria-label="Name" style="-ms-grid-column:1" class="cell name">
+                <a href="[[_domain]]/staff/[[person.computingId]]">[[person.displayName]]</a>
+              </div>
+              <div aria-label="Title" style="-ms-grid-column:2" class="cell title">
+                <div class="label" aria-hidden hidden$="[[!smallScreen]]">Title</div>
+                <span>[[person.jobTitle]]</span>
+              </div>
+              <div aria-label="Teams" style="-ms-grid-column:3" class="cell teams">
+                <div class="label" aria-hidden hidden$="[[!smallScreen]]">Teams</div>
+                <span>[[_formatTeams(person.teams,_teams,_teamsHashed)]]</span>
+              </div>
+              <div aria-label="Contact" style="-ms-grid-column:4" class="cell contact">
+                <div class="label" aria-hidden hidden$="[[!smallScreen]]">Contact</div>
+                <a aria-label="phone" href="tel:[[person.phone]]" hidden$="[[!person.phone]]">[[person.phone]]</a>
+                <br hidden$="[[!_and(person.phone,person.email)]]" />
+                <a aria-label="email" href="" hidden$="[[!person.email]]">[[person.email]]</a>
+              </div>
             </div>
           </template>
         </iron-list>
@@ -145,7 +161,7 @@
         return (Array.isArray(teams))?
           teams.map(t=>{
             return this._teamsHashed[t].title;
-          }).join('<br />')
+          }).join(', ')
           :'';
       }
       _computeHash(arry){
