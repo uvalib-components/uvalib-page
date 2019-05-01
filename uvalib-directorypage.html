@@ -23,11 +23,18 @@
         span {
           display: inline-block;
         }
+        [role='columnheader'] {
+          font-weight: bold;
+        }
         [role='button'] {
           cursor: pointer;
         }
         [stripe] {
           background-color: var(--uvalib-secondary-light-gray,#f2f2f2);
+        }
+        .header[role='row'] {
+          border-bottom: solid;
+          margin-bottom: 10px;
         }
       </style>
     </custom-style>
@@ -39,7 +46,7 @@
 
     <div role="table" aria-label="University of Virginia Library Staff Directory" aria-rowcount$="[[peopleCount]]">
       <div role="rowgroup">
-         <div role="row">
+         <div class="header" role="row">
            <span style="-ms-grid-column:1" role="columnheader" aria-sort$="[[_sortOrder(nameSortReverseOrder)]]"><a role="button" on-tap="_toggleOrder" href="">Name <iron-icon icon="[[_toggleIcon(nameSortReverseOrder)]]"></iron-icon></a></span>
            <span style="-ms-grid-column:2" role="columnheader">Title</span>
            <span style="-ms-grid-column:3" role="columnheader">Department</span>
