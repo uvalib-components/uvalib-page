@@ -4,6 +4,7 @@
 <link rel="import" href="../uva-models/uva-library.html">
 <link rel="import" href="../iron-list/iron-list.html">
 <link rel="import" href="../iron-icon/iron-icon.html">
+<link rel="import" href="../iron-image/iron-image.html">
 <link rel="import" href="../paper-progress/paper-progress.html">
 <link rel="import" href="../polymer/lib/mixins/gesture-event-listeners.html">
 
@@ -14,13 +15,23 @@
         :host {
           display: block;
         }
-        .wrapper .row {
+        .wrapper .list {
           padding: var(--uvalib-spacing-unit);
         }
-        .wrapper:not([not-small]) .row .name {
+        .wrapper .images {
+          height: 300px;
+          width: 300px;
+          padding: 15px;
+          display: flex;
+          justify-content: center;
+          flex-direction: column;
+          text-align: center;
+          align-items: center;
+        }
+        .wrapper:not([not-small]) .list .name {
           font-size: calc(var(--uvalib-main-font-size-unit)*1.2);
         }
-        .wrapper[not-small] .row  {
+        .wrapper[not-small] .list  {
           display: -ms-grid;
           display: grid;
           -ms-grid-columns: 1fr 1fr 1fr 1fr;
@@ -33,13 +44,13 @@
         [role='button'] {
           cursor: pointer;
         }
-        [stripe] {
+        .list[stripe] {
           background-color: var(--uvalib-secondary-light-gray,#f2f2f2);
         }
         .header {
           position: relative;
         }
-        .header .row {
+        .header .list {
           margin-bottom: var(--uvalib-spacing-unit);
           padding-bottom: calc(var(--uvalib-spacing-unit)*.5);
         }
@@ -55,6 +66,14 @@
           --paper-progress-height: 3px;
           --paper-progress-active-color: var(--uvalib-main-rotunda-orange);
         }
+        iron-image {
+          height: 150px !important;
+          width: 150px !important;
+        }
+        .images .name {
+          padding: 10px;
+        }
+
       </style>
     </custom-style>
 
@@ -64,8 +83,8 @@
 <!--    <uva-library path="areas" last-response="{{_areas}}"></uva-library> -->
 
     <div class="wrapper" not-small$="[[!smallScreen]]">
-      <div class="header" aria-hidden="true" hidden$="[[smallScreen]]">
-         <div class="row">
+      <div class="header" aria-hidden="true" hidden$="[[_or(_imagesView,smallScreen)]]">
+         <div class="list">
            <div style="-ms-grid-column:1" class="columnheader"><a role="button" on-tap="_toggleOrder" href="" aria-label="Toggle Sort of listed Library staff by last name">Name <iron-icon icon="[[_toggleIcon(nameSortReverseOrder)]]"></iron-icon></a></div>
            <div style="-ms-grid-column:2" class="columnheader">Title</div>
            <div style="-ms-grid-column:3" class="columnheader">Department</div>
@@ -75,23 +94,29 @@
        </div>
        <div role="rowgroup">
         <div class="message" hidden$="[[!_message]]">[[_message]]</div>
-        <iron-list mutable-data items="[[_computePeople(_people,nameSortReverseOrder,query)]]" as="person" scroll-target="document" scroll-offset="200">
+        <iron-list mutable-data grid="[[_imagesView]]" items="[[_computePeople(_people,nameSortReverseOrder,query)]]" as="person" scroll-target="document" scroll-offset="200">
           <template>
-            <div tabindex$="[[tabIndex]]" class="row" id$="[[person.id]]" stripe$="[[_isOdd(index)]]">
+            <div tabindex$="[[tabIndex]]" class$="[[view]]" id$="[[person.id]]" stripe$="[[_isOdd(index)]]">
+              <template is="dom-if" if="[[_and(_imagesView,person.field_image)]]">
+                <iron-image preload fade class="round" sizing="cover" src="[[person.field_image.url]]" alt="[[person.field_image.alt]]" position="top" hidden$="[[!_imagesView]]"></iron-image>
+              </template>
+              <template is="dom-if" if="[[!_or(_listView,person.field_image)]]">
+                <iron-image preload fade class="round" sizing="cover" src="https://static.lib.virginia.edu/files/no-bio-photo.png" alt="" position="top" hidden$="[[!_imagesView]]"></iron-image>
+              </template>
               <div aria-label="Name" style="-ms-grid-column:1" class="cell name">
                 <a href="[[_domain]]/staff/[[person.computingId]]">[[person.displayName]]
                   <template is="dom-if" if="[[person.preferredName]]">&nbsp;([[person.preferredName]])</template>
                 </a>
               </div>
               <div aria-label="Title" style="-ms-grid-column:2" class="cell title">
-                <div class="label" aria-hidden hidden$="[[!smallScreen]]">Title</div>
+                <div class="label" aria-hidden hidden$="[[_or(_notSmallScreen,_imagesView)]]">Title</div>
                 <span>[[person.jobTitle]]</span>
               </div>
-              <div aria-label="Teams" style="-ms-grid-column:3" class="cell teams">
+              <div aria-label="Teams" style="-ms-grid-column:3" class="cell teams" hidden$="[[_imagesView]]">
                 <div class="label" aria-hidden hidden$="[[!smallScreen]]">Teams</div>
                 <span>[[_formatTeams(person.teams,_teams,_teamsHashed)]]</span>
               </div>
-              <div aria-label="Contact" style="-ms-grid-column:4" class="cell contact">
+              <div aria-label="Contact" style="-ms-grid-column:4" class="cell contact" hidden$="[[_imagesView]]">
                 <div class="label" aria-hidden hidden$="[[!smallScreen]]">Contact</div>
                 <a aria-label="phone" href="tel:[[person.phone]]" hidden$="[[!person.phone]]">[[person.phone]]</a>
                 <br hidden$="[[!_and(person.phone,person.email)]]" />
@@ -127,6 +152,18 @@
             type: Object,
             computed: '_computeHash(_teams)'
           },
+          view: {
+            type: String,
+            value: "list"
+          },
+          _imagesView: {
+            type: Boolean,
+            computed: "_isImagesView(view)"
+          },
+          _listView: {
+            type: Boolean,
+            computed: "_isListView(view)"
+          },
           _areas: Array,
           peopleCount: {
             type: Number,
@@ -142,6 +179,10 @@
           _loaded: {
             type: Boolean,
             value: false
+          },
+          _notSmallScreen: {
+            type: Boolean,
+            computed: "_computeNotSmallScreen(smallScreen)"
           }
         });
       }
@@ -219,6 +260,15 @@
               obj[item.uuid] = item;
               return obj;
             }, {}):{};
+      }
+      _isListView(view){
+        return view=="list";
+      }
+      _isImagesView(view){
+        return view=="images"
+      }
+      _computeNotSmallScreen(smallScreen){
+        return !smallScreen;
       }
     }
 
