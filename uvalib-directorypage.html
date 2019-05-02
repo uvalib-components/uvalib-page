@@ -4,6 +4,7 @@
 <link rel="import" href="../uva-models/uva-library.html">
 <link rel="import" href="../iron-list/iron-list.html">
 <link rel="import" href="../iron-icon/iron-icon.html">
+<link rel="import" href="../paper-progress/paper-progress.html">
 <link rel="import" href="../polymer/lib/mixins/gesture-event-listeners.html">
 
 <dom-module id="uvalib-directorypage">
@@ -35,14 +36,23 @@
         [stripe] {
           background-color: var(--uvalib-secondary-light-gray,#f2f2f2);
         }
+        .header {
+          position: relative;
+        }
         .header .row {
-          border-bottom: solid;
           margin-bottom: var(--uvalib-spacing-unit);
+          padding-bottom: calc(var(--uvalib-spacing-unit)*.5);
         }
         .label {
           font-size: var(--uvalib-main-font-size-unit);
           font-weight: bold;
           padding-top: calc(var(--uvalib-main-font-size-unit)*.5);
+        }
+        paper-progress {
+          position: absolute;
+          bottom: 0;
+          --paper-progress-indeterminate-cycle-duration: 4s;
+          --paper-progress-height: 3px;
         }
       </style>
     </custom-style>
@@ -60,6 +70,7 @@
            <div style="-ms-grid-column:3" class="columnheader">Department</div>
            <div style="-ms-grid-column:4" class="columnheader">Contact</div>
          </div>
+         <paper-progress value="100" valuemax="10" indeterminate$="[[!_loaded]]" disabled$="[[_loaded]]" style="width:100%;"></paper-progress>
        </div>
        <div role="rowgroup">
         <div class="message" hidden$="[[!_message]]">[[_message]]</div>
@@ -124,7 +135,11 @@
             value: false
           },
           query: String,
-          _message: String
+          _message: String,
+          _loaded: {
+            type: Boolean,
+            value: false
+          }
         });
       }
       static get template() {
@@ -139,36 +154,41 @@
         return uvalibDirectoryTemplate;
       }
       _computePeople(_people,revorder,query) {
-        var show = _people?
-          _people.sort(function(a, b) {
-            var nameA = a.lastName.toUpperCase(); // ignore upper and lowercase
-            var nameB = b.lastName.toUpperCase(); // ignore upper and lowercase
-            if (nameA < nameB) return (revorder)? 1:-1;
-            if (nameA > nameB) return (revorder)? -1:1;
-            return 0;
-          }):null;
-        if (query) {
-          var options = {
-            shouldSort: true,
-            tokenize: true,
-            matchAllTokens: true,
-            threshold: 0.0,
-            location: 0,
-            distance: 100,
-            maxPatternLength: 32,
-            minMatchCharLength: 1,
-            keys: ['computingId', 'displayName', 'firstName', 'jobTitle', 'lastName']
-          };
-          var fuse = new Fuse(show, options);
-            show = fuse.search(query)
-            if (show.length == 0)
-              this._message = "Not found; try a different spelling."
-            else
+        if (_people) {
+          var show = _people?
+            _people.sort(function(a, b) {
+              var nameA = a.lastName.toUpperCase(); // ignore upper and lowercase
+              var nameB = b.lastName.toUpperCase(); // ignore upper and lowercase
+              if (nameA < nameB) return (revorder)? 1:-1;
+              if (nameA > nameB) return (revorder)? -1:1;
+              return 0;
+            }):null;
+          if (query) {
+            var options = {
+              shouldSort: true,
+              tokenize: true,
+              matchAllTokens: true,
+              threshold: 0.0,
+              location: 0,
+              distance: 100,
+              maxPatternLength: 32,
+              minMatchCharLength: 1,
+              keys: ['computingId', 'displayName', 'firstName', 'jobTitle', 'lastName']
+            };
+            var fuse = new Fuse(show, options);
+              show = fuse.search(query)
+              if (show.length == 0)
+                this._message = "Not found; try a different spelling."
+              else
+                this._message = null;
+            } else {
               this._message = null;
-          } else {
-            this._message = null;
-          }
-        return show;
+            }
+          this._loaded = true;
+          return show;
+        } else {
+          return "";
+        }
       }
       _countPeople(_people) {
         return (_people && _people.length>0)? _people.length + 1: 0;
