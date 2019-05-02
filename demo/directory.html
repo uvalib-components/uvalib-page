@@ -26,6 +26,12 @@
       <h3>Basic directory-page demo</h3>
       <demo-snippet>
         <template>
+          <style>
+            uvalib-simple-search-box {
+              --uvalib-search-box-border: 2px solid var(--uvalib-secondary-lt-grey);
+              --uvalib-background-search: var(--uvalib-main-jefferson-blue)
+            }
+          </style>
           <dom-bind id="app">
             <template>
               <uvalib-simple-search-box value="{{query}}"></uvalib-simple-search-box>

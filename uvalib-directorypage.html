@@ -10,7 +10,7 @@
 <dom-module id="uvalib-directorypage">
   <template>
   <custom-style>
-      <style include="uvalib-theme uvalib-hourspage-style iron-flex-factors">
+      <style include="uvalib-theme">
         :host {
           display: block;
         }
@@ -78,7 +78,9 @@
           <template>
             <div tabindex$="[[tabIndex]]" class="row" id$="[[person.id]]" stripe$="[[_isOdd(index)]]">
               <div aria-label="Name" style="-ms-grid-column:1" class="cell name">
-                <a href="[[_domain]]/staff/[[person.computingId]]">[[person.displayName]]</a>
+                <a href="[[_domain]]/staff/[[person.computingId]]">[[person.displayName]]
+                  <template is="dom-if" if="[[_nickNameNeeded(person.displayName,person.preferredName)]]">([[person.preferredName]])</template>
+                </a>
               </div>
               <div aria-label="Title" style="-ms-grid-column:2" class="cell title">
                 <div class="label" aria-hidden hidden$="[[!smallScreen]]">Title</div>
@@ -173,7 +175,7 @@
               distance: 100,
               maxPatternLength: 32,
               minMatchCharLength: 1,
-              keys: ['computingId', 'displayName', 'firstName', 'jobTitle', 'lastName']
+              keys: ['computingId', 'displayName', 'preferredName', 'firstName', 'jobTitle', 'lastName']
             };
             var fuse = new Fuse(show, options);
               show = fuse.search(query)
@@ -216,6 +218,9 @@
               obj[item.uuid] = item;
               return obj;
             }, {}):{};
+      }
+      _nickNameNeeded(name,nick){
+        return (name && nick && name.toLowerCase().indexOf(nick.toLowerCase())!=0);
       }
     }
 
