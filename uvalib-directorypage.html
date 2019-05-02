@@ -79,7 +79,7 @@
             <div tabindex$="[[tabIndex]]" class="row" id$="[[person.id]]" stripe$="[[_isOdd(index)]]">
               <div aria-label="Name" style="-ms-grid-column:1" class="cell name">
                 <a href="[[_domain]]/staff/[[person.computingId]]">[[person.displayName]]
-                  <template is="dom-if" if="[[person.preferredName]]"> ([[person.preferredName]])</template>
+                  <template is="dom-if" if="[[person.preferredName]]">&nbsp;([[person.preferredName]])</template>
                 </a>
               </div>
               <div aria-label="Title" style="-ms-grid-column:2" class="cell title">
