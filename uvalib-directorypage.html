@@ -74,13 +74,15 @@
           padding: 10px;
           font-weight: bold;
         }
-
+        ul {
+          list-style-type: none;
+        }
       </style>
     </custom-style>
 
     <uva-library last-response="{{_libraries}}"></uva-library>
     <uva-library path="people" last-response="{{_people}}"></uva-library>
-    <uva-library path="teams" last-response="{{_teams}}"></uva-library>
+<!--    <uva-library path="teams" last-response="{{_teams}}"></uva-library> -->
 <!--    <uva-library path="areas" last-response="{{_areas}}"></uva-library> -->
 
     <div class="wrapper" not-small$="[[!smallScreen]]">
@@ -115,7 +117,11 @@
               </div>
               <div aria-label="Teams" style="-ms-grid-column:3" class="cell teams" hidden$="[[_imagesView]]">
                 <div class="label" aria-hidden hidden$="[[!smallScreen]]">Teams</div>
-                <span>[[_formatTeams(person.teams,_teams,_teamsHashed)]]</span>
+                <span><ul>
+                  <template is="dom-repeat" items="[[person.fullTeams]]" as="team">
+                    <li>[[team.title]]</li>
+                  </template>
+                </ul></span>
               </div>
               <div aria-label="Contact" style="-ms-grid-column:4" class="cell contact" hidden$="[[_imagesView]]">
                 <div class="label" aria-hidden hidden$="[[!smallScreen]]">Contact</div>
@@ -248,15 +254,6 @@
       }
       _toggleIcon(nameSortReverseOrder){
         return nameSortReverseOrder? "caret-up":"caret-down";
-      }
-      _formatTeams(teams){
-        if (this._teamsHashed) {
-          return (Array.isArray(teams))?
-            teams.map(t=>{
-              return this._teamsHashed[t].title;
-            }).join(', ')
-            :'';
-        }
       }
       _computeHash(arry){
         return (Array.isArray(arry))?
