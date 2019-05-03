@@ -95,7 +95,7 @@
        </div>
        <div role="rowgroup">
         <div class="message" hidden$="[[!_message]]">[[_message]]</div>
-        <iron-list mutable-data grid="[[_imagesView]]" items="[[_computePeople(_people,nameSortReverseOrder,query)]]" as="person" scroll-target="document" scroll-offset="200">
+        <iron-list id="ilist" mutable-data grid="[[_imagesView]]" items="[[_computePeople(_people,nameSortReverseOrder,query)]]" as="person" scroll-target="document" scroll-offset="[[_getlistOffset(smallScreen,mediumScreen,largeScreen)]]">
           <template>
             <div tabindex$="[[tabIndex]]" class$="[[view]]" id$="[[person.id]]" stripe$="[[_isOdd(index)]]">
               <template is="dom-if" if="[[_and(_imagesView,person.field_image)]]">
@@ -230,6 +230,7 @@
               this._message = null;
             }
           this._loaded = true;
+
           return show;
         } else {
           return "";
@@ -249,11 +250,13 @@
         return nameSortReverseOrder? "caret-up":"caret-down";
       }
       _formatTeams(teams){
-        return (Array.isArray(teams))?
-          teams.map(t=>{
-            return this._teamsHashed[t].title;
-          }).join(', ')
-          :'';
+        if (this._teamsHashed) {
+          return (Array.isArray(teams))?
+            teams.map(t=>{
+              return this._teamsHashed[t].title;
+            }).join(', ')
+            :'';
+        }
       }
       _computeHash(arry){
         return (Array.isArray(arry))?
@@ -270,6 +273,9 @@
       }
       _computeNotSmallScreen(smallScreen){
         return !smallScreen;
+      }
+      _getlistOffset(smallScreen,mediumScreen,largeScreen){
+        return 535;
       }
     }
 
