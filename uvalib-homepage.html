@@ -2,6 +2,8 @@
 <link rel="import" href="../paper-card/paper-card.html">
 <link rel="import" href="../uvalib-theme/uvalib-theme.html">
 <link rel="import" href="../uvalib-theme/uvalib-card-style.html">
+<link rel="import" href="../uvalib-banner/uvalib-image-header.html">
+
 
 <dom-module id="uvalib-homepage">
   <link rel="lazy-import" group="uvalib-homepage" href="../paper-button/paper-button.html">
@@ -56,7 +58,7 @@
             </a>
           </div>
         </paper-card>
-        <paper-card id="research" class="flex" heading="Research" image$="[[whichImage('/files/cards/research.jpg')]]" alt="Image of student doing research in the Library">
+        <paper-card id="research" class="flex" heading="Research">
           <div class="card-content">
             <ul>
               <li><a href="https://search.lib.virginia.edu">Virgo: Library Catalog</a></li>
@@ -75,7 +77,7 @@
         </paper-card>
       </div>
       <div class="shady layout horizontal wrap">
-        <paper-card id="spaces" class="flex" heading="Spaces &amp; Equipment" image="[[whichImage('/files/cards/spaces.jpg')]]" alt="Student studying in an egg.">
+        <paper-card id="spaces" class="flex" heading="Spaces &amp; Equipment">
           <div class="card-content">
             <ul>
               <li><a href="/study-spaces/">Find study spaces</a></li>
@@ -92,7 +94,7 @@
             </a>
           </div>
         </paper-card>
-        <paper-card id="services" class="flex" heading="Services" image="[[whichImage('/files/cards/services.jpg')]]" alt="Librarian giving a presentation on a digital display.">
+        <paper-card id="services" class="flex" heading="Services">
           <div class="card-content">
             <ul>
               <li><a href="/services/ils/">LEO and Interlibrary Loan (ILL)</a></li>
@@ -110,6 +112,16 @@
           </div>
         </paper-card>
       </div>
+
+      <uvalib-image-header src="https://static.lib.virginia.edu/files/renovation-images/field.jpg" fred no-overlay position="top" alt="Artist's rendering of proposed new building facade.">
+        <h1 slot="header-title" class="all-cap text-center">Alderman Renovation</h1>
+        <div slot="info-containers" class="reno-buttons">
+          <a tabindex="-1" href="https://news.library.virginia.edu/category/renovations/"><paper-button raised class="button-pop-alt">News &amp; Updates</paper-button></a>
+          <a tabindex="-1" href="https://www.library.virginia.edu/renovation/faq"><paper-button raised class="button-pop-alt">FAQ</paper-button></a>
+          <a tabindex="-1" href="https://www.library.virginia.edu/renovation/"><paper-button raised class="button-pop-alt">Learn more</paper-button></a>
+        </div>
+      </uvalib-image-header>
+
       <div class="layout vertical">
         <paper-card id="events" heading="Upcoming Events" style="max-width:100%">
           <div class="card-content">
@@ -155,8 +167,8 @@
         </paper-card>
       </div>
       <!-- then shady area with research, spaces, and services -->
-      <div class="shady layout horizontal">
-        <paper-card id="research" heading="Research" class="flex" image$="[[whichImage('/files/cards/research.jpg')]]" alt="Image of student doing research in the Library">
+      <div class="shady layout horizontal uva-margin-bottom-none">
+        <paper-card id="research" heading="Research" class="flex">
           <div class="card-content">
             <ul>
               <li><a href="https://search.lib.virginia.edu">Virgo: Library Catalog</a></li>
@@ -173,7 +185,7 @@
             </a>
           </div>
         </paper-card>
-        <paper-card id="spaces" class="flex" heading="Spaces &amp; Equipment" image="[[whichImage('/files/cards/spaces.jpg')]]" alt="Student studying in an egg.">
+        <paper-card id="spaces" class="flex" heading="Spaces &amp; Equipment">
           <div class="card-content">
             <ul>
               <li><a href="/study-spaces/">Find study spaces</a></li>
@@ -190,7 +202,7 @@
             </a>
           </div>
         </paper-card>
-        <paper-card id="services" class="flex" heading="Services" image="[[whichImage('/files/cards/services.jpg')]]" alt="Librarian giving a presentation on a digital display.">
+        <paper-card id="services" class="flex" heading="Services">
           <div class="card-content">
             <ul>
               <li><a href="/services/ils/">LEO and Interlibrary Loan (ILL)</a></li>
@@ -208,6 +220,15 @@
           </div>
         </paper-card>
       </div>
+      <uvalib-image-header src="https://static.lib.virginia.edu/files/renovation-images/field.jpg" fred no-overlay position="top" alt="Artist's rendering of proposed new building facade.">
+        <h1 slot="header-title" class="all-cap text-center">Alderman Renovation</h1>
+        <div slot="info-containers" class="reno-buttons">
+          <a tabindex="-1" href="https://news.library.virginia.edu/category/renovations/"><paper-button raised class="button-pop-alt">News &amp; Updates</paper-button></a>
+          <a tabindex="-1" href="https://www.library.virginia.edu/renovation/faq"><paper-button raised class="button-pop-alt">Frequently Asked Questions</paper-button></a>
+          <a tabindex="-1" href="https://www.library.virginia.edu/renovation/"><paper-button raised class="button-pop-alt">Project Information</paper-button></a>
+        </div>
+      </uvalib-image-header>
+
       <div class="layout horizontal">
         <paper-card class="flex" id="events" heading="Upcoming Events">
           <div class="card-content">
