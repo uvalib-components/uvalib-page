@@ -102,7 +102,7 @@
        <div role="rowgroup">
         <div class="message" hidden$="[[!_message]]">[[_message]]</div>
         <div id="list-container" grid$="[[_imagesView]]">
-          <dom-repeat items="[[_computePeople(_people,nameSortReverseOrder,query)]]" as="person">
+          <dom-repeat mutable-data items="[[_computePeople(_people,nameSortReverseOrder,query)]]" as="person">
             <template>
               <div tabindex$="[[tabIndex]]" class$="[[view]]" id$="[[person.id]]" stripe$="[[_isOdd(index)]]">
                 <template is="dom-if" if="[[_and(_imagesView,person.field_image)]]">
@@ -241,7 +241,6 @@
               this._message = null;
             }
           this._loaded = true;
-
           return show;
         } else {
           return "";
