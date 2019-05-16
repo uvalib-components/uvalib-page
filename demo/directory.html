@@ -15,6 +15,7 @@
     <link rel="import" href="../../paper-radio-group/paper-radio-group.html">
     <link rel="import" href="../../paper-radio-button/paper-radio-button.html">
     <link rel="import" href="../uvalib-directorypage.html">
+    <link rel="import" href="../../app-storage/app-localstorage/app-localstorage-document.html" />
 
     <custom-style>
       <style is="custom-style" include="uvalib-theme demo-pages-shared-styles iron-flex iron-flex-alignment">
@@ -47,6 +48,7 @@
                   <paper-radio-button name="list">List View</paper-radio-button>
                   <paper-radio-button name="images">Image View</paper-radio-button>
                 </paper-radio-group>
+                <app-localstorage-document key="uvalib-staff-dir-view-select" data="{{view}}"></app-localstorage-document>
               </div>
               <uvalib-directorypage query$="[[query]]" view="[[view]]"></uvalib-directorypage>
             </template>
