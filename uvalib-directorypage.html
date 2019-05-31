@@ -37,6 +37,10 @@
           grid-template-columns: repeat(4, 1fr);
           grid-gap: var(--uvalib-spacing-unit);
         }
+        .wrapper[not-small] .segment .list {
+          -ms-grid-columns: 1fr 1fr 1fr;
+          grid-template-columns: repeat(3, 1fr);
+        }
         div[grid] {
           display: grid;
           grid-gap: var(--uvalib-spacing-unit);
@@ -81,16 +85,42 @@
         ul {
           list-style-type: none;
         }
+        .segtitle {
+          background-color: var(--uvalib-secondary-light-gray);
+          padding: var(--uvalib-spacing-unit);
+          margin-top: var(--uvalib-spacing-unit);
+        }
+        .segtitle h2 {
+          color: var(--uvalib-main-rotunda-orange) !important;
+          margin: 0;
+        }
+        .segtitle p {
+          margin: 0;
+          margin-top: var(--uvalib-spacing-unit);
+        }
+        .segment .list {
+          margin-bottom: 0;
+        }
+        .segment hr {
+          padding: 0;
+          margin: 0;
+        }
+        .desc {
+          color: black !important;
+        }
+        .segment ul {
+          padding: 0;
+          margin: 0;
+        }
       </style>
     </custom-style>
 
     <uva-library last-response="{{_libraries}}"></uva-library>
     <uva-library path="people" last-response="{{_people}}"></uva-library>
-<!--    <uva-library path="teams" last-response="{{_teams}}"></uva-library> -->
-<!--    <uva-library path="areas" last-response="{{_areas}}"></uva-library> -->
+    <uva-library path="teams" last-response="{{_teams}}"></uva-library>
 
     <div class="wrapper" not-small$="[[!smallScreen]]">
-      <div class="header" aria-hidden="true" hidden$="[[_or(_imagesView,smallScreen)]]">
+      <div class="header" aria-hidden="true" hidden$="[[_or(_imagesView,smallScreen,_viewNotSelectable)]]">
          <div class="list">
            <div style="-ms-grid-column:1" class="columnheader"><a role="button" on-tap="_toggleOrder" href="" aria-label="Toggle Sort of listed Library staff by last name">Name <iron-icon icon="[[_toggleIcon(nameSortReverseOrder)]]"></iron-icon></a></div>
            <div style="-ms-grid-column:2" class="columnheader">Title</div>
@@ -101,43 +131,103 @@
        </div>
        <div role="rowgroup">
         <div class="message" hidden$="[[!_message]]">[[_message]]</div>
-        <div id="list-container" grid$="[[_imagesView]]">
-          <dom-repeat mutable-data items="[[_computePeople(_people,nameSortReverseOrder,query)]]" as="person">
-            <template>
-              <div tabindex$="[[tabIndex]]" class$="[[view]]" id$="[[person.id]]" stripe$="[[_isOdd(index)]]">
-                <template is="dom-if" if="[[_and(_imagesView,person.field_image)]]">
-                  <iron-image preload fade class="round" sizing="cover" src="[[_getSmImg(person.field_image.url)]]" alt="[[person.field_image.alt]]" position="top" hidden$="[[!_imagesView]]"></iron-image>
-                </template>
-                <template is="dom-if" if="[[!_or(_listView,person.field_image)]]">
-                  <iron-image preload fade class="round" sizing="cover" src="https://static.lib.virginia.edu/files/no-bio-photo.png" alt="" position="top" hidden$="[[!_imagesView]]"></iron-image>
-                </template>
-                <div aria-label="Name" style="-ms-grid-column:1" class="cell name">
-                  <a href="[[_domain]]/staff/[[person.computingId]]">[[person.displayName]]
-                    <template is="dom-if" if="[[person.preferredName]]">&nbsp;([[person.preferredName]])</template>
-                  </a>
-                </div>
-                <div aria-label="Title" style="-ms-grid-column:2" class="cell title">
-                  <div class="label" aria-hidden hidden$="[[_or(_notSmallScreen,_imagesView)]]">Title</div>
-                  <span>[[person.jobTitle]]</span>
-                </div>
-                <div aria-label="Teams" style="-ms-grid-column:3" class="cell teams" hidden$="[[_imagesView]]">
-                  <div class="label" aria-hidden hidden$="[[!smallScreen]]">Teams</div>
-                  <span><ul>
-                    <template is="dom-repeat" items="[[person.fullTeams]]" as="team">
-                      <li>[[team.title]]</li>
+        <dom-if if="[[viewSelectable]]">
+          <template>
+            <div id="list-container" grid$="[[_imagesView]]">
+              <dom-repeat mutable-data items="[[_computePeople(_people,nameSortReverseOrder,query)]]" as="person">
+                <template>
+                  <div tabindex$="[[tabIndex]]" class$="[[view]]" id$="[[person.id]]" stripe$="[[_isOdd(index)]]">
+                    <template is="dom-if" if="[[_and(_imagesView,person.field_image)]]">
+                      <iron-image preload fade class="round" sizing="cover" src="[[_getSmImg(person.field_image.url)]]" alt="[[person.field_image.alt]]" position="top" hidden$="[[!_imagesView]]"></iron-image>
                     </template>
-                  </ul></span>
-                </div>
-                <div aria-label="Contact" style="-ms-grid-column:4" class="cell contact" hidden$="[[_imagesView]]">
-                  <div class="label" aria-hidden hidden$="[[!smallScreen]]">Contact</div>
-                  <a aria-label="phone" href="tel:[[person.phone]]" hidden$="[[!person.phone]]">[[person.phone]]</a>
-                  <br hidden$="[[!_and(person.phone,person.email)]]" />
-                  <a aria-label="email" href="mailto:[[person.email]]" hidden$="[[!person.email]]">[[person.email]]</a>
-                </div>
+                    <template is="dom-if" if="[[!_or(_listView,person.field_image)]]">
+                      <iron-image preload fade class="round" sizing="cover" src="https://static.lib.virginia.edu/files/no-bio-photo.png" alt="" position="top" hidden$="[[!_imagesView]]"></iron-image>
+                    </template>
+                    <div aria-label="Name" style="-ms-grid-column:1" class="cell name">
+                      <a href="[[_domain]]/staff/[[person.computingId]]">[[person.displayName]]
+                        <template is="dom-if" if="[[person.preferredName]]">&nbsp;([[person.preferredName]])</template>
+                      </a>
+                    </div>
+                    <div aria-label="Title" style="-ms-grid-column:2" class="cell title">
+                      <div class="label" aria-hidden hidden$="[[_or(_notSmallScreen,_imagesView)]]">Title</div>
+                      <span>[[person.jobTitle]]</span>
+                    </div>
+                    <div aria-label="Teams" style="-ms-grid-column:3" class="cell teams" hidden$="[[_imagesView]]">
+                      <div class="label" aria-hidden hidden$="[[!smallScreen]]">Teams</div>
+                      <span><ul>
+                        <template is="dom-repeat" items="[[person.fullTeams]]" as="team">
+                          <li>[[team.title]]</li>
+                        </template>
+                      </ul></span>
+                    </div>
+                    <div aria-label="Contact" style="-ms-grid-column:4" class="cell contact" hidden$="[[_imagesView]]">
+                      <div class="label" aria-hidden hidden$="[[!smallScreen]]">Contact</div>
+                      <a aria-label="phone" href="tel:[[person.phone]]" hidden$="[[!person.phone]]">[[person.phone]]</a>
+                      <br hidden$="[[!_and(person.phone,person.email)]]" />
+                      <a aria-label="email" href="mailto:[[person.email]]" hidden$="[[!person.email]]">[[person.email]]</a>
+                    </div>
+                  </div>
+                </template>
+              </dom-repeat>
+          </div>
+        </template>
+      </dom-if>
+      <dom-if if="[[!viewSelectable]]"> <!-- segmented results -->
+        <template>
+          <div class="message" hidden$="[[!_message]]">[[_message]]</div>
+          <dom-repeat mutable-data items="[[_computeSegment(_people,query,segment)]]" as="seg">
+            <template>
+              <div class="segtitle">
+                <h2>[[seg.title]]</h2>
+                <div hidden$="[[!seg.body]]" inner-h-t-m-l="[[seg.body]]"></div>
+              </div>
+              <div class="segment header" aria-hidden="true" hidden$="[[smallScreen]]">
+                 <div class="list">
+                   <div style="-ms-grid-column:1" class="columnheader">Name</div>
+                   <div style="-ms-grid-column:2" class="columnheader">
+
+                    <dom-if if="[[_isSubjectSegment(segment)]]"><template>Speciality</template></dom-if>
+                    <dom-if if="[[_isDepartmentSegment(segment)]]"><template>Title</template></dom-if>
+                   </div>
+                   <div style="-ms-grid-column:4" class="columnheader">Contact</div>
+                 </div>
+                 <hr />
+              </div>
+              <div id="list-container" class="segment">
+                <dom-repeat mutable-data items="[[_filterBySegment(_people,query,segment,seg)]]" as="person">
+                  <template>
+                    <div tabindex$="[[tabIndex]]" class="list" id$="[[person.id]]" stripe$="[[_isOdd(index)]]">
+                      <div aria-label="Name" style="-ms-grid-column:1" class="cell name">
+                        <a href="[[_domain]]/staff/[[person.computingId]]">[[person.displayName]]
+                          <template is="dom-if" if="[[person.preferredName]]">&nbsp;([[person.preferredName]])</template>
+                        </a>
+                      </div>
+                      <div aria-label="Title" hidden$="[[!_isDepartmentSegment(segment)]]" style="-ms-grid-column:2" class="cell title">
+                        <div class="label" aria-hidden hidden$="[[_notSmallScreen]]">Title</div>
+                        <span>[[person.jobTitle]]</span>
+                      </div>
+                      <div aria-label="Specialties" hidden$="[[!_isSubjectSegment(segment)]]" style="-ms-grid-column:2" class="cell title">
+                        <div class="label" aria-hidden hidden$="[[_notSmallScreen]]">Specialties</div>
+                        <span><ul>
+                          <template is="dom-repeat" items="[[person.specialties]]" as="special">
+                            <li>[[special.value]]</li>
+                          </template>
+                        </ul></span>
+                      </div>
+                      <div aria-label="Contact" style="-ms-grid-column:4" class="cell contact">
+                        <div class="label" aria-hidden hidden$="[[!smallScreen]]">Contact</div>
+                        <a aria-label="phone" href="tel:[[person.phone]]" hidden$="[[!person.phone]]">[[person.phone]]</a>
+                        <br hidden$="[[!_and(person.phone,person.email)]]" />
+                        <a aria-label="email" href="mailto:[[person.email]]" hidden$="[[!person.email]]">[[person.email]]</a>
+                      </div>
+                    </div>
+                  </template>
+                </dom-repeat>
               </div>
             </template>
           </dom-repeat>
-      </div>
+        </template>
+      </dom-if>
     </div>
 
   </template>
@@ -195,6 +285,32 @@
           _notSmallScreen: {
             type: Boolean,
             computed: "_computeNotSmallScreen(smallScreen)"
+          },
+          /* can be one of subject or department to segment results */
+          segment: {
+            type: String
+          },
+          viewSelectable: {
+            type: Boolean,
+            computed: '_isSelectable(segment)',
+            notify: true
+          },
+          _viewNotSelectable: {
+            type: Boolean,
+            computed: '_isNotSelectable(segment)',
+            notify: true
+          },
+          _schools: {
+            type: Object,
+            value: [
+              {uuid:'gsas',title:"College and Graduate School of Arts and Sciences"},
+              {uuid:'commerce',title:"McIntire School of Commerce"},
+              {uuid:'engineering',title:"School of Engineering and Applied Science"},
+              {uuid:'batten',title:"Frank Batten School of Leadership and Public Policy"},
+              {uuid:'datascience',title:"Data Science Institute"},
+              {uuid:'architecture',title:"School of Architecture"},
+              {uuid:'scps',title:"School of Continuing and Professional Studies"}
+            ]
           }
         });
       }
@@ -208,6 +324,18 @@
             uvalibDirectoryTemplate.content.insertBefore(superTemplateContents,null);
         }
         return uvalibDirectoryTemplate;
+      }
+      _isSubjectSegment(segment) {
+        return segment == "subject";
+      }
+      _isDepartmentSegment(segment) {
+        return segment == "department";
+      }
+      _isSelectable(segment) {
+        return (segment == null || segment == 'list');
+      }
+      _isNotSelectable(segment) {
+        return !this._isSelectable(segment);
       }
       _computePeople(_people,revorder,query) {
         if (_people) {
@@ -280,6 +408,31 @@
       }
       _getSmImg(url){
         return this.whichImage(url.replace('www.library.virginia.edu/files','static.lib.virginia.edu/uvalibappfiles').replace('.jpg','.sm.jpg'));
+      }
+      _computeSegment(people,query,segment){
+        let peps = this._computePeople(people,null,query);
+        var segments = new Set();
+        if (segment == "department" && Array.isArray(peps)) {
+          peps.forEach(p=>{
+            if (p.fullTeams && Array.isArray(p.fullTeams)) {
+              p.fullTeams.forEach(t=>segments.add(t.uuid));
+            }
+          });
+          return this._teams.filter(t=>segments.has(t.uuid))
+                     .sort((a,b) => (a.title > b.title) ? 1 : ((b.title > a.title) ? -1 : 0));
+        }
+        else if (segment == "subject" && Array.isArray(peps)) {
+          peps.forEach(p=>{
+            if (p.schools && Array.isArray(p.schools)) p.schools.forEach(s=>segments.add(s.value));
+            else if (p.schools) segments.add(p.schools);
+          });
+          return this._schools.filter(s=>segments.has(s.uuid));
+        }
+      }
+      _filterBySegment(people,query,segment,seg){
+        let peps = this._computePeople(people,null,query);
+        if (this._isDepartmentSegment(segment)) return peps.filter(p=>Array.isArray(p.teams) && p.teams.indexOf(seg.uuid)!=-1);
+        else if (this._isSubjectSegment(segment)) return peps.filter(p=>p.schools==seg.uuid||(Array.isArray(p.schools)&&p.schools.find(s=>s.value==seg.uuid)));
       }
     }
 
