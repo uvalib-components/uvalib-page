@@ -357,7 +357,7 @@
               distance: 100,
               maxPatternLength: 32,
               minMatchCharLength: 1,
-              keys: ['computingId', 'displayName', 'preferredName', 'firstName', 'jobTitle', 'lastName']
+              keys: this._getFilterProps()
             };
             var fuse = new Fuse(show, options);
               show = fuse.search(query)
@@ -373,6 +373,12 @@
         } else {
           return "";
         }
+      }
+      _getFilterProps() {
+        if (this._isSubjectSegment(this.segment))
+          return ['computingId', 'displayName', 'preferredName', 'firstName', 'jobTitle', 'lastName', 'fullTeams.title', 'specialties.value'];
+        else
+          return ['computingId', 'displayName', 'preferredName', 'firstName', 'jobTitle', 'lastName', 'fullTeams.title'];
       }
       _countPeople(_people) {
         return (_people && _people.length>0)? _people.length + 1: 0;
