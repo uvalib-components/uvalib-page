@@ -413,7 +413,7 @@
         return 535;
       }
       _getSmImg(url){
-        return this.whichImage(url.replace('www.library.virginia.edu/files','static.lib.virginia.edu/uvalibappfiles').replace('.jpg','.sm.jpg'));
+        return this.whichImage(url.replace('https://www.library.virginia.edu/files','/files').replace(/^(.*)\/(.*)$/,"$1/SM/$2"));
       }
       _computeSegment(people,query,segment){
         let peps = this._computePeople(people,null,query);
