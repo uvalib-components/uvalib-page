@@ -481,7 +481,6 @@
             if (p.schools && Array.isArray(p.schools)) p.schools.forEach(s=>segments.add(s.value));
             else if (p.schools) segments.add(p.schools);
           });
-console.log(this._schools.filter(s=>segments.has(s.uuid)))
           return this._schools.filter(s=>segments.has(s.uuid));
         }
       }
@@ -505,8 +504,6 @@ console.log(this._schools.filter(s=>segments.has(s.uuid)))
       }
       _getPersonBySpecial(special,prop){
         if (prop) {
-//          console.log('prop:'+prop)
-//          console.log(this._specialties[special])
           return this._specialties[special][prop]
         } else
           return this._specialties[special];
