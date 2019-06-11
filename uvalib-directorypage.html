@@ -20,7 +20,6 @@
         .wrapper .images {
           height: 300px;
           width: 300px;
-/*          padding: 15px; */
           display: flex;
           justify-content: center;
           flex-direction: column;
@@ -131,7 +130,7 @@
        </div>
        <div role="rowgroup">
         <div class="message" hidden$="[[!_message]]">[[_message]]</div>
-        <dom-if if="[[viewSelectable]]">
+        <dom-if if="[[_listSegment]]">
           <template>
             <div id="list-container" grid$="[[_imagesView]]">
               <dom-repeat mutable-data items="[[_computePeople(_people,nameSortReverseOrder,query)]]" as="person">
@@ -172,60 +171,90 @@
           </div>
         </template>
       </dom-if>
-      <dom-if if="[[!viewSelectable]]"> <!-- segmented results -->
+      <dom-if if="[[!_listSegment]]"> <!-- segmented results -->
         <template>
           <div class="message" hidden$="[[!_message]]">[[_message]]</div>
-          <dom-repeat mutable-data items="[[_computeSegment(_people,query,segment)]]" as="seg">
-            <template>
-              <div class="segtitle">
-                <h2>[[seg.title]]</h2>
-                <div hidden$="[[!seg.body]]" inner-h-t-m-l="[[seg.body]]"></div>
-              </div>
-              <div class="segment header" aria-hidden="true" hidden$="[[smallScreen]]">
-                 <div class="list">
-                   <div style="-ms-grid-column:1" class="columnheader">Name</div>
-                   <div style="-ms-grid-column:2" class="columnheader">
+          <template is="dom-if" if="[[_subjectView]]">
+            <div class="segment header" aria-hidden="true" hidden$="[[smallScreen]]">
+               <div class="list">
+                 <div style="-ms-grid-column:1" class="columnheader">Speciality</div>
+                 <div style="-ms-grid-column:2" class="columnheader">Name</div>
+                 <div style="-ms-grid-column:4" class="columnheader">Contact</div>
+               </div>
+               <hr />
+            </div>
+            <div id="list-container" class="segment">
+              <template is="dom-repeat" mutable-data items="[[_getSpecials(_people)]]" as="special">
+                <div tabindex$="[[tabIndex]]" class="list" id$="[[special]]" stripe$="[[_isOdd(index)]]">
+                  <div aria-label="Speciality" style="-ms-grid-column:1" class="cell speciality">
+                    <div class="label" aria-hidden hidden$="[[_notSmallScreen]]">Speciality</div>
+                    <span>[[special]]</span>
+                  </div>
+                  <div aria-label="Name" style="-ms-grid-column:2" class="cell name">
+                    <a href="[[_domain]]/staff/[[_getPersonBySpecial(special,'computingId')]]">[[_getPersonBySpecial(special,'displayName')]]
+                      <template is="dom-if" if="[[_getPersonBySpecial(special,'preferredName')]]">&nbsp;([[_getPersonBySpecial(special,'preferredName')]])</template>
+                    </a>
+                  </div>
+                  <div aria-label="Contact" style="-ms-grid-column:3" class="cell contact">
+                    <div class="label" aria-hidden hidden$="[[!smallScreen]]">Contact</div>
+                    <a aria-label="phone" href="tel:[[_getPersonBySpecial(special,'phone')]]" hidden$="[[!_getPersonBySpecial(special,'phone')]]">[[_getPersonBySpecial(special,'phone')]]</a><br />
+                    <a aria-label="email" href="mailto:[[_getPersonBySpecial(special,'email')]]" hidden$="[[!_getPersonBySpecial(special,'email')]]">[[_getPersonBySpecial(special,'email')]]</a>
+                  </div>
+                </div>
+              </template>
+            </div>
+          </template>
+          <template is="dom-if" if="[[!_subjectView]]">
+            <template is="dom-repeat" mutable-data items="[[_computeSegment(_people,query,segment)]]" as="seg">
+                <div class="segtitle">
+                  <h2>[[seg.title]]</h2>
+                  <div hidden$="[[!seg.body]]" inner-h-t-m-l="[[seg.body]]"></div>
+                </div>
+                <div class="segment header" aria-hidden="true" hidden$="[[smallScreen]]">
+                   <div class="list">
+                     <div style="-ms-grid-column:1" class="columnheader">Name</div>
+                     <div style="-ms-grid-column:2" class="columnheader">
 
-                    <dom-if if="[[_isSubjectSegment(segment)]]"><template>Speciality</template></dom-if>
-                    <dom-if if="[[_isDepartmentSegment(segment)]]"><template>Title</template></dom-if>
+                      <dom-if if="[[_isSubjectSegment(segment)]]"><template>Speciality</template></dom-if>
+                      <dom-if if="[[_isDepartmentSegment(segment)]]"><template>Title</template></dom-if>
+                     </div>
+                     <div style="-ms-grid-column:4" class="columnheader">Contact</div>
                    </div>
-                   <div style="-ms-grid-column:4" class="columnheader">Contact</div>
-                 </div>
-                 <hr />
-              </div>
-              <div id="list-container" class="segment">
-                <dom-repeat mutable-data items="[[_filterBySegment(_people,query,segment,seg)]]" as="person">
-                  <template>
-                    <div tabindex$="[[tabIndex]]" class="list" id$="[[person.id]]" stripe$="[[_isOdd(index)]]">
-                      <div aria-label="Name" style="-ms-grid-column:1" class="cell name">
-                        <a href="[[_domain]]/staff/[[person.computingId]]">[[person.displayName]]
-                          <template is="dom-if" if="[[person.preferredName]]">&nbsp;([[person.preferredName]])</template>
-                        </a>
+                   <hr />
+                </div>
+                <div id="list-container" class="segment">
+                  <dom-repeat mutable-data items="[[_filterBySegment(_people,query,segment,seg)]]" as="person">
+                    <template>
+                      <div tabindex$="[[tabIndex]]" class="list" id$="[[person.id]]" stripe$="[[_isOdd(index)]]">
+                        <div aria-label="Name" style="-ms-grid-column:1" class="cell name">
+                          <a href="[[_domain]]/staff/[[person.computingId]]">[[person.displayName]]
+                            <template is="dom-if" if="[[person.preferredName]]">&nbsp;([[person.preferredName]])</template>
+                          </a>
+                        </div>
+                        <div aria-label="Title" hidden$="[[!_isDepartmentSegment(segment)]]" style="-ms-grid-column:2" class="cell title">
+                          <div class="label" aria-hidden hidden$="[[_notSmallScreen]]">Title</div>
+                          <span>[[person.jobTitle]]</span>
+                        </div>
+                        <div aria-label="Specialties" hidden$="[[!_isSubjectSegment(segment)]]" style="-ms-grid-column:2" class="cell title">
+                          <div class="label" aria-hidden hidden$="[[_notSmallScreen]]">Specialties</div>
+                          <span><ul>
+                            <template is="dom-repeat" items="[[person.specialties]]" as="special">
+                              <li>[[special.value]]</li>
+                            </template>
+                          </ul></span>
+                        </div>
+                        <div aria-label="Contact" style="-ms-grid-column:4" class="cell contact">
+                          <div class="label" aria-hidden hidden$="[[!smallScreen]]">Contact</div>
+                          <a aria-label="phone" href="tel:[[person.phone]]" hidden$="[[!person.phone]]">[[person.phone]]</a>
+                          <br hidden$="[[!_and(person.phone,person.email)]]" />
+                          <a aria-label="email" href="mailto:[[person.email]]" hidden$="[[!person.email]]">[[person.email]]</a>
+                        </div>
                       </div>
-                      <div aria-label="Title" hidden$="[[!_isDepartmentSegment(segment)]]" style="-ms-grid-column:2" class="cell title">
-                        <div class="label" aria-hidden hidden$="[[_notSmallScreen]]">Title</div>
-                        <span>[[person.jobTitle]]</span>
-                      </div>
-                      <div aria-label="Specialties" hidden$="[[!_isSubjectSegment(segment)]]" style="-ms-grid-column:2" class="cell title">
-                        <div class="label" aria-hidden hidden$="[[_notSmallScreen]]">Specialties</div>
-                        <span><ul>
-                          <template is="dom-repeat" items="[[person.specialties]]" as="special">
-                            <li>[[special.value]]</li>
-                          </template>
-                        </ul></span>
-                      </div>
-                      <div aria-label="Contact" style="-ms-grid-column:4" class="cell contact">
-                        <div class="label" aria-hidden hidden$="[[!smallScreen]]">Contact</div>
-                        <a aria-label="phone" href="tel:[[person.phone]]" hidden$="[[!person.phone]]">[[person.phone]]</a>
-                        <br hidden$="[[!_and(person.phone,person.email)]]" />
-                        <a aria-label="email" href="mailto:[[person.email]]" hidden$="[[!person.email]]">[[person.email]]</a>
-                      </div>
-                    </div>
-                  </template>
-                </dom-repeat>
-              </div>
+                    </template>
+                  </dom-repeat>
+                </div>
             </template>
-          </dom-repeat>
+          </template>
         </template>
       </dom-if>
     </div>
@@ -256,7 +285,22 @@
           },
           view: {
             type: String,
+            value: "list",
+            notify: true
+          },
+          /* can be one of subject or department to segment results */
+          segment: {
+            type: String,
             value: "list"
+          },
+          availableViews: {
+            type: Array,
+            computed: '_getAvailableViews(segment)',
+            notify: true
+          },
+          _listSegment: {
+            type: Boolean,
+            computed: "_isListSegment(segment)"
           },
           _imagesView: {
             type: Boolean,
@@ -265,6 +309,10 @@
           _listView: {
             type: Boolean,
             computed: "_isListView(view)"
+          },
+          _subjectView: {
+            type: Boolean,
+            computed: '_isSubjectView(view)'
           },
           _areas: Array,
           peopleCount: {
@@ -286,15 +334,6 @@
             type: Boolean,
             computed: "_computeNotSmallScreen(smallScreen)"
           },
-          /* can be one of subject or department to segment results */
-          segment: {
-            type: String
-          },
-          viewSelectable: {
-            type: Boolean,
-            computed: '_isSelectable(segment)',
-            notify: true
-          },
           _viewNotSelectable: {
             type: Boolean,
             computed: '_isNotSelectable(segment)',
@@ -311,6 +350,10 @@
               {uuid:'architecture',title:"School of Architecture"},
               {uuid:'scps',title:"School of Continuing and Professional Studies"}
             ]
+          },
+          _specialties: {
+            type: Object,
+            value: ()=>{return {}}
           }
         });
       }
@@ -324,6 +367,9 @@
             uvalibDirectoryTemplate.content.insertBefore(superTemplateContents,null);
         }
         return uvalibDirectoryTemplate;
+      }
+      _isListSegment(segment){
+        return segment == "list"
       }
       _isSubjectSegment(segment) {
         return segment == "subject";
@@ -401,10 +447,13 @@
             }, {}):{};
       }
       _isListView(view){
-        return view=="list";
+        return view!="images";
       }
       _isImagesView(view){
         return view=="images"
+      }
+      _isSubjectView(view){
+        return view=="subject"
       }
       _computeNotSmallScreen(smallScreen){
         return !smallScreen;
@@ -432,6 +481,7 @@
             if (p.schools && Array.isArray(p.schools)) p.schools.forEach(s=>segments.add(s.value));
             else if (p.schools) segments.add(p.schools);
           });
+console.log(this._schools.filter(s=>segments.has(s.uuid)))
           return this._schools.filter(s=>segments.has(s.uuid));
         }
       }
@@ -439,6 +489,39 @@
         let peps = this._computePeople(people,null,query);
         if (this._isDepartmentSegment(segment)) return peps.filter(p=>Array.isArray(p.teams) && p.teams.indexOf(seg.uuid)!=-1);
         else if (this._isSubjectSegment(segment)) return peps.filter(p=>p.schools==seg.uuid||(Array.isArray(p.schools)&&p.schools.find(s=>s.value==seg.uuid)));
+      }
+      _getAvailableViews(segment){
+        if (segment==='list' && this.view != 'list' && this.view != 'images')
+          this.view = 'list';
+        if (segment==='subject')
+          this.view = 'subject';
+        if (segment==='department')
+            this.view = 'school';
+        return (segment==='list')?
+          [{id:'list',label:'List View',visible:true},{id:'images',label:'Image View',visible:true},{id:'subject',label:'Subject View',visible:false},{id:'school',label:'School View',visible:false}]:
+          (segment==='subject')?
+            [{id:'list',label:'List View',visible:false},{id:'images',label:'Image View',visible:false},{id:'subject',label:'Subject View',visible:true},{id:'school',label:'School View',visible:true}]:
+              null;
+      }
+      _getPersonBySpecial(special,prop){
+        if (prop) {
+//          console.log('prop:'+prop)
+//          console.log(this._specialties[special])
+          return this._specialties[special][prop]
+        } else
+          return this._specialties[special];
+      }
+      _getSpecials(_people){
+        var specialties = new Set();
+        _people.forEach(p=>{
+          if (Array.isArray(p.specialties)) {
+            p.specialties.forEach(s=>{
+              specialties.add(s.value);
+              this._specialties[s.value]=p;
+            })
+          }
+        })
+        return Array.from(specialties).sort();
       }
     }
 
