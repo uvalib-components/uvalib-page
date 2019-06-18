@@ -184,21 +184,26 @@
                <hr />
             </div>
             <div id="list-container" class="segment">
-              <template is="dom-repeat" mutable-data items="[[_getSpecials(_people)]]" as="special">
+              <template is="dom-repeat" mutable-data items="[[_getSpecials(_people,query,segment)]]" as="special">
                 <div tabindex$="[[tabIndex]]" class="list" id$="[[special]]" stripe$="[[_isOdd(index)]]">
                   <div aria-label="Speciality" style="-ms-grid-column:1" class="cell speciality">
                     <div class="label" aria-hidden hidden$="[[_notSmallScreen]]">Speciality</div>
                     <span>[[special]]</span>
                   </div>
                   <div aria-label="Name" style="-ms-grid-column:2" class="cell name">
-                    <a href="[[_domain]]/staff/[[_getPersonBySpecial(special,'computingId')]]">[[_getPersonBySpecial(special,'displayName')]]
-                      <template is="dom-if" if="[[_getPersonBySpecial(special,'preferredName')]]">&nbsp;([[_getPersonBySpecial(special,'preferredName')]])</template>
-                    </a>
+                    <template is="dom-repeat" items="[[_getPersonBySpecial(special)]]" as="sp">
+                      <a href="[[_domain]]/staff/[[sp.computingId]]">[[sp.displayName]]
+                        <template is="dom-if" if="[[sp.preferredName]]">&nbsp;([[sp.preferredName]])</template>
+                      </a><br /><br />
+                    </template>
                   </div>
                   <div aria-label="Contact" style="-ms-grid-column:3" class="cell contact">
                     <div class="label" aria-hidden hidden$="[[!smallScreen]]">Contact</div>
-                    <a aria-label="phone" href="tel:[[_getPersonBySpecial(special,'phone')]]" hidden$="[[!_getPersonBySpecial(special,'phone')]]">[[_getPersonBySpecial(special,'phone')]]</a><br />
-                    <a aria-label="email" href="mailto:[[_getPersonBySpecial(special,'email')]]" hidden$="[[!_getPersonBySpecial(special,'email')]]">[[_getPersonBySpecial(special,'email')]]</a>
+                    <template is="dom-repeat" items="[[_getPersonBySpecial(special)]]" as="sp">
+                      <a aria-label="phone" href="tel:[[sp.phone]]" hidden$="[[!sp.phone]]">[[sp.phone]]</a><br />
+                      <a aria-label="email" href="mailto:[[sp.email]]" hidden$="[[!sp.email]]">[[sp.email]]</a>
+                      <br  /><br />
+                    </template>
                   </div>
                 </div>
               </template>
@@ -502,19 +507,23 @@
             [{id:'list',label:'List View',visible:false},{id:'images',label:'Image View',visible:false},{id:'subject',label:'Subject View',visible:true},{id:'school',label:'School View',visible:true}]:
               null;
       }
-      _getPersonBySpecial(special,prop){
-        if (prop) {
-          return this._specialties[special][prop]
-        } else
-          return this._specialties[special];
+      _getPersonBySpecial(special){ //,prop){
+//        if (prop) {
+//          return this._specialties[special][prop]
+//        } else
+          return Array.from(this._specialties[special]);
       }
-      _getSpecials(_people){
+      _getSpecials(people,query){
+        let peps = this._computePeople(people,null,query);
         var specialties = new Set();
-        _people.forEach(p=>{
+        peps.forEach(p=>{
           if (Array.isArray(p.specialties)) {
             p.specialties.forEach(s=>{
               specialties.add(s.value);
-              this._specialties[s.value]=p;
+              if (this._specialties[s.value] && this._specialties[s.value] instanceof Set )
+                this._specialties[s.value].add(p);
+              else
+                this._specialties[s.value]=new Set([p]);
             })
           }
         })
