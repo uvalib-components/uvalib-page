@@ -173,7 +173,6 @@
       </dom-if>
       <dom-if if="[[!_listSegment]]"> <!-- segmented results -->
         <template>
-          <div class="message" hidden$="[[!_message]]">[[_message]]</div>
           <template is="dom-if" if="[[_subjectView]]">
             <div class="segment header" aria-hidden="true" hidden$="[[smallScreen]]">
                <div class="list">
@@ -527,6 +526,8 @@
             })
           }
         })
+        if (specialties.length == 0)
+          this._message = "Not found; try a different spelling."
         return Array.from(specialties).sort();
       }
     }
