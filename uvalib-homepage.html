@@ -37,7 +37,7 @@
     </custom-style>
 
 <!--    <uvalib-rt-models path="/homebanners" data="{{_banners}}"></uvalib-rt-models> -->
-    <uva-library path="web/banners" last-response="{{_banners}}"></uva-library>
+    <uva-library path="web/banners" last-response="{{_banners}}" filter='{"pathLimited":"/"}'></uva-library>
 
     <!-- Banner at top outside of card if not large screen -->
     <template is="dom-if" if="[[!largeScreen]]" restamp>
@@ -217,7 +217,7 @@
             <a tabindex="-1" href="https://library.virginia.edu/services">
               <paper-button>More Services</paper-button>
             </a>
-          </div> 
+          </div>
         </paper-card>
       </div>
       <uvalib-image-header src="https://static.lib.virginia.edu/files/renovation-images/field.jpg" fred no-overlay position="top" alt="Artist's rendering of proposed new building facade.">
