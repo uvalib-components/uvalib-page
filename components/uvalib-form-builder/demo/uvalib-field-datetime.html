@@ -1,0 +1,60 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, minimum-scale=1, initial-scale=1, user-scalable=yes">
+
+    <title>uvalib-form demo</title>
+
+    <script src="../../webcomponentsjs/webcomponents-loader.js"></script>
+
+    <link rel="import" href="../../iron-demo-helpers/demo-pages-shared-styles.html">
+    <link rel="import" href="../../iron-demo-helpers/demo-snippet.html">
+    <link rel="import" href="../../uvalib-theme/uvalib-theme.html">
+    <link rel="import" href="../uvalib-field-datetime.html">
+
+    <custom-style>
+      <style is="custom-style" include="demo-pages-shared-styles">
+        :root {
+          --vaadin-date-picker-overlay: {
+            max-height: 300px;
+          };
+        }
+      </style>
+    </custom-style>
+  </head>
+  <body>
+    <div class="horizontal-section-container centered">
+      <h3>Uvalib field datetime input demo default values</h3>
+      <demo-snippet>
+        <template>
+          <uvalib-field-datetime id="demo0"></uvalib-field-datetime>
+        </template>
+      </demo-snippet>
+    </div>
+    <div class="horizontal-section-container centered">
+      <h3>Uvalib field datetime input demo date-label and required fields</h3>
+      <demo-snippet>
+        <template>
+          <uvalib-field-datetime id="demo1" date-label="Preferred Date" date-required start-time-required end-time-required minute-step="30"></uvalib-field-datetime>
+        </template>
+      </demo-snippet>
+    </div>
+    <div class="horizontal-section-container centered">
+      <h3>Uvalib field datetime input choiceNumber with no end time</h3>
+      <demo-snippet>
+        <template>
+          <uvalib-field-datetime id="demo2" number-choice="2" start-time-label="Start" end-time-label="End" minute-step="60"></uvalib-field-datetime>
+        </template>
+      </demo-snippet>
+    </div>
+    <div class="horizontal-section-container centered">
+      <h3>Uvalib field datetime input choiceNumber with no time inputs week out selection recommendation</h3>
+      <demo-snippet>
+        <template>
+          <uvalib-field-datetime id="demo3" number-choice="3" minimum-days-out="7" hide-start-time hide-end-time></uvalib-field-datetime>
+        </template>
+      </demo-snippet>
+    </div>
+  </body>
+</html>

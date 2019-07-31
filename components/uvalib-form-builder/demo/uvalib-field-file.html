@@ -1,0 +1,54 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, minimum-scale=1, initial-scale=1, user-scalable=yes">
+
+    <title>uvalib-form demo</title>
+
+    <script src="../../webcomponentsjs/webcomponents-loader.js"></script>
+
+    <link rel="import" href="../../iron-demo-helpers/demo-pages-shared-styles.html">
+    <link rel="import" href="../../iron-demo-helpers/demo-snippet.html">
+    <link rel="import" href="../uvalib-field-file.html">
+
+    <custom-style>
+      <style is="custom-style" include="demo-pages-shared-styles">
+      </style>
+    </custom-style>
+  </head>
+  <body>
+    <div class="vertical-section-container centered">
+      <h3>Uvalib field file input demo</h3>
+      <demo-snippet>
+        <template>
+          <uvalib-field-file id="file1" element='{"type": "file", "name": "fld_file", "title": "File", "required": true, "required_error": "Please provide your file.", "value": ""}'></uvalib-field-file>
+        </template>
+      </demo-snippet>
+    </div>
+    <div class="vertical-section-container centered">
+      <h3>Uvalib field file input with extensions</h3>
+      <demo-snippet>
+        <template>
+          <uvalib-field-file id="file2" element='{"type": "file", "name": "fld_document", "title": "Word doc", "file_extensions": "pdf doc docx txt"}'></uvalib-field-file>
+        </template>
+      </demo-snippet>
+    </div>
+    <div class="vertical-section-container centered">
+      <h3>Uvalib field file input with mime types</h3>
+      <demo-snippet>
+        <template>
+          <uvalib-field-file id="file3" element='{"type": "file", "name": "fld_syllabus", "title": "Course Syllabus", "accept": "application/pdf,text/plain"}'></uvalib-field-file>
+        </template>
+      </demo-snippet>
+    </div>
+    <div class="vertical-section-container centered">
+      <h3>Uvalib field file input with file extensions and mime types</h3>
+      <demo-snippet>
+        <template>
+          <uvalib-field-file id="file4" element='{"type": "file", "name": "fld_something", "title": "Upload a file", "file_extensions": "doc docx", "accept": "application/pdf,text/plain"}'></uvalib-field-file>
+        </template>
+      </demo-snippet>
+    </div>
+  </body>
+</html>

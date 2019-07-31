@@ -1,0 +1,60 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, minimum-scale=1, initial-scale=1, user-scalable=yes">
+
+    <title>uvalib-form demo</title>
+
+    <script src="../../webcomponentsjs/webcomponents-loader.js"></script>
+
+    <link rel="import" href="../../iron-demo-helpers/demo-pages-shared-styles.html">
+    <link rel="import" href="../../iron-demo-helpers/demo-snippet.html">
+    <link rel="import" href="../../uvalib-theme/uvalib-theme.html">
+    <link rel="import" href="../uvalib-field-session-datetime.html">
+
+    <custom-style>
+      <style is="custom-style" include="demo-pages-shared-styles">
+        :root {
+          --vaadin-date-picker-overlay: {
+            max-height: 300px;
+          };
+        }
+      </style>
+    </custom-style>
+  </head>
+  <body>
+    <div class="horizontal-section-container centered">
+      <h3>Uvalib field session datetime input demo default values</h3>
+      <demo-snippet>
+        <template>
+          <uvalib-field-session-datetime id="demo0" minimum-days-out="7"></uvalib-field-session-datetime>
+        </template>
+      </demo-snippet>
+    </div>
+    <div class="horizontal-section-container centered">
+      <h3>Uvalib field session datetime input demo session label and length</h3>
+      <demo-snippet>
+        <template>
+          <uvalib-field-session-datetime id="demo1" session-label="Session Preferences" include-session-length></uvalib-field-session-datetime>
+        </template>
+      </demo-snippet>
+    </div>
+    <div class="horizontal-section-container centered">
+      <h3>Uvalib field session datetime input with 2 required dates out of 3 choices</h3>
+      <demo-snippet>
+        <template>
+          <uvalib-field-session-datetime id="demo2" date-required number-choices="3" num-choices-required="2" hide-end-time></uvalib-field-session-datetime>
+        </template>
+      </demo-snippet>
+    </div>
+    <div class="horizontal-section-container centered">
+      <h3>Uvalib field session datetime input with required dates and times for all choices</h3>
+      <demo-snippet>
+        <template>
+          <uvalib-field-session-datetime id="demo3" date-required start-time-required end-time-required number-choices="4" num-choices-required="4"></uvalib-field-session-datetime>
+        </template>
+      </demo-snippet>
+    </div>
+  </body>
+</html>

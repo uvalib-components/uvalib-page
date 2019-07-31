@@ -1,0 +1,14 @@
+{
+  "name": "fuse.js",
+  "homepage": "https://github.com/krisk/Fuse",
+  "version": "3.4.5",
+  "_release": "3.4.5",
+  "_resolution": {
+    "type": "version",
+    "tag": "v3.4.5",
+    "commit": "fe1ff83645a55b6ea9f9488893a32495c132529f"
+  },
+  "_source": "https://github.com/krisk/Fuse.git",
+  "_target": "^3.4.4",
+  "_originalSource": "fuse"
+}

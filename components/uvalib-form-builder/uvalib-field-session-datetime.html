@@ -1,0 +1,192 @@
+<link rel="import" href="../polymer/polymer-element.html">
+<link rel="import" href="../uvalib-theme/uvalib-theme.html">
+<link rel="import" href="../uvalib-theme/uvalib-fonts.html">
+<link rel="import" href="uvalib-form-style.html">
+<link rel="import" href="uvalib-field.html">
+<link rel="import" href="uvalib-field-datetime.html">
+
+<dom-module id="uvalib-field-session-datetime">
+  <template>
+    <custom-style>
+      <style include="uvalib-theme uvalib-form-style">
+      </style>
+    </custom-style>
+
+    <div class="form-field-group">
+      <label class="field-label">[[sessionLabel]]</label>
+      <template is="dom-if" if="[[includeSessionLength]]">
+        <div class="form-field">
+          <label class="field-label" for="sessionLength">Length (minutes)<span class="required" aria-hidden="true">*</span><span class="hidden">required</span></label>
+          <input type="number" min="0" step="5" id="sessionLength" name="sessionLength" required aria-required value="{{value.sessionLength::change}}" on-change="_sessionLengthChanged" aria-invalid$="{{_ariaInvalid}}" aria-describedby$="{{_ariaDescribedBy}}"/>
+          <div id="{{_ariaDescribedBy}}" class="uvalib-icon-exclamation-circle validation-message" hidden$="{{_hideMessage}}"><span hidden="{{_syntaxInvalid}}">Please enter the number of minutes for the session length.</span> <span hidden$="{{!_syntaxInvalid}}">Digits are only allowed for this input.</span></div>
+        </div>
+      </template>
+      <template is="dom-repeat" items="{{_datetimes}}">
+        <uvalib-field-datetime number-choice="[[item.nth]]" date-required="[[_isRequired(dateRequired,_numChoicesRequired,item.nth)]]"
+          hide-start-time="[[hideStartTime]]" start-time-required="[[_isRequired(startTimeRequired,_numChoicesRequired,item.nth)]]"
+          hide-end-time="[[hideEndTime]]" end-time-required="[[_isRequired(endTimeRequired,_numChoicesRequired,item.nth)]]"
+          minimum-days-out="[[minimumDaysOut]]" minute-step="[[minuteStep]]" value="{{item.preferredDateTime}}"></uvalib-field-datetime>
+      </template>
+    </div>
+  </template>
+
+  <script>
+    /**
+     * `uvalib-field-session-datetime`
+     * Component that generates a set of date and time input fields as options for indicating session options.
+     *
+     * @customElement
+     * @polymer
+     * @demo demo/uvalib-field-session-datetime.html
+     */
+    class UvalibFieldSessionDatetime extends UvalibField(Polymer.Element) {
+      static get is() { return 'uvalib-field-session-datetime'; }
+      static get properties() {
+        return Object.assign(super.properties,{
+          /**
+           * Values entered for the session length and multiple date/time choices.
+           */
+          value: {
+            type: Object,
+            value: function() {return {sessionLength: "", sessionDateTime: []};},
+            reflectToAttribute: true,
+            notify: true,
+            observer: '_validateValue'
+          },
+          /**
+           * used for template dom-repeat of the number of sessions displayed and their values input
+           */
+          _datetimes: {
+            type: Array,
+            value: []
+          },
+          /**
+           * the label to be used when displaying the session group of date times inputs and optional length
+           */
+          sessionLabel: {
+            type: String,
+            value: "Session Date/Time"
+          },
+          /**
+           * indicates if a session length of time input field should be displayed before the date time inputs.
+           */
+          includeSessionLength: {
+            type: Boolean,
+            value: false
+          },
+          /**
+           * number of choices to display for a session
+           */
+          numberChoices: {
+            type: Number,
+            value: 2
+          },
+          /**
+           * number of date/times entered for a session that will require a value
+           */
+          numChoicesRequired: {
+            type: Number,
+            value: 1
+          },
+          /**
+           * number of required date/times entered for a session, which cannot exceed the number of choices for a session
+           */
+          _numChoicesRequired: {
+            type: Number,
+            computed: "_compareNumberChoices(numChoicesRequired,numberChoices)"
+          },
+          /**
+           * indicates that the date input is required
+           */
+          dateRequired: {
+            type: Boolean,
+            value: false
+          },
+          /**
+           * indicates the start time input should not be displayed
+           */
+          hideStartTime: {
+            type: Boolean,
+            value: false
+          },
+          /**
+           * indicates the start time input is required
+           */
+          startTimeRequired: {
+            type: Boolean,
+            value: false
+          },
+          /**
+           * indicates the end time input should not be displayed
+           */
+          hideEndTime: {
+            type: Boolean,
+            value: false
+          },
+          /**
+           * indicates the end time input is required
+           */
+          endTimeRequired: {
+            type: Boolean,
+            value: false
+          },
+          /**
+           * the number of days from today that should be highlighted on the pop-up calendar
+           */
+          minimumDaysOut: {
+            type: Number,
+            value: 1
+          },
+          /**
+           * minute time intervals allowed to be entered, e.g. 30 would indicate 12:00, 12:30, 1:00, 1:30, etc. are allowed inputs - default is 1 minute
+           */
+          minuteStep: {
+            type: Number,
+            value: 1
+          }
+        });
+      }
+
+      ready() {
+        this.addEventListener('date-time-change',this._preferredDateTimeChanged);
+        super.ready();
+        this._datetimes = new Array();
+        for (var i=0; i < this.numberChoices; i++) {
+          this._datetimes[i] = { nth: i+1, preferredDateTime: {date: "", startTime: "", endTime: ""}};
+        }
+      }
+
+      _validateValue() {
+        if (typeof this.value === 'object' && this.value !== null) {
+          if (!this.value.hasOwnProperty('sessionLength')) this.set('value.sessionLength', "");
+          if (!this.value.hasOwnProperty('sessionDateTime')) this.set('value.sessionDateTime', []);
+        } else {
+          this.set('value', {sessionLength: "", sessionDateTime: []});
+        }
+      }
+      _compareNumberChoices(choicesRequired, numberChoices) {
+        return (choicesRequired > numberChoices) ? numberChoices : choicesRequired;
+      }
+
+      _isRequired(required, numChoicesRequired, nthDateTime) {
+        if (required) {
+          return (nthDateTime <= numChoicesRequired) ? true : false;
+        } else {
+          return false;
+        }
+      }
+
+      _sessionLengthChanged(e) {
+        this.set('value.sessionLength', this.shadowRoot.querySelector('#sessionLength').value);
+      }
+
+      _preferredDateTimeChanged(e) {
+        this.set('value.sessionDateTime', this._datetimes);
+        //this.value.sessionDateTime = this._datetimes;
+        console.log(this.value);
+      }
+    }
+
+    window.customElements.define(UvalibFieldSessionDatetime.is, UvalibFieldSessionDatetime);
+  </script>
+</dom-module>

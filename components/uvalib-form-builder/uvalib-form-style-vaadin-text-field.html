@@ -1,0 +1,19 @@
+<link rel="import" href="../polymer/polymer.html">
+
+<dom-module id="uvalib-form-style-vaadin-text-field" theme-for="vaadin-text-field">
+  <template>
+    <style>
+      :host([invalid]) [part="label"]::after {
+        color: black;
+      }
+      .vaadin-text-field-container [part="input-field"] {
+        background-color: white;
+        border: 1px solid black;
+      }
+      .vaadin-text-field-container [part="label"]::after {
+        content: "*";
+        color: red;
+      }
+    </style>
+  </template>
+</dom-module>

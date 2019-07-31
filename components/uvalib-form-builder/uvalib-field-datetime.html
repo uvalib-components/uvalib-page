@@ -1,0 +1,326 @@
+<link rel="import" href="../polymer/polymer-element.html">
+<link rel="import" href="../vaadin-date-picker/vaadin-date-picker.html">
+<link rel="import" href="../vaadin-time-picker/vaadin-time-picker.html">
+<link rel="import" href="../uvalib-theme/uvalib-theme.html">
+<link rel="import" href="../uvalib-theme/uvalib-fonts.html">
+<link rel="import" href="uvalib-form-style.html">
+<link rel="import" href="uvalib-form-style-vaadin-text-field.html">
+<link rel="import" href="uvalib-form-style-vaadin-time-picker.html">
+<link rel="import" href="uvalib-field.html">
+
+<dom-module id="uvalib-field-datetime">
+  <template>
+    <custom-style>
+      <style include="uvalib-theme uvalib-fonts uvalib-form-style">
+        :root {
+          --vaadin-date-picker-overlay: {
+            max-height: 300px;
+          };
+        }
+        :host {
+          display: block;
+        }
+        :host([small-screen]) .grid-main {
+          display: grid;
+          grid-template-columns: 1fr;
+          grid-gap: 10px;
+          grid-auto-rows: auto;
+          margin-bottom: 0;
+        }
+        .grid-main {
+          display: grid;
+          grid-template-columns: 1fr 1fr 1fr;
+          grid-gap: 10px;
+          grid-auto-rows: auto;
+          margin-bottom: 0;
+        }
+      </style>
+    </custom-style>
+    <div class="form-field">
+      <template is="dom-if" if="[[_hasTitle(element)]]"><label class="field-label">[[element.title]]</label></template>
+      <template is="dom-if" if="[[_hasDescription(element)]]">
+        <div class="descriptive-text" inner-h-t-m-l="[[element.description.markup]]"></div>
+      </template>
+      <div class="grid-main">
+        <vaadin-date-picker id="date" label="[[_labelForDate]]" min="[[_today()]]" initial-position="[[_daysOut(minimumDaysOut)]]"
+         placeholder="MM/DD/YYYY" required="[[dateRequired]]" value="{{value.date}}" invalid="{{_dateError}}">
+        </vaadin-date-picker>
+        <vaadin-time-picker hidden="{{hideStartTime}}" id="startTime" name="startTime" label="[[_labelForStartTime]]"
+         step="[[_convertToSeconds(minuteStep)]]" placeholder="HH:MM AM/PM" required="[[startTimeRequired]]"
+         value="{{value.startTime}}" invalid="{{_startTimeError}}">
+        </vaadin-time-picker>
+        <vaadin-time-picker hidden="{{hideEndTime}}" id="endTime" name="endTime" label="[[_labelForEndTime]]"
+         step="[[_convertToSeconds(minuteStep)]]" placeholder="HH:MM AM/PM" required="[[endTimeRequired]]"
+         value="{{value.endTime}}" invalid="{{_endTimeError}}">
+        </vaadin-time-picker>
+      </div>
+      <div id="{{_ariaDescribedBy}}" class="uvalib-icon-exclamation-circle validation-message" hidden$="{{_hideMessage}}"><span hidden="{{_syntaxInvalid}}">[[element.required_error]]</span> <span hidden$="{{!_syntaxInvalid}}">[[element.syntax_error]]</span></div>
+    </div>
+  </template>
+
+  <script>
+    /**
+     * `uvalib-field-datetime`
+     * Component that generates a date with time inputs.
+     *
+     * @customElement
+     * @polymer
+     * @demo demo/uvalib-field-datetime.html
+     */
+    class UvalibFieldDatetime extends UvalibField(Polymer.Element) {
+      static get is() { return 'uvalib-field-datetime'; }
+      static get properties() {
+        return Object.assign(super.properties,{
+          /**
+           * Values entered for the date, start time, and end time. Only values for displayed input elements should be used.
+           */
+          value: {
+            type: Object,
+            value: function() {return {date: "", startTime: "", endTime: ""};},
+            reflectToAttribute: true,
+            notify: true
+          },
+          /**
+           * Number to display if "choice" should be in the label name; useful if this component is used in loop to allow for multiple options
+           */
+          numberChoice: {
+            type: Number,
+            value: 0
+          },
+          /**
+           * custom label to use for the date - Date is the default if no number choice or date label is specified
+           */
+          dateLabel: {
+            type: String,
+            value: ""
+          },
+          /**
+           * actual date label to be displayed based on the properties set
+           */
+          _labelForDate: {
+            type: String,
+            computed: '_setDateLabel(dateLabel, numberChoice)'
+          },
+          /**
+           * indicates invalid date value entered
+           */
+          _dateError: {
+            type: Boolean,
+            value: false
+          },
+          /**
+           * indicates that the date input is required
+           */
+          dateRequired: {
+            type: Boolean,
+            value: false
+          },
+          /**
+           * label for the start time input - the default is Start time
+           */
+          startTimeLabel: {
+            type: String,
+            value: ""
+          },
+          /**
+           * actual start time label to be displayed based on the properties set
+           */
+          _labelForStartTime: {
+            type: String,
+            computed: '_setTimeLabel(startTimeLabel,"Start time")'
+          },
+          /**
+           * indicates the start time input should not be displayed
+           */
+          hideStartTime: {
+            type: Boolean,
+            value: false
+          },
+          /**
+           *  indicates start time entered is invalid
+           */
+          _startTimeError: {
+            type: Boolean,
+            value: false
+          },
+          /**
+           * indicates the start time input is required
+           */
+          startTimeRequired: {
+            type: Boolean,
+            value: false
+          },
+          /**
+           * label for the end time input - the default is End time
+           */
+          endTimeLabel: {
+            type: String,
+            value: ""
+          },
+          /**
+           * actual end time label to be displayed based on the properties set
+           */
+          _labelForEndTime: {
+            type: String,
+            computed: '_setTimeLabel(endTimeLabel,"End time")'
+          },
+          /**
+           * indicates the end time input should not be displayed
+           */
+          hideEndTime: {
+            type: Boolean,
+            value: false
+          },
+          /**
+           * indicates the end time input is required
+           */
+          endTimeRequired: {
+            type: Boolean,
+            value: false
+          },
+          /**
+           *  indicates end time value entered is invalid
+           */
+          _endTimeError: {
+            type: Boolean,
+            value: false
+          },
+          /**
+           * the number of days from today that should be highlighted on the pop-up calendar
+           */
+          minimumDaysOut: {
+            type: Number,
+            value: 1
+          },
+          /**
+           * minute time intervals allowed to be entered, e.g. 30 would indicate 12:00, 12:30, 1:00, 1:30, etc. are allowed inputs - default is 1 minute
+           */
+          minuteStep: {
+            type: Number,
+            value: 1
+          }
+        });
+      }
+
+      ready() {
+        // time and date both use same changed event
+        this.addEventListener('value-changed',this._valueChanged);
+        this.addEventListener('_date-error-changed',this._setErrorMsg);
+        this.addEventListener('_start-time-error-changed',this._setErrorMsg);
+        this.addEventListener('_end-time-error-changed',this._setErrorMsg);
+        super.ready();
+        if (!this.hideStartTime) {
+          this._setTimeFields('#startTime');
+        }
+        if (!this.hideEndTime) {
+          this._setTimeFields('#endTime');
+        }
+      }
+
+      _convertToSeconds(minutes) {
+        return (minutes && minutes > 0) ? minutes * 60 : 60;
+      }
+
+      _changeInvalid(e) {
+        // @TODO check the event to determine which input field is invalid
+        // @TODO set the appropriate error message property value
+        console.log('_dateTimeChangeInvalid:');
+        console.log(e);
+        this.invalidValues = true;
+      }
+
+      _valueChanged(e) {
+        console.log('_valueChanged:');
+        console.log(this.value);
+        this.dispatchEvent(new CustomEvent('date-time-change', {bubbles: true, composed: true, detail: {dateTime: this.value}}));
+      }
+
+      _daysOut(minDaysOut) {
+        var dayOutInFuture = new Date();
+        dayOutInFuture.setDate(dayOutInFuture.getDate() + minDaysOut);
+        return this._formatDate(dayOutInFuture);
+      }
+
+      _formatDate(day) {
+        var dd = day.getDate();
+        var mm = day.getMonth()+1;
+        var yyyy = day.getFullYear();
+        if (dd < 10) {
+          dd = '0'+dd
+        }
+        if (mm < 10) {
+          mm = '0'+mm
+        }
+        return yyyy + '-' + mm + '-' + dd;
+      }
+
+      _ordinalSuffixOf(i) {
+          var j = i % 10,
+              k = i % 100;
+          if (j == 1 && k != 11) {
+              return i + "st";
+          }
+          if (j == 2 && k != 12) {
+              return i + "nd";
+          }
+          if (j == 3 && k != 13) {
+              return i + "rd";
+          }
+          return i + "th";
+      }
+
+      _setDateLabel(dateLabel, numberChoice) {
+        if (dateLabel && dateLabel != "") {
+          return dateLabel;
+        } else {
+          return (numberChoice && numberChoice != 0) ? this._ordinalSuffixOf(numberChoice)+ " choice": "Date";
+        }
+      }
+
+      _setTimeLabel(timeLabel,defaultLabel) {
+        return (timeLabel && timeLabel != "") ? timeLabel : defaultLabel;
+      }
+
+      _setErrorMsg(e) {
+        this.element.syntax_issue = this._dateError || this._startTimeError || this._endTimeError;
+        this.element.syntax_error = (this.element.syntax_issue) ? "The " + this._labelForDate + " has potential issues. " : "";
+        this.element.syntax_error += (this._dateError) ? "Please check its date input. " : "";
+        this.element.syntax_error += (this._startTimeError) ? "Please check its " + this.startTimeLabel + ". " : "";
+        this.element.syntax_error += (this._endTimeError) ? "Please check its " + this.endTimeLabel + ". " : "";
+      }
+
+      _setTimeFields(timeField) {
+          var timePicker = this.shadowRoot.querySelector(timeField);
+          timePicker.i18n = {
+            formatTime: function(timeObject) {
+              if (timeObject) {
+                const pad = function(n) {
+                  n = parseInt(n || 0);
+                  return n < 10 ? '0' + n : n;
+                };
+                const period = timeObject.hours > 11 ? 'PM' : 'AM';
+                const hours = timeObject.hours % 12 || 12;
+                return pad(hours) + ':' + pad(timeObject.minutes) + ' ' + period;
+              }
+            },
+            parseTime: function(timeString) {
+              if (timeString) {
+                const parts = /^(\d{1,2})(?::(\d{1,2}))?(?:\s(\w{2}))?$/.exec(timeString);
+                return parts && {
+                  hours: parseInt(parts[1]) + (((parts[3] == 'PM') || (parts[3] == 'pm')) ? 12 : 0),
+                  minutes: parts[2]
+                };
+              }
+            }
+          };
+      }
+
+      _today() {
+        var today = new Date();
+        return this._formatDate(today);
+      }
+    }
+
+    window.customElements.define(UvalibFieldDatetime.is, UvalibFieldDatetime);
+  </script>
+</dom-module>

@@ -1,0 +1,537 @@
+<script src="../fuse.js/dist/fuse.js"></script>
+<link rel="import" href="../uvalib-theme/uvalib-ui-element.html">
+<link rel="import" href="../uvalib-theme/uvalib-theme.html">
+<link rel="import" href="../uva-models/uva-library.html">
+<link rel="import" href="../iron-icon/iron-icon.html">
+<link rel="import" href="../paper-progress/paper-progress.html">
+<link rel="import" href="../polymer/lib/mixins/gesture-event-listeners.html">
+<link rel="import" href="../iron-image/iron-image.html">
+
+<dom-module id="uvalib-directorypage">
+  <template>
+  <custom-style>
+      <style include="uvalib-theme">
+        :host {
+          display: block;
+        }
+        .wrapper .list {
+          padding: var(--uvalib-spacing-unit);
+        }
+        .wrapper .images {
+          height: 300px;
+          width: 300px;
+          display: flex;
+          justify-content: center;
+          flex-direction: column;
+          text-align: center;
+          align-items: center;
+        }
+        .wrapper:not([not-small]) .list .name {
+          font-size: calc(var(--uvalib-main-font-size-unit)*1.2);
+        }
+        .wrapper[not-small] .list  {
+          display: -ms-grid;
+          display: grid;
+          -ms-grid-columns: 1fr 1fr 1fr 1fr;
+          grid-template-columns: repeat(4, 1fr);
+          grid-gap: var(--uvalib-spacing-unit);
+        }
+        .wrapper[not-small] .segment .list {
+          -ms-grid-columns: 1fr 1fr 1fr;
+          grid-template-columns: repeat(3, 1fr);
+        }
+        div[grid] {
+          display: grid;
+          grid-gap: var(--uvalib-spacing-unit);
+          grid-template-columns: repeat(auto-fit, minmax(300px,1fr));
+        }
+        .columnheader {
+          font-weight: bold;
+        }
+        [role='button'] {
+          cursor: pointer;
+        }
+        .list[stripe] {
+          background-color: var(--uvalib-secondary-light-gray,#f2f2f2);
+        }
+        .header {
+          position: relative;
+        }
+        .header .list {
+          margin-bottom: var(--uvalib-spacing-unit);
+          padding-bottom: calc(var(--uvalib-spacing-unit)*.5);
+        }
+        .label {
+          font-size: var(--uvalib-main-font-size-unit);
+          font-weight: bold;
+          padding-top: calc(var(--uvalib-main-font-size-unit)*.5);
+        }
+        paper-progress {
+          position: absolute;
+          bottom: 0;
+          --paper-progress-indeterminate-cycle-duration: 4s;
+          --paper-progress-height: 3px;
+          --paper-progress-active-color: var(--uvalib-main-rotunda-orange);
+        }
+        iron-image {
+          height: 150px !important;
+          width: 150px !important;
+        }
+        .images .name {
+          padding: 10px;
+          font-weight: bold;
+        }
+        ul {
+          list-style-type: none;
+        }
+        .segtitle {
+          background-color: var(--uvalib-secondary-light-gray);
+          padding: var(--uvalib-spacing-unit);
+          margin-top: var(--uvalib-spacing-unit);
+        }
+        .segtitle h2 {
+          color: var(--uvalib-main-rotunda-orange) !important;
+          margin: 0;
+        }
+        .segtitle p {
+          margin: 0;
+          margin-top: var(--uvalib-spacing-unit);
+        }
+        .segment .list {
+          margin-bottom: 0;
+        }
+        .segment hr {
+          padding: 0;
+          margin: 0;
+        }
+        .desc {
+          color: black !important;
+        }
+        .segment ul {
+          padding: 0;
+          margin: 0;
+        }
+      </style>
+    </custom-style>
+
+    <uva-library last-response="{{_libraries}}"></uva-library>
+    <uva-library path="people" last-response="{{_people}}"></uva-library>
+    <uva-library path="teams" last-response="{{_teams}}"></uva-library>
+
+    <div class="wrapper" not-small$="[[!smallScreen]]">
+      <div class="header" aria-hidden="true" hidden$="[[_or(_imagesView,smallScreen,_viewNotSelectable)]]">
+         <div class="list">
+           <div style="-ms-grid-column:1" class="columnheader"><a role="button" on-tap="_toggleOrder" href="" aria-label="Toggle Sort of listed Library staff by last name">Name <iron-icon icon="[[_toggleIcon(nameSortReverseOrder)]]"></iron-icon></a></div>
+           <div style="-ms-grid-column:2" class="columnheader">Title</div>
+           <div style="-ms-grid-column:3" class="columnheader">Department</div>
+           <div style="-ms-grid-column:4" class="columnheader">Contact</div>
+         </div>
+         <paper-progress value="100" valuemax="10" indeterminate$="[[!_loaded]]" disabled$="[[_loaded]]" style="width:100%;"></paper-progress>
+       </div>
+       <div role="rowgroup">
+        <div class="message" hidden$="[[!_message]]">[[_message]]</div>
+        <dom-if if="[[_listSegment]]">
+          <template>
+            <div id="list-container" grid$="[[_imagesView]]">
+              <dom-repeat mutable-data items="[[_computePeople(_people,nameSortReverseOrder,query)]]" as="person">
+                <template>
+                  <div tabindex$="[[tabIndex]]" class$="[[view]]" id$="[[person.id]]" stripe$="[[_isOdd(index)]]">
+                    <template is="dom-if" if="[[_and(_imagesView,person.field_image)]]">
+                      <iron-image preload fade class="round" sizing="cover" src="[[_getSmImg(person.field_image.url)]]" alt="[[person.field_image.alt]]" position="top" hidden$="[[!_imagesView]]"></iron-image>
+                    </template>
+                    <template is="dom-if" if="[[!_or(_listView,person.field_image)]]">
+                      <iron-image preload fade class="round" sizing="cover" src="https://static.lib.virginia.edu/files/no-bio-photo.png" alt="" position="top" hidden$="[[!_imagesView]]"></iron-image>
+                    </template>
+                    <div aria-label="Name" style="-ms-grid-column:1" class="cell name">
+                      <a href="[[_domain]]/staff/[[person.computingId]]">[[person.displayName]]
+                        <template is="dom-if" if="[[person.preferredName]]">&nbsp;([[person.preferredName]])</template>
+                      </a>
+                    </div>
+                    <div aria-label="Title" style="-ms-grid-column:2" class="cell title">
+                      <div class="label" aria-hidden hidden$="[[_or(_notSmallScreen,_imagesView)]]">Title</div>
+                      <span>[[person.jobTitle]]</span>
+                    </div>
+                    <div aria-label="Teams" style="-ms-grid-column:3" class="cell teams" hidden$="[[_imagesView]]">
+                      <div class="label" aria-hidden hidden$="[[!smallScreen]]">Teams</div>
+                      <span><ul>
+                        <template is="dom-repeat" items="[[person.fullTeams]]" as="team">
+                          <li>[[team.title]]</li>
+                        </template>
+                      </ul></span>
+                    </div>
+                    <div aria-label="Contact" style="-ms-grid-column:4" class="cell contact" hidden$="[[_imagesView]]">
+                      <div class="label" aria-hidden hidden$="[[!smallScreen]]">Contact</div>
+                      <a aria-label="phone" href="tel:[[person.phone]]" hidden$="[[!person.phone]]">[[person.phone]]</a>
+                      <br hidden$="[[!_and(person.phone,person.email)]]" />
+                      <a aria-label="email" href="mailto:[[person.email]]" hidden$="[[!person.email]]">[[person.email]]</a>
+                    </div>
+                  </div>
+                </template>
+              </dom-repeat>
+          </div>
+        </template>
+      </dom-if>
+      <dom-if if="[[!_listSegment]]"> <!-- segmented results -->
+        <template>
+          <template is="dom-if" if="[[_subjectView]]">
+            <div class="segment header" aria-hidden="true" hidden$="[[smallScreen]]">
+               <div class="list">
+                 <div style="-ms-grid-column:1" class="columnheader">Speciality</div>
+                 <div style="-ms-grid-column:2" class="columnheader">Name</div>
+                 <div style="-ms-grid-column:4" class="columnheader">Contact</div>
+               </div>
+               <hr />
+            </div>
+            <div id="list-container" class="segment">
+              <template is="dom-repeat" mutable-data items="[[_getSpecials(_people,query,segment)]]" as="special">
+                <div tabindex$="[[tabIndex]]" class="list" id$="[[special]]" stripe$="[[_isOdd(index)]]">
+                  <div aria-label="Speciality" style="-ms-grid-column:1" class="cell speciality">
+                    <div class="label" aria-hidden hidden$="[[_notSmallScreen]]">Speciality</div>
+                    <span>[[special]]</span>
+                  </div>
+                  <div aria-label="Name" style="-ms-grid-column:2" class="cell name">
+                    <template is="dom-repeat" items="[[_getPersonBySpecial(special)]]" as="sp">
+                      <a href="[[_domain]]/staff/[[sp.computingId]]">[[sp.displayName]]
+                        <template is="dom-if" if="[[sp.preferredName]]">&nbsp;([[sp.preferredName]])</template>
+                      </a><br /><br />
+                    </template>
+                  </div>
+                  <div aria-label="Contact" style="-ms-grid-column:3" class="cell contact">
+                    <div class="label" aria-hidden hidden$="[[!smallScreen]]">Contact</div>
+                    <template is="dom-repeat" items="[[_getPersonBySpecial(special)]]" as="sp">
+                      <a aria-label="phone" href="tel:[[sp.phone]]" hidden$="[[!sp.phone]]">[[sp.phone]]</a><br />
+                      <a aria-label="email" href="mailto:[[sp.email]]" hidden$="[[!sp.email]]">[[sp.email]]</a>
+                      <br  /><br />
+                    </template>
+                  </div>
+                </div>
+              </template>
+            </div>
+          </template>
+          <template is="dom-if" if="[[!_subjectView]]">
+            <template is="dom-repeat" mutable-data items="[[_computeSegment(_people,query,segment)]]" as="seg">
+                <div class="segtitle">
+                  <h2>[[seg.title]]</h2>
+                  <div hidden$="[[!seg.body]]" inner-h-t-m-l="[[seg.body]]"></div>
+                </div>
+                <div class="segment header" aria-hidden="true" hidden$="[[smallScreen]]">
+                   <div class="list">
+                     <div style="-ms-grid-column:1" class="columnheader">Name</div>
+                     <div style="-ms-grid-column:2" class="columnheader">
+
+                      <dom-if if="[[_isSubjectSegment(segment)]]"><template>Speciality</template></dom-if>
+                      <dom-if if="[[_isDepartmentSegment(segment)]]"><template>Title</template></dom-if>
+                     </div>
+                     <div style="-ms-grid-column:4" class="columnheader">Contact</div>
+                   </div>
+                   <hr />
+                </div>
+                <div id="list-container" class="segment">
+                  <dom-repeat mutable-data items="[[_filterBySegment(_people,query,segment,seg)]]" as="person">
+                    <template>
+                      <div tabindex$="[[tabIndex]]" class="list" id$="[[person.id]]" stripe$="[[_isOdd(index)]]">
+                        <div aria-label="Name" style="-ms-grid-column:1" class="cell name">
+                          <a href="[[_domain]]/staff/[[person.computingId]]">[[person.displayName]]
+                            <template is="dom-if" if="[[person.preferredName]]">&nbsp;([[person.preferredName]])</template>
+                          </a>
+                        </div>
+                        <div aria-label="Title" hidden$="[[!_isDepartmentSegment(segment)]]" style="-ms-grid-column:2" class="cell title">
+                          <div class="label" aria-hidden hidden$="[[_notSmallScreen]]">Title</div>
+                          <span>[[person.jobTitle]]</span>
+                        </div>
+                        <div aria-label="Specialties" hidden$="[[!_isSubjectSegment(segment)]]" style="-ms-grid-column:2" class="cell title">
+                          <div class="label" aria-hidden hidden$="[[_notSmallScreen]]">Specialties</div>
+                          <span><ul>
+                            <template is="dom-repeat" items="[[person.specialties]]" as="special">
+                              <li>[[special.value]]</li>
+                            </template>
+                          </ul></span>
+                        </div>
+                        <div aria-label="Contact" style="-ms-grid-column:4" class="cell contact">
+                          <div class="label" aria-hidden hidden$="[[!smallScreen]]">Contact</div>
+                          <a aria-label="phone" href="tel:[[person.phone]]" hidden$="[[!person.phone]]">[[person.phone]]</a>
+                          <br hidden$="[[!_and(person.phone,person.email)]]" />
+                          <a aria-label="email" href="mailto:[[person.email]]" hidden$="[[!person.email]]">[[person.email]]</a>
+                        </div>
+                      </div>
+                    </template>
+                  </dom-repeat>
+                </div>
+            </template>
+          </template>
+        </template>
+      </dom-if>
+    </div>
+
+  </template>
+
+  <script>
+    let uvalibDirectoryTemplate;
+
+    /**
+     * `uvalib-hourspage`
+     * UVA Library page layout component
+     *
+     * @customElement
+     * @polymer
+     * @demo demo/index.html
+     */
+    class UvalibDirectorypage extends Polymer.GestureEventListeners(UvalibUiElement) {
+      static get is() { return 'uvalib-directorypage'; }
+      static get properties() {
+        return Object.assign(super.properties,{
+          _libraries: Array,
+          _people: Array,
+          _teams: Array,
+          _teamsHashed: {
+            type: Object,
+            computed: '_computeHash(_teams)'
+          },
+          view: {
+            type: String,
+            value: "list",
+            notify: true
+          },
+          /* can be one of subject or department to segment results */
+          segment: {
+            type: String,
+            value: "list"
+          },
+          availableViews: {
+            type: Array,
+            computed: '_getAvailableViews(segment)',
+            notify: true
+          },
+          _listSegment: {
+            type: Boolean,
+            computed: "_isListSegment(segment)"
+          },
+          _imagesView: {
+            type: Boolean,
+            computed: "_isImagesView(view)"
+          },
+          _listView: {
+            type: Boolean,
+            computed: "_isListView(view)"
+          },
+          _subjectView: {
+            type: Boolean,
+            computed: '_isSubjectView(view)'
+          },
+          _areas: Array,
+          peopleCount: {
+            type: Number,
+            computed: '_countPeople(_people)',
+            notify: true
+          },
+          nameSortReverseOrder: {
+            type: Boolean,
+            value: false
+          },
+          query: String,
+          _message: String,
+          _loaded: {
+            type: Boolean,
+            value: false
+          },
+          _notSmallScreen: {
+            type: Boolean,
+            computed: "_computeNotSmallScreen(smallScreen)"
+          },
+          _viewNotSelectable: {
+            type: Boolean,
+            computed: '_isNotSelectable(segment)',
+            notify: true
+          },
+          _schools: {
+            type: Object,
+            value: [
+              {uuid:'gsas',title:"College and Graduate School of Arts and Sciences"},
+              {uuid:'commerce',title:"McIntire School of Commerce"},
+              {uuid:'engineering',title:"School of Engineering and Applied Science"},
+              {uuid:'batten',title:"Frank Batten School of Leadership and Public Policy"},
+              {uuid:'datascience',title:"Data Science Institute"},
+              {uuid:'architecture',title:"School of Architecture"},
+              {uuid:'scps',title:"School of Continuing and Professional Studies"}
+            ]
+          },
+          _specialties: {
+            type: Object,
+            value: ()=>{return {}}
+          }
+        });
+      }
+      static get template() {
+        if (!uvalibDirectoryTemplate) {
+            // Retrieve this element's dom-module template
+            uvalibDirectoryTemplate = Polymer.DomModule.import(this.is, 'template');
+            // Clone the contents of the superclass template
+            let superTemplateContents = UvalibUiElement.template.content.cloneNode(true);
+            // Insert the superclass contents
+            uvalibDirectoryTemplate.content.insertBefore(superTemplateContents,null);
+        }
+        return uvalibDirectoryTemplate;
+      }
+      _isListSegment(segment){
+        return segment == "list"
+      }
+      _isSubjectSegment(segment) {
+        return segment == "subject";
+      }
+      _isDepartmentSegment(segment) {
+        return segment == "department";
+      }
+      _isSelectable(segment) {
+        return (segment == null || segment == 'list');
+      }
+      _isNotSelectable(segment) {
+        return !this._isSelectable(segment);
+      }
+      _computePeople(_people,revorder,query) {
+        if (_people) {
+          var show = _people?
+            _people.sort(function(a, b) {
+              var nameA = a.lastName.toUpperCase(); // ignore upper and lowercase
+              var nameB = b.lastName.toUpperCase(); // ignore upper and lowercase
+              if (nameA < nameB) return (revorder)? 1:-1;
+              if (nameA > nameB) return (revorder)? -1:1;
+              return 0;
+            }):null;
+          if (query) {
+            var options = {
+              shouldSort: true,
+              tokenize: true,
+              matchAllTokens: true,
+              threshold: 0.0,
+              location: 0,
+              distance: 100,
+              maxPatternLength: 32,
+              minMatchCharLength: 1,
+              keys: this._getFilterProps()
+            };
+            var fuse = new Fuse(show, options);
+              show = fuse.search(query)
+              if (show.length == 0)
+                this._message = "Not found; try a different spelling."
+              else
+                this._message = null;
+            } else {
+              this._message = null;
+            }
+          this._loaded = true;
+          return show;
+        } else {
+          return "";
+        }
+      }
+      _getFilterProps() {
+        if (this._isSubjectSegment(this.segment))
+          return ['computingId', 'displayName', 'preferredName', 'firstName', 'jobTitle', 'lastName', 'fullTeams.title', 'specialties.value'];
+        else
+          return ['computingId', 'displayName', 'preferredName', 'firstName', 'jobTitle', 'lastName', 'fullTeams.title'];
+      }
+      _countPeople(_people) {
+        return (_people && _people.length>0)? _people.length + 1: 0;
+      }
+      _sortOrder(nameSortReverseOrder) {
+        return nameSortReverseOrder? "descending":"ascending"
+      }
+      _toggleOrder(e){
+        e.preventDefault();
+        this.nameSortReverseOrder = !this.nameSortReverseOrder;
+      }
+      _toggleIcon(nameSortReverseOrder){
+        return nameSortReverseOrder? "caret-up":"caret-down";
+      }
+      _computeHash(arry){
+        return (Array.isArray(arry))?
+            arry.reduce((obj,item)=>{
+              obj[item.uuid] = item;
+              return obj;
+            }, {}):{};
+      }
+      _isListView(view){
+        return view!="images";
+      }
+      _isImagesView(view){
+        return view=="images"
+      }
+      _isSubjectView(view){
+        return view=="subject"
+      }
+      _computeNotSmallScreen(smallScreen){
+        return !smallScreen;
+      }
+      _getlistOffset(smallScreen,mediumScreen,largeScreen){
+        return 535;
+      }
+      _getSmImg(url){
+        return this.whichImage(url.replace('www.library.virginia.edu/files','static.lib.virginia.edu/uvalibappfiles').replace(/^(.*)\/(.*)$/,"$1/SM/$2"));
+      }
+      _computeSegment(people,query,segment){
+        let peps = this._computePeople(people,null,query);
+        var segments = new Set();
+        if (segment == "department" && Array.isArray(peps)) {
+          peps.forEach(p=>{
+            if (p.fullTeams && Array.isArray(p.fullTeams)) {
+              p.fullTeams.forEach(t=>segments.add(t.uuid));
+            }
+          });
+          return this._teams.filter(t=>segments.has(t.uuid))
+                     .sort((a,b) => (a.title > b.title) ? 1 : ((b.title > a.title) ? -1 : 0));
+        }
+        else if (segment == "subject" && Array.isArray(peps)) {
+          peps.forEach(p=>{
+            if (p.schools && Array.isArray(p.schools)) p.schools.forEach(s=>segments.add(s.value));
+            else if (p.schools) segments.add(p.schools);
+          });
+          return this._schools.filter(s=>segments.has(s.uuid));
+        }
+      }
+      _filterBySegment(people,query,segment,seg){
+        let peps = this._computePeople(people,null,query);
+        if (this._isDepartmentSegment(segment)) return peps.filter(p=>Array.isArray(p.teams) && p.teams.indexOf(seg.uuid)!=-1);
+        else if (this._isSubjectSegment(segment)) return peps.filter(p=>p.schools==seg.uuid||(Array.isArray(p.schools)&&p.schools.find(s=>s.value==seg.uuid)));
+      }
+      _getAvailableViews(segment){
+        if (segment==='list' && this.view != 'list' && this.view != 'images')
+          this.view = 'list';
+        if (segment==='subject')
+          this.view = 'subject';
+        if (segment==='department')
+            this.view = 'school';
+        return (segment==='list')?
+          [{id:'list',label:'List View',visible:true},{id:'images',label:'Image View',visible:true},{id:'subject',label:'Subject View',visible:false},{id:'school',label:'School View',visible:false}]:
+          (segment==='subject')?
+            [{id:'list',label:'List View',visible:false},{id:'images',label:'Image View',visible:false},{id:'subject',label:'Subject View',visible:true},{id:'school',label:'School View',visible:true}]:
+              null;
+      }
+      _getPersonBySpecial(special){ //,prop){
+//        if (prop) {
+//          return this._specialties[special][prop]
+//        } else
+          return Array.from(this._specialties[special]);
+      }
+      _getSpecials(people,query){
+        let peps = this._computePeople(people,null,query);
+        var specialties = new Set();
+        peps.forEach(p=>{
+          if (Array.isArray(p.specialties)) {
+            p.specialties.forEach(s=>{
+              specialties.add(s.value);
+              if (this._specialties[s.value] && this._specialties[s.value] instanceof Set )
+                this._specialties[s.value].add(p);
+              else
+                this._specialties[s.value]=new Set([p]);
+            })
+          }
+        })
+        if (specialties.length == 0)
+          this._message = "Not found; try a different spelling."
+        return Array.from(specialties).sort();
+      }
+    }
+
+    window.customElements.define(UvalibDirectorypage.is, UvalibDirectorypage);
+  </script>
+</dom-module>

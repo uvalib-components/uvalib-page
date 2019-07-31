@@ -1,0 +1,78 @@
+<link rel="import" href="../polymer/polymer-element.html">
+<link rel="import" href="../paper-spinner/paper-spinner.html">
+<link rel="import" href="uvalib-field.html">
+<link rel="import" href="../uvalib-theme/uvalib-theme.html">
+<link rel="import" href="uvalib-form-style.html">
+
+<dom-module id="uvalib-field-button">
+  <template>
+    <custom-style>
+      <style include="uvalib-theme uvalib-form-style">
+        input.Submit {
+          padding: 10px;
+          background: var(--uvalib-main-rotunda-orange);
+          color: var(--uvalib-main-white);
+          font-weight: bold;
+          border-radius: calc(var(--uvalib-main-font-size-unit)/4);
+        }
+        input.Submit:hover, input.Submit:disabled {
+          background-color: var(--uvalib-secondary-medium-gray);
+          color: var(--uvalib-main-black);
+        }
+        paper-spinner {
+          margin-left: 10px;
+        }
+      </style>
+    </custom-style>
+
+    <div class="form-field button">
+      <input class$="[[element.submit__label]]" type="button" disabled="[[disabled]]" id$="[[element.webform_key]]" name$="[[element.submit__label]]" value$="{{element.submit__label}}" on-click="_clickedButton" />
+      <template is="dom-if" if="[[_isSubmitButton()]]">
+        <paper-spinner alt="Sending request, please wait." active="[[submitted]]"></paper-spinner>
+      </template>
+    </div>
+  </template>
+
+  <script>
+    /**
+     * `uvalib-field-button`
+     * Component that generates button.
+     *
+     * @customElement
+     * @polymer
+     * @demo demo/uvalib-field-button.html
+     */
+    class UvalibFieldButton extends UvalibField(Polymer.Element) {
+      static get is() { return 'uvalib-field-button'; }
+      static get properties() {
+        return Object.assign(super.properties,{
+          submitted: {
+            type: Boolean,
+            value: false,
+            notify: true,
+            reflectToAttribute: true
+          },
+          disabled: {
+            type: Boolean,
+            value: false
+          }
+        });
+      }
+
+
+      _clickedButton(e) {
+        console.log('clicked button');
+        this.disabled = this.submitted = (this._isSubmitButton()) ? true : false; // if submit button clicked we want to activate spinner
+        console.log(this.submitted);
+        this.dispatchEvent(new CustomEvent('clickedButton', {detail: {field_id: this.element.webform_key, name: this.element.submit__label}, bubbles: true, composed: true}));
+      }
+
+      _isSubmitButton() {
+        return (this.element.submit__label == 'Submit');
+      }
+
+    }
+
+    window.customElements.define(UvalibFieldButton.is, UvalibFieldButton);
+  </script>
+</dom-module>
