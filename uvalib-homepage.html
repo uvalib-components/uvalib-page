@@ -37,7 +37,7 @@
     </custom-style>
 
 <!--    <uvalib-rt-models path="/homebanners" data="{{_banners}}"></uvalib-rt-models> -->
-    <uva-library path="web/banners" last-response="{{_banners}}" filter='{"pathLimited":"/"}'></uva-library>
+    <uva-library path="web/banners" items="{{_banners}}" filter='{"pathLimited":"/"}'></uva-library>
 
     <!-- Banner at top outside of card if not large screen -->
     <template is="dom-if" if="[[!largeScreen]]" restamp>
