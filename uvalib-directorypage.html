@@ -266,7 +266,6 @@
   </template>
 
   <script>
-    let uvalibDirectoryTemplate;
 
     /**
      * `uvalib-hourspage`
@@ -362,6 +361,7 @@
         });
       }
       static get template() {
+        let uvalibDirectoryTemplate;
         if (!uvalibDirectoryTemplate) {
             // Retrieve this element's dom-module template
             uvalibDirectoryTemplate = Polymer.DomModule.import(this.is, 'template');
