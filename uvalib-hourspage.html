@@ -150,7 +150,16 @@
             <div class="tr" role="row" id$="[[library.slug]]-hours">
               <div class="td" role="gridcell"><a href="hours#[[library.slug]]">[[library.title]]</a></div>
               <template is="dom-repeat" items="[[_days]]" as="day">
-                <div class="td" role="gridcell">[[_getOpenRange(library.libcalID,day.id,_times)]]</div>
+                <div class="td" role="gridcell">
+<template is="dom-if" if="[[_isZero(index)]]">              
+                  <uvalib-model-realtime-override database="uvalib-occupancy" path$="[[_overridePath(library.slug)]]" timestamp default-value="Temporarily Closed">
+                    [[_getOpenRange(library.libcalID,day.id,_times)]]
+                  </uvalib-model-realtime-override>
+</template>               
+<template is="dom-if" if="[[!_isZero(index)]]">
+  [[_getOpenRange(library.libcalID,day.id,_times)]]
+</template>      
+                </div>
               </template>
             </div>
           </template>
@@ -162,7 +171,11 @@
           <template is="dom-if" if="[[library.libcalID]]">
             <paper-card id$="[[library.slug]]-hours" heading="[[library.title]]" on-tap="_cardTap">
                 <div class="card-content">
-                  <div class="current-times" closed$="[[_isClosed(library.libcalID,_times,_refresh)]]">[[_getRange(library.libcalID,_times,_refresh)]]</div>
+                  <div class="current-times" closed$="[[_isClosed(library.libcalID,_times,_refresh)]]">
+                    <uvalib-model-realtime-override database="uvalib-occupancy" path$="[[_overridePath(library.slug)]]" timestamp default-value="Temporarily Closed">
+                      [[_getRange(library.libcalID,_times,_refresh)]]
+                    </uvalib-model-realtime-override>
+                  </div>
                   <div class="extended-info">
                     <div>
                       <paper-button raised disabled$="[[!page]]" on-tap="_setPageZero">Today</paper-button>
@@ -176,7 +189,7 @@
                             [[day.title]] [[day.date]]
                           </div>
                           <div class="hours flex">
-                            [[_getOpenRange(library.libcalID,day.id,_times)]]
+                              [[_getOpenRange(library.libcalID,day.id,_times)]]
                           </div>
                         </div>
                       </template>
@@ -299,6 +312,12 @@
       disconnectedCallback(){
         super.disconnectedCallback();
         clearInterval(this._intervalId);
+      }
+      _overridePath(id){
+        return `locations-schemaorg/location/${id}/tempClosed`;
+      }
+      _isZero(v){
+        return v==0;
       }
       _mapIt(e){
         var loc = e.currentTarget.dataLocation;
