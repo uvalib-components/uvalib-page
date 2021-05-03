@@ -32,6 +32,51 @@
         #hours-card {
           min-height: 330px;
         }
+
+        .shady.campaign {
+          background-color: var(--uvalib-brand-blue);
+          margin-top: -25px;
+          margin-bottom: 0;
+        }
+        .shady.campaign h1, .shady.campaign h2 {
+          color: white !important;
+          margin: 0;
+          padding: 0;
+          text-align: center;
+        }
+        .shady.campaign h1 {
+          font-family: adobe-caslon-pro, serif;
+          font-weight: 200;
+          font-style: normal;
+          letter-spacing: 2px;
+          padding-top: 6px;
+        }
+        .shady.campaign-sub-block {
+          background-color: white;
+          text-align: center;
+          padding-top: 0;
+          padding-bottom: 0;
+          margin-top: 0;
+          margin-bottom: 2em;
+        }
+        .shady.campaign-sub-block p {
+          font-weight: bold;
+          padding: 0;
+          margin-top: 20px;
+          margin-bottom: 6px;
+        }
+        .shady.campaign-sub-block div {
+          display: flex;
+          flex-direction: row;
+          flex-wrap: nowrap;
+          justify-content: center;
+          align-content: stretch;
+          align-items: flex-start;
+        }
+        .shady.campaign-sub-block div a:first-child {
+          margin-right: 2em;
+        }
+
       </style>
     </custom-style>
 
@@ -113,14 +158,18 @@
       </div>
 
 <!-- THIS ITEM IS DUPLICATED: Please update both instances -->
-      <uvalib-image-header src="https://static.lib.virginia.edu/files/renovation-images/field.jpg" fred no-overlay position="top" alt="Artist's rendering of proposed new building facade.">
-        <h1 slot="header-title" class="all-cap text-center">Library Renovation</h1>
-        <div slot="info-containers" class="reno-buttons">
-          <a href="https://news.library.virginia.edu/category/renovations/" class="uvalib-btn">News &amp; Updates</a>
-          <a href="https://www.library.virginia.edu/renovation/faq" class="uvalib-btn">FAQ</a>
-          <a href="https://www.library.virginia.edu/renovation/" class="uvalib-btn">Learn more</a>
-        </div>
-      </uvalib-image-header>
+      <uvalib-image-header src="https://static.lib.virginia.edu/files/renovation-images/GrandHall_wideangle_darkerslate-web-v2a.jpg" no-overlay position="top" alt="Artist's rendering of proposed new Memorial Hall."></uvalib-image-header>
+      <div class="shady campaign">
+        <h1 class="all-cap">The Next Chapter</h1>
+        <h2 class="h4 all-cap">The Campaign for the University of Virginia Library</h2>
+      </div>
+      <div class="shady campaign-sub-block">
+        <p>Supporting Spaces, Collections, and Access at the UVA Library</p>
+        <div>
+          <a href="https://www.library.virginia.edu/support-library" class="uvalib-button uvalib-button--alt">Learn more</a>
+          <a href="https://www.library.virginia.edu/give" class="uvalib-button uvalib-button--alt">Give now</a>
+        </div>          
+      </div>
 
       <div class="layout vertical">
         <paper-card id="events" heading="Upcoming Events" style="max-width:100%"><!-- THIS ITEM IS DUPLICATED: Please update both instances -->
@@ -222,14 +271,18 @@
       </div>
 
 <!-- THIS ITEM IS DUPLICATED: Please update both instances -->
-      <uvalib-image-header src="https://static.lib.virginia.edu/files/renovation-images/field.jpg" fred no-overlay position="top" alt="Artist's rendering of proposed new building facade.">
-        <h1 slot="header-title" class="all-cap text-center">Renovating our Main Library</h1>
-        <div slot="info-containers" class="reno-buttons">
-          <a href="https://news.library.virginia.edu/category/renovations/" class="uvalib-btn">News &amp; Updates</a>
-          <a href="https://www.library.virginia.edu/renovation/faq" class="uvalib-btn">FAQ</a>
-          <a href="https://www.library.virginia.edu/renovation/" class="uvalib-btn">Learn more</a>
-        </div>
-      </uvalib-image-header>
+      <uvalib-image-header src="https://static.lib.virginia.edu/files/renovation-images/GrandHall_wideangle_darkerslate-web-v2a.jpg" no-overlay position="top" alt="Artist's rendering of proposed new Memorial Hall."></uvalib-image-header>
+      <div class="shady campaign">
+        <h1 class="all-cap">The Next Chapter</h1>
+        <h2 class="h4 all-cap">The Campaign for the University of Virginia Library</h2>
+      </div>
+      <div class="shady campaign-sub-block">
+        <p>Supporting Spaces, Collections, and Access at the UVA Library</p>
+        <div>
+          <a href="https://www.library.virginia.edu/support-library" class="uvalib-button uvalib-button--alt">Learn more</a>
+          <a href="https://www.library.virginia.edu/give" class="uvalib-button uvalib-button--alt">Give now</a>
+        </div>          
+      </div>
 
       <div class="layout horizontal">
         <paper-card class="flex" id="events" heading="Upcoming Events"><!-- THIS ITEM IS DUPLICATED: Please update both instances -->
