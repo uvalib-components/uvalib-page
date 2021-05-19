@@ -5,7 +5,6 @@
 <link rel="import" href="../iron-icon/iron-icon.html">
 <link rel="import" href="../paper-progress/paper-progress.html">
 <link rel="import" href="../polymer/lib/mixins/gesture-event-listeners.html">
-<link rel="import" href="../iron-image/iron-image.html">
 
 <dom-module id="uvalib-directorypage">
   <template>
@@ -73,9 +72,11 @@
           --paper-progress-height: 3px;
           --paper-progress-active-color: var(--uvalib-main-rotunda-orange);
         }
-        iron-image {
-          height: 150px !important;
-          width: 150px !important;
+        img.round {
+          border-radius: 50%;
+          width: 150px;
+          height: 150px;
+          object-fit: cover;
         }
         .images .name {
           padding: 10px;
@@ -137,10 +138,10 @@
                 <template>
                   <div tabindex$="[[tabIndex]]" class$="[[view]]" id$="[[person.id]]" stripe$="[[_isOdd(index)]]">
                     <template is="dom-if" if="[[_and(_imagesView,person.field_image)]]">
-                      <iron-image preload fade class="round" sizing="cover" src="[[_getSmImg(person.field_image.url)]]" alt="[[person.field_image.alt]]" position="top" hidden$="[[!_imagesView]]"></iron-image>
+                      <img class="round" loading="lazy" src="[[person.field_image.url]]" alt="[[person.field_image.alt]]" hidden$="[[!_imagesView]]" />
                     </template>
                     <template is="dom-if" if="[[!_or(_listView,person.field_image)]]">
-                      <iron-image preload fade class="round" sizing="cover" src="https://static.lib.virginia.edu/files/no-bio-photo.png" alt="" position="top" hidden$="[[!_imagesView]]"></iron-image>
+                      <img class="round" src="https://static.lib.virginia.edu/files/no-bio-photo.png" alt="" hidden$="[[!_imagesView]]" />
                     </template>
                     <div aria-label="Name" style="-ms-grid-column:1" class="cell name">
                       <a href="[[_domain]]/staff/[[person.computingId]]">[[person.displayName]]
