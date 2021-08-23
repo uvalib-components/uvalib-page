@@ -16,7 +16,7 @@
   <template>
   <custom-style>
       <style include="uvalib-theme uvalib-hourspage-style iron-flex-factors">
-        :host {
+                :host {
           display: block;
         }
         paper-card {
@@ -39,27 +39,26 @@
           content: none;
         }
 
-        .table { margin: 2em auto; }
+        .table { margin: 2em auto; width: 100%; }/*added width*/
         .th {
           text-align: center;
         }
         .th:first-of-type, .td:nth-child(2) {
           background-color: var(--uvalib-main-rotunda-orange);
-          color: var(--color-white);
+          color: var(--uvalib-text-dark);/*added for ADA compliance*/
         }
         .td {
           text-align: center;
-          padding-bottom: .4em;
-          padding-top: .4em;
+          padding: .4em 2px .4em 2px; /*added padding to left and right*/
           width: auto;
         }
         .td:first-child {
-          padding-left: 1em;
-          padding-right: 0em;
+          padding-left: 4px;/*changed from 1em*/
+          padding-right: 4px;/*changed from 0em*/
           text-align: left;
-          width: 30%;
+          /* width: 30%;
           font-family: 'franklin-gothic-urw-cond','arial narrow',sans-serif;
-          font-weight: 700;
+          font-weight: 700; */
         }
         .tr:nth-child(odd) { background-color: var(--color-light-gray); }
         .tr:nth-child(2) > .td, .tr:nth-child(2) > .th {
@@ -67,15 +66,12 @@
           padding-bottom: .5em;
         }
         .tr:hover:not(.first-row) {
-          background-color: var(--color-medium-gray);
-          color: var(--uvalib-text-dk-grey);
-        }
-        .tr:hover:not(.first-row) {
-          background-color: var(--color-medium-gray);
-          color: var(--uvalib-text-dk-grey);
+          background-color: var(--uvalib-grey-light);/*changed for ADA compliance*/
+          color: var(--uvalib-text-dark);/*changed for ADA compliance*/
         }
         .tr:hover:not(.first-row) .td:nth-child(2) {
-          background-color: var(--uvalib-orange-800);
+          background-color: var(--uvalib-brand-orange-dark);/*changed for ADA compliance*/
+          color: white;/*added for ADA compliance*/
         }
 
         /* Mobile */
