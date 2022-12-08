@@ -119,7 +119,7 @@
     <uva-library-hours id="hours" start="[[_start]]" end="[[_end]]" times="{{_times}}"></uva-library-hours>
 
     <template is="dom-if" if="[[largeScreen]]">
-        <div class="horizontal layout end-justified wrap">
+        <div class="horizontal layout end-justified wrap" hidden$="[[newsite]]">
           <a href="/map" tabindex="-1"><paper-button raised>Directions & Maps</paper-button></a>
           <a href="/services/reserve-rooms/" tabindex="-1"><paper-button raised>Room Reservations</paper-button></a>
         </div>
@@ -199,7 +199,7 @@
         </template>
       </div>
     </template>
-    <div class="horizontal layout center-justified wrap uva-margin-bottom otherLocationContainer">
+    <div hidden$="[[newsite]]" class="horizontal layout center-justified wrap uva-margin-bottom otherLocationContainer">
       <a href="https://rotunda.virginia.edu/" tabindex="-1"><paper-button raised>The Rotunda</paper-button></a>
       <a href="https://www.darden.virginia.edu/current-students/library/hours-location/" tabindex="-1"><paper-button raised>Darden Library</paper-button></a>
       <a href="https://guides.hsl.virginia.edu/home" tabindex="-1"><paper-button raised>Health Sciences Library</paper-button></a>
@@ -207,7 +207,7 @@
       <a href="http://libguides.law.virginia.edu/hours" tabindex="-1"><paper-button raised>Law Library</paper-button></a>
     </div>
 
-    <div class="shady grid-container">
+    <div hidden$="[[newsite]]" class="shady grid-container">
       <template is="dom-repeat" items="[[_libraries]]" as="lib" on-rendered-item-count-changed="_handleAnchor">
         <paper-card id$="[[lib.slug]]" heading$="[[lib.title]]" image$="[[whichImage(lib.mainImage.url)]]">
           <div class="card-content">
@@ -256,6 +256,10 @@
       static get properties() {
         return Object.assign(super.properties,{
           _libraries: Array,
+          newsite: {
+            type: Boolean,
+            value: false
+          },
           page: {
             type: Number,
             value: 0
